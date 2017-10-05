@@ -7,8 +7,8 @@ using namespace std;
 void Terrain::BuildVertices(const HeightMapFile& file) {
 	vertices.reserve(file.data.size());
 	int index{};
-	for_each(vertices.begin(), vertices.end(), [&](auto s) {
-		s.position = GetPosition(info, index++, file.data[index]);
+	for_each(file.data.begin(), file.data.end(), [&](auto p) {
+		vertices.push_back({ GetPosition(info, index++, p), {} });
 	});
 }
 
@@ -20,13 +20,8 @@ void Terrain::BuildTriangles() {
 
 	for (int y{}; y < Y - 1; ++y) {
 		for (int x{}; x < X - 1; ++x) {
-			triangles[i].i1 = y*X + x;
-			triangles[i].i2 = (y + 1)*X + (x + 1);
-			triangles[i++].i3 = y*X + (x + 1);
-
-			triangles[i].i1 = y*X + x;
-			triangles[i].i2 = (y + 1)*X + x;
-			triangles[i++].i3 = (y + 1)*X + (x + 1);
+			triangles.push_back({ y*X + x, (y + 1)*X + (x + 1), y*X + (x + 1) });
+			triangles.push_back({ y*X + x, (y + 1)*X + x, (y + 1)*X + (x + 1) });
 		}
 	}
 }
@@ -43,8 +38,8 @@ std::ostream& operator<<(std::ostream& os, const Terrain & t)
 {
 	if (os) {
 		os.write((char*)&t.GetInfo(), sizeof(TerrainFileHeader));
-		os.write((char*)&t.GetVertices()[0], t.GetVertices().size() * sizeof(Vertex));
-		os.write((char*)&t.GetTriangles()[0], t.GetTriangles().size() * sizeof(Triangle));
+		os.write((char*)&t.GetVertices().begin(), t.GetVertices().size() * sizeof(Vertex));
+		os.write((char*)&t.GetTriangles().begin(), t.GetTriangles().size() * sizeof(Triangle));
 	}
 
 	return os;
