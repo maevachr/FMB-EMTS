@@ -1,6 +1,7 @@
 #include "Terrain.h"
 #include <algorithm>
 #include <iostream>
+#include <DirectXMath.h>
 
 using namespace std;
 
@@ -29,8 +30,8 @@ void Terrain::BuildTriangles() {
 void Terrain::BuildNormals()
 {
 	int index{};
-	for_each(vertices.begin(), vertices.end(), [&](auto v) {
-		v.normal = { 0.f, 0.f, 1.f, 0.f };
+	for_each(vertices.begin(), vertices.end(), [&](Vertex& v) {
+		v.normal = GetNormal(info, index++);
 	});
 }
 
