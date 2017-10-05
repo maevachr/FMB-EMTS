@@ -8,7 +8,7 @@ void Terrain::BuildVertices(const HeightMapFile& file) {
 	vertices.reserve(file.data.size());
 	int index{};
 	for_each(vertices.begin(), vertices.end(), [&](auto s) {
-		s.position = GetPosition(info, index++, file.data);
+		s.position = GetPosition(info, index++, file.data[index]);
 	});
 }
 
