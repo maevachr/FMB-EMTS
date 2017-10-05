@@ -2,6 +2,7 @@
 #include <iterator>
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 
 using namespace std;
 
@@ -37,6 +38,29 @@ void Write(const Terrain& terrain) {
 	Write("Sortie.txt", terrain);
 }
 
+void Dump(const Terrain& terrain) {
+	ofstream output("Dump.txt");
+	if (output) {
+		output << "X: " << terrain.GetInfo().X << " ";
+		output << "Y: " << terrain.GetInfo().Y << " ";
+		output << "Dx: " << terrain.GetInfo().Dx << " ";
+		output << "Dy: " << terrain.GetInfo().Dy << endl << endl;
+
+		int i{};
+		for_each(terrain.GetVertices().begin(), terrain.GetVertices().end(), [&](Vertex v) {
+			output << "Vertex: " << i++ << endl;
+			output << "Position: " << v.position.x << " " << v.position.y << " " << v.position.z << " " << v.position.w << endl;
+			output << "Normal: " << v.normal.x << " " << v.normal.y << " " << v.normal.z << " " << v.normal.w << endl << endl;
+		});
+
+		for_each(terrain.GetTriangles().begin(), terrain.GetTriangles().end(), [&](Triangle t) {
+			output << "Triangle: " << t.i1 << " " << t.i2 << " " << t.i3 << endl << endl;
+		});
+	}
+	else
+		throw runtime_error("Could not open dump file");
+}
+
 /*
  * Program arguments formats 
  * ./executable 
@@ -58,6 +82,8 @@ int main(int argc, char* argv[]) {
 		Write(argv[2], t);
 	else 
 		Write(t);
+
+	Dump(t);
 
 	return 0;
 }

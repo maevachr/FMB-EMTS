@@ -25,8 +25,8 @@ public:
 	friend std::ostream& operator<<(std::ostream&, const Terrain&);
 
 	const TerrainFileHeader& GetInfo() const { return info; };
-	const std::vector<Vertex> GetVertices() const { return vertices; };
-	const std::vector<Triangle> GetTriangles() const { return triangles; };
+	const std::vector<Vertex>& GetVertices() const { return vertices; };
+	const std::vector<Triangle>& GetTriangles() const { return triangles; };
 
 private:
 	const TerrainFileHeader& info;
@@ -36,7 +36,7 @@ private:
 	void BuildVertices(const HeightMapFile& file);
 	void BuildTriangles();
 	void BuildNormals();
-	DirectX::XMFLOAT4 GetPosition(const TerrainFileHeader & info, int index, float z) const {
+	static DirectX::XMFLOAT4 GetPosition(const TerrainFileHeader & info, int index, float z) {
 		return { info.Dx * (index % info.X), info.Dy * (index / info.X), z, 1.0 };
 	}
 };
