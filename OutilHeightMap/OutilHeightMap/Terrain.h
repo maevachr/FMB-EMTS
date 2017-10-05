@@ -58,10 +58,10 @@ private:
 		if (index >= info.X)					 v3 = XMLoadFloat4(&vertices[index - info.X].position) - XMLoadFloat4(&vertices[index].position);
 		if (index%info.X != 0)					 v4 = XMLoadFloat4(&vertices[index - 1].position) - XMLoadFloat4(&vertices[index].position);
 
-		if (index < (info.X * info.Y) - info.X && index%info.X != info.X - 1)  n1 = XMVector3Cross(v2, v1);
-		if (index%info.X != info.X - 1 && index >= info.X)					   n2 = XMVector3Cross(v3, v2);
-		if (index >= info.X && index%info.X != 0)							   n3 = XMVector3Cross(v4, v3);
-		if (index%info.X != 0 && (index < (info.X * info.Y) - info.X))		   n4 = XMVector3Cross(v1, v4);
+		if (index < (info.X * info.Y) - info.X    && index%info.X != info.X - 1)   n1 = XMVector3Cross(v2, v1);
+		if (index%info.X != info.X - 1		      && index >= info.X)			   n2 = XMVector3Cross(v3, v2);
+		if (index >= info.X					      && index%info.X != 0)			   n3 = XMVector3Cross(v4, v3);
+		if (index < (info.X * info.Y) - info.X    && index%info.X != 0)			   n4 = XMVector3Cross(v1, v4);
 
 		n1 = (XMVector3Normalize(n1) + XMVector3Normalize(n2) + XMVector3Normalize(n3) + XMVector3Normalize(n4)) / 4;
 
