@@ -5,6 +5,7 @@
 using namespace std;
 
 void Terrain::BuildVertices(const HeightMapFile& file) {
+	vertices.reserve(file.data.size());
 	int index{};
 	for_each(vertices.begin(), vertices.end(), [&](auto s) {
 		s.position = GetPosition(info, index++, file.data);
@@ -14,7 +15,7 @@ void Terrain::BuildVertices(const HeightMapFile& file) {
 void Terrain::BuildTriangles() {
 	int X = info.X;
 	int Y = info.Y;
-	triangles.reserve(X*Y);
+	triangles.reserve((X - 1) * (Y - 1));
 	int i{};
 
 	for (int y{}; y < Y - 1; ++y) {

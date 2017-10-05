@@ -36,7 +36,7 @@ private:
 	void BuildVertices(const HeightMapFile& file);
 	void BuildTriangles();
 	void BuildNormals();
-	DirectX::XMFLOAT4 GetPosition(const TerrainFileHeader & info, int index, std::vector<float> vertices) const {
-		return { info.Dx * (index % info.X), info.Dy * (index / info.X), vertices[index], 1.0 };
+	DirectX::XMFLOAT4 GetPosition(const TerrainFileHeader & info, int index, std::vector<float> data) const {
+		return { info.Dx * (index % info.X), info.Dy * (index / info.X), data[index], 1.0 };
 	}
 };
