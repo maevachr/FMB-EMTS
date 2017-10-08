@@ -14,15 +14,19 @@ void Terrain::BuildVertices(const HeightMapFile& file) {
 }
 
 void Terrain::BuildTriangles() {
-	int X = info.X;
-	int Y = info.Y;
+	auto X = info.X;
+	auto Y = info.Y;
 	triangles.reserve((X - 1) * (Y - 1));
 	int i{};
 
 	for (int y{}; y < Y - 1; ++y) {
+		auto row = y*X;
+		auto nextRow = (y + 1)*X;
 		for (int x{}; x < X - 1; ++x) {
-			triangles.push_back({ y*X + x, (y + 1)*X + (x + 1), y*X + (x + 1) });
-			triangles.push_back({ y*X + x, (y + 1)*X + x, (y + 1)*X + (x + 1) });
+			auto col = x;
+			auto nextCol = x + 1;
+			triangles.push_back({ row + col, nextRow + nextCol, row + nextCol });
+			triangles.push_back({ row + col, nextRow + col, nextRow + nextCol });
 		}
 	}
 }
@@ -63,10 +67,10 @@ XMFLOAT4 Terrain::GeneratePosition(int index, float z) const
 XMFLOAT4 Terrain::GenerateNormal(int index) const
 {
 	auto edge = XMVectorSet(0, 0, 1, 0);
-	bool north = VertexHasNorth(index);
-	bool south = VertexHasSouth(index);
-	bool east = VertexHasEast(index);
-	bool west = VertexHasWest(index);
+	auto north = VertexHasNorth(index);
+	auto south = VertexHasSouth(index);
+	auto east = VertexHasEast(index);
+	auto west = VertexHasWest(index);
 
 	XMVECTOR v3 = north ? GenerateNorthVector(index) : XMVECTOR{};
 	XMVECTOR v1 = south ? GenerateSouthVector(index) : XMVECTOR{};
