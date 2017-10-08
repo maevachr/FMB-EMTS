@@ -72,9 +72,9 @@ XMFLOAT4 Terrain::GenerateNormal(int index) const
 	auto east = VertexHasEast(index);
 	auto west = VertexHasWest(index);
 
-	XMVECTOR v3 = north ? GenerateNorthVector(index) : XMVECTOR{};
 	XMVECTOR v1 = south ? GenerateSouthVector(index) : XMVECTOR{};
 	XMVECTOR v2 = east ? GenerateEastVector(index) : XMVECTOR{};
+	XMVECTOR v3 = north ? GenerateNorthVector(index) : XMVECTOR{};
 	XMVECTOR v4 = west ? GenerateWestVector(index) : XMVECTOR{};
 
 	XMVECTOR n1 = south && east ? XMVector3Normalize(XMVector3Cross(v2, v1)) : edge;
