@@ -3,8 +3,10 @@
 #include "dispositif.h" 
 
 #include <vector>
+#include <fstream>
 #include "Objet3D.h"
 #include "Bloc.h"
+#include "Terrain.h"
 #include "BlocEffet1.h"
 
 namespace PM3D
@@ -199,14 +201,18 @@ namespace PM3D
 
 	bool InitObjets()
 	{
-	CBlocEffet1* pBloc;
+	CTerrain* pTerrain;
 
 		// Création d'un cube de 2 X 2 X 2 unités
 		// Le bloc est créé dans notre programme et sur le dispositif
-		pBloc = new CBlocEffet1( 2, 2, 2, pDispositif );
+		pTerrain = new CTerrain;
+
+		std::ifstream file("Sortie.txt", std::ios::binary);
+		file >> *pTerrain;
+		pTerrain->Init(pDispositif);
 		
 		// Puis, il est ajouté à la scène
-		ListeScene.push_back(pBloc);
+		ListeScene.push_back(pTerrain);
 		
 		return true;
 	}
