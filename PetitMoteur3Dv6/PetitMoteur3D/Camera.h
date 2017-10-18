@@ -65,11 +65,11 @@ namespace PM3D
 			{
 				direction = XMVector4Transform(direction, XMMatrixRotationY((XM_PI * 2.0f) / dvitesse_rotation * tempsEcoule));
 			}
-			// Vérifier l'état de la touche droite
 			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_RIGHT))
 			{
 				direction = XMVector4Transform(direction, XMMatrixRotationY((XM_PI * 2.0f) / -dvitesse_rotation * tempsEcoule));
 			}
+		
 		}
 
 		void SetPosition(const XMVECTOR& position_in) { position = position_in; };

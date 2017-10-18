@@ -208,8 +208,8 @@ namespace PM3D
 
 		bool InitTransformations()
 		{
-			camera.Init(XMVectorSet(0.0f, -10.0f, -10.0f, 1.0f),
-				XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f),
+			camera.Init(XMVectorSet(0.0f, 0.0f, -10.0f, 1.0f),
+				XMVectorSet(0.0f, 0.0f, 1.0f, 1.0f),
 				XMVectorSet(0.0f, 0.0f, 1.0f, 1.0f),
 				&this->matView,
 				&this->matProj,
