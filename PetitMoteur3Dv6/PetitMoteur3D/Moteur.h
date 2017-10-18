@@ -51,10 +51,12 @@ namespace PM3D
 			// * Initialisation du dispositif de rendu
 			pDispositif = CreationDispositifSpecific(CDS_FENETRE);
 
-			InitTransformations();
+			
 
 			// * Initialisation de la scène
 			InitScene();
+
+			InitTransformations();
 
 			// * Initialisation des paramètres de l'animation et 
 			//   préparation de la première image
@@ -210,7 +212,7 @@ namespace PM3D
 		{
 			camera.Init(XMVectorSet(0.0f, 0.0f, -10.0f, 1.0f),
 				XMVectorSet(0.0f, 0.0f, 1.0f, 1.0f),
-				XMVectorSet(0.0f, 0.0f, 1.0f, 1.0f),
+				XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f),
 				&this->matView,
 				&this->matProj,
 				&this->matViewProj,

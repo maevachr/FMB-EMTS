@@ -9,8 +9,8 @@ namespace PM3D
 	class CCamera
 	{
 	protected:
-		float dvitesse_translation = 7.0f;
-		float dvitesse_rotation = 7.0f;
+		float dvitesse_translation = 0.3f;
+		float dvitesse_rotation = 0.01f;
 
 		XMVECTOR position;
 		XMVECTOR direction;
@@ -42,32 +42,49 @@ namespace PM3D
 
 		void Update() {
 			// Matrice de la vision
-			*pMatView = XMMatrixLookAtRH(position,
+			*pMatView = XMMatrixLookAtLH(position,
 				(position + direction),
 				up);
-			// Recalculer matViewProj
+
 			*pMatViewProj = (*pMatView) * (*pMatProj);
 		}
 
 
 		void AnimeCamera(float tempsEcoule)
 		{
+
 			// Vérifier l'état de la touche gauche
 			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_UP))
 			{
-				position += direction * dvitesse_translation * tempsEcoule;
+				//TO DO
+				position = XMVector4Transform(position, XMMatrixTranslationFromVector(direction));
+				//position += direction * dvitesse_translation * tempsEcoule;
 			}
 			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_DOWN))
 			{
-				position -= direction * dvitesse_translation * tempsEcoule;
+				//TO DO
+				position = XMVector4Transform(position, XMMatrixTranslationFromVector(-direction));
+				/*position -= direction * dvitesse_translation * tempsEcoule;*/
 			}
 			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_LEFT))
 			{
-				direction = XMVector4Transform(direction, XMMatrixRotationY((XM_PI * 2.0f) / dvitesse_rotation * tempsEcoule));
+				direction = XMVector4Transform(direction, XMMatrixRotationY((XM_PI * 2.0f) * -dvitesse_rotation));
+				//FAUX FAIRE UNE ROTATION SUIVANT LE Y DE UP
 			}
 			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_RIGHT))
 			{
-				direction = XMVector4Transform(direction, XMMatrixRotationY((XM_PI * 2.0f) / -dvitesse_rotation * tempsEcoule));
+				direction = XMVector4Transform(direction, XMMatrixRotationY((XM_PI * 2.0f) * dvitesse_rotation));
+				//FAUX FAIRE UNE ROTATION SUIVANT LE Y DE UP
+			}
+			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_PRIOR))
+			{
+				direction = XMVector4Transform(direction, XMMatrixRotationX((XM_PI * 2.0f) * -dvitesse_rotation));
+				//FAUX FAIRE UNE ROTATION SUIVANT LE X DE UP
+			}
+			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_NEXT))
+			{
+				direction = XMVector4Transform(direction, XMMatrixRotationX((XM_PI * 2.0f) * dvitesse_rotation));
+				//FAUX FAIRE UNE ROTATION SUIVANT LE X DE UP
 			}
 		
 		}
