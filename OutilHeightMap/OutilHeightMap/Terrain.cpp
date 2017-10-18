@@ -25,8 +25,8 @@ void Terrain::BuildTriangles() {
 		for (int x{}; x < X - 1; ++x) {
 			auto col = x;
 			auto nextCol = x + 1;
-			triangles.push_back({ row + col, nextRow + nextCol, row + nextCol });
-			triangles.push_back({ row + col, nextRow + col, nextRow + nextCol });
+			triangles.push_back({ row + col, row + nextCol, nextRow + nextCol });
+			triangles.push_back({ row + col, nextRow + nextCol, nextRow + col });
 		}
 	}
 }
