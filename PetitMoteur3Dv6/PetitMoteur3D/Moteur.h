@@ -178,14 +178,14 @@ namespace PM3D
 	
 		// Initialisation des matrices View et Proj
 		// Dans notre cas, ces matrices sont fixes
-		matView = XMMatrixLookAtLH( XMVectorSet( 0.0f, 0.0f,-10.0f, 1.0f ),
-       								XMVectorSet( 0.0f, 0.0f, 0.0f, 1.0f ),
+		matView = XMMatrixLookAtLH( XMVectorSet( 5.0f, -10.0f,-10.0f, 1.0f ),
+       								XMVectorSet( 5.0f, 5.0f, 0.0f, 1.0f ),
                      				XMVectorSet( 0.0f, 1.0f, 0.0f, 1.0f ) );
 
 		float champDeVision = XM_PI/4; 	// 45 degrés
 		float ratioDAspect = pDispositif->GetLargeur()/pDispositif->GetHauteur();		
 		float planRapproche = 2.0;
-		float planEloigne = 20.0;
+		float planEloigne = 40.0;
 		
 		matProj = XMMatrixPerspectiveFovLH( 
 									champDeVision,

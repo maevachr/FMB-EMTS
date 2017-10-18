@@ -103,8 +103,7 @@ namespace PM3D
 
 	void CTerrain::Anime(float tempsEcoule)
 	{
-		rotation = rotation + ((XM_PI * 2.0f) / 10.0f * tempsEcoule);
-
+		//rotation = rotation + ((XM_PI * 2.0f) / 10.0f * tempsEcoule);
 		// modifier la matrice de l'objet bloc
 		matWorld = XMMatrixRotationX(rotation);
 	}
@@ -138,7 +137,7 @@ namespace PM3D
 		sp.matWorldViewProj = XMMatrixTranspose(matWorld * viewProj);
 		sp.matWorld = XMMatrixTranspose(matWorld);
 
-		sp.vLumiere = XMVectorSet(-10.0f, 10.0f, -10.0f, 1.0f);
+		sp.vLumiere = XMVectorSet(5.0f, 5.0f, -10.0f, 1.0f);
 		sp.vCamera = XMVectorSet(0.0f, 0.0f, -10.0f, 1.0f);
 		sp.vAEcl = XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f);
 		sp.vAMat = XMVectorSet(1.0f, 0.0f, 0.0f, 1.0f);
