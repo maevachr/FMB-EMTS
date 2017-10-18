@@ -16,7 +16,7 @@ void Terrain::BuildVertices(const HeightMapFile& file) {
 void Terrain::BuildTriangles() {
 	auto X = info.X;
 	auto Y = info.Y;
-	triangles.reserve((X - 1) * (Y - 1));
+	triangles.reserve(2*(X - 1) * (Y - 1));
 	int i{};
 
 	for (int y{}; y < Y - 1; ++y) {
@@ -82,10 +82,10 @@ XMFLOAT4 Terrain::GenerateNormal(int index) const
 	XMVECTOR n3 = north && west ? XMVector3Normalize(XMVector3Cross(v4, v3)) : edge;
 	XMVECTOR n4 = west && south ? XMVector3Normalize(XMVector3Cross(v1, v4)) : edge;
 
-	n1 = (n1 + n2 + n3 + n4) / 4;
+	n1 += n2 + n3 + n4;
 
 	XMFLOAT4 result;
-	XMStoreFloat4(&result, n1);
+	XMStoreFloat4(&result, XMVector3Normalize(n1));
 	return result;
 }
 
