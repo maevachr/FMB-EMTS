@@ -2,725 +2,725 @@ X: 10 Y: 10 Dx: 1 Dy: 1
 
 Vertex: 0
 Position: 0 0 10 1
-Normal: 0.212204 0.224143 0.951173 0
+Normal: -0.212204 -0.224143 -0.951173 0
 
 Vertex: 1
 Position: 1 0 0.6495 1
-Normal: 0.433342 0.00117177 0.901229 0
+Normal: -0.433342 -0.00117177 -0.901229 0
 
 Vertex: 2
 Position: 2 0 0.148 1
-Normal: 0.0846984 -0.0828305 0.992958 0
+Normal: -0.0846984 0.0828305 -0.992958 0
 
 Vertex: 3
 Position: 3 0 0.264 1
-Normal: -0.146449 -0.0908355 0.985039 0
+Normal: 0.146449 0.0908355 -0.985039 0
 
 Vertex: 4
 Position: 4 0 0.79 1
-Normal: 0.0189609 -0.0508057 0.998529 0
+Normal: -0.0189609 0.0508057 -0.998529 0
 
 Vertex: 5
 Position: 5 0 0.1546 1
-Normal: 0.0637926 -0.219258 0.973579 0
+Normal: -0.0637926 0.219258 -0.973579 0
 
 Vertex: 6
 Position: 6 0 0.45 1
-Normal: -0.074382 -0.00305933 0.997225 0
+Normal: 0.074382 0.00305933 -0.997225 0
 
 Vertex: 7
 Position: 7 0 0.462 1
-Normal: 0.0688036 0.0734261 0.994924 0
+Normal: -0.0688036 -0.0734261 -0.994924 0
 
 Vertex: 8
 Position: 8 0 0.16234 1
-Normal: -0.035383 -0.267592 0.962882 0
+Normal: 0.035383 0.267592 -0.962882 0
 
 Vertex: 9
 Position: 9 0 0.645 1
-Normal: -0.10716 0.0710461 0.9917 0
+Normal: 0.10716 -0.0710461 -0.9917 0
 
 Vertex: 10
 Position: 0 1 0.123456 1
-Normal: -0.152322 0.159118 0.975438 0
+Normal: 0.152322 -0.159118 -0.975438 0
 
 Vertex: 11
 Position: 1 1 0.6456 1
-Normal: -0.0823662 0.241507 0.966897 0
+Normal: 0.0823662 -0.241507 -0.966897 0
 
 Vertex: 12
 Position: 2 1 0.321 1
-Normal: 0.087303 -0.243033 0.966081 0
+Normal: -0.087303 0.243033 -0.966081 0
 
 Vertex: 13
 Position: 3 1 0.456 1
-Normal: -0.270243 -0.132227 0.953669 0
+Normal: 0.270243 0.132227 -0.953669 0
 
 Vertex: 14
 Position: 4 1 0.9 1
-Normal: -0.0864145 0.274992 0.957555 0
+Normal: 0.0864145 -0.274992 -0.957555 0
 
 Vertex: 15
 Position: 5 1 0.654 1
-Normal: 0.214664 -0.130975 0.967866 0
+Normal: -0.214664 0.130975 -0.967866 0
 
 Vertex: 16
 Position: 6 1 0.4562 1
-Normal: 0.167646 -0.0970438 0.981059 0
+Normal: -0.167646 0.0970438 -0.981059 0
 
 Vertex: 17
 Position: 7 1 0.312 1
-Normal: -0.147676 0.153393 0.977068 0
+Normal: 0.147676 -0.153393 -0.977068 0
 
 Vertex: 18
 Position: 8 1 0.786 1
-Normal: -0.00557655 -0.0400278 0.999183 0
+Normal: 0.00557655 0.0400278 -0.999183 0
 
 Vertex: 19
 Position: 9 1 0.325 1
-Normal: 0.207672 -0.0289906 0.977769 0
+Normal: -0.207672 0.0289906 -0.977769 0
 
 Vertex: 20
 Position: 0 2 0.825 1
-Normal: 0.280602 -0.00473273 0.959813 0
+Normal: -0.280602 0.00473273 -0.959813 0
 
 Vertex: 21
 Position: 1 2 0.123 1
-Normal: 0.064414 0.0860271 0.994208 0
+Normal: -0.064414 -0.0860271 -0.994208 0
 
 Vertex: 22
 Position: 2 2 0.654 1
-Normal: -0.187861 -0.0651205 0.980035 0
+Normal: 0.187861 0.0651205 -0.980035 0
 
 Vertex: 23
 Position: 3 2 0.542 1
-Normal: 0.249463 0.134236 0.959036 0
+Normal: -0.249463 -0.134236 -0.959036 0
 
 Vertex: 24
 Position: 4 2 0.123 1
-Normal: 0.0388925 0.0928967 0.994916 0
+Normal: -0.0388925 -0.0928967 -0.994916 0
 
 Vertex: 25
 Position: 5 2 0.456 1
-Normal: -0.245669 0.24763 0.937191 0
+Normal: 0.245669 -0.24763 -0.937191 0
 
 Vertex: 26
 Position: 6 2 0.6495 1
-Normal: 0.13609 -0.0926173 0.986358 0
+Normal: -0.13609 0.0926173 -0.986358 0
 
 Vertex: 27
 Position: 7 2 0.148 1
-Normal: 0.174175 -0.00432107 0.984705 0
+Normal: -0.174175 0.00432107 -0.984705 0
 
 Vertex: 28
 Position: 8 2 0.264 1
-Normal: -0.293563 0.140447 0.945566 0
+Normal: 0.293563 -0.140447 -0.945566 0
 
 Vertex: 29
 Position: 9 2 0.79 1
-Normal: -0.233037 -0.124484 0.964468 0
+Normal: 0.233037 0.124484 -0.964468 0
 
 Vertex: 30
 Position: 0 3 0.1546 1
-Normal: -0.133233 0.0293689 0.990649 0
+Normal: 0.133233 -0.0293689 -0.990649 0
 
 Vertex: 31
 Position: 1 3 0.45 1
-Normal: -0.147294 -0.158819 0.976259 0
+Normal: 0.147294 0.158819 -0.976259 0
 
 Vertex: 32
 Position: 2 3 0.462 1
-Normal: 0.137257 0.166891 0.976375 0
+Normal: -0.137257 -0.166891 -0.976375 0
 
 Vertex: 33
 Position: 3 3 0.16234 1
-Normal: -0.0809059 -0.099547 0.991738 0
+Normal: 0.0809059 0.099547 -0.991738 0
 
 Vertex: 34
 Position: 4 3 0.645 1
-Normal: 0.0159555 -0.0881971 0.995975 0
+Normal: -0.0159555 0.0881971 -0.995975 0
 
 Vertex: 35
 Position: 5 3 0.123456 1
-Normal: -0.00024411 -0.15128 0.988491 0
+Normal: 0.00024411 0.15128 -0.988491 0
 
 Vertex: 36
 Position: 6 3 0.6456 1
-Normal: -0.0823662 0.241507 0.966897 0
+Normal: 0.0823662 -0.241507 -0.966897 0
 
 Vertex: 37
 Position: 7 3 0.321 1
-Normal: 0.087303 -0.243033 0.966081 0
+Normal: -0.087303 0.243033 -0.966081 0
 
 Vertex: 38
 Position: 8 3 0.456 1
-Normal: -0.270243 -0.132227 0.953669 0
+Normal: 0.270243 0.132227 -0.953669 0
 
 Vertex: 39
 Position: 9 3 0.9 1
-Normal: -0.195466 0.127443 0.972395 0
+Normal: 0.195466 -0.127443 -0.972395 0
 
 Vertex: 40
 Position: 0 4 0.654 1
-Normal: 0.0942645 -0.0644247 0.99346 0
+Normal: -0.0942645 0.0644247 -0.99346 0
 
 Vertex: 41
 Position: 1 4 0.4562 1
-Normal: 0.167646 -0.0970438 0.981059 0
+Normal: -0.167646 0.0970438 -0.981059 0
 
 Vertex: 42
 Position: 2 4 0.312 1
-Normal: -0.147676 0.153393 0.977068 0
+Normal: 0.147676 -0.153393 -0.977068 0
 
 Vertex: 43
 Position: 3 4 0.786 1
-Normal: -0.00557655 -0.0400278 0.999183 0
+Normal: 0.00557655 0.0400278 -0.999183 0
 
 Vertex: 44
 Position: 4 4 0.325 1
-Normal: -0.0162183 -0.0643205 0.997797 0
+Normal: 0.0162183 0.0643205 -0.997797 0
 
 Vertex: 45
 Position: 5 4 0.825 1
-Normal: 0.0808998 -0.0115295 0.996656 0
+Normal: -0.0808998 0.0115295 -0.996656 0
 
 Vertex: 46
 Position: 6 4 0.123 1
-Normal: 0.064414 0.0860271 0.994208 0
+Normal: -0.064414 -0.0860271 -0.994208 0
 
 Vertex: 47
 Position: 7 4 0.654 1
-Normal: -0.187861 -0.0651205 0.980035 0
+Normal: 0.187861 0.0651205 -0.980035 0
 
 Vertex: 48
 Position: 8 4 0.542 1
-Normal: 0.249463 0.134236 0.959036 0
+Normal: -0.249463 -0.134236 -0.959036 0
 
 Vertex: 49
 Position: 9 4 0.123 1
-Normal: 0.181731 0.0408049 0.982501 0
+Normal: -0.181731 -0.0408049 -0.982501 0
 
 Vertex: 50
 Position: 0 5 0.456 1
-Normal: -0.0930197 0.127003 0.987531 0
+Normal: 0.0930197 -0.127003 -0.987531 0
 
 Vertex: 51
 Position: 1 5 0.6495 1
-Normal: 0.13609 -0.0926173 0.986358 0
+Normal: -0.13609 0.0926173 -0.986358 0
 
 Vertex: 52
 Position: 2 5 0.148 1
-Normal: 0.174175 -0.00432107 0.984705 0
+Normal: -0.174175 0.00432107 -0.984705 0
 
 Vertex: 53
 Position: 3 5 0.264 1
-Normal: -0.293563 0.140447 0.945566 0
+Normal: 0.293563 -0.140447 -0.945566 0
 
 Vertex: 54
 Position: 4 5 0.79 1
-Normal: 0.0403183 -0.270522 0.961869 0
+Normal: -0.0403183 0.270522 -0.961869 0
 
 Vertex: 55
 Position: 5 5 0.1546 1
-Normal: 0.144846 0.0660141 0.98725 0
+Normal: -0.144846 -0.0660141 -0.98725 0
 
 Vertex: 56
 Position: 6 5 0.45 1
-Normal: -0.147294 -0.158819 0.976259 0
+Normal: 0.147294 0.158819 -0.976259 0
 
 Vertex: 57
 Position: 7 5 0.462 1
-Normal: 0.137257 0.166891 0.976375 0
+Normal: -0.137257 -0.166891 -0.976375 0
 
 Vertex: 58
 Position: 8 5 0.16234 1
-Normal: -0.0809059 -0.099547 0.991738 0
+Normal: 0.0809059 0.099547 -0.991738 0
 
 Vertex: 59
 Position: 9 5 0.645 1
-Normal: -0.215042 -0.0393789 0.975811 0
+Normal: 0.215042 0.0393789 -0.975811 0
 
 Vertex: 60
 Position: 0 6 0.123456 1
-Normal: -0.225785 -0.066181 0.971926 0
+Normal: 0.225785 0.066181 -0.971926 0
 
 Vertex: 61
 Position: 1 6 0.6456 1
-Normal: -0.0823662 0.241507 0.966897 0
+Normal: 0.0823662 -0.241507 -0.966897 0
 
 Vertex: 62
 Position: 2 6 0.321 1
-Normal: 0.087303 -0.243033 0.966081 0
+Normal: -0.087303 0.243033 -0.966081 0
 
 Vertex: 63
 Position: 3 6 0.456 1
-Normal: -0.270243 -0.132227 0.953669 0
+Normal: 0.270243 0.132227 -0.953669 0
 
 Vertex: 64
 Position: 4 6 0.9 1
-Normal: -0.0864145 0.274992 0.957555 0
+Normal: 0.0864145 -0.274992 -0.957555 0
 
 Vertex: 65
 Position: 5 6 0.654 1
-Normal: 0.214664 -0.130975 0.967866 0
+Normal: -0.214664 0.130975 -0.967866 0
 
 Vertex: 66
 Position: 6 6 0.4562 1
-Normal: 0.167646 -0.0970438 0.981059 0
+Normal: -0.167646 0.0970438 -0.981059 0
 
 Vertex: 67
 Position: 7 6 0.312 1
-Normal: -0.147676 0.153393 0.977068 0
+Normal: 0.147676 -0.153393 -0.977068 0
 
 Vertex: 68
 Position: 8 6 0.786 1
-Normal: -0.00557655 -0.0400278 0.999183 0
+Normal: 0.00557655 0.0400278 -0.999183 0
 
 Vertex: 69
 Position: 9 6 0.325 1
-Normal: 0.207672 -0.0289906 0.977769 0
+Normal: -0.207672 0.0289906 -0.977769 0
 
 Vertex: 70
 Position: 0 7 0.825 1
-Normal: 0.280602 -0.00473273 0.959813 0
+Normal: -0.280602 0.00473273 -0.959813 0
 
 Vertex: 71
 Position: 1 7 0.123 1
-Normal: 0.064414 0.0860271 0.994208 0
+Normal: -0.064414 -0.0860271 -0.994208 0
 
 Vertex: 72
 Position: 2 7 0.654 1
-Normal: -0.187861 -0.0651205 0.980035 0
+Normal: 0.187861 0.0651205 -0.980035 0
 
 Vertex: 73
 Position: 3 7 0.542 1
-Normal: 0.249463 0.134236 0.959036 0
+Normal: -0.249463 -0.134236 -0.959036 0
 
 Vertex: 74
 Position: 4 7 0.123 1
-Normal: 0.0388925 0.0928967 0.994916 0
+Normal: -0.0388925 -0.0928967 -0.994916 0
 
 Vertex: 75
 Position: 5 7 0.456 1
-Normal: -0.245669 0.24763 0.937191 0
+Normal: 0.245669 -0.24763 -0.937191 0
 
 Vertex: 76
 Position: 6 7 0.6495 1
-Normal: 0.13609 -0.0926173 0.986358 0
+Normal: -0.13609 0.0926173 -0.986358 0
 
 Vertex: 77
 Position: 7 7 0.148 1
-Normal: 0.174175 -0.00432107 0.984705 0
+Normal: -0.174175 0.00432107 -0.984705 0
 
 Vertex: 78
 Position: 8 7 0.264 1
-Normal: -0.293563 0.140447 0.945566 0
+Normal: 0.293563 -0.140447 -0.945566 0
 
 Vertex: 79
 Position: 9 7 0.79 1
-Normal: -0.233037 -0.124484 0.964468 0
+Normal: 0.233037 0.124484 -0.964468 0
 
 Vertex: 80
 Position: 0 8 0.1546 1
-Normal: -0.133233 0.0293689 0.990649 0
+Normal: 0.133233 -0.0293689 -0.990649 0
 
 Vertex: 81
 Position: 1 8 0.45 1
-Normal: -0.147294 -0.158819 0.976259 0
+Normal: 0.147294 0.158819 -0.976259 0
 
 Vertex: 82
 Position: 2 8 0.462 1
-Normal: 0.137257 0.166891 0.976375 0
+Normal: -0.137257 -0.166891 -0.976375 0
 
 Vertex: 83
 Position: 3 8 0.16234 1
-Normal: -0.0809059 -0.099547 0.991738 0
+Normal: 0.0809059 0.099547 -0.991738 0
 
 Vertex: 84
 Position: 4 8 0.645 1
-Normal: 0.0159555 -0.0881971 0.995975 0
+Normal: -0.0159555 0.0881971 -0.995975 0
 
 Vertex: 85
 Position: 5 8 0.123456 1
-Normal: -0.00024411 -0.15128 0.988491 0
+Normal: 0.00024411 0.15128 -0.988491 0
 
 Vertex: 86
 Position: 6 8 0.6456 1
-Normal: -0.0823662 0.241507 0.966897 0
+Normal: 0.0823662 -0.241507 -0.966897 0
 
 Vertex: 87
 Position: 7 8 0.321 1
-Normal: 0.087303 -0.243033 0.966081 0
+Normal: -0.087303 0.243033 -0.966081 0
 
 Vertex: 88
 Position: 8 8 0.456 1
-Normal: -0.270243 -0.132227 0.953669 0
+Normal: 0.270243 0.132227 -0.953669 0
 
 Vertex: 89
 Position: 9 8 0.9 1
-Normal: -0.195466 0.127443 0.972395 0
+Normal: 0.195466 -0.127443 -0.972395 0
 
 Vertex: 90
 Position: 0 9 0.654 1
-Normal: 0.0445694 -0.112528 0.992649 0
+Normal: -0.0445694 0.112528 -0.992649 0
 
 Vertex: 91
 Position: 1 9 0.4562 1
-Normal: 0.0845065 -0.00306613 0.996418 0
+Normal: -0.0845065 0.00306613 -0.996418 0
 
 Vertex: 92
 Position: 2 9 0.312 1
-Normal: -0.072725 0.0721881 0.994736 0
+Normal: 0.072725 -0.0721881 -0.994736 0
 
 Vertex: 93
 Position: 3 9 0.786 1
-Normal: -0.00238779 -0.265152 0.964204 0
+Normal: 0.00238779 0.265152 -0.964204 0
 
 Vertex: 94
 Position: 4 9 0.325 1
-Normal: -0.00740161 0.146894 0.989125 0
+Normal: 0.00740161 -0.146894 -0.989125 0
 
 Vertex: 95
 Position: 5 9 0.825 1
-Normal: 0.033007 -0.284459 0.95812 0
+Normal: -0.033007 0.284459 -0.95812 0
 
 Vertex: 96
 Position: 6 9 0.123 1
-Normal: 0.0280882 0.222711 0.97448 0
+Normal: -0.0280882 -0.222711 -0.97448 0
 
 Vertex: 97
 Position: 7 9 0.654 1
-Normal: -0.0893526 -0.154778 0.9839 0
+Normal: 0.0893526 0.154778 -0.9839 0
 
 Vertex: 98
 Position: 8 9 0.542 1
-Normal: 0.125784 -0.0416354 0.991184 0
+Normal: -0.125784 0.0416354 -0.991184 0
 
 Vertex: 99
 Position: 9 9 0.123 1
-Normal: 0.0824965 0.152983 0.98478 0
+Normal: -0.0824965 -0.152983 -0.98478 0
 
-Triangle: 0 1 11
+Triangle: 0 11 1
 
-Triangle: 0 11 10
+Triangle: 0 10 11
 
-Triangle: 1 2 12
+Triangle: 1 12 2
 
-Triangle: 1 12 11
+Triangle: 1 11 12
 
-Triangle: 2 3 13
+Triangle: 2 13 3
 
-Triangle: 2 13 12
+Triangle: 2 12 13
 
-Triangle: 3 4 14
+Triangle: 3 14 4
 
-Triangle: 3 14 13
+Triangle: 3 13 14
 
-Triangle: 4 5 15
+Triangle: 4 15 5
 
-Triangle: 4 15 14
+Triangle: 4 14 15
 
-Triangle: 5 6 16
+Triangle: 5 16 6
 
-Triangle: 5 16 15
+Triangle: 5 15 16
 
-Triangle: 6 7 17
+Triangle: 6 17 7
 
-Triangle: 6 17 16
+Triangle: 6 16 17
 
-Triangle: 7 8 18
+Triangle: 7 18 8
 
-Triangle: 7 18 17
+Triangle: 7 17 18
 
-Triangle: 8 9 19
+Triangle: 8 19 9
 
-Triangle: 8 19 18
+Triangle: 8 18 19
 
-Triangle: 10 11 21
+Triangle: 10 21 11
 
-Triangle: 10 21 20
+Triangle: 10 20 21
 
-Triangle: 11 12 22
+Triangle: 11 22 12
 
-Triangle: 11 22 21
+Triangle: 11 21 22
 
-Triangle: 12 13 23
+Triangle: 12 23 13
 
-Triangle: 12 23 22
+Triangle: 12 22 23
 
-Triangle: 13 14 24
+Triangle: 13 24 14
 
-Triangle: 13 24 23
+Triangle: 13 23 24
 
-Triangle: 14 15 25
+Triangle: 14 25 15
 
-Triangle: 14 25 24
+Triangle: 14 24 25
 
-Triangle: 15 16 26
+Triangle: 15 26 16
 
-Triangle: 15 26 25
+Triangle: 15 25 26
 
-Triangle: 16 17 27
+Triangle: 16 27 17
 
-Triangle: 16 27 26
+Triangle: 16 26 27
 
-Triangle: 17 18 28
+Triangle: 17 28 18
 
-Triangle: 17 28 27
+Triangle: 17 27 28
 
-Triangle: 18 19 29
+Triangle: 18 29 19
 
-Triangle: 18 29 28
+Triangle: 18 28 29
 
-Triangle: 20 21 31
+Triangle: 20 31 21
 
-Triangle: 20 31 30
+Triangle: 20 30 31
 
-Triangle: 21 22 32
+Triangle: 21 32 22
 
-Triangle: 21 32 31
+Triangle: 21 31 32
 
-Triangle: 22 23 33
+Triangle: 22 33 23
 
-Triangle: 22 33 32
+Triangle: 22 32 33
 
-Triangle: 23 24 34
+Triangle: 23 34 24
 
-Triangle: 23 34 33
+Triangle: 23 33 34
 
-Triangle: 24 25 35
+Triangle: 24 35 25
 
-Triangle: 24 35 34
+Triangle: 24 34 35
 
-Triangle: 25 26 36
+Triangle: 25 36 26
 
-Triangle: 25 36 35
+Triangle: 25 35 36
 
-Triangle: 26 27 37
+Triangle: 26 37 27
 
-Triangle: 26 37 36
+Triangle: 26 36 37
 
-Triangle: 27 28 38
+Triangle: 27 38 28
 
-Triangle: 27 38 37
+Triangle: 27 37 38
 
-Triangle: 28 29 39
+Triangle: 28 39 29
 
-Triangle: 28 39 38
+Triangle: 28 38 39
 
-Triangle: 30 31 41
+Triangle: 30 41 31
 
-Triangle: 30 41 40
+Triangle: 30 40 41
 
-Triangle: 31 32 42
+Triangle: 31 42 32
 
-Triangle: 31 42 41
+Triangle: 31 41 42
 
-Triangle: 32 33 43
+Triangle: 32 43 33
 
-Triangle: 32 43 42
+Triangle: 32 42 43
 
-Triangle: 33 34 44
+Triangle: 33 44 34
 
-Triangle: 33 44 43
+Triangle: 33 43 44
 
-Triangle: 34 35 45
+Triangle: 34 45 35
 
-Triangle: 34 45 44
+Triangle: 34 44 45
 
-Triangle: 35 36 46
+Triangle: 35 46 36
 
-Triangle: 35 46 45
+Triangle: 35 45 46
 
-Triangle: 36 37 47
+Triangle: 36 47 37
 
-Triangle: 36 47 46
+Triangle: 36 46 47
 
-Triangle: 37 38 48
+Triangle: 37 48 38
 
-Triangle: 37 48 47
+Triangle: 37 47 48
 
-Triangle: 38 39 49
+Triangle: 38 49 39
 
-Triangle: 38 49 48
+Triangle: 38 48 49
 
-Triangle: 40 41 51
+Triangle: 40 51 41
 
-Triangle: 40 51 50
+Triangle: 40 50 51
 
-Triangle: 41 42 52
+Triangle: 41 52 42
 
-Triangle: 41 52 51
+Triangle: 41 51 52
 
-Triangle: 42 43 53
+Triangle: 42 53 43
 
-Triangle: 42 53 52
+Triangle: 42 52 53
 
-Triangle: 43 44 54
+Triangle: 43 54 44
 
-Triangle: 43 54 53
+Triangle: 43 53 54
 
-Triangle: 44 45 55
+Triangle: 44 55 45
 
-Triangle: 44 55 54
+Triangle: 44 54 55
 
-Triangle: 45 46 56
+Triangle: 45 56 46
 
-Triangle: 45 56 55
+Triangle: 45 55 56
 
-Triangle: 46 47 57
+Triangle: 46 57 47
 
-Triangle: 46 57 56
+Triangle: 46 56 57
 
-Triangle: 47 48 58
+Triangle: 47 58 48
 
-Triangle: 47 58 57
+Triangle: 47 57 58
 
-Triangle: 48 49 59
+Triangle: 48 59 49
 
-Triangle: 48 59 58
+Triangle: 48 58 59
 
-Triangle: 50 51 61
+Triangle: 50 61 51
 
-Triangle: 50 61 60
+Triangle: 50 60 61
 
-Triangle: 51 52 62
+Triangle: 51 62 52
 
-Triangle: 51 62 61
+Triangle: 51 61 62
 
-Triangle: 52 53 63
+Triangle: 52 63 53
 
-Triangle: 52 63 62
+Triangle: 52 62 63
 
-Triangle: 53 54 64
+Triangle: 53 64 54
 
-Triangle: 53 64 63
+Triangle: 53 63 64
 
-Triangle: 54 55 65
+Triangle: 54 65 55
 
-Triangle: 54 65 64
+Triangle: 54 64 65
 
-Triangle: 55 56 66
+Triangle: 55 66 56
 
-Triangle: 55 66 65
+Triangle: 55 65 66
 
-Triangle: 56 57 67
+Triangle: 56 67 57
 
-Triangle: 56 67 66
+Triangle: 56 66 67
 
-Triangle: 57 58 68
+Triangle: 57 68 58
 
-Triangle: 57 68 67
+Triangle: 57 67 68
 
-Triangle: 58 59 69
+Triangle: 58 69 59
 
-Triangle: 58 69 68
+Triangle: 58 68 69
 
-Triangle: 60 61 71
+Triangle: 60 71 61
 
-Triangle: 60 71 70
+Triangle: 60 70 71
 
-Triangle: 61 62 72
+Triangle: 61 72 62
 
-Triangle: 61 72 71
+Triangle: 61 71 72
 
-Triangle: 62 63 73
+Triangle: 62 73 63
 
-Triangle: 62 73 72
+Triangle: 62 72 73
 
-Triangle: 63 64 74
+Triangle: 63 74 64
 
-Triangle: 63 74 73
+Triangle: 63 73 74
 
-Triangle: 64 65 75
+Triangle: 64 75 65
 
-Triangle: 64 75 74
+Triangle: 64 74 75
 
-Triangle: 65 66 76
+Triangle: 65 76 66
 
-Triangle: 65 76 75
+Triangle: 65 75 76
 
-Triangle: 66 67 77
+Triangle: 66 77 67
 
-Triangle: 66 77 76
+Triangle: 66 76 77
 
-Triangle: 67 68 78
+Triangle: 67 78 68
 
-Triangle: 67 78 77
+Triangle: 67 77 78
 
-Triangle: 68 69 79
+Triangle: 68 79 69
 
-Triangle: 68 79 78
+Triangle: 68 78 79
 
-Triangle: 70 71 81
+Triangle: 70 81 71
 
-Triangle: 70 81 80
+Triangle: 70 80 81
 
-Triangle: 71 72 82
+Triangle: 71 82 72
 
-Triangle: 71 82 81
+Triangle: 71 81 82
 
-Triangle: 72 73 83
+Triangle: 72 83 73
 
-Triangle: 72 83 82
+Triangle: 72 82 83
 
-Triangle: 73 74 84
+Triangle: 73 84 74
 
-Triangle: 73 84 83
+Triangle: 73 83 84
 
-Triangle: 74 75 85
+Triangle: 74 85 75
 
-Triangle: 74 85 84
+Triangle: 74 84 85
 
-Triangle: 75 76 86
+Triangle: 75 86 76
 
-Triangle: 75 86 85
+Triangle: 75 85 86
 
-Triangle: 76 77 87
+Triangle: 76 87 77
 
-Triangle: 76 87 86
+Triangle: 76 86 87
 
-Triangle: 77 78 88
+Triangle: 77 88 78
 
-Triangle: 77 88 87
+Triangle: 77 87 88
 
-Triangle: 78 79 89
+Triangle: 78 89 79
 
-Triangle: 78 89 88
+Triangle: 78 88 89
 
-Triangle: 80 81 91
+Triangle: 80 91 81
 
-Triangle: 80 91 90
+Triangle: 80 90 91
 
-Triangle: 81 82 92
+Triangle: 81 92 82
 
-Triangle: 81 92 91
+Triangle: 81 91 92
 
-Triangle: 82 83 93
+Triangle: 82 93 83
 
-Triangle: 82 93 92
+Triangle: 82 92 93
 
-Triangle: 83 84 94
+Triangle: 83 94 84
 
-Triangle: 83 94 93
+Triangle: 83 93 94
 
-Triangle: 84 85 95
+Triangle: 84 95 85
 
-Triangle: 84 95 94
+Triangle: 84 94 95
 
-Triangle: 85 86 96
+Triangle: 85 96 86
 
-Triangle: 85 96 95
+Triangle: 85 95 96
 
-Triangle: 86 87 97
+Triangle: 86 97 87
 
-Triangle: 86 97 96
+Triangle: 86 96 97
 
-Triangle: 87 88 98
+Triangle: 87 98 88
 
-Triangle: 87 98 97
+Triangle: 87 97 98
 
-Triangle: 88 89 99
+Triangle: 88 99 89
 
-Triangle: 88 99 98
+Triangle: 88 98 99
 

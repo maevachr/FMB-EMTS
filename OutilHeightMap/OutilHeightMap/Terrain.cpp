@@ -25,8 +25,8 @@ void Terrain::BuildTriangles() {
 		for (int x{}; x < X - 1; ++x) {
 			auto col = x;
 			auto nextCol = x + 1;
-			triangles.push_back({ row + col, row + nextCol, nextRow + nextCol });
-			triangles.push_back({ row + col, nextRow + nextCol, nextRow + col });
+			triangles.push_back({ row + col, nextRow + nextCol, row + nextCol });
+			triangles.push_back({ row + col, nextRow + col, nextRow + nextCol });
 		}
 	}
 }
@@ -66,7 +66,7 @@ XMFLOAT4 Terrain::GeneratePosition(int index, float z) const
 
 XMFLOAT4 Terrain::GenerateNormal(int index) const
 {
-	auto edge = XMVectorSet(0, 0, 1, 0);
+	auto edge = XMVectorSet(0, 0, -1, 0);
 	auto north = VertexHasNorth(index);
 	auto south = VertexHasSouth(index);
 	auto east = VertexHasEast(index);
@@ -77,10 +77,10 @@ XMFLOAT4 Terrain::GenerateNormal(int index) const
 	XMVECTOR v3 = north ? GenerateNorthVector(index) : XMVECTOR{};
 	XMVECTOR v4 = west ? GenerateWestVector(index) : XMVECTOR{};
 
-	XMVECTOR n1 = south && east ? XMVector3Normalize(XMVector3Cross(v2, v1)) : edge;
-	XMVECTOR n2 = east && north ? XMVector3Normalize(XMVector3Cross(v3, v2)) : edge;
-	XMVECTOR n3 = north && west ? XMVector3Normalize(XMVector3Cross(v4, v3)) : edge;
-	XMVECTOR n4 = west && south ? XMVector3Normalize(XMVector3Cross(v1, v4)) : edge;
+	XMVECTOR n1 = south && east ? XMVector3Normalize(XMVector3Cross(v1, v2)) : edge;
+	XMVECTOR n2 = east && north ? XMVector3Normalize(XMVector3Cross(v2, v3)) : edge;
+	XMVECTOR n3 = north && west ? XMVector3Normalize(XMVector3Cross(v3, v4)) : edge;
+	XMVECTOR n4 = west && south ? XMVector3Normalize(XMVector3Cross(v4, v1)) : edge;
 
 	n1 += n2 + n3 + n4;
 
