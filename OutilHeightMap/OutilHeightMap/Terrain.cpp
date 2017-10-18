@@ -93,8 +93,8 @@ ostream& operator<<(ostream& os, const Terrain & t)
 {
 	if (os) {
 		os.write((char*)&t.GetInfo(), sizeof(TerrainFileHeader));
-		os.write((char*)&t.GetVertices().begin(), t.GetVertices().size() * sizeof(Vertex));
-		os.write((char*)&t.GetTriangles().begin(), t.GetTriangles().size() * sizeof(Triangle));
+		os.write((char*)&t.GetVertices()[0], t.GetVertices().size() * sizeof(Vertex));
+		os.write((char*)&t.GetTriangles()[0], t.GetTriangles().size() * sizeof(Triangle));
 	}
 
 	return os;
