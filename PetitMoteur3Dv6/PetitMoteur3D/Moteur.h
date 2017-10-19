@@ -3,8 +3,10 @@
 #include "dispositif.h" 
 
 #include <vector>
+#include <fstream>
 #include "Objet3D.h"
 #include "Bloc.h"
+#include "Terrain.h"
 #include "BlocEffet1.h"
 
 namespace PM3D
@@ -176,14 +178,14 @@ namespace PM3D
 	
 		// Initialisation des matrices View et Proj
 		// Dans notre cas, ces matrices sont fixes
-		matView = XMMatrixLookAtLH( XMVectorSet( 0.0f, 0.0f,-10.0f, 1.0f ),
-       								XMVectorSet( 0.0f, 0.0f, 0.0f, 1.0f ),
+		matView = XMMatrixLookAtLH( XMVectorSet( 5.0f, -10.0f,-10.0f, 1.0f ),
+       								XMVectorSet( 5.0f, 5.0f, 0.0f, 1.0f ),
                      				XMVectorSet( 0.0f, 1.0f, 0.0f, 1.0f ) );
 
 		float champDeVision = XM_PI/4; 	// 45 degrés
 		float ratioDAspect = pDispositif->GetLargeur()/pDispositif->GetHauteur();		
 		float planRapproche = 2.0;
-		float planEloigne = 20.0;
+		float planEloigne = 40.0;
 		
 		matProj = XMMatrixPerspectiveFovLH( 
 									champDeVision,
@@ -199,14 +201,18 @@ namespace PM3D
 
 	bool InitObjets()
 	{
-	CBlocEffet1* pBloc;
+	CTerrain* pTerrain;
 
 		// Création d'un cube de 2 X 2 X 2 unités
 		// Le bloc est créé dans notre programme et sur le dispositif
-		pBloc = new CBlocEffet1( 2, 2, 2, pDispositif );
+		pTerrain = new CTerrain;
+
+		std::ifstream file("Sortie.txt", std::ios::binary);
+		file >> *pTerrain;
+		pTerrain->Init(pDispositif);
 		
 		// Puis, il est ajouté à la scène
-		ListeScene.push_back(pBloc);
+		ListeScene.push_back(pTerrain);
 		
 		return true;
 	}
