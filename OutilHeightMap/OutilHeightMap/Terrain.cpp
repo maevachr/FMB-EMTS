@@ -66,7 +66,7 @@ XMFLOAT4 Terrain::GeneratePosition(int index, float z) const
 
 XMFLOAT4 Terrain::GenerateNormal(int index) const
 {
-	auto edge = XMVectorSet(0, 0, 1, 0);
+	auto edge = XMVectorSet(0, 0, -1, 0);
 	auto north = VertexHasNorth(index);
 	auto south = VertexHasSouth(index);
 	auto east = VertexHasEast(index);
@@ -77,10 +77,10 @@ XMFLOAT4 Terrain::GenerateNormal(int index) const
 	XMVECTOR v3 = north ? GenerateNorthVector(index) : XMVECTOR{};
 	XMVECTOR v4 = west ? GenerateWestVector(index) : XMVECTOR{};
 
-	XMVECTOR n1 = south && east ? XMVector3Normalize(XMVector3Cross(v2, v1)) : edge;
-	XMVECTOR n2 = east && north ? XMVector3Normalize(XMVector3Cross(v3, v2)) : edge;
-	XMVECTOR n3 = north && west ? XMVector3Normalize(XMVector3Cross(v4, v3)) : edge;
-	XMVECTOR n4 = west && south ? XMVector3Normalize(XMVector3Cross(v1, v4)) : edge;
+	XMVECTOR n1 = south && east ? XMVector3Normalize(XMVector3Cross(v1, v2)) : edge;
+	XMVECTOR n2 = east && north ? XMVector3Normalize(XMVector3Cross(v2, v3)) : edge;
+	XMVECTOR n3 = north && west ? XMVector3Normalize(XMVector3Cross(v3, v4)) : edge;
+	XMVECTOR n4 = west && south ? XMVector3Normalize(XMVector3Cross(v4, v1)) : edge;
 
 	n1 += n2 + n3 + n4;
 
@@ -93,8 +93,8 @@ ostream& operator<<(ostream& os, const Terrain & t)
 {
 	if (os) {
 		os.write((char*)&t.GetInfo(), sizeof(TerrainFileHeader));
-		os.write((char*)&t.GetVertices().begin(), t.GetVertices().size() * sizeof(Vertex));
-		os.write((char*)&t.GetTriangles().begin(), t.GetTriangles().size() * sizeof(Triangle));
+		os.write((char*)&t.GetVertices()[0], t.GetVertices().size() * sizeof(Vertex));
+		os.write((char*)&t.GetTriangles()[0], t.GetTriangles().size() * sizeof(Triangle));
 	}
 
 	return os;
