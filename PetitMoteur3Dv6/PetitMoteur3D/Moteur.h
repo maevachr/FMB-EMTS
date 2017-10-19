@@ -8,22 +8,22 @@
 #include "Bloc.h"
 #include "Terrain.h"
 #include "BlocEffet1.h"
+#include "Camera.h"
 
 namespace PM3D
 {
+	const int IMAGESPARSECONDE = 20;
 
-	const int IMAGESPARSECONDE=20;
-
-    //
-	//   TEMPLATE : CMoteur
 	//
-	//   BUT : Template servant à construire un objet Moteur qui implantera les
-	//         aspects "génériques" du moteur de jeu
+	//   TEMPLATEÂ : CMoteur
 	//
-	//   COMMENTAIRES :
+	//   BUTÂ : Template servant Ã  construire un objet Moteur qui implantera les
+	//         aspects "gÃ©nÃ©riques" du moteur de jeu
 	//
-	//        Comme plusieurs de nos objets représenteront des éléments uniques 
-	//		  du système (ex: le moteur lui-même, le lien vers 
+	//   COMMENTAIRESÂ :
+	//
+	//        Comme plusieurs de nos objets reprÃ©senteront des Ã©lÃ©ments uniques 
+	//		  du systÃ¨me (ex: le moteur lui-mÃªme, le lien vers 
 	//        le dispositif Direct3D), l'utilisation d'un singleton 
 	//        nous simplifiera plusieurs aspects.
 	//
@@ -33,31 +33,35 @@ namespace PM3D
 
 		virtual void Run()
 		{
-		bool bBoucle=true;
+			bool bBoucle = true;
 
 			while (bBoucle)
 			{
-				// Propre à la plateforme - (Conditions d'arrêt, interface, messages)
-				bBoucle = RunSpecific();	
+				// Propre Ã  la plateforme - (Conditions d'arrÃªt, interface, messages)
+				bBoucle = RunSpecific();
 
 				// appeler la fonction d'animation
 				if (bBoucle) bBoucle = Animation();
 			}
 		}
-		
+
 		virtual int Initialisations()
 		{
-			// Propre à la plateforme
+			// Propre Ã  la plateforme
 			InitialisationsSpecific();
 
 			// * Initialisation du dispositif de rendu
-			pDispositif = CreationDispositifSpecific( CDS_FENETRE );
+			pDispositif = CreationDispositifSpecific(CDS_FENETRE);
 
-			// * Initialisation de la scène
+			
+
+			// * Initialisation de la scÃ¨ne
 			InitScene();
 
-			// * Initialisation des paramètres de l'animation et 
-			//   préparation de la première image
+			InitTransformations();
+
+			// * Initialisation des paramÃ¨tres de l'animation et 
+			//   prÃ©paration de la premiÃ¨re image
 			InitAnimation();
 
 			return 0;
@@ -65,31 +69,31 @@ namespace PM3D
 
 		virtual bool Animation()
 		{
-		__int64 TempsCourant;
-		float TempsEcoule;
+			__int64 TempsCourant;
+			float TempsEcoule;
 
-			// méthode pour lire l'heure et calculer le 
-			// temps écoulé
+			// mÃ©thode pour lire l'heure et calculer le 
+			// temps Ã©coulÃ©
 			TempsCourant = GetTimeSpecific();
 
 			// Est-il temps de rendre l'image?
 			if (TempsCourant > TempsSuivant)
 			{
-				// Affichage optimisé 
-				pDispositif->Present(); 
+				// Affichage optimisÃ© 
+				pDispositif->Present();
 
-				TempsEcoule=static_cast<float>(TempsCourant-TempsPrecedent) 
-							* static_cast<float>(EchelleTemps);
+				TempsEcoule = static_cast<float>(TempsCourant - TempsPrecedent)
+					* static_cast<float>(EchelleTemps);
 
-				// On prépare la prochaine image
+				// On prÃ©pare la prochaine image
 				AnimeScene(TempsEcoule);
 
 				// On rend l'image sur la surface de travail 
-   				// (tampon d'arrière plan)
+				// (tampon d'arriÃ¨re plan)
 				RenderScene();
 
 				// Calcul du temps du prochain affichage
-				TempsPrecedent=TempsCourant;
+				TempsPrecedent = TempsCourant;
 				TempsSuivant = TempsCourant + EcartTemps;
 			}
 
@@ -100,50 +104,52 @@ namespace PM3D
 		XMMATRIX GetMatProj() { return matProj; }
 		XMMATRIX GetMatViewProj() { return matViewProj; }
 
-    protected :
+		CDIManipulateur& GetGestionnaireDeSaisie() { return GestionnaireDeSaisie; }
 
-        // Constructeur par défaut
-		CMoteur(void){}
-	
-        // Destructeur
+	protected:
+
+		// Constructeur par dÃ©faut
+		CMoteur(void) {}
+
+		// Destructeur
 		~CMoteur(void)
 		{
 			Cleanup();
 		}
 
-		// Spécifiques - Doivent être implantés
-		virtual bool RunSpecific()=0;
-		virtual int InitialisationsSpecific()=0;
-		virtual __int64 GetTimeSpecific()=0;
-		virtual TClasseDispositif* CreationDispositifSpecific(const CDS_MODE cdsMode)=0;
-		virtual void BeginRenderSceneSpecific()=0;
-		virtual void EndRenderSceneSpecific()=0;
+		// SpÃ©cifiques - Doivent Ãªtre implantÃ©s
+		virtual bool RunSpecific() = 0;
+		virtual int InitialisationsSpecific() = 0;
+		virtual __int64 GetTimeSpecific() = 0;
+		virtual TClasseDispositif* CreationDispositifSpecific(const CDS_MODE cdsMode) = 0;
+		virtual void BeginRenderSceneSpecific() = 0;
+		virtual void EndRenderSceneSpecific() = 0;
 
 		// Autres fonctions
 		virtual int InitAnimation()
 		{
 			TempsSuivant = GetTimeSpecific();
-			EchelleTemps = 0.001; 
-			EcartTemps = 1000/IMAGESPARSECONDE;
-			TempsPrecedent = TempsSuivant; 
+			EchelleTemps = 0.001;
+			EcartTemps = 1000 / IMAGESPARSECONDE;
+			TempsPrecedent = TempsSuivant;
 
-			// première Image
+			// premiÃ¨re Image
 			RenderScene();
 
 			return true;
 		}
 
-		// Fonctions de rendu et de présentation de la scène
+		// Fonctions de rendu et de prÃ©sentation de la scÃ¨ne
 		virtual bool RenderScene()
 		{
 			BeginRenderSceneSpecific();
 
-			// Appeler les fonctions de dessin de chaque objet de la scène
+			// Appeler les fonctions de dessin de chaque objet de la scÃ¨ne
 			std::vector<CObjet3D*>::iterator It;
 
 			for (It = ListeScene.begin(); It != ListeScene.end(); It++)
 			{
-					(*It)->Draw();
+				(*It)->Draw();
 			}
 
 			EndRenderSceneSpecific();
@@ -153,18 +159,18 @@ namespace PM3D
 
 		virtual void Cleanup()
 		{
-			// détruire les objets
+			// dÃ©truire les objets
 			std::vector<CObjet3D*>::iterator It;
 
-			for (It = ListeScene.begin(); It != ListeScene.end();It++)
+			for (It = ListeScene.begin(); It != ListeScene.end(); It++)
 			{
 				delete *It;
 			}
 
 			ListeScene.clear();
-			
-			// Détruire le dispositif
-			if (pDispositif) 
+
+			// DÃ©truire le dispositif
+			if (pDispositif)
 			{
 				delete pDispositif;
 				pDispositif = NULL;
@@ -173,7 +179,7 @@ namespace PM3D
 
 	virtual int InitScene()
 	{
-		// Initialisation des objets 3D - création et/ou chargement
+		// Initialisation des objets 3D - crÃ©ation et/ou chargement
 		if (!InitObjets()) return 1;
 	
 		// Initialisation des matrices View et Proj
@@ -182,7 +188,7 @@ namespace PM3D
        								XMVectorSet( 5.0f, 5.0f, 0.0f, 1.0f ),
                      				XMVectorSet( 0.0f, 1.0f, 0.0f, 1.0f ) );
 
-		float champDeVision = XM_PI/4; 	// 45 degrés
+		float champDeVision = XM_PI/4; 	// 45 degrÃ©s
 		float ratioDAspect = pDispositif->GetLargeur()/pDispositif->GetHauteur();		
 		float planRapproche = 2.0;
 		float planEloigne = 40.0;
@@ -193,7 +199,7 @@ namespace PM3D
 									planRapproche,
 									planEloigne );
 
-		// Calcul de VP à l'avance
+		// Calcul de VP Ã  l'avance
 		matViewProj = matView * matProj;
 
 		return 0;
@@ -203,15 +209,15 @@ namespace PM3D
 	{
 	CTerrain* pTerrain;
 
-		// Création d'un cube de 2 X 2 X 2 unités
-		// Le bloc est créé dans notre programme et sur le dispositif
+		// CrÃ©ation d'un cube de 2 X 2 X 2 unitÃ©s
+		// Le bloc est crÃ©Ã© dans notre programme et sur le dispositif
 		pTerrain = new CTerrain;
 
 		std::ifstream file("Sortie.txt", std::ios::binary);
 		file >> *pTerrain;
 		pTerrain->Init(pDispositif);
 		
-		// Puis, il est ajouté à la scène
+		// Puis, il est ajoutÃ© Ã  la scÃ¨ne
 		ListeScene.push_back(pTerrain);
 		
 		return true;
@@ -221,13 +227,38 @@ namespace PM3D
 	{
 	std::vector<CObjet3D*>::iterator It;
 
-	    for (It = ListeScene.begin(); It != ListeScene.end();It++)
+		bool InitTransformations()
 		{
-			(*It)->Anime(tempsEcoule);
+			camera.Init(XMVectorSet(0.0f, 0.0f, -10.0f, 1.0f),
+				XMVectorSet(0.0f, 0.0f, 1.0f, 1.0f),
+				XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f),
+				&this->matView,
+				&this->matProj,
+				&this->matViewProj,
+				&GestionnaireDeSaisie);
+
+			camera.Update();
+
+			return true;
 		}
 
-		return true;
-	}
+		bool AnimeScene(float tempsEcoule)
+		{
+			// Prendre en note le statut du clavier
+			GestionnaireDeSaisie.StatutClavier();
+
+			std::vector<CObjet3D*>::iterator It;
+
+			for (It = ListeScene.begin(); It != ListeScene.end(); It++)
+			{
+				(*It)->Anime(tempsEcoule);
+			}
+
+			camera.AnimeCamera(tempsEcoule);
+			camera.Update();
+
+			return true;
+		}
 
 
 	protected:
@@ -241,17 +272,22 @@ namespace PM3D
 		TClasseDispositif* pDispositif;
 
 
-		// La seule scène
+		// La seule scÃ¨ne
 		std::vector<CObjet3D*> ListeScene;
+
+		// La seule camÃ©ra
+		CCamera camera;
+
+		// Le seul gestionnaire de saisie
+		CDIManipulateur GestionnaireDeSaisie;
 
 		// Les matrices
 		XMMATRIX matView;
 		XMMATRIX matProj;
 		XMMATRIX matViewProj;
 
-    };
+	};
 
 
 } // namespace PM3D
 
-	
