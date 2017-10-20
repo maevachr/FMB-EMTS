@@ -19,7 +19,7 @@ namespace PM3D
 		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
 
-	istream & operator>>(istream & is , CTerrain & t)
+	istream & operator>>(istream & is, CTerrain & t)
 	{
 		if (is) {
 			is.read((char*)&t.header, sizeof(TerrainFileHeader));
@@ -27,13 +27,13 @@ namespace PM3D
 			t.triangles.resize(2 * (t.header.X - 1) * (t.header.Y - 1));
 			is.read((char*)&t.vertices[0], t.header.X*t.header.Y * sizeof(Vertex));
 			is.read((char*)&t.triangles[0], 2 * (t.header.X - 1) * (t.header.Y - 1) * sizeof(Triangle));
-
-			return is;
 		}
+
+		return is;
 	}
 
 	struct ShadersParams
-	{ 
+	{
 		XMMATRIX matWorldViewProj;	// la matrice totale 
 		XMMATRIX matWorld;			// matrice de transformation dans le monde 
 		XMVECTOR vLumiere; 			// la position de la source d'éclairage (Point)
@@ -56,7 +56,7 @@ namespace PM3D
 
 		pDispositif = pDispositif_;  // Prendre en note le dispositif
 
-		// Création du vertex buffer et copie des sommets
+									 // Création du vertex buffer et copie des sommets
 		ID3D11Device* pD3DDevice = pDispositif->GetD3DDevice();
 
 		D3D11_BUFFER_DESC bd;

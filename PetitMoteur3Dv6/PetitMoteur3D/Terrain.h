@@ -1,4 +1,5 @@
 #pragma once
+#pragma once
 #include "Objet3D.h"
 #include "DispositifD3D11.h"
 #include <vector>
@@ -66,5 +67,3 @@ namespace PM3D
 	};
 
 }
-
-
