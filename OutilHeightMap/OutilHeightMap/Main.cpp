@@ -27,7 +27,7 @@ HeightMapFile Read() {
 }
 
 void Write(string fileName, const Terrain& terrain){
-	ofstream output(fileName, ios::binary);
+	ofstream output(fileName);
 	if (output)
 		output << terrain;
 	else
