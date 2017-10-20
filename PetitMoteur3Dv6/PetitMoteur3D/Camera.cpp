@@ -28,9 +28,10 @@ namespace PM3D
 		pMatProj = pMatProj_in;
 		pMatViewProj = pMatViewProj_in;
 		position = position_in;
-		direction = direction_in;
-		up = up_in;
+		direction = XMVector4Normalize(direction_in);
+		up = XMVector4Normalize(up_in);
 		pGestionnaireDeSaisie = pGestionnaireDeSaisie_in;
+		right = XMVector3Cross(up, direction);
 	}
 
 }

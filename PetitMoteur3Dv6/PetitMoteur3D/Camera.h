@@ -13,8 +13,10 @@ namespace PM3D
 		float dvitesse_rotation = 0.01f;
 
 		XMVECTOR position;
-		XMVECTOR direction;
-		XMVECTOR up;
+		XMVECTOR direction; // Y
+		XMVECTOR up; // Z
+		// Est-ce qu'introduire un 3e vecteur ne va pas favoriser l'accumulation d'erreurs de calcul ?
+		XMVECTOR right; // X
 		XMMATRIX* pMatView;
 		XMMATRIX* pMatProj;
 		XMMATRIX* pMatViewProj;
@@ -56,36 +58,78 @@ namespace PM3D
 			// Vérifier l'état de la touche gauche
 			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_UP))
 			{
-				//TO DO
+				// Avancer
 				position = XMVector4Transform(position, XMMatrixTranslationFromVector(direction));
-				//position += direction * dvitesse_translation * tempsEcoule;
 			}
 			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_DOWN))
 			{
-				//TO DO
+				// Reculer
 				position = XMVector4Transform(position, XMMatrixTranslationFromVector(-direction));
-				/*position -= direction * dvitesse_translation * tempsEcoule;*/
 			}
 			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_LEFT))
 			{
-				direction = XMVector4Transform(direction, XMMatrixRotationY((XM_PI * 2.0f) * -dvitesse_rotation));
+				// Rotation selon up à gauche
+				direction = XMVector4Transform(direction, XMMatrixRotationAxis(up, (XM_PI * 2.0f) * -dvitesse_rotation));
+				right = XMVector4Transform(right, XMMatrixRotationAxis(up, (XM_PI * 2.0f) * -dvitesse_rotation));
+				
 				//FAUX FAIRE UNE ROTATION SUIVANT LE Y DE UP
 			}
 			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_RIGHT))
 			{
-				direction = XMVector4Transform(direction, XMMatrixRotationY((XM_PI * 2.0f) * dvitesse_rotation));
+				// Rotation selon up à droite
+				direction = XMVector4Transform(direction, XMMatrixRotationAxis(up, (XM_PI * 2.0f) * dvitesse_rotation));
+				right = XMVector4Transform(right, XMMatrixRotationAxis(up, (XM_PI * 2.0f) * dvitesse_rotation));
 				//FAUX FAIRE UNE ROTATION SUIVANT LE Y DE UP
 			}
 			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_PRIOR))
 			{
-				direction = XMVector4Transform(direction, XMMatrixRotationX((XM_PI * 2.0f) * -dvitesse_rotation));
-				//FAUX FAIRE UNE ROTATION SUIVANT LE X DE UP
+				// Rotation selon right vers le haut
+				direction = XMVector4Transform(direction, XMMatrixRotationAxis(right, (XM_PI * 2.0f) * -dvitesse_rotation));
+				up = XMVector4Transform(up, XMMatrixRotationAxis(right, (XM_PI * 2.0f) * -dvitesse_rotation));
 			}
 			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_NEXT))
 			{
-				direction = XMVector4Transform(direction, XMMatrixRotationX((XM_PI * 2.0f) * dvitesse_rotation));
-				//FAUX FAIRE UNE ROTATION SUIVANT LE X DE UP
+				// Rotation selon right vers le bas
+				direction = XMVector4Transform(direction, XMMatrixRotationAxis(right, (XM_PI * 2.0f) * dvitesse_rotation));
+				up = XMVector4Transform(up, XMMatrixRotationAxis(right, (XM_PI * 2.0f) * dvitesse_rotation));
 			}
+			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_NUMPAD4))
+			{
+				// Translation vers la gauche
+				position = XMVector4Transform(position, XMMatrixTranslationFromVector(-right));
+			}
+			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_NUMPAD6))
+			{
+				// Translation vers la droite
+				position = XMVector4Transform(position, XMMatrixTranslationFromVector(right));
+
+			}
+			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_NUMPAD8))
+			{
+				// Translation vers le haut
+				position = XMVector4Transform(position, XMMatrixTranslationFromVector(up));
+
+			}
+			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_NUMPAD2))
+			{
+
+				// Translation vers le bas
+				position = XMVector4Transform(position, XMMatrixTranslationFromVector(-up));
+			}
+			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_NUMPAD1))
+			{
+				// Rotation selon direction vers la gauche
+				right = XMVector4Transform(right, XMMatrixRotationAxis(direction, (XM_PI * 2.0f) * dvitesse_rotation));
+				up = XMVector4Transform(up, XMMatrixRotationAxis(direction, (XM_PI * 2.0f) * dvitesse_rotation));
+
+			}
+			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_NUMPAD3))
+			{
+				// Rotation selon direction vers la droite
+				right = XMVector4Transform(right, XMMatrixRotationAxis(direction, (XM_PI * 2.0f) * -dvitesse_rotation));
+				up = XMVector4Transform(up, XMMatrixRotationAxis(direction, (XM_PI * 2.0f) * -dvitesse_rotation));
+			}
+
 		
 		}
 
