@@ -8,7 +8,7 @@
 #include "Bloc.h"
 #include "BlocEffet1.h"
 #include "Terrain.h"
-#include "Camera.h"
+#include "CameraManager.h"
 
 namespace PM3D
 {
@@ -58,7 +58,10 @@ namespace PM3D
 			// * Initialisation de la scène
 			InitScene();
 
-			InitTransformations();
+			cameraManager.Init(&this->matView,
+				&this->matProj,
+				&this->matViewProj,
+				&GestionnaireDeSaisie);
 
 			// * Initialisation des paramètres de l'animation et 
 			//   préparation de la première image
@@ -214,20 +217,6 @@ namespace PM3D
 			return true;
 		}
 
-		bool InitTransformations()
-		{
-			camera.Init(XMVectorSet(0.0f, 0.0f, -10.0f, 1.0f),
-				XMVectorSet(0.0f, 0.0f, 1.0f, 1.0f),
-				XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f),
-				&this->matView,
-				&this->matProj,
-				&this->matViewProj,
-				&GestionnaireDeSaisie);
-
-			camera.Update();
-
-			return true;
-		}
 
 		bool AnimeScene(float tempsEcoule)
 		{
@@ -241,9 +230,8 @@ namespace PM3D
 				(*It)->Anime(tempsEcoule);
 			}
 
-			camera.AnimeCamera(tempsEcoule);
-			camera.Update();
-
+			cameraManager.AnimeScene(tempsEcoule);
+			
 			return true;
 		}
 
@@ -262,8 +250,8 @@ namespace PM3D
 		// La seule scène
 		std::vector<CObjet3D*> ListeScene;
 
-		// La seule caméra
-		CCamera camera;
+		// Caméra Manager
+		CCameraManager cameraManager;
 
 		// Le seul gestionnaire de saisie
 		CDIManipulateur GestionnaireDeSaisie;
