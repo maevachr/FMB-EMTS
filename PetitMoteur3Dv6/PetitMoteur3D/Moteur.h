@@ -188,7 +188,7 @@ namespace PM3D
 			float champDeVision = XM_PI / 4; 	// 45 degrés
 			float ratioDAspect = pDispositif->GetLargeur() / pDispositif->GetHauteur();
 			float planRapproche = 2.0;
-			float planEloigne = 50.0;
+			float planEloigne = 500.0;
 
 			matProj = XMMatrixPerspectiveFovLH(
 				champDeVision,

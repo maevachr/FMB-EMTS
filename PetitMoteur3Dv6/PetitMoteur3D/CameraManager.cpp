@@ -15,7 +15,7 @@ namespace PM3D {
 		pMatViewProj = pMatViewProj_in;
 
 		//Initialize all camera
-		dynamicCamera.Init(XMVectorSet(0.0f, 0.0f, -10.0f, 1.0f),
+		dynamicCamera.Init(XMVectorSet(0.0f, 0.0f, -50.0f, 1.0f),
 			XMVectorSet(0.0f, 0.0f, 1.0f, 1.0f),
 			XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f),
 			pMatView,
@@ -23,7 +23,7 @@ namespace PM3D {
 			pMatViewProj,
 			pGestionnaireDeSaisie);
 
-		staticCamera.Init(XMVectorSet(0.0f, 0.0f, -10.0f, 1.0f),
+		staticCamera.Init(XMVectorSet(0.0f, 0.0f, -50.0f, 1.0f),
 			XMVectorSet(0.0f, 0.0f, 1.0f, 1.0f),
 			XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f),
 			pMatView,
