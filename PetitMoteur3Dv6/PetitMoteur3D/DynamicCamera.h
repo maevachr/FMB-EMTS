@@ -9,7 +9,9 @@ namespace PM3D
 
 	class CDynamicCamera : public CCamera
 	{
-	private:
+	protected:
+		float dvitesse_translation = 0.3f;
+		float dvitesse_rotation = 0.01f;
 		CDIManipulateur* pGestionnaireDeSaisie;
 	public:
 		CDynamicCamera() {}

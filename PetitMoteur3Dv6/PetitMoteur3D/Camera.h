@@ -9,9 +9,6 @@ namespace PM3D
 	class CCamera
 	{
 	protected:
-		float dvitesse_translation = 0.3f;
-		float dvitesse_rotation = 0.01f;
-
 		XMVECTOR position;
 		XMVECTOR direction; // Y
 		XMVECTOR up; // Z
