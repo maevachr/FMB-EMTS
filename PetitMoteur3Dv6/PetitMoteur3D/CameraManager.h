@@ -5,6 +5,7 @@ namespace PM3D {
 	using namespace DirectX;
 	class CCameraManager
 	{
+		
 		CDynamicCamera dynamicCamera;
 		CCamera staticCamera;
 		CCamera* currentCamera;
@@ -14,13 +15,21 @@ namespace PM3D {
 		XMMATRIX* pMatProj;
 		XMMATRIX* pMatViewProj;
 	public:
+
+		static CCameraManager& GetInstance() {
+			static CCameraManager singleton;
+			return singleton;
+		}
+
+		CCamera& GetCurrentCamera() const { return *currentCamera; }
+
 		bool Init(XMMATRIX * pMatView_in,
 			XMMATRIX * pMatProj_in,
 			XMMATRIX * pMatViewProj_in,
 			CDIManipulateur* pGestionnaireDeSaisie_in);
 
-		CCameraManager();
-		~CCameraManager();
+		CCameraManager(const CCameraManager&) = delete;
+		CCameraManager& operator=(const CCameraManager&) = delete;
 
 		bool AnimeScene(float tempsEcoule) {
 			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_F1))
@@ -37,6 +46,9 @@ namespace PM3D {
 
 			return true;
 		}
+	protected:
+		CCameraManager() = default;
+		~CCameraManager() = default;
 	};
 
 }

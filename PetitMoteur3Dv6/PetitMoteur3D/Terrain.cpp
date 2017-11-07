@@ -137,8 +137,8 @@ namespace PM3D
 		sp.matWorldViewProj = XMMatrixTranspose(matWorld * viewProj);
 		sp.matWorld = XMMatrixTranspose(matWorld);
 
-		sp.vLumiere = XMVectorSet(5.0f, 5.0f, -10.0f, 1.0f);
-		sp.vCamera = XMVectorSet(0.0f, 0.0f, -10.0f, 1.0f);
+		sp.vLumiere = XMVectorSet(20.0f, 20.0f, -10.0f, 1.0f);
+		sp.vCamera = CCameraManager::GetInstance().GetCurrentCamera().GetPosition();
 		sp.vAEcl = XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f);
 		sp.vAMat = XMVectorSet(1.0f, 0.0f, 0.0f, 1.0f);
 		sp.vDEcl = XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f);

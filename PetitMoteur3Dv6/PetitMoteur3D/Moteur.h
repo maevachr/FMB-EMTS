@@ -58,7 +58,7 @@ namespace PM3D
 			// * Initialisation de la scène
 			InitScene();
 
-			cameraManager.Init(&this->matView,
+			CCameraManager::GetInstance().Init(&this->matView,
 				&this->matProj,
 				&this->matViewProj,
 				&GestionnaireDeSaisie);
@@ -230,7 +230,7 @@ namespace PM3D
 				(*It)->Anime(tempsEcoule);
 			}
 
-			cameraManager.AnimeScene(tempsEcoule);
+			CCameraManager::GetInstance().AnimeScene(tempsEcoule);
 			
 			return true;
 		}
@@ -249,9 +249,6 @@ namespace PM3D
 
 		// La seule scène
 		std::vector<CObjet3D*> ListeScene;
-
-		// Caméra Manager
-		CCameraManager cameraManager;
 
 		// Le seul gestionnaire de saisie
 		CDIManipulateur GestionnaireDeSaisie;
