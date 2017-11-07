@@ -14,7 +14,7 @@ HeightMapFile Read(string fileName) {
 	{
 		input >> file.header;
 		for_each(istream_iterator<float>(input), istream_iterator<float>(), [&](auto p) {
-			file.data.emplace_back(-0.01*(p - 32768));
+			file.data.emplace_back(0.01*(p - 32768));
 		});
 	}
 	else
