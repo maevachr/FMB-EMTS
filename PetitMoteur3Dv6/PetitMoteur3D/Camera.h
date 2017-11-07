@@ -47,7 +47,7 @@ namespace PM3D
 			*pMatViewProj = (*pMatView) * (*pMatProj);
 		}
 
-
+		const XMVECTOR& GetPosition() const { return position; }
 		//void SetPosition(const XMVECTOR& position_in) { position = position_in; };
 		//void SetDirection(const XMVECTOR& direction_in) { direction = direction_in; }
 		//void SetUp(const XMVECTOR& up_in) { up = up_in; }

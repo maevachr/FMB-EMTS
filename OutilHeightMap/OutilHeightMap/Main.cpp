@@ -13,7 +13,9 @@ HeightMapFile Read(string fileName) {
 	if (input)
 	{
 		input >> file.header;
-		copy(istream_iterator<float>(input), istream_iterator<float>(), back_inserter(file.data));
+		for_each(istream_iterator<float>(input), istream_iterator<float>(), [&](auto p) {
+			file.data.emplace_back(-0.01*(p - 32768));
+		});
 	}
 	else
 	{
@@ -23,11 +25,11 @@ HeightMapFile Read(string fileName) {
 }
 
 HeightMapFile Read() {
-	return Read("Entree.txt");
+	return Read("out.pgm");
 }
 
 void Write(string fileName, const Terrain& terrain){
-	ofstream output(fileName);
+	ofstream output(fileName, ios::binary);
 	if (output)
 		output << terrain;
 	else

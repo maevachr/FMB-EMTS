@@ -58,7 +58,7 @@ namespace PM3D
 			// * Initialisation de la scène
 			InitScene();
 
-			cameraManager.Init(&this->matView,
+			CCameraManager::GetInstance().Init(&this->matView,
 				&this->matProj,
 				&this->matViewProj,
 				&GestionnaireDeSaisie);
@@ -188,7 +188,7 @@ namespace PM3D
 			float champDeVision = XM_PI / 4; 	// 45 degrés
 			float ratioDAspect = pDispositif->GetLargeur() / pDispositif->GetHauteur();
 			float planRapproche = 2.0;
-			float planEloigne = 50.0;
+			float planEloigne = 500.0;
 
 			matProj = XMMatrixPerspectiveFovLH(
 				champDeVision,
@@ -230,7 +230,7 @@ namespace PM3D
 				(*It)->Anime(tempsEcoule);
 			}
 
-			cameraManager.AnimeScene(tempsEcoule);
+			CCameraManager::GetInstance().AnimeScene(tempsEcoule);
 			
 			return true;
 		}
@@ -249,9 +249,6 @@ namespace PM3D
 
 		// La seule scène
 		std::vector<CObjet3D*> ListeScene;
-
-		// Caméra Manager
-		CCameraManager cameraManager;
 
 		// Le seul gestionnaire de saisie
 		CDIManipulateur GestionnaireDeSaisie;

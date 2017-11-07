@@ -39,12 +39,12 @@ namespace PM3D
 			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_UP))
 			{
 				// Avancer
-				position = XMVector4Transform(position, XMMatrixTranslationFromVector(direction));
+				position = XMVector4Transform(position, XMMatrixTranslationFromVector(10*direction));
 			}
 			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_DOWN))
 			{
 				// Reculer
-				position = XMVector4Transform(position, XMMatrixTranslationFromVector(-direction));
+				position = XMVector4Transform(position, XMMatrixTranslationFromVector(-10 * direction));
 			}
 			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_LEFT))
 			{
