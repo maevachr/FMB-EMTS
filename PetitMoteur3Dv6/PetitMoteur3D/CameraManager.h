@@ -5,7 +5,7 @@ namespace PM3D {
 	using namespace DirectX;
 	class CCameraManager
 	{
-		
+
 		CDynamicCamera dynamicCamera;
 		CCamera staticCamera;
 		CCamera* currentCamera;
@@ -40,7 +40,7 @@ namespace PM3D {
 			{
 				currentCamera = &dynamicCamera;
 			}
-			
+
 			currentCamera->AnimeCamera(tempsEcoule);
 			currentCamera->UpdateMatrix();
 

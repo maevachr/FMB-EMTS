@@ -31,7 +31,9 @@ CBlocEffet1::CBlocEffet1(const float dx, const float dy, const float dz,
     CDispositifD3D11* pDispositif_)
 {
 	pDispositif  = pDispositif_;  // Prendre en note le dispositif
-				
+	pTextureD3D = 0;
+	pSampleState = 0;
+
 	// Les points
 	XMFLOAT3 point[8];
 	point[0] = XMFLOAT3(-dx/2,dy/2,-dz/2);
@@ -54,39 +56,40 @@ CBlocEffet1::CBlocEffet1(const float dx, const float dy, const float dz,
 	CSommetBloc sommets[24];
 
 	// Le devant du bloc
-	sommets[0]=CSommetBloc(point[0],n0);
-	sommets[1]=CSommetBloc(point[1],n0);
-	sommets[2]=CSommetBloc(point[2],n0);
-	sommets[3]=CSommetBloc(point[3],n0);
+	sommets[0]=CSommetBloc(point[0],n0, XMFLOAT2(0.0f, 0.0f));
+	sommets[1]=CSommetBloc(point[1],n0, XMFLOAT2(1.0f, 0.0f));
+	sommets[2]=CSommetBloc(point[2],n0, XMFLOAT2(1.0f, 1.0f));
+	sommets[3]=CSommetBloc(point[3],n0, XMFLOAT2(0.0f, 1.0f));
 
 	// L'arrière du bloc
-	sommets[4]=CSommetBloc(point[4],n1);
-	sommets[5]=CSommetBloc(point[5],n1);
-	sommets[6]=CSommetBloc(point[6],n1);
-	sommets[7]=CSommetBloc(point[7],n1);
+	sommets[4]=CSommetBloc(point[4],n1, XMFLOAT2(0.0f, 1.0f));
+	sommets[5]=CSommetBloc(point[5],n1, XMFLOAT2(0.0f, 0.0f));
+	sommets[6]=CSommetBloc(point[6],n1, XMFLOAT2(1.0f, 0.0f));
+	sommets[7]=CSommetBloc(point[7],n1, XMFLOAT2(1.0f, 1.0f));
 
 	// Le dessous du bloc
-	sommets[8]=CSommetBloc(point[3],n2);
-	sommets[9]=CSommetBloc(point[2],n2);
-	sommets[10]=CSommetBloc(point[6],n2);
-	sommets[11]=CSommetBloc(point[5],n2);
+	sommets[8]=CSommetBloc(point[3],n2, XMFLOAT2(0.0f, 0.0f));
+	sommets[9]=CSommetBloc(point[2],n2, XMFLOAT2(1.0f, 0.0f));
+	sommets[10]=CSommetBloc(point[6],n2, XMFLOAT2(1.0f, 1.0f));
+	sommets[11]=CSommetBloc(point[5],n2, XMFLOAT2(0.0f, 1.0f));
 
 	// Le dessus du bloc
-	sommets[12]=CSommetBloc(point[0],n3);
-	sommets[13]=CSommetBloc(point[4],n3);
-	sommets[14]=CSommetBloc(point[7],n3);
-	sommets[15]=CSommetBloc(point[1],n3);
+	sommets[12]=CSommetBloc(point[0],n3, XMFLOAT2(0.0f, 1.0f));
+	sommets[13]=CSommetBloc(point[4],n3, XMFLOAT2(0.0f, 0.0f));
+	sommets[14]=CSommetBloc(point[7],n3, XMFLOAT2(1.0f, 0.0f));
+	sommets[15]=CSommetBloc(point[1],n3, XMFLOAT2(1.0f, 1.0f));
+
 	// La face gauche
-	sommets[16]=CSommetBloc(point[0],n4);
-	sommets[17]=CSommetBloc(point[3],n4);
-	sommets[18]=CSommetBloc(point[5],n4);
-	sommets[19]=CSommetBloc(point[4],n4);
+	sommets[16]=CSommetBloc(point[0],n4, XMFLOAT2(0.0f, 0.0f));
+	sommets[17]=CSommetBloc(point[3],n4, XMFLOAT2(1.0f, 0.0f));
+	sommets[18]=CSommetBloc(point[5],n4, XMFLOAT2(1.0f, 1.0f));
+	sommets[19]=CSommetBloc(point[4],n4, XMFLOAT2(0.0f, 1.0f));
 		
 	// La face droite
-	sommets[20]=CSommetBloc(point[1],n5);
-	sommets[21]=CSommetBloc(point[7],n5);
-	sommets[22]=CSommetBloc(point[6],n5);
-	sommets[23]=CSommetBloc(point[2],n5);
+	sommets[20]=CSommetBloc(point[1],n5, XMFLOAT2(0.0f, 0.0f));
+	sommets[21]=CSommetBloc(point[7],n5, XMFLOAT2(1.0f, 0.0f));
+	sommets[22]=CSommetBloc(point[6],n5, XMFLOAT2(1.0f, 1.0f));
+	sommets[23]=CSommetBloc(point[2],n5, XMFLOAT2(0.0f, 1.0f));
 
 	// Création du vertex buffer et copie des sommets
 	ID3D11Device* pD3DDevice = pDispositif->GetD3DDevice();
@@ -167,14 +170,24 @@ void CBlocEffet1::Draw()
 	sp.vLumiere =  XMVectorSet( -10.0f, 10.0f, -10.0f, 1.0f );
 	sp.vCamera = XMVectorSet( 0.0f, 0.0f, -10.0f, 1.0f  );
 	sp.vAEcl =  XMVectorSet( 0.2f, 0.2f, 0.2f, 1.0f ) ;
-	sp.vAMat =  XMVectorSet( 1.0f, 0.0f, 0.0f, 1.0f );
+	sp.vAMat =  XMVectorSet( 1.0f, 1.0f, 1.0f, 1.0f );
 	sp.vDEcl = XMVectorSet( 1.0f, 1.0f, 1.0f, 1.0f );
-	sp.vDMat = XMVectorSet( 1.0f, 0.0f, 0.0f, 1.0f );
+	sp.vDMat = XMVectorSet( 1.0f, 1.0f, 1.0f, 1.0f );
 	pImmediateContext->UpdateSubresource( pConstantBuffer, 0, NULL, &sp, 0, 0 );
 
 	ID3DX11EffectConstantBuffer* pCB = pEffet->GetConstantBufferByName("param");  // Nous n'avons qu'un seul CBuffer
 	pCB->SetConstantBuffer(pConstantBuffer);
-	
+
+	// Activation de la texture
+	ID3DX11EffectShaderResourceVariable* variableTexture;
+	variableTexture = pEffet->GetVariableByName("textureEntree")->AsShaderResource();
+	variableTexture->SetResource(pTextureD3D);
+
+	// Le sampler state
+	ID3DX11EffectSamplerVariable* variableSampler;
+	variableSampler = pEffet->GetVariableByName("SampleState")->AsSampler();
+	variableSampler->SetSampler(0, pSampleState);
+
 	// **** Rendu de l'objet	  
 	pPasse->Apply(0, pImmediateContext);
 
@@ -183,6 +196,8 @@ void CBlocEffet1::Draw()
 
 CBlocEffet1::~CBlocEffet1(void)
 {
+	DXRelacher(pSampleState);
+
 	DXRelacher(pEffet);
 	DXRelacher(pVertexLayout);
 	DXRelacher(pIndexBuffer);
@@ -208,8 +223,7 @@ void CBlocEffet1::InitEffet()
 	ID3DBlob* pFXBlob = NULL;
 			
 	DXEssayer( D3DCompileFromFile( L"MiniPhong.fx", 0, 0, 0, 
-										"fx_5_0", 0, 0,  
-										&pFXBlob, NULL),
+										"fx_5_0", 0, 0,&pFXBlob, 0),
 										DXE_ERREURCREATION_FX);
 		
 	D3DX11CreateEffectFromMemory(  pFXBlob->GetBufferPointer(), pFXBlob->GetBufferSize(), 0, pD3DDevice, &pEffet);
@@ -237,6 +251,32 @@ void CBlocEffet1::InitEffet()
 												&pVertexLayout ),
 				DXE_CREATIONLAYOUT);
 
+	// Initialisation des paramètres de sampling de la texture
+	D3D11_SAMPLER_DESC samplerDesc;
+
+	samplerDesc.Filter =  D3D11_FILTER_ANISOTROPIC; 
+	samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+	samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+	samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+	samplerDesc.MipLODBias = 0.0f;
+	samplerDesc.MaxAnisotropy = 4;
+	samplerDesc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
+	samplerDesc.BorderColor[0] = 0;
+	samplerDesc.BorderColor[1] = 0;
+	samplerDesc.BorderColor[2] = 0;
+	samplerDesc.BorderColor[3] = 0;
+	samplerDesc.MinLOD = 0;
+	samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+	// Création de l'état de sampling
+	pD3DDevice->CreateSamplerState(&samplerDesc, &pSampleState);
+
 }
+
+void CBlocEffet1::SetTexture(CTexture* pTexture)
+{
+	pTextureD3D = pTexture->GetD3DTexture();
+}
+
 
 }

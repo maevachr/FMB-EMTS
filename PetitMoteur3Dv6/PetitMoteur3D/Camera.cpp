@@ -15,11 +15,11 @@ namespace PM3D
 	}
 
 
-	void CCamera::Init(const XMVECTOR & position_in, 
-		const XMVECTOR & direction_in, 
-		const XMVECTOR & up_in, 
-		XMMATRIX * pMatView_in, 
-		XMMATRIX * pMatProj_in, 
+	void CCamera::Init(const XMVECTOR & position_in,
+		const XMVECTOR & direction_in,
+		const XMVECTOR & up_in,
+		XMMATRIX * pMatView_in,
+		XMMATRIX * pMatProj_in,
 		XMMATRIX * pMatViewProj_in)
 	{
 		pMatView = pMatView_in;

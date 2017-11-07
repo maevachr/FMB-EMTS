@@ -90,7 +90,7 @@ CInfoDispositif::CInfoDispositif(DXGI_MODE_DESC modeDesc )
 	// Faire le ménage pour éviter les «memory leaks»
 	DXRelacher(pOutput);
 
-	for (int i=0; i<vAdapters.size(); ++i)
+	for (unsigned int i=0; i<vAdapters.size(); ++i)
 	{
 		DXRelacher(vAdapters[i]);
 	}

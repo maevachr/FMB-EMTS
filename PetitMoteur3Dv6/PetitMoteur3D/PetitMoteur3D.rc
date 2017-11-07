@@ -137,8 +137,9 @@ BEGIN
     DXE_ERREURCREATIONDEPTHSTENCILTARGET 
                             "Erreur de création du depth stencil view"
     DXE_ERREURCREATION_FX   "Erreur de création de l'effet"
-    ERREUR_CREATION_DIRECTINPUT "Erreur de création de DirectInput"
-    ERREUR_CREATION_CLAVIER "Erreur de création du clavier"
+    DXE_FICHIERTEXTUREINTROUVABLE "Fichier texture introuvable"
+    ERREUR_CREATION_DIRECTINPUT "Erreur de creation de DirectInput"
+    ERREUR_CREATION_CLAVIER "Erreur de creation du clavier"
     ERREUR_CREATION_FORMAT_CLAVIER "Erreur dans le format du clavier"
 END
 

@@ -12,7 +12,7 @@ namespace PM3D
 		XMVECTOR position;
 		XMVECTOR direction; // Y
 		XMVECTOR up; // Z
-		// Est-ce qu'introduire un 3e vecteur ne va pas favoriser l'accumulation d'erreurs de calcul ?
+					 // Est-ce qu'introduire un 3e vecteur ne va pas favoriser l'accumulation d'erreurs de calcul ?
 		XMVECTOR right; // X
 		XMMATRIX* pMatView;
 		XMMATRIX* pMatProj;
@@ -40,7 +40,7 @@ namespace PM3D
 
 		void UpdateMatrix() {
 			// Matrice de la vision
-			*pMatView = XMMatrixLookAtLH(position,
+			*pMatView = XMMatrixLookAtRH(position,
 				(position + direction),
 				up);
 

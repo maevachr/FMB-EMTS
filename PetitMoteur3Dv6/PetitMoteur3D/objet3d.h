@@ -1,8 +1,6 @@
 #pragma once
 #include "dispositif.h"
-
 using namespace DirectX;
-
 namespace PM3D
 {
  	//  Classe : CObjet3D

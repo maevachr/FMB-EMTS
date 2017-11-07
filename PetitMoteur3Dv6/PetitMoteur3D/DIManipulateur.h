@@ -5,7 +5,7 @@ public:
 	CDIManipulateur(void);
 	~CDIManipulateur(void);
 
-	bool CDIManipulateur::Init(HINSTANCE hInstance, HWND hWnd);
+	bool Init(HINSTANCE hInstance, HWND hWnd);
 	void StatutClavier();
 	bool ToucheAppuyee(UINT touche);
 	void SaisirEtatSouris();

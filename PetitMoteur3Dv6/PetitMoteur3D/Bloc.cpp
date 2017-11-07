@@ -212,7 +212,7 @@ void CBloc::InitShaders()
 										"vs_4_0", 
 										D3DCOMPILE_ENABLE_STRICTNESS, 
 										0, 
-										&pVSBlob, NULL), DXE_FICHIER_VS); 
+										&pVSBlob, 0), DXE_FICHIER_VS); 
 
 	DXEssayer( pD3DDevice->CreateVertexShader( pVSBlob->GetBufferPointer(), 
 			                                    pVSBlob->GetBufferSize(), 
@@ -249,8 +249,7 @@ void CBloc::InitShaders()
 										"ps_4_0", 
 										D3DCOMPILE_ENABLE_STRICTNESS, 
 										0, 
-										&pPSBlob,
-										NULL), DXE_FICHIER_PS); 
+										&pPSBlob, NULL), DXE_FICHIER_PS); 
 		
 	DXEssayer( pD3DDevice->CreatePixelShader(  pPSBlob->GetBufferPointer(), 
 			                                    pPSBlob->GetBufferSize(), 

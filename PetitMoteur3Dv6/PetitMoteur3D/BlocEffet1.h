@@ -3,6 +3,7 @@
 #include "Objet3D.h"
 #include "DispositifD3D11.h"
 #include "Bloc.h"   // Pour l'index du bloc
+#include "Texture.h"
 
 namespace PM3D
 {
@@ -25,6 +26,8 @@ namespace PM3D
 
 		void Draw();
 
+		void SetTexture(CTexture* pTexture);
+
 	protected :
 		// Constructeur par défaut
 		CBlocEffet1(void){}
@@ -46,6 +49,10 @@ namespace PM3D
 		ID3DX11EffectTechnique* pTechnique; 
 		ID3DX11EffectPass* pPasse; 
 		ID3D11InputLayout* pVertexLayout;
+
+		ID3D11ShaderResourceView* pTextureD3D;
+		ID3D11SamplerState* pSampleState;
+
 
 	};
 

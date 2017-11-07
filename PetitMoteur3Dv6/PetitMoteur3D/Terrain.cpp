@@ -41,7 +41,12 @@ namespace PM3D
 		XMVECTOR vAEcl; 			// la valeur ambiante de l'éclairage
 		XMVECTOR vAMat; 			// la valeur ambiante du matériau
 		XMVECTOR vDEcl; 			// la valeur diffuse de l'éclairage 
-		XMVECTOR vDMat; 			// la valeur diffuse du matériau 
+		XMVECTOR vDMat; 			// la valeur diffuse du matériau
+		XMVECTOR vSEcl; 			// la valeur spéculaire de l'éclairage 
+		XMVECTOR vSMat; 			// la valeur spéculaire du matériau 
+		float puissance;			// la puissance de spécularité
+		int bTex;					// Texture ou materiau 
+		XMFLOAT2 remplissage;
 	};
 
 

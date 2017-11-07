@@ -39,10 +39,12 @@
 #include <atlstr.h>
 
 // TODO : faites référence ici aux en-têtes supplémentaires nécessaires au programme
+
 #include <mmsystem.h>
 #define _XM_NO_INTRINSICS_
 #include <d3d11.h>
+
 #include <DirectXMath.h>
 #include <d3dcompiler.h>
-
 #include <dinput.h>
+
