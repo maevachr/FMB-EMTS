@@ -249,7 +249,7 @@ void CObjetMesh::EcrireFichierBinaire(IChargeur& chargeur, string nomFichier)
 		{
 			s.position = chargeur.GetPosition(iSubmesh, i);
 			s.normal = chargeur.GetNormale(iSubmesh, i);
-			s.coordTex = chargeur.GetCoordTex(iSubmesh, i);
+			//s.coordTex = chargeur.GetCoordTex(iSubmesh, i);
 
 			ts.push_back(s);
 		}
@@ -600,7 +600,7 @@ void CObjetMesh::LireFichierBinaire(string nomFichier)
 
 	void CObjetMesh::Anime(float tempsEcoule)
 	{
-		rotation = rotation + ((XM_PI * 2.0f) / 10.0f * tempsEcoule);
+		rotation = rotation; //+ ((XM_PI * 2.0f) / 10.0f * tempsEcoule);
 
 		// modifier la matrice de l'objet bloc
 		matWorld = XMMatrixRotationZ(rotation);

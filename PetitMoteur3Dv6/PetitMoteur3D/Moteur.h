@@ -222,8 +222,8 @@ namespace PM3D
 		CChargeurAssimp chargeur;
 		CParametresChargement param;
 
-		param.NomChemin = ".\\modeles\\lexus\\";
-		param.NomFichier = "obj_lexus.obj";
+		param.NomChemin = ".\\modeles\\Camion\\";
+		param.NomFichier = "monster.obj";
 		param.bMainGauche = false;
 		param.bInverserCulling = true;
 
