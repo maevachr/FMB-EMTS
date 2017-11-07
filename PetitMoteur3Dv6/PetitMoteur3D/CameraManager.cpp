@@ -38,12 +38,5 @@ namespace PM3D {
 	}
 
 
-	CCameraManager::CCameraManager()
-	{
-	}
 
-
-	CCameraManager::~CCameraManager()
-	{
-	}
 }
