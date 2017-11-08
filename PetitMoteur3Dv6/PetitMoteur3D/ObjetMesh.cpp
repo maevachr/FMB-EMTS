@@ -545,8 +545,8 @@ void CObjetMesh::LireFichierBinaire(string nomFichier)
 		sp.matWorldViewProj = XMMatrixTranspose(matWorld * viewProj);
 		sp.matWorld = XMMatrixTranspose(matWorld);
 
-		sp.vLumiere = XMVectorSet(-50.0f, 0.0f, 200.0f, 1.0f);
-		sp.vCamera = XMVectorSet(0.00f, -150.0f, 50.0f, 1.0f);
+		sp.vLumiere = XMVectorSet(100.0f, 100.0f, 1000.0f, 1.0f);
+		sp.vCamera = CCameraManager::GetInstance().GetCurrentCamera().GetPosition();
 		sp.vAEcl = XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f);
 		sp.vDEcl = XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f);
 		sp.vSEcl = XMVectorSet(0.6f, 0.6f, 0.6f, 1.0f);
