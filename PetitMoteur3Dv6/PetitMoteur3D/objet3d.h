@@ -17,6 +17,9 @@ namespace PM3D
 		virtual void Anime(float tempsEcoule){};
 		virtual void Draw()=0;
 
+		virtual XMVECTOR getPosition() const { return XMVECTOR{}; }
+		virtual XMVECTOR getDirection() const { return XMVECTOR{}; }
+
 	protected :
 		// Constructeur par défaut
 		CObjet3D(void){}

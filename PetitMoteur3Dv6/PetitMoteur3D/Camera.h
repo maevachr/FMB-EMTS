@@ -38,7 +38,7 @@ namespace PM3D
 
 		virtual void AnimeCamera(float tempsEcoule) {}
 
-		void UpdateMatrix() {
+		virtual void UpdateMatrix() {
 			// Matrice de la vision
 			*pMatView = XMMatrixLookAtRH(position,
 				(position + direction),

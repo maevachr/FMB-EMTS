@@ -1,5 +1,7 @@
 #pragma once
 #include "DynamicCamera.h"
+#include "PlayerCamera.h"
+
 
 namespace PM3D {
 	using namespace DirectX;
@@ -8,6 +10,7 @@ namespace PM3D {
 
 		CDynamicCamera dynamicCamera;
 		CCamera staticCamera;
+		CPlayerCamera playerCamera;
 		CCamera* currentCamera;
 
 		CDIManipulateur* pGestionnaireDeSaisie;
@@ -26,7 +29,8 @@ namespace PM3D {
 		bool Init(XMMATRIX * pMatView_in,
 			XMMATRIX * pMatProj_in,
 			XMMATRIX * pMatViewProj_in,
-			CDIManipulateur* pGestionnaireDeSaisie_in);
+			CDIManipulateur* pGestionnaireDeSaisie_in,
+			CObjet3D* player);
 
 		CCameraManager(const CCameraManager&) = delete;
 		CCameraManager& operator=(const CCameraManager&) = delete;
@@ -39,6 +43,10 @@ namespace PM3D {
 			else if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_F2))
 			{
 				currentCamera = &dynamicCamera;
+			}
+			else if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_F3))
+			{
+				currentCamera = &playerCamera;
 			}
 
 			currentCamera->AnimeCamera(tempsEcoule);

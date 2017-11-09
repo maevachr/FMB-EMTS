@@ -6,7 +6,8 @@ namespace PM3D {
 	bool CCameraManager::Init(XMMATRIX * pMatView_in,
 		XMMATRIX * pMatProj_in,
 		XMMATRIX * pMatViewProj_in,
-		CDIManipulateur* pGestionnaireDeSaisie_in)
+		CDIManipulateur* pGestionnaireDeSaisie_in,
+		CObjet3D* player)
 	{
 
 		pGestionnaireDeSaisie = pGestionnaireDeSaisie_in;
@@ -29,6 +30,13 @@ namespace PM3D {
 			pMatView,
 			pMatProj,
 			pMatViewProj);
+
+		playerCamera.Init(
+			XMVectorSet(0.0f, 0.0f, 1.0f, 1.0f),
+			pMatView,
+			pMatProj,
+			pMatViewProj,
+			player);
 
 		//Set priority of the first camera
 		currentCamera = &dynamicCamera;

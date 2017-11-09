@@ -122,6 +122,8 @@
     <ClCompile Include="MoteurWindows.cpp" />
     <ClCompile Include="ObjetMesh.cpp" />
     <ClCompile Include="PetitMoteur3D.cpp" />
+    <ClCompile Include="PlayerCamera.cpp" />
+    <ClCompile Include="PlayerMesh.cpp" />
     <ClCompile Include="sommetbloc.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -148,6 +150,8 @@
     <ClInclude Include="objet3d.h" />
     <ClInclude Include="ObjetMesh.h" />
     <ClInclude Include="PetitMoteur3D.h" />
+    <ClInclude Include="PlayerCamera.h" />
+    <ClInclude Include="PlayerMesh.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="sommetbloc.h" />
     <ClInclude Include="stdafx.h" />

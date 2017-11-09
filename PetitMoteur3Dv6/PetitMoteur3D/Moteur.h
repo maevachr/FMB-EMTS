@@ -11,6 +11,7 @@
 #include "ChargeurAssimp.h"
 #include "Terrain.h"
 #include "CameraManager.h"
+#include "PlayerMesh.h"
 
 
 namespace PM3D
@@ -63,7 +64,8 @@ namespace PM3D
 			CCameraManager::GetInstance().Init(&this->matView,
 				&this->matProj,
 				&this->matViewProj,
-				&GestionnaireDeSaisie);
+				&GestionnaireDeSaisie,
+				ListeScene.front());
 
 			// * Initialisation des paramètres de l'animation et 
 			//   préparation de la première image
@@ -216,21 +218,26 @@ namespace PM3D
 
 	bool InitObjets()
 	{
-		CObjetMesh* pMesh;
+		//CObjetMesh* pMesh;
+		PlayerMesh* pMesh;
+
+		pMesh = new PlayerMesh("obj_lexus.omb", pDispositif, &GestionnaireDeSaisie);
+		//pMesh = new CObjetMesh("obj_lexus.omb", pDispositif);
 
 		// Création d'un objet mesh à partir d'un fichier .OBJ
-		CChargeurAssimp chargeur;
-		CParametresChargement param;
+		//CChargeurAssimp chargeur;
+		//CParametresChargement param;
 
-		param.NomChemin = ".\\modeles\\Camion\\";
-		param.NomFichier = "monster.obj";
-		param.bMainGauche = false;
-		param.bInverserCulling = true;
+		//param.NomChemin = ".\\modeles\\Camion\\";
+		//param.NomFichier = "monster.obj";
+		//param.bMainGauche = false;
+		//param.bInverserCulling = true;
 
-		chargeur.Chargement(param);  // Le chargeur lit le fichier
+		//chargeur.Chargement(param);  // Le chargeur lit le fichier
 
 		//pMesh = new CObjetMesh(chargeur, pDispositif);
-		pMesh = new CObjetMesh(chargeur, "obj_lexus.omb", pDispositif);
+		//pMesh = new CObjetMesh(chargeur, "obj_lexus.omb", pDispositif);
+		//pMesh = new CObjetMesh("obj_lexus.omb", pDispositif);
 
 		// Puis, il est ajouté à la scène
 		ListeScene.push_back(pMesh);
