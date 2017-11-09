@@ -218,10 +218,11 @@ namespace PM3D
 
 	bool InitObjets()
 	{
-		//CObjetMesh* pMesh;
 		PlayerMesh* pMesh;
 
 		pMesh = new PlayerMesh("obj_lexus.omb", pDispositif, &GestionnaireDeSaisie);
+
+		//CObjetMesh* pMesh;
 		//pMesh = new CObjetMesh("obj_lexus.omb", pDispositif);
 
 		// Création d'un objet mesh à partir d'un fichier .OBJ
