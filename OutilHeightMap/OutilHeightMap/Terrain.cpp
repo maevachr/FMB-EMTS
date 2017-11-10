@@ -63,7 +63,7 @@ Vertex Terrain::GenerateVertice(int index, float z) const
 {
 	float verticeX = info.Dx * (index % info.X);
 	float verticeY = info.Dy * (index / info.X);
-	return { XMFLOAT4{verticeX, verticeY, z, 1.0}, XMFLOAT4{}, XMFLOAT2{ verticeX/info.X, verticeY/info.Y }};
+	return { XMFLOAT4{verticeX, verticeY, z, 1.0}, XMFLOAT4{}, XMFLOAT2{ verticeX / 100.f, verticeY / 100.f}};
 }
 
 XMFLOAT4 Terrain::GenerateNormal(int index) const

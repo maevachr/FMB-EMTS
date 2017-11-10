@@ -2,6 +2,7 @@
 
 #include "DIManipulateur.h"
 #include "Camera.h"
+#include "dispositifD3D11.h"
 
 namespace PM3D
 {
@@ -109,8 +110,6 @@ namespace PM3D
 				right = XMVector4Transform(right, XMMatrixRotationAxis(direction, (XM_PI * 2.0f) * -dvitesse_rotation));
 				up = XMVector4Transform(up, XMMatrixRotationAxis(direction, (XM_PI * 2.0f) * -dvitesse_rotation));
 			}
-
-
 		}
 
 	};

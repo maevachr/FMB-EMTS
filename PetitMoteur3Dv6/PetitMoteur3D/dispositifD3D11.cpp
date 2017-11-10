@@ -8,6 +8,8 @@ using namespace UtilitairesDX;
 
 namespace PM3D
 {
+	D3D11_FILL_MODE CDispositifD3D11::fillMode = D3D11_FILL_SOLID;
+
 	CDispositifD3D11::CDispositifD3D11(void)
 	{
 	}
@@ -157,7 +159,7 @@ namespace PM3D
 		// Création et initialisation des états
 		D3D11_RASTERIZER_DESC rsDesc;
 		ZeroMemory(&rsDesc, sizeof(D3D11_RASTERIZER_DESC));
-		rsDesc.FillMode = D3D11_FILL_SOLID;
+		rsDesc.FillMode = fillMode;
 		rsDesc.CullMode = D3D11_CULL_BACK;
 		rsDesc.FrontCounterClockwise = false;
 		pD3DDevice->CreateRasterizerState(&rsDesc, &mSolidCullBackRS);
