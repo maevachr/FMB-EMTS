@@ -1,14 +1,16 @@
 #pragma once
-#pragma once
+#include "d3dx11effect.h"
 #include "Objet3D.h"
 #include "DispositifD3D11.h"
 #include <vector>
+#include "Texture.h"
 
 namespace PM3D
 {
 	struct Vertex {
 		DirectX::XMFLOAT4 position{};
 		DirectX::XMFLOAT4 normal{};
+		DirectX::XMFLOAT2 texture{};
 	};
 	struct Triangle {
 		int i1{};
@@ -40,24 +42,31 @@ namespace PM3D
 
 		void Draw();
 
+		void SetTexture(CTexture* pTexture);
+
 	protected:
 		// Constructeur par défaut
 
-		void InitShaders();
+		void InitEffet();
 
 		CDispositifD3D11* pDispositif;
 
 		ID3D11Buffer* pVertexBuffer;
 		ID3D11Buffer* pIndexBuffer;
 
-		ID3D11VertexShader*  pVertexShader;
-		ID3D11PixelShader*  pPixelShader;
-		ID3D11InputLayout* pVertexLayout;
-
 		// Définitions des valeurs d'animation
 		ID3D11Buffer* pConstantBuffer;
 		XMMATRIX matWorld;
 		float rotation;
+
+		// Pour les effets
+		ID3DX11Effect* pEffet;
+		ID3DX11EffectTechnique* pTechnique;
+		ID3DX11EffectPass* pPasse;
+		ID3D11InputLayout* pVertexLayout;
+
+		ID3D11ShaderResourceView* pTextureD3D;
+		ID3D11SamplerState* pSampleState;
 
 	private:
 		std::vector<Vertex> vertices;

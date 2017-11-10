@@ -9,7 +9,7 @@ void Terrain::BuildVertices(const HeightMapFile& file) {
 	vertices.reserve(file.data.size());
 	int index{};
 	for_each(file.data.begin(), file.data.end(), [&](auto p) {
-		vertices.push_back({ GeneratePosition(index++, p), {} });
+		vertices.push_back(GenerateVertice(index++, p));
 	});
 }
 
@@ -59,9 +59,11 @@ XMVECTOR Terrain::GenerateWestVector(int index) const
 	return XMLoadFloat4(&vertices[index - 1].position) - XMLoadFloat4(&vertices[index].position);
 }
 
-XMFLOAT4 Terrain::GeneratePosition(int index, float z) const
+Vertex Terrain::GenerateVertice(int index, float z) const
 {
-	return { info.Dx * (index % info.X), info.Dy * (index / info.X), z, 1.0 };
+	float verticeX = info.Dx * (index % info.X);
+	float verticeY = info.Dy * (index / info.X);
+	return { XMFLOAT4{verticeX, verticeY, z, 1.0}, XMFLOAT4{}, XMFLOAT2{ verticeX, verticeY }};
 }
 
 XMFLOAT4 Terrain::GenerateNormal(int index) const

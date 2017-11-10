@@ -255,6 +255,8 @@ namespace PM3D
 		file >> *pTerrain;
 		pTerrain->Init(pDispositif);
 
+		pTerrain->SetTexture(TexturesManager.GetNewTexture(L"dirt4.dds", pDispositif));
+
 		// Puis, il est ajouté à la scène
 		ListeScene.push_back(pTerrain);
 

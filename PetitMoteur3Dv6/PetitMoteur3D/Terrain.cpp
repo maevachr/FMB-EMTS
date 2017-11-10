@@ -16,7 +16,8 @@ namespace PM3D
 	D3D11_INPUT_ELEMENT_DESC layout[] =
 	{
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
 
 	istream & operator>>(istream & is, CTerrain & t)
@@ -95,8 +96,8 @@ namespace PM3D
 			DXE_CREATIONINDEXBUFFER);
 
 
-		// Initialisation des shaders
-		InitShaders();
+		// Initialisation de l'effet
+		InitEffet();
 
 		matWorld = XMMatrixIdentity();
 
@@ -129,13 +130,10 @@ namespace PM3D
 		// Source des index
 		pImmediateContext->IASetIndexBuffer(pIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
-		// Activer le VS
-		pImmediateContext->VSSetShader(pVertexShader, NULL, 0);
-
 		// input layout des sommets
 		pImmediateContext->IASetInputLayout(pVertexLayout);
 
-		// Initialiser et sélectionner les «constantes» du VS
+		// Initialiser et sélectionner les «constantes» de l'effet
 		ShadersParams sp;
 		XMMATRIX viewProj = CMoteurWindows::GetInstance().GetMatViewProj();
 
@@ -151,61 +149,41 @@ namespace PM3D
 
 		pImmediateContext->UpdateSubresource(pConstantBuffer, 0, NULL, &sp, 0, 0);
 
-		pImmediateContext->VSSetConstantBuffers(0, 1, &pConstantBuffer);
+		ID3DX11EffectConstantBuffer* pCB = pEffet->GetConstantBufferByName("param");  // Nous n'avons qu'un seul CBuffer
+		pCB->SetConstantBuffer(pConstantBuffer);
 
-		// Pas de Geometry Shader
-		pImmediateContext->GSSetShader(NULL, NULL, 0);
+		// Activation de la texture
+		ID3DX11EffectShaderResourceVariable* variableTexture;
+		variableTexture = pEffet->GetVariableByName("textureEntree")->AsShaderResource();
+		variableTexture->SetResource(pTextureD3D);
 
-		// Activer le PS
-		pImmediateContext->PSSetShader(pPixelShader, NULL, 0);
-		pImmediateContext->PSSetConstantBuffers(0, 1, &pConstantBuffer);
+		// Le sampler state
+		ID3DX11EffectSamplerVariable* variableSampler;
+		variableSampler = pEffet->GetVariableByName("SampleState")->AsSampler();
+		variableSampler->SetSampler(0, pSampleState);
 
-		// **** Rendu de l'objet	   
+		// **** Rendu de l'objet	
+		pPasse->Apply(0, pImmediateContext);
+
 		pImmediateContext->DrawIndexed(3 * 2 * (header.X - 1) * (header.Y - 1), 0, 0);
 	}
 
 	CTerrain::~CTerrain(void)
 	{
-		DXRelacher(pPixelShader);
-		DXRelacher(pConstantBuffer);
+		DXRelacher(pSampleState);
+
+		DXRelacher(pEffet);
 		DXRelacher(pVertexLayout);
-		DXRelacher(pVertexShader);
 		DXRelacher(pIndexBuffer);
 		DXRelacher(pVertexBuffer);
 	}
 
-	void CTerrain::InitShaders()
+	void CTerrain::InitEffet()
 	{
 		// Compilation et chargement du vertex shader
 		ID3D11Device* pD3DDevice = pDispositif->GetD3DDevice();
 
-		ID3DBlob* pVSBlob = NULL;
-		DXEssayer(D3DCompileFromFile(L"MiniPhong.vhl",
-			NULL, NULL,
-			"MiniPhongVS",
-			"vs_4_0",
-			D3DCOMPILE_ENABLE_STRICTNESS,
-			0,
-			&pVSBlob, NULL), DXE_FICHIER_VS);
-
-		DXEssayer(pD3DDevice->CreateVertexShader(pVSBlob->GetBufferPointer(),
-			pVSBlob->GetBufferSize(),
-			NULL,
-			&pVertexShader),
-			DXE_CREATION_VS);
-
-		// Créer l'organisation des sommets
-		pVertexLayout = NULL;
-		DXEssayer(pD3DDevice->CreateInputLayout(layout,
-			ARRAYSIZE(layout),
-			pVSBlob->GetBufferPointer(),
-			pVSBlob->GetBufferSize(),
-			&pVertexLayout),
-			DXE_CREATIONLAYOUT);
-
-		pVSBlob->Release(); //  On n'a plus besoin du blob
-
-							// Création d'un tampon pour les constantes du VS
+		// Création d'un tampon pour les constantes du VS
 		D3D11_BUFFER_DESC bd;
 		ZeroMemory(&bd, sizeof(bd));
 
@@ -215,25 +193,63 @@ namespace PM3D
 		bd.CPUAccessFlags = 0;
 		pD3DDevice->CreateBuffer(&bd, NULL, &pConstantBuffer);
 
-		// Compilation et chargement du pixel shader
-		ID3DBlob* pPSBlob = NULL;
-		DXEssayer(D3DCompileFromFile(L"MiniPhong.phl",
-			NULL, NULL,
-			"MiniPhongPS",
-			"ps_4_0",
-			D3DCOMPILE_ENABLE_STRICTNESS,
-			0,
-			&pPSBlob,
-			NULL), DXE_FICHIER_PS);
+		// Pour l'effet
+		ID3DBlob* pFXBlob = NULL;
 
-		DXEssayer(pD3DDevice->CreatePixelShader(pPSBlob->GetBufferPointer(),
-			pPSBlob->GetBufferSize(),
-			NULL,
-			&pPixelShader),
-			DXE_CREATION_PS);
+		DXEssayer(D3DCompileFromFile(L"MiniPhong.fx", 0, 0, 0,
+			"fx_5_0", 0, 0, &pFXBlob, 0),
+			DXE_ERREURCREATION_FX);
 
-		pPSBlob->Release(); //  On n'a plus besoin du blob
+		D3DX11CreateEffectFromMemory(pFXBlob->GetBufferPointer(), pFXBlob->GetBufferSize(), 0, pD3DDevice, &pEffet);
+
+		pFXBlob->Release();
+
+		pTechnique = pEffet->GetTechniqueByIndex(0);
+		pPasse = pTechnique->GetPassByIndex(0);
+
+		// Créer l'organisation des sommets pour le VS de notre effet
+		D3DX11_PASS_SHADER_DESC effectVSDesc;
+		pPasse->GetVertexShaderDesc(&effectVSDesc);
+
+		D3DX11_EFFECT_SHADER_DESC effectVSDesc2;
+		effectVSDesc.pShaderVariable->GetShaderDesc(effectVSDesc.ShaderIndex, &effectVSDesc2);
+
+		const void *vsCodePtr = effectVSDesc2.pBytecode;
+		unsigned vsCodeLen = effectVSDesc2.BytecodeLength;
+
+		pVertexLayout = NULL;
+		DXEssayer(pD3DDevice->CreateInputLayout(layout,
+			ARRAYSIZE(layout),
+			vsCodePtr,
+			vsCodeLen,
+			&pVertexLayout),
+			DXE_CREATIONLAYOUT);
+
+		// Initialisation des paramètres de sampling de la texture
+		D3D11_SAMPLER_DESC samplerDesc;
+
+		samplerDesc.Filter = D3D11_FILTER_ANISOTROPIC;
+		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.MipLODBias = 0.0f;
+		samplerDesc.MaxAnisotropy = 4;
+		samplerDesc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
+		samplerDesc.BorderColor[0] = 0;
+		samplerDesc.BorderColor[1] = 0;
+		samplerDesc.BorderColor[2] = 0;
+		samplerDesc.BorderColor[3] = 0;
+		samplerDesc.MinLOD = 0;
+		samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+		// Création de l'état de sampling
+		pD3DDevice->CreateSamplerState(&samplerDesc, &pSampleState);
+
 	}
 
+	void CTerrain::SetTexture(CTexture* pTexture)
+	{
+		pTextureD3D = pTexture->GetD3DTexture();
+	}
 
 }

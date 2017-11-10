@@ -41,7 +41,7 @@ void Write(const Terrain& terrain) {
 }
 
 void Dump(const Terrain& terrain) {
-	ofstream output("Dump.txt");
+	ofstream output("Dump2.txt");
 	if (output) {
 		output << "X: " << terrain.GetInfo().X << " ";
 		output << "Y: " << terrain.GetInfo().Y << " ";
