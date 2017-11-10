@@ -202,7 +202,7 @@ namespace PM3D
 		float champDeVision = XM_PI/4; 	// 45 degrés
 		float ratioDAspect = pDispositif->GetLargeur()/pDispositif->GetHauteur();		
 		float planRapproche = 0.05f;
-		float planEloigne = 10000.0f;
+		float planEloigne = 10000000.0f;
 		
 		matProj = XMMatrixPerspectiveFovRH( 
 									champDeVision,
@@ -254,6 +254,8 @@ namespace PM3D
 		std::ifstream file("Sortie.txt", std::ios::binary);
 		file >> *pTerrain;
 		pTerrain->Init(pDispositif);
+
+		pTerrain->SetTexture(TexturesManager.GetNewTexture(L"dirt4.dds", pDispositif));
 
 		// Puis, il est ajouté à la scène
 		ListeScene.push_back(pTerrain);

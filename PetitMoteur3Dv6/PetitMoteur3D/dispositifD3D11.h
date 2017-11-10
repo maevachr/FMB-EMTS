@@ -27,6 +27,8 @@ namespace PM3D
 		ID3D11RenderTargetView* GetRenderTargetView() { return pRenderTargetView; }
 		ID3D11DepthStencilView* GetDepthStencilView() { return pDepthStencilView; }
 
+		static D3D11_FILL_MODE fillMode;
+
 	protected:
 		CDispositifD3D11(void);
 		void InitDepthBuffer();

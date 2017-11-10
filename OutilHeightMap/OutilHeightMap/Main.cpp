@@ -14,7 +14,7 @@ HeightMapFile Read(string fileName) {
 	{
 		input >> file.header;
 		for_each(istream_iterator<float>(input), istream_iterator<float>(), [&](auto p) {
-			file.data.emplace_back(0.01*(p - 32768));
+			file.data.emplace_back(0.1*(p - 32768));
 		});
 	}
 	else
@@ -41,7 +41,7 @@ void Write(const Terrain& terrain) {
 }
 
 void Dump(const Terrain& terrain) {
-	ofstream output("Dump.txt");
+	ofstream output("Dump2.txt");
 	if (output) {
 		output << "X: " << terrain.GetInfo().X << " ";
 		output << "Y: " << terrain.GetInfo().Y << " ";
@@ -85,7 +85,7 @@ int main(int argc, char* argv[]) {
 	else 
 		Write(t);
 
-	Dump(t);
+	//Dump(t);
 
 	return 0;
 }

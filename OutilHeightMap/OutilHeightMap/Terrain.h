@@ -3,9 +3,11 @@
 #include <DirectXMath.h>
 #include "HeightMapFile.h"
 
+
 struct Vertex {
 	DirectX::XMFLOAT4 position{};
 	DirectX::XMFLOAT4 normal{};
+	DirectX::XMFLOAT2 texture{};
 };
 
 struct Triangle {
@@ -59,6 +61,6 @@ private:
 	DirectX::XMVECTOR GenerateEastVector(int index) const;
 	DirectX::XMVECTOR GenerateWestVector(int index) const;
 
-	DirectX::XMFLOAT4 GeneratePosition(int index, float z) const;
+	Vertex GenerateVertice(int index, float z) const;
 	DirectX::XMFLOAT4 GenerateNormal(int index) const;
 };
