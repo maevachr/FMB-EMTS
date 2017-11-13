@@ -11,18 +11,21 @@ namespace PM3D
 	class CPlayerCamera :public CCamera
 	{
 	protected:
-		float dvitesse_translation = 0.3f;
-		float dvitesse_rotation = 0.01f;
+		const float DIST_HORZ_DEFAULT = 200.0f;
+		const float HAUTEUR_DEFAULT = 50.0f;
 
-		XMVECTOR position;
-		XMVECTOR direction; // Y
 		XMVECTOR up; // Z
-		XMVECTOR right; // X
 		XMMATRIX* pMatView;
 		XMMATRIX* pMatProj;
 		XMMATRIX* pMatViewProj;
 		CObjet3D* objet;
-		XMVECTOR stick;
+		struct Decalage{
+			float distanceHorizontale;
+			float hauteur;
+			XMVECTOR get(const XMVECTOR& directionObjet) { return -directionObjet*distanceHorizontale + XMVECTOR{ 0.0f, 0.0f, hauteur }; }
+			Decalage() :distanceHorizontale{}, hauteur{} {}
+
+		} decalage;
 
 
 	public:
@@ -47,8 +50,7 @@ namespace PM3D
 		void UpdateMatrix() override {
 			// Matrice de la vision
 			auto positionObjet = objet->getPosition();
-			stick = -objet->getDirection() * 200 + XMVECTOR{ 0, 0, 100, 0 };
-			*pMatView = XMMatrixLookAtRH(positionObjet + stick,
+			*pMatView = XMMatrixLookAtRH(positionObjet + decalage.get(objet->getDirection()),
 				positionObjet,
 				up);
 
