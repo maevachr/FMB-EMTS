@@ -280,6 +280,7 @@ namespace PM3D
 		}
 
 		CCameraManager::GetInstance().AnimeScene(tempsEcoule);
+		CLightManager::GetInstance().AnimeScene(tempsEcoule);
 
 		return true;
 	}

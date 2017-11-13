@@ -1,5 +1,6 @@
 #pragma once
 #include "Light.h"
+#include "DynamicLight.h"
 
 
 namespace PM3D {
@@ -7,6 +8,7 @@ namespace PM3D {
 	class CLightManager
 	{
 		CLight staticLight;
+		CDynamicLight dynamicLight;
 		CLight* currentLight;
 
 	public:
