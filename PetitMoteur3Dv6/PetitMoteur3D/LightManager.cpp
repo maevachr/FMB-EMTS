@@ -6,21 +6,20 @@ namespace PM3D {
 	bool CLightManager::Init()
 	{
 
-		//Initialize all camera
-		dynamicLight.Init(XMVectorSet(-100.0f, -100.0f, 50.0f, 1.0f),
+		//Initialize all light
+		/*dynamicLight.Init(XMVectorSet(-100.0f, -100.0f, 50.0f, 1.0f),
 			XMVectorSet(1.0f, 1.0f, 0.0f, 0.0f),
 			XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f),
 			pMatView,
 			pMatProj,
 			pMatViewProj,
-			pGestionnaireDeSaisie);
+			pGestionnaireDeSaisie);*/
 
-		staticLight.Init(XMVectorSet(-500.0f, -500.0f, 500.0f, 1.0f),
-			XMVectorSet(1.0f, 1.0f, -0.5f, 0.0f),
-			XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f),
-			pMatView,
-			pMatProj,
-			pMatViewProj);
+		staticLight.Init(XMVectorSet(100.0f, 100.0f, 1000.0f, 1.0f),
+			XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f), 
+			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
+			XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f),
+			1.0f);
 
 		//Set priority of the first camera
 		currentLight = &staticLight;

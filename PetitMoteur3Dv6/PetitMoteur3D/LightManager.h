@@ -1,12 +1,12 @@
 #pragma once
-#include "DynamicLight.h"
-#include "PlayerLight.h"
+#include "Light.h"
 
 
 namespace PM3D {
 	using namespace DirectX;
 	class CLightManager
 	{
+		CLight staticLight;
 		CLight* currentLight;
 
 	public:
