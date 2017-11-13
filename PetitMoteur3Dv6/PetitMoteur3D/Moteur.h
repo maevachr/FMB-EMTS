@@ -220,7 +220,7 @@ namespace PM3D
 	{
 		PlayerMesh* pMesh;
 
-		pMesh = new PlayerMesh("obj_lexus.omb", pDispositif, &GestionnaireDeSaisie);
+		pMesh = new PlayerMesh("monster.omb", pDispositif, &GestionnaireDeSaisie);
 
 		//CObjetMesh* pMesh;
 		//pMesh = new CObjetMesh("obj_lexus.omb", pDispositif);
