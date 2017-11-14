@@ -35,9 +35,13 @@
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="config\define roots.props" />
+    <Import Project="config\physx.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="config\define roots.props" />
+    <Import Project="config\physx.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
@@ -71,7 +75,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <StructMemberAlignment>Default</StructMemberAlignment>
     </ClCompile>
     <Link>
@@ -125,6 +129,7 @@
     <ClCompile Include="PetitMoteur3D.cpp" />
     <ClCompile Include="PlayerCamera.cpp" />
     <ClCompile Include="PlayerMesh.cpp" />
+    <ClCompile Include="SimulationManager.cpp" />
     <ClCompile Include="sommetbloc.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -153,7 +158,9 @@
     <ClInclude Include="PetitMoteur3D.h" />
     <ClInclude Include="PlayerCamera.h" />
     <ClInclude Include="PlayerMesh.h" />
+    <ClInclude Include="PxPhysicsAPI.forward.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SimulationManager.h" />
     <ClInclude Include="sommetbloc.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Terrain.h" />

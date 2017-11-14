@@ -52,6 +52,7 @@ namespace PM3D
 		
 		virtual int Initialisations()
 		{
+
 			// Propre à la plateforme
 			InitialisationsSpecific();
 

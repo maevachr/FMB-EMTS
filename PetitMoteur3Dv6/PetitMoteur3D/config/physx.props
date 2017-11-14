@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <PHYSX_HOME>$(PROJ_ROOT)\PhysX</PHYSX_HOME>
+    <PHYSX_BIN>$(PHYSX_HOME)\Bin\vc14$(Platform)</PHYSX_BIN>
+    <PHYSX_INCLUDE>$(PHYSX_HOME)\Include</PHYSX_INCLUDE>
+    <PHYSX_LIB>$(PHYSX_HOME)\Lib\vc14$(Platform)</PHYSX_LIB>
+  </PropertyGroup>
+  <PropertyGroup>
+    <IncludePath>$(PHYSX_INCLUDE);$(IncludePath)</IncludePath>
+    <LibraryPath>$(PHYSX_LIB);$(LibraryPath)</LibraryPath>
+    <_PropertySheetDisplayName>using physx</_PropertySheetDisplayName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Win32' ">
+    <Link>
+      <AdditionalDependencies>PhysX3_x86.lib;PhysX3Common_x86.lib;PhysX3Extensions.lib;PhysXProfileSDK.lib;PxTask.lib;PhysX3Cooking_x86.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <Link>
+      <AdditionalDependencies>PhysX3_x64.lib;PhysX3Common_x64.lib;PhysX3Extensions.lib;PhysXProfileSDK.lib;PxTask.lib;PhysX3Cooking_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Win32' ">
+    <Link>
+      <AdditionalDependencies>PhysX3DEBUG_x86.lib;PhysX3CommonDEBUG_x86.lib;PhysX3ExtensionsDEBUG.lib;PhysXProfileSDKDEBUG.lib;PxTaskDEBUG.lib;PhysX3CookingDEBUG_x86.lib;PhysXVisualDebuggerSDKDEBUG.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <Link>
+      <AdditionalDependencies>PhysX3DEBUG_x64.lib;PhysX3CommonDEBUG_x64.lib;PhysX3ExtensionsDEBUG.lib;PhysXProfileSDKDEBUG.lib;PxTaskDEBUG.lib;PhysX3CookingDEBUG_x64.lib;PhysXVisualDebuggerSDKDEBUG.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Win32' ">
+    <ClCompile>
+      <PreprocessorDefinitions>PX_DEBUG;PX_SUPPORT_VISUAL_DEBUGGER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Win32' ">
+    <ClCompile>
+      <PreprocessorDefinitions>PX_SUPPORT_VISUAL_DEBUGGER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="PHYSX_HOME">
+      <Value>$(PHYSX_HOME)</Value>
+    </BuildMacro>
+    <BuildMacro Include="PHYSX_BIN">
+      <Value>$(PHYSX_BIN)</Value>
+    </BuildMacro>
+    <BuildMacro Include="PHYSX_INCLUDE">
+      <Value>$(PHYSX_INCLUDE)</Value>
+    </BuildMacro>
+    <BuildMacro Include="PHYSX_LIB">
+      <Value>$(PHYSX_LIB)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>
