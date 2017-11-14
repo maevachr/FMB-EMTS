@@ -26,8 +26,11 @@ namespace PM3D
 		pMatProj = pMatProj_in;
 		pMatViewProj = pMatViewProj_in;
 		objet = objet_in;
+
 		decalage.distanceHorizontale = DIST_HORZ_DEFAULT;
 		decalage.hauteur = HAUTEUR_DEFAULT;
+		coeffElast = COEFFELAST_DEFAULT;
+
 		up = XMVector4Normalize(up_in);
 		right = XMVector3Cross(up, direction);
 		position = objet_in->getPosition() + decalage.get(objet_in->getDirection());
