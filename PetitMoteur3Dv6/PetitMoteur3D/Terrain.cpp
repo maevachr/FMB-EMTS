@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <iterator>
+#include "LightManager.h"
 
 using namespace UtilitairesDX;
 using namespace std;
@@ -140,7 +141,10 @@ namespace PM3D
 		sp.matWorldViewProj = XMMatrixTranspose(matWorld * viewProj);
 		sp.matWorld = XMMatrixTranspose(matWorld);
 
-		sp.vLumiere = XMVectorSet(100.0f, 100.0f, 1000.0f, 1.0f);
+		//Accéder à la lumière
+		CLight& currentLight = CLightManager::GetInstance().GetCurrentLight();
+
+		sp.vLumiere = currentLight.position;
 		sp.vCamera = CCameraManager::GetInstance().GetCurrentCamera().GetPosition();
 		sp.vAEcl = XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f);
 		sp.vAMat = XMVectorSet(0.62f, 0.31f, 0.0f, 1.0f);

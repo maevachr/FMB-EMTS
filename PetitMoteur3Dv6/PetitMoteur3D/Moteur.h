@@ -12,6 +12,7 @@
 #include "Terrain.h"
 #include "CameraManager.h"
 #include "PlayerMesh.h"
+#include "LightManager.h"
 
 
 namespace PM3D
@@ -66,6 +67,8 @@ namespace PM3D
 				&this->matViewProj,
 				&GestionnaireDeSaisie,
 				ListeScene.front());
+
+			CLightManager::GetInstance().Init();
 
 			// * Initialisation des paramètres de l'animation et 
 			//   préparation de la première image
@@ -277,6 +280,7 @@ namespace PM3D
 		}
 
 		CCameraManager::GetInstance().AnimeScene(tempsEcoule);
+		CLightManager::GetInstance().AnimeScene(tempsEcoule);
 
 		return true;
 	}
