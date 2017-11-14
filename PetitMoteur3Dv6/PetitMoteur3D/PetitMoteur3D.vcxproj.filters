@@ -75,16 +75,22 @@
     <ClCompile Include="DIManipulateur.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="DynamicCamera.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerMesh.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="PlayerCamera.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="SimulationManager.cpp">
+    <ClCompile Include="DynamicCamera.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamicLight.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="LightManager.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -164,11 +170,14 @@
     <ClInclude Include="PlayerCamera.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="SimulationManager.h">
+    <ClInclude Include="DynamicLight.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="PxPhysicsAPI.forward.h">
-      <Filter>Fichiers d%27en-tête\PhysX</Filter>
+    <ClInclude Include="Light.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="LightManager.h">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

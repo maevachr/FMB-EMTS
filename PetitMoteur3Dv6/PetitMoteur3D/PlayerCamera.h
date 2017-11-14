@@ -13,12 +13,10 @@ namespace PM3D
 	protected:
 		const float DIST_HORZ_DEFAULT = 200.0f;
 		const float HAUTEUR_DEFAULT = 50.0f;
+		const float COEFFELAST_DEFAULT = 0.9f;
 
-		XMVECTOR up; // Z
-		XMMATRIX* pMatView;
-		XMMATRIX* pMatProj;
-		XMMATRIX* pMatViewProj;
 		CObjet3D* objet;
+		float coeffElast;
 		struct Decalage{
 			float distanceHorizontale;
 			float hauteur;
@@ -45,15 +43,17 @@ namespace PM3D
 			XMMATRIX* pMatViewProj_in,
 			CObjet3D* objet_in);
 
-		virtual void AnimeCamera(float tempsEcoule) {}
+		virtual void AnimeCamera(float tempsEcoule) {
+			XMVECTOR newPosition = objet->getPosition() + decalage.get(objet->getDirection());
+			position = newPosition + (position- newPosition )*coeffElast ;
+		}
 
 		void UpdateMatrix() override {
 			// Matrice de la vision
 			auto positionObjet = objet->getPosition();
-			*pMatView = XMMatrixLookAtRH(positionObjet + decalage.get(objet->getDirection()),
+			*pMatView = XMMatrixLookAtRH(position,
 				positionObjet,
 				up);
-
 			*pMatViewProj = (*pMatView) * (*pMatProj);
 		}
 
