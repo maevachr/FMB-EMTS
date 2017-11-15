@@ -109,12 +109,15 @@ namespace PM3D
 		void TransfertObjet(IChargeur& chargeur);
 
 		void InitEffet();
+		void InitDepthBuffer();
+		void InitMatricesShadowMap();
 
 	protected:
 
 		struct ShadersParams
 		{
 			XMMATRIX matWorldViewProj;	// la matrice totale 
+			XMMATRIX matWorldViewProjLight; // WVP pour lumiere
 			XMMATRIX matWorld;			// matrice de transformation dans le monde 
 			XMVECTOR vLumiere; 			// la position de la source d'éclairage (Point)
 			XMVECTOR vCamera; 			// la position de la caméra
@@ -133,6 +136,10 @@ namespace PM3D
 		// ****  Données membres
 		XMMATRIX matWorld;				// Matrice de transformation dans le monde
 		float rotation;
+
+		XMMATRIX mVLight;
+		XMMATRIX mPLight;
+		XMMATRIX mVPLight;
 
 		// Pour le dessin
 		CDispositifD3D11* pDispositif;		// On prend en note le dispositif
@@ -153,6 +160,15 @@ namespace PM3D
 		ID3DX11EffectTechnique* pTechnique;
 		ID3DX11EffectPass* pPasse;
 		ID3D11InputLayout* pVertexLayout;
+
+		ID3D11Texture2D* pTextureShadowMap; // Texture pour le shadow map
+		ID3D11RenderTargetView* pRenderTargetView; // Vue cible de rendu
+		ID3D11ShaderResourceView* pShadowMapView; // Vue ressource de shader
+		ID3D11Texture2D* pDepthTexture; // texture de profondeur
+		ID3D11DepthStencilView* pDepthStencilView; // Vue tampon de profondeur
+		ID3D11InputLayout* pVertexLayoutShadow; // VertexLayout de l'ombre
+
+		static const int SHADOWMAP_DIM = 512;
 
 	};
 }

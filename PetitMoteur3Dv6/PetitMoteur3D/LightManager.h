@@ -18,6 +18,8 @@ namespace PM3D {
 			return singleton;
 		}
 
+		bool IsInitialized() const { return currentLight != nullptr; }
+
 		CLight& GetCurrentLight() const { return *currentLight; }
 
 		bool Init();

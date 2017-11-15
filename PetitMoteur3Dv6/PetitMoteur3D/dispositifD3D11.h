@@ -29,6 +29,10 @@ namespace PM3D
 
 		static D3D11_FILL_MODE fillMode;
 
+		void SetViewPortDimension(float largeur_in, float hauteur_in);
+		void ResetViewPortDimension();
+		void SetNormalRSState();
+
 	protected:
 		CDispositifD3D11(void);
 		void InitDepthBuffer();

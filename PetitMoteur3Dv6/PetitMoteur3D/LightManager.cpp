@@ -8,7 +8,7 @@ namespace PM3D {
 
 		//Initialize all light
 
-		staticLight.Init(XMVectorSet(100.0f, 100.0f, 1000.0f, 1.0f),
+		staticLight.Init(XMVectorSet(100.0f, 100.0f, 100.0f, 1.0f),
 			XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f), 
 			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
 			XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f),

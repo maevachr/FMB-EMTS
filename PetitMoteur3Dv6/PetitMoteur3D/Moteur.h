@@ -60,6 +60,8 @@ namespace PM3D
 			// * Initialisation du dispositif de rendu
 			pDispositif = CreationDispositifSpecific( CDS_FENETRE );
 
+			CLightManager::GetInstance().Init();
+
 			// * Initialisation de la scène
 			InitScene();
 
@@ -68,8 +70,6 @@ namespace PM3D
 				&this->matViewProj,
 				&GestionnaireDeSaisie,
 				ListeScene.front());
-
-			CLightManager::GetInstance().Init();
 
 			// * Initialisation des paramètres de l'animation et 
 			//   préparation de la première image

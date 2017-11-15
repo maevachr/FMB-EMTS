@@ -102,6 +102,12 @@ namespace PM3D
 		DXRelacher(pIndexBuffer);
 		DXRelacher(pVertexBuffer);
 
+		DXRelacher(pShadowMapView);
+		DXRelacher(pRenderTargetView);
+		DXRelacher(pTextureShadowMap);
+		DXRelacher(pDepthStencilView);
+		DXRelacher(pDepthTexture);
+		DXRelacher(pVertexLayoutShadow);
 	}
 
 void CObjetMesh::TransfertObjet(IChargeur& chargeur)
@@ -445,6 +451,33 @@ void CObjetMesh::LireFichierBinaire(string nomFichier)
 	fichier.close();
 
 }
+	void CObjetMesh::InitMatricesShadowMap()
+	{
+		//Accéder à la lumière
+		CLight& currentLight = CLightManager::GetInstance().GetCurrentLight();
+
+		// Matrice de la vision vu par la lumière - Le point TO est encore 0,0,0
+		mVLight = XMMatrixLookAtRH(currentLight.position,
+			getPosition(),
+			XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f));
+
+		/*mVLight = XMMatrixLookAtRH(XMVectorSet(0.0f, 0.0f, 100.0f, 1.0f),
+			XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f),
+			XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f));*/
+
+		 float champDeVision = XM_PI / 4; // 90 degrés
+		 float ratioDAspect = 1.0f; // 512/512
+		 float planRapproche = 2.0; // Pas besoin d'être trop près
+		 float planEloigne = 200.0; // Suffisemment pour avoir tous les objets
+
+		mPLight = XMMatrixPerspectiveFovRH(champDeVision,
+			ratioDAspect,
+			planRapproche,
+			planEloigne);
+
+		mVPLight = mVLight * mPLight;
+	}
+
 	void CObjetMesh::InitEffet()
 	{
 		// Compilation et chargement du vertex shader
@@ -463,7 +496,7 @@ void CObjetMesh::LireFichierBinaire(string nomFichier)
 		// Pour l'effet
 		ID3DBlob* pFXBlob = NULL;
 
-		DXEssayer(D3DCompileFromFile(L"MiniPhong.fx", 0, 0, 0,
+		DXEssayer(D3DCompileFromFile(L"MiniPhongSM.fx", 0, 0, 0,
 			"fx_5_0", 0, 0, &pFXBlob, 0),
 			DXE_ERREURCREATION_FX);
 
@@ -476,25 +509,44 @@ void CObjetMesh::LireFichierBinaire(string nomFichier)
 		pTechnique = pEffet->GetTechniqueByIndex(0);
 		pPasse = pTechnique->GetPassByIndex(0);
 
-		// Créer l'organisation des sommets pour le VS de notre effet
+		// Créer l'organisation des sommets pour les VS de notre effet
 		D3DX11_PASS_SHADER_DESC effectVSDesc;
-		pPasse->GetVertexShaderDesc(&effectVSDesc);
-
 		D3DX11_EFFECT_SHADER_DESC effectVSDesc2;
+		const void *vsCodePtr;
+		unsigned vsCodeLen;
+		CSommetMesh::numElements = ARRAYSIZE(CSommetMesh::layout);
+
+		// 1 pour le shadowmap
+		pTechnique = pEffet->GetTechniqueByName("ShadowMap");
+		pPasse = pTechnique->GetPassByIndex(0);
+		pPasse->GetVertexShaderDesc(&effectVSDesc);
 		effectVSDesc.pShaderVariable->GetShaderDesc(effectVSDesc.ShaderIndex,
 			&effectVSDesc2);
-
-		const void *vsCodePtr = effectVSDesc2.pBytecode;
-		unsigned vsCodeLen = effectVSDesc2.BytecodeLength;
-
+		vsCodePtr = effectVSDesc2.pBytecode;
+		vsCodeLen = effectVSDesc2.BytecodeLength;
 		pVertexLayout = NULL;
+		DXEssayer(pD3DDevice->CreateInputLayout(CSommetMesh::layout,
+			CSommetMesh::numElements,
+			vsCodePtr,
+			vsCodeLen,
+			&pVertexLayoutShadow),
 
-		CSommetMesh::numElements = ARRAYSIZE(CSommetMesh::layout);
+			DXE_CREATIONLAYOUT);
+		// 2 pour miniphong
+		pTechnique = pEffet->GetTechniqueByName("MiniPhong");
+		pPasse = pTechnique->GetPassByIndex(0);
+		pPasse->GetVertexShaderDesc(&effectVSDesc);
+		effectVSDesc.pShaderVariable->GetShaderDesc(effectVSDesc.ShaderIndex,
+			&effectVSDesc2);
+		vsCodePtr = effectVSDesc2.pBytecode;
+		vsCodeLen = effectVSDesc2.BytecodeLength;
+		pVertexLayout = NULL;
 		DXEssayer(pD3DDevice->CreateInputLayout(CSommetMesh::layout,
 			CSommetMesh::numElements,
 			vsCodePtr,
 			vsCodeLen,
 			&pVertexLayout),
+
 			DXE_CREATIONLAYOUT);
 
 		// Initialisation des paramètres de sampling de la texture
@@ -516,8 +568,78 @@ void CObjetMesh::LireFichierBinaire(string nomFichier)
 
 		// Création de l'état de sampling
 		pD3DDevice->CreateSamplerState(&samplerDesc, &pSampleState);
+
+		D3D11_TEXTURE2D_DESC textureDesc;
+		D3D11_RENDER_TARGET_VIEW_DESC renderTargetViewDesc;
+		D3D11_SHADER_RESOURCE_VIEW_DESC shaderResourceViewDesc;
+		// Description de la texture
+		ZeroMemory(&textureDesc, sizeof(textureDesc));
+		// Cette texture sera utilisée comme cible de rendu et
+		// comme ressource de shader
+		textureDesc.Width = SHADOWMAP_DIM;
+		textureDesc.Height = SHADOWMAP_DIM;
+		textureDesc.MipLevels = 1;
+		textureDesc.ArraySize = 1;
+		textureDesc.Format = DXGI_FORMAT_R32_FLOAT;
+		textureDesc.SampleDesc.Count = 1;
+		textureDesc.Usage = D3D11_USAGE_DEFAULT;
+		textureDesc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
+		textureDesc.CPUAccessFlags = 0;
+		textureDesc.MiscFlags = 0;
+		// Création de la texture
+		pD3DDevice->CreateTexture2D(&textureDesc, NULL, &pTextureShadowMap);
+		// VUE - Cible de rendu
+		renderTargetViewDesc.Format = textureDesc.Format;
+		renderTargetViewDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
+		renderTargetViewDesc.Texture2D.MipSlice = 0;
+		// Création de la vue.
+		pD3DDevice->CreateRenderTargetView(pTextureShadowMap,
+			&renderTargetViewDesc,
+			&pRenderTargetView);
+
+		// VUE – Ressource de shader
+		shaderResourceViewDesc.Format = textureDesc.Format;
+		shaderResourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+		shaderResourceViewDesc.Texture2D.MostDetailedMip = 0;
+		shaderResourceViewDesc.Texture2D.MipLevels = 1;
+		// Création de la vue.
+		pD3DDevice->CreateShaderResourceView(pTextureShadowMap,
+			&shaderResourceViewDesc,
+			&pShadowMapView);
+
+		InitDepthBuffer();
+		InitMatricesShadowMap();
 	}
 
+	void CObjetMesh::InitDepthBuffer()
+	{
+		ID3D11Device* pD3DDevice = pDispositif->GetD3DDevice();
+		D3D11_TEXTURE2D_DESC depthTextureDesc;
+		ZeroMemory(&depthTextureDesc, sizeof(depthTextureDesc));
+		depthTextureDesc.Width = 512;
+		depthTextureDesc.Height = 512;
+		depthTextureDesc.MipLevels = 1;
+		depthTextureDesc.ArraySize = 1;
+		depthTextureDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+		depthTextureDesc.SampleDesc.Count = 1;
+		depthTextureDesc.SampleDesc.Quality = 0;
+		depthTextureDesc.Usage = D3D11_USAGE_DEFAULT;
+		depthTextureDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+		depthTextureDesc.CPUAccessFlags = 0;
+		depthTextureDesc.MiscFlags = 0;
+		DXEssayer(
+			pD3DDevice->CreateTexture2D(&depthTextureDesc, NULL, &pDepthTexture),
+			DXE_ERREURCREATIONTEXTURE);
+		// Création de la vue du tampon de profondeur (ou de stencil)
+		D3D11_DEPTH_STENCIL_VIEW_DESC descDSView;
+		ZeroMemory(&descDSView, sizeof(descDSView));
+		descDSView.Format = depthTextureDesc.Format;
+		descDSView.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+		descDSView.Texture2D.MipSlice = 0;
+		DXEssayer(
+			pD3DDevice->CreateDepthStencilView(pDepthTexture, &descDSView, &pDepthStencilView),
+			DXE_ERREURCREATIONDEPTHSTENCILTARGET);
+	}
 
 	void CObjetMesh::Draw()
 	{
@@ -527,9 +649,6 @@ void CObjetMesh::LireFichierBinaire(string nomFichier)
 		// Choisir la topologie des primitives
 		pImmediateContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-		// input layout des sommets
-		pImmediateContext->IASetInputLayout(pVertexLayout);
-
 		// Index buffer
 		pImmediateContext->IASetIndexBuffer(pIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
@@ -538,8 +657,58 @@ void CObjetMesh::LireFichierBinaire(string nomFichier)
 		UINT offset = 0;
 		pImmediateContext->IASetVertexBuffers(0, 1, &pVertexBuffer, &stride, &offset);
 
+		// ***** OMBRES ---- Premier Rendu - Création du Shadow Map
+		// Utiliser la surface de la texture comme surface de rendu
+		pImmediateContext->OMSetRenderTargets(1, &pRenderTargetView,
+
+			pDepthStencilView);
+
+		// Effacer le shadow map
+		float Couleur[4] = { 1.0f, 0.0f, 0.0f, 1.0f };
+		pImmediateContext->ClearRenderTargetView(pRenderTargetView, Couleur);
+		pImmediateContext->ClearDepthStencilView(pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+		// Modifier les dimension du viewport
+		pDispositif->SetViewPortDimension(512, 512);
+		// Choix de la technique
+		pTechnique = pEffet->GetTechniqueByName("ShadowMap");
+		pPasse = pTechnique->GetPassByIndex(0);
+		// input layout des sommets
+		pImmediateContext->IASetInputLayout(pVertexLayoutShadow);
 		// Initialiser et sélectionner les «constantes» de l'effet
 		ShadersParams sp;
+		sp.matWorldViewProjLight = XMMatrixTranspose(matWorld * mVPLight);
+		// Nous n'avons qu'un seul CBuffer
+		ID3DX11EffectConstantBuffer* pCB = pEffet->GetConstantBufferByName("param");
+		pCB->SetConstantBuffer(pConstantBuffer);
+		pImmediateContext->UpdateSubresource(pConstantBuffer, 0, NULL, &sp, 0, 0);
+		// Dessiner les subsets non-transparents
+		for (int i = 0; i < NombreSubmesh; ++i)
+		{
+			int indexStart = SubmeshIndex[i];
+			int indexDrawAmount = SubmeshIndex[i + 1] - SubmeshIndex[i];
+			if (indexDrawAmount)
+			{
+				// IMPORTANT pour ajuster les param.
+				pPasse->Apply(0, pImmediateContext);
+				pImmediateContext->DrawIndexed(indexDrawAmount, indexStart, 0);
+			}
+		}
+
+		// ***** OMBRES ---- Deuxième Rendu - Affichage de l'objet avec ombres
+		// Ramener la surface de rendu
+		ID3D11RenderTargetView* tabRTV[1];
+		tabRTV[0] = pDispositif->GetRenderTargetView();
+		pImmediateContext->OMSetRenderTargets(1,
+			tabRTV,
+			pDispositif->GetDepthStencilView());
+
+		// Dimension du viewport - défaut
+		pDispositif->ResetViewPortDimension();
+		// Choix de la technique
+		pTechnique = pEffet->GetTechniqueByName("MiniPhong");
+		pPasse = pTechnique->GetPassByIndex(0);
+
+		// Initialiser et sélectionner les «constantes» de l'effet
 		XMMATRIX viewProj = CMoteurWindows::GetInstance().GetMatViewProj();
 
 		sp.matWorldViewProj = XMMatrixTranspose(matWorld * viewProj);
@@ -554,11 +723,18 @@ void CObjetMesh::LireFichierBinaire(string nomFichier)
 		sp.vDEcl = XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f);
 		sp.vSEcl = XMVectorSet(0.6f, 0.6f, 0.6f, 1.0f);
 
-
 		// Le sampler state
 		ID3DX11EffectSamplerVariable* variableSampler;
 		variableSampler = pEffet->GetVariableByName("SampleState")->AsSampler();
 		variableSampler->SetSampler(0, pSampleState);
+
+		// input layout des sommets
+		pImmediateContext->IASetInputLayout(pVertexLayout);
+
+		ID3DX11EffectShaderResourceVariable* pShadowMap;
+		pShadowMap = pEffet->GetVariableByName("ShadowTexture")->AsShaderResource();
+		pShadowMap->SetResource(pShadowMapView);
+		pDispositif->SetNormalRSState();
 
 		// Dessiner les sous-objets non-transparents
 		for (int i = 0; i < NombreSubmesh; ++i)
