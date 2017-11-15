@@ -13,7 +13,7 @@
 #include "CameraManager.h"
 #include "PlayerMesh.h"
 #include "LightManager.h"
-
+#include "SimulationManager.h"
 
 namespace PM3D
 {
@@ -56,6 +56,9 @@ namespace PM3D
 
 			// Propre à la plateforme
 			InitialisationsSpecific();
+
+			//Initialisation de physX
+			SimulationManager::GetInstance().InitPhysX();
 
 			// * Initialisation du dispositif de rendu
 			pDispositif = CreationDispositifSpecific( CDS_FENETRE );
@@ -174,6 +177,9 @@ namespace PM3D
 			// Vider les textures
 			TexturesManager.Cleanup();
 
+			//Terminaison de physX
+			SimulationManager::GetInstance().TerminatePhysX();
+
 			// détruire les objets
 			std::vector<CObjet3D*>::iterator It;
 
@@ -183,7 +189,7 @@ namespace PM3D
 			}
 
 			ListeScene.clear();
-			
+
 			// Détruire le dispositif
 			if (pDispositif) 
 			{
@@ -273,6 +279,9 @@ namespace PM3D
 		// Prendre en note le statut du clavier
 		GestionnaireDeSaisie.StatutClavier();
 
+		//Mise a jour de la simulation physique
+		SimulationManager::GetInstance().Update();
+
 		std::vector<CObjet3D*>::iterator It;
 
 	    for (It = ListeScene.begin(); It != ListeScene.end();It++)
@@ -311,8 +320,6 @@ namespace PM3D
 
 		// Le gestionnaire de texture
 		CGestionnaireDeTextures TexturesManager;
-
-
 
     };
 
