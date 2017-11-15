@@ -14,13 +14,15 @@ namespace PM3D
 		const float DIST_HORZ_DEFAULT = 200.0f;
 		const float HAUTEUR_DEFAULT = 50.0f;
 		const float COEFFELAST_DEFAULT = 0.9f;
+		const float HAUTEUR_TARGET_DEFAULT = 50.0f;
 
 		CObjet3D* objet;
 		float coeffElast;
 		struct Decalage{
 			float distanceHorizontale;
-			float hauteur;
-			XMVECTOR get(const XMVECTOR& directionObjet) { return -directionObjet*distanceHorizontale + XMVECTOR{ 0.0f, 0.0f, hauteur }; }
+			XMVECTOR hauteur;
+			XMVECTOR hauteur_target;
+			XMVECTOR get(const XMVECTOR& directionObjet) { return -directionObjet*distanceHorizontale + hauteur; }
 			Decalage() :distanceHorizontale{}, hauteur{} {}
 
 		} decalage;
@@ -50,7 +52,7 @@ namespace PM3D
 
 		void UpdateMatrix() override {
 			// Matrice de la vision
-			auto positionObjet = objet->getPosition();
+			auto positionObjet = objet->getPosition() + decalage.hauteur_target;
 			*pMatView = XMMatrixLookAtRH(position,
 				positionObjet,
 				up);

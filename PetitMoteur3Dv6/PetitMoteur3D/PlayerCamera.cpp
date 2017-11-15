@@ -28,7 +28,8 @@ namespace PM3D
 		objet = objet_in;
 
 		decalage.distanceHorizontale = DIST_HORZ_DEFAULT;
-		decalage.hauteur = HAUTEUR_DEFAULT;
+		decalage.hauteur = XMVECTOR{ 0.0f, 0.0f, HAUTEUR_DEFAULT };
+		decalage.hauteur_target = XMVECTOR{ 0.0f, 0.0f, HAUTEUR_TARGET_DEFAULT };
 		coeffElast = COEFFELAST_DEFAULT;
 
 		up = XMVector4Normalize(up_in);
