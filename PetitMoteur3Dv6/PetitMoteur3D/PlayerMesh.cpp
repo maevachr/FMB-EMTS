@@ -85,8 +85,8 @@ namespace PM3D
 		pxActor = SimulationManager::GetInstance().physics().createRigidDynamic(physx::PxTransform::createIdentity());
 		pxActor->setGlobalPose(transform);
 
-		PxShape *actorShape = pxActor->createShape(PxSphereGeometry(0.5f), *material);
-		pxActor->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, false);
+		PxShape *actorShape = pxActor->createShape(PxBoxGeometry(PxVec3(3, 2, 1)), *material);
+		pxActor->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, true);
 
 		SimulationManager::GetInstance().scene().addActor(*pxActor);
 		//Pour collisions : 
@@ -103,7 +103,7 @@ namespace PM3D
 		XMFLOAT4 dataPos;
 		XMStoreFloat4(&dataPos, directionInit);
 		PxVec3 data = transform.q.rotate({ dataPos.x , dataPos.y , dataPos.z });
-		//directionLive = { data.x,data.y,data.z,0 };
+		directionLive = { data.x,data.y,data.z,0 };
 	}
 
 	void PlayerMesh::UpdatePositionPhysXFromRender()
@@ -117,32 +117,37 @@ namespace PM3D
 
 	void PlayerMesh::Anime(float tempsEcoule)
 	{
-		UpdatePositionRenderFromPhysX();
+		//UpdatePositionPhysXFromRender();
 		if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_W))
 		{
 			// Avancer
-			position = XMVector4Transform(position, XMMatrixTranslationFromVector(vitesse*tempsEcoule*directionLive));
+			pxActor->addForce(transform.q.rotate({-30,0,0}));
+			//position = XMVector4Transform(position, XMMatrixTranslationFromVector(vitesse*tempsEcoule*directionLive));
 		}
 		if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_S))
 		{
 			// Reculer
-			position = XMVector4Transform(position, XMMatrixTranslationFromVector(-vitesse*tempsEcoule*directionLive));
+			pxActor->addForce(transform.q.rotate({ +15, 0, 0 }));
+			//position = XMVector4Transform(position, XMMatrixTranslationFromVector(-vitesse*tempsEcoule*directionLive));
 		}
 		if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_A))
 		{
 			// Tourner à gauche
-			rotationEnZ += vitAng*tempsEcoule;
-			directionLive = XMVector4Transform(directionLive, XMMatrixRotationZ(vitAng*tempsEcoule));
+			pxActor->addTorque({ 0, 0, 1 });
+			//rotationEnZ += vitAng*tempsEcoule;
+			//directionLive = XMVector4Transform(directionLive, XMMatrixRotationZ(vitAng*tempsEcoule));
 		}
 		if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_D))
 		{
 			// Tourner à droite
-			rotationEnZ -= vitAng*tempsEcoule;
-			directionLive = XMVector4Transform(directionLive, XMMatrixRotationZ(-vitAng*tempsEcoule));
+			pxActor->addTorque({ 0, 0, -1 });
+			//rotationEnZ -= vitAng*tempsEcoule;
+			//directionLive = XMVector4Transform(directionLive, XMMatrixRotationZ(-vitAng*tempsEcoule));
 		}
-		UpdatePositionPhysXFromRender();
+		UpdatePositionRenderFromPhysX();
 		// modifier la matrice de l'objet bloc
-		matWorld = XMMatrixRotationZ(rotationEnZ)* XMMatrixTranslationFromVector(position);
+		FXMVECTOR quaternion = { transform.q.x, transform.q.y, transform.q.z, transform.q.w };
+		matWorld = XMMatrixRotationQuaternion(quaternion)* XMMatrixTranslationFromVector(position);
 	}
 
 }
