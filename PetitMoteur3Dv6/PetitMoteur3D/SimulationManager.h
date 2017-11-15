@@ -39,8 +39,10 @@ public:
 private:
 	physx::unique_ptr<PxFoundation> _foundation;
 	physx::unique_ptr<PxProfileZoneManager> _profileZoneManager;
+
 	physx::unique_ptr<PxPhysics> _physics;
 	physx::unique_ptr<PxScene> _scene;
+
 	physx::unique_ptr<PxDefaultCpuDispatcher> _cpuDispatcher;
 	physx::unique_ptr<PxCudaContextManager> _cudaContextManager;
 	physx::unique_ptr<debugger::comm::PvdConnection> _visualDebuggerConnection;
