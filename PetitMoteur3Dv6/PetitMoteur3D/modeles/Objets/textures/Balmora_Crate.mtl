@@ -1,0 +1,14 @@
+# Blender MTL File: 'Balmora_Crate.blend'
+# Material Count: 1
+
+newmtl Crate
+Ns 550.980392
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.095652 0.095652 0.095652
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Bump -bm 0.131579 C:\\Users\\groj1805\\Downloads\\73027_Balmora_crate_-_Low_poly\\textures\\Crate_B.png
+map_Kd C:\\Users\\groj1805\\Downloads\\73027_Balmora_crate_-_Low_poly\\textures\\Crate_D.dds

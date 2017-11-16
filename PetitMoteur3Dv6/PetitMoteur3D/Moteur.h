@@ -229,8 +229,12 @@ namespace PM3D
 	bool InitObjets()
 	{
 		PlayerMesh* pMesh;
-
 		pMesh = new PlayerMesh("monster.omb", pDispositif, &GestionnaireDeSaisie);
+		ListeScene.push_back(pMesh);
+
+		CObjetMesh* crateMesh;
+		crateMesh = new CObjetMesh("obj_crate.omb", pDispositif);
+		ListeScene.push_back(crateMesh);
 
 		//CObjetMesh* pMesh;
 		//pMesh = new CObjetMesh("obj_lexus.omb", pDispositif);
@@ -251,7 +255,7 @@ namespace PM3D
 		//pMesh = new CObjetMesh("obj_lexus.omb", pDispositif);
 
 		// Puis, il est ajouté à la scène
-		ListeScene.push_back(pMesh);
+
 
 
 
