@@ -1,19 +1,20 @@
 cbuffer param
 { 
+	struct {
+		float4 vLumiere; 		// la position de la source d'éclairage (Point)
+		float4 vAEcl; 			// la valeur ambiante de l'éclairage
+		float4 vDEcl; 			// la valeur diffuse de l'éclairage 
+		float4 vSEcl; 			// la valeur spéculaire de l'éclairage 
+	} lights[2];
 	float4x4 matWorldViewProj;   // la matrice totale 
 	float4x4 matWorld;		// matrice de transformation dans le monde 
-	float4 vLumiere; 		// la position de la source d'éclairage (Point)
 	float4 vCamera; 			// la position de la caméra
-	float4 vAEcl; 			// la valeur ambiante de l'éclairage
 	float4 vAMat; 			// la valeur ambiante du matériau
-	float4 vDEcl; 			// la valeur diffuse de l'éclairage 
 	float4 vDMat; 			// la valeur diffuse du matériau 
-	float4 vSEcl; 			// la valeur spéculaire de l'éclairage 
 	float4 vSMat; 			// la valeur spéculaire du matériau 
 	float puissance; 		// la puissance de spécularité
 	int bTex;		    		// Booléen pour la présence de texture
 	float2 remplissage;
-
 }
 
 struct VS_Sortie
@@ -34,7 +35,7 @@ VS_Sortie sortie = (VS_Sortie)0;
 	
  	float3 PosWorld = mul(Pos, matWorld);
 
-	sortie.vDirLum = vLumiere - PosWorld; 
+	sortie.vDirLum = lights[0].vLumiere - PosWorld; 
 	sortie.vDirCam = vCamera - PosWorld; 
 
     // Coordonnées d'application de texture
@@ -72,14 +73,14 @@ float4 couleur;
 		couleurTexture = textureEntree.Sample(SampleState, vs.coordTex);
 
 		// I = A + D * N.L + (R.V)n
-		couleur = couleurTexture * vAEcl +
-			couleurTexture * vDEcl * diff +
-			vSEcl * vSMat * S;
+		couleur = couleurTexture * lights[0].vAEcl +
+			couleurTexture * lights[0].vDEcl * diff +
+			lights[0].vSEcl * vSMat * S;
 	}
 	else
 	{
-		couleur = vAEcl * vAMat + vDEcl * vDMat * diff +
-			vSEcl * vSMat * S;
+		couleur = lights[0].vAEcl * vAMat + lights[0].vDEcl * vDMat * diff +
+			lights[0].vSEcl * vSMat * S;
 	}
 
     

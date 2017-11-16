@@ -36,15 +36,17 @@ namespace PM3D
 
 	struct ShadersParams
 	{
+		struct {
+			XMVECTOR vLumiere; 			// la position de la source d'éclairage (Point)
+			XMVECTOR vAEcl; 			// la valeur ambiante de l'éclairage
+			XMVECTOR vDEcl; 			// la valeur diffuse de l'éclairage 
+			XMVECTOR vSEcl; 			// la valeur spéculaire de l'éclairage 
+		} lights[2];
 		XMMATRIX matWorldViewProj;	// la matrice totale 
 		XMMATRIX matWorld;			// matrice de transformation dans le monde 
-		XMVECTOR vLumiere; 			// la position de la source d'éclairage (Point)
 		XMVECTOR vCamera; 			// la position de la caméra
-		XMVECTOR vAEcl; 			// la valeur ambiante de l'éclairage
 		XMVECTOR vAMat; 			// la valeur ambiante du matériau
-		XMVECTOR vDEcl; 			// la valeur diffuse de l'éclairage 
 		XMVECTOR vDMat; 			// la valeur diffuse du matériau
-		XMVECTOR vSEcl; 			// la valeur spéculaire de l'éclairage 
 		XMVECTOR vSMat; 			// la valeur spéculaire du matériau 
 		float puissance;			// la puissance de spécularité
 		int bTex;					// Texture ou materiau 
@@ -144,13 +146,13 @@ namespace PM3D
 		//Accéder à la lumière
 		CLight& currentLight = CLightManager::GetInstance().GetCurrentLight();
 
-		sp.vLumiere = currentLight.position;
+		sp.lights[0].vLumiere = currentLight.position;
 		sp.vCamera = CCameraManager::GetInstance().GetCurrentCamera().GetPosition();
-		sp.vAEcl = XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f);
+		sp.lights[0].vAEcl = XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f);
 		sp.vAMat = XMVectorSet(0.62f, 0.31f, 0.0f, 1.0f);
-		sp.vDEcl = XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f);
+		sp.lights[0].vDEcl = XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f);
 		sp.vDMat = XMVectorSet(0.62f, 0.31f, 0.0f, 1.0f);
-		sp.vSEcl = XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f);
+		sp.lights[0].vSEcl = XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f);
 		sp.vSMat = XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f);
 		sp.puissance = 1.0f;
 		sp.bTex = true;
