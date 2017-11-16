@@ -36,15 +36,17 @@ namespace PM3D
 
 	struct ShadersParams
 	{
+		struct {
+			XMVECTOR vLumiere; 			// la position de la source d'éclairage (Point)
+			XMVECTOR vAEcl; 			// la valeur ambiante de l'éclairage
+			XMVECTOR vDEcl; 			// la valeur diffuse de l'éclairage 
+			XMVECTOR vSEcl; 			// la valeur spéculaire de l'éclairage 
+		} lights[2];
 		XMMATRIX matWorldViewProj;	// la matrice totale 
 		XMMATRIX matWorld;			// matrice de transformation dans le monde 
-		XMVECTOR vLumiere; 			// la position de la source d'éclairage (Point)
 		XMVECTOR vCamera; 			// la position de la caméra
-		XMVECTOR vAEcl; 			// la valeur ambiante de l'éclairage
 		XMVECTOR vAMat; 			// la valeur ambiante du matériau
-		XMVECTOR vDEcl; 			// la valeur diffuse de l'éclairage 
 		XMVECTOR vDMat; 			// la valeur diffuse du matériau
-		XMVECTOR vSEcl; 			// la valeur spéculaire de l'éclairage 
 		XMVECTOR vSMat; 			// la valeur spéculaire du matériau 
 		float puissance;			// la puissance de spécularité
 		int bTex;					// Texture ou materiau 
@@ -142,15 +144,22 @@ namespace PM3D
 		sp.matWorld = XMMatrixTranspose(matWorld);
 
 		//Accéder à la lumière
-		CLight& currentLight = CLightManager::GetInstance().GetCurrentLight();
+		CLightManager& lightManager = CLightManager::GetInstance();
+		
+		CLight* light0 = lightManager.getLight(0);
+		CLight* light1 = lightManager.getLight(1);
 
-		sp.vLumiere = currentLight.position;
+		sp.lights[0].vLumiere = light0->position;
+		sp.lights[1].vLumiere = light1->position;
 		sp.vCamera = CCameraManager::GetInstance().GetCurrentCamera().GetPosition();
-		sp.vAEcl = XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f);
+		sp.lights[0].vAEcl = light0->ambiante;
+		sp.lights[1].vAEcl = light1->ambiante;
 		sp.vAMat = XMVectorSet(0.62f, 0.31f, 0.0f, 1.0f);
-		sp.vDEcl = XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f);
+		sp.lights[0].vDEcl = light0->diffuse;
+		sp.lights[1].vDEcl = light1->diffuse;
 		sp.vDMat = XMVectorSet(0.62f, 0.31f, 0.0f, 1.0f);
-		sp.vSEcl = XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f);
+		sp.lights[0].vSEcl = light0->speculaire;
+		sp.lights[1].vSEcl = light1->speculaire;
 		sp.vSMat = XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f);
 		sp.puissance = 1.0f;
 		sp.bTex = true;

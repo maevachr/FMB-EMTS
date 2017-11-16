@@ -7,8 +7,7 @@ namespace PM3D {
 	using namespace DirectX;
 	class CLightManager
 	{
-		CLight staticLight;
-		CDynamicLight dynamicLight;
+		CLight lights[2];
 		CLight* currentLight;
 
 	public:
@@ -21,6 +20,7 @@ namespace PM3D {
 		bool IsInitialized() const { return currentLight != nullptr; }
 
 		CLight& GetCurrentLight() const { return *currentLight; }
+		CLight* getLight(size_t n) { return &lights[n]; }
 
 		bool Init();
 
