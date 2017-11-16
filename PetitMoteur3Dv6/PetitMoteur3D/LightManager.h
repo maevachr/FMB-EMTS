@@ -12,7 +12,7 @@ namespace PM3D {
 		CLight* currentLight;
 
 	public:
-		static const int NB_MAX_LIGHTS = 2;
+		static const size_t NB_MAX_LIGHTS = 2;
 		static CLightManager& GetInstance() {
 			static CLightManager singleton;
 			return singleton;
