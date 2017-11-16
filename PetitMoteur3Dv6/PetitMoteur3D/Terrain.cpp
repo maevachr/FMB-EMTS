@@ -41,7 +41,7 @@ namespace PM3D
 			XMVECTOR vAEcl; 			// la valeur ambiante de l'éclairage
 			XMVECTOR vDEcl; 			// la valeur diffuse de l'éclairage 
 			XMVECTOR vSEcl; 			// la valeur spéculaire de l'éclairage 
-		} lights[2];
+		} lights[CLightManager::NB_MAX_LIGHTS];
 		XMMATRIX matWorldViewProj;	// la matrice totale 
 		XMMATRIX matWorld;			// matrice de transformation dans le monde 
 		XMVECTOR vCamera; 			// la position de la caméra
@@ -145,21 +145,18 @@ namespace PM3D
 
 		//Accéder à la lumière
 		CLightManager& lightManager = CLightManager::GetInstance();
-		
-		CLight* light0 = lightManager.getLight(0);
-		CLight* light1 = lightManager.getLight(1);
 
-		sp.lights[0].vLumiere = light0->position;
-		sp.lights[1].vLumiere = light1->position;
+		std::for_each(lightManager.begin(), lightManager.end(),[plight = std::begin(sp.lights)](CLight light) mutable {
+			plight->vLumiere = light.position;
+			plight->vAEcl = light.ambiante;
+			plight->vDEcl = light.diffuse;
+			plight->vSEcl = light.speculaire;
+			plight++; 
+		});
+
 		sp.vCamera = CCameraManager::GetInstance().GetCurrentCamera().GetPosition();
-		sp.lights[0].vAEcl = light0->ambiante;
-		sp.lights[1].vAEcl = light1->ambiante;
 		sp.vAMat = XMVectorSet(0.62f, 0.31f, 0.0f, 1.0f);
-		sp.lights[0].vDEcl = light0->diffuse;
-		sp.lights[1].vDEcl = light1->diffuse;
 		sp.vDMat = XMVectorSet(0.62f, 0.31f, 0.0f, 1.0f);
-		sp.lights[0].vSEcl = light0->speculaire;
-		sp.lights[1].vSEcl = light1->speculaire;
 		sp.vSMat = XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f);
 		sp.puissance = 1.0f;
 		sp.bTex = true;

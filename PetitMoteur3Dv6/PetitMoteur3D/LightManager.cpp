@@ -23,7 +23,7 @@ namespace PM3D {
 			1.0f);
 
 		//Set priority of the first camera
-		currentLight = &lights[1];
+		currentLight = &lights[0];
 
 		return true;
 	}
