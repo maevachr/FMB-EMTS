@@ -9,24 +9,22 @@ namespace PM3D {
 		XMMATRIX * pMatView_in,
 		XMMATRIX * pMatProj_in,
 		XMMATRIX * pMatViewProj_in,
-		CDIManipulateur* pGestionnaireDeSaisie_in,
-		std::string tag_in)
+		CDIManipulateur* pGestionnaireDeSaisie_in)
 	{
-		pMatView = pMatView_in;
-		pMatProj = pMatProj_in;
-		pMatViewProj = pMatViewProj_in;
-		position = position_in;
-		frontCamera = XMVector4Normalize(direction_in);
-		upCamera = XMVector4Normalize(up_in);
-		pGestionnaireDeSaisie = pGestionnaireDeSaisie_in;
-		rightCamera = XMVector3Cross(frontCamera, upCamera);
+		CCamera::Init(position_in,
+			direction_in,
+			up_in,
+			pMatView_in,
+			pMatProj_in,
+			pMatViewProj_in);
+
 		vitesse_translation = VITESSE_T_DEFAULT;
 		vitesse_rotation = VITESSE_R_DEFAULT;
-		tag = tag_in;
+
+		pGestionnaireDeSaisie = pGestionnaireDeSaisie_in;
 	}
 	void CDynamicCamera::AnimeCamera(float tempsEcoule)
 	{
-
 		if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_UP))
 		{
 			// Avancer
@@ -84,7 +82,6 @@ namespace PM3D {
 		}
 		if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_NUMPAD2))
 		{
-
 			// Translation vers le bas
 			position = XMVector4Transform(position, XMMatrixTranslationFromVector(-vitesse_translation * tempsEcoule *upCamera));
 		}

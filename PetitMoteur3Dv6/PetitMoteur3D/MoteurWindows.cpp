@@ -249,7 +249,7 @@ void CMoteurWindows::BeginRenderSceneSpecific()
 	ID3D11RenderTargetView* pRenderTargetView = pDispositif->GetRenderTargetView();
 
 	    // On efface la surface de rendu
-    float Couleur[4] = { 0.0f, 0.0f, 0.0f, 1.0f };  //  RGBA - Noir pour le moment
+    float Couleur[4] = { 0.0f, 1.0f, 0.0f, 1.0f };  //  RGBA - Noir pour le moment
     pImmediateContext->ClearRenderTargetView( pRenderTargetView, Couleur );	
 
 	// On ré-initialise le tampon de profondeur

@@ -8,8 +8,7 @@ namespace PM3D
 		const XMVECTOR & up_in,
 		XMMATRIX * pMatView_in,
 		XMMATRIX * pMatProj_in,
-		XMMATRIX * pMatViewProj_in,
-		std::string tag_in)
+		XMMATRIX * pMatViewProj_in)
 	{
 		position = position_in;
 
@@ -20,8 +19,6 @@ namespace PM3D
 		pMatView = pMatView_in;
 		pMatProj = pMatProj_in;
 		pMatViewProj = pMatViewProj_in;
-
-		tag = tag_in;
 	}
 
 }

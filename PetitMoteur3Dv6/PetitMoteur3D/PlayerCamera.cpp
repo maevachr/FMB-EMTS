@@ -8,8 +8,7 @@ namespace PM3D
 		XMMATRIX * pMatView_in,
 		XMMATRIX * pMatProj_in,
 		XMMATRIX * pMatViewProj_in,
-		CObjet3D * objet_in,
-		std::string tag_in)
+		CObjet3D * objet_in)
 	{
 		pMatView = pMatView_in;
 		pMatProj = pMatProj_in;
@@ -24,8 +23,6 @@ namespace PM3D
 		upCamera = XMVector4Normalize(up_in);
 		rightCamera = XMVector3Cross(upCamera, frontCamera);
 		position = objet_in->getPosition() + decalage.get(objet_in->getDirection());
-
-		tag = tag_in;
 	}
 
 }

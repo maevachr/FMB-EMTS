@@ -29,8 +29,7 @@ namespace PM3D
 			XMMATRIX* pMatView_in,
 			XMMATRIX* pMatProj_in,
 			XMMATRIX* pMatViewProj_in,
-			CObjet3D* objet_in,
-			std::string tag_in);
+			CObjet3D* objet_in);
 
 		virtual void AnimeCamera(float tempsEcoule) {
 			position = objet->getPosition() + decalage.get(objet->getDirection());

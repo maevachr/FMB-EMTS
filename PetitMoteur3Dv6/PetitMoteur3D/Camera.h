@@ -18,15 +18,13 @@ namespace PM3D
 		XMMATRIX* pMatProj;
 		XMMATRIX* pMatViewProj;
 
-		std::string tag;
 	public:
 		virtual void Init(const XMVECTOR& position_in,
 			const XMVECTOR& direction_in,
 			const XMVECTOR& up_in,
 			XMMATRIX* pMatView_in,
 			XMMATRIX* pMatProj_in,
-			XMMATRIX* pMatViewProj_in,
-			std::string tag_in);
+			XMMATRIX* pMatViewProj_in);
 
 		virtual void AnimeCamera(float tempsEcoule) {}
 
@@ -40,7 +38,6 @@ namespace PM3D
 		}
 
 		const XMVECTOR& GetPosition() const { return position; }
-		const std::string& GetTag() const { return tag; }
 	};
 }
 

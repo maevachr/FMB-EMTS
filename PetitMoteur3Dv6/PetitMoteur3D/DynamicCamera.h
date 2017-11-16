@@ -18,14 +18,13 @@ namespace PM3D
 		float vitesse_rotation; // rad/sec
 		CDIManipulateur* pGestionnaireDeSaisie;
 	public:
-		void Init(const XMVECTOR& position_in,
+		virtual void Init(const XMVECTOR& position_in,
 			const XMVECTOR& direction_in,
 			const XMVECTOR& up_in,
 			XMMATRIX* pMatView_in,
 			XMMATRIX* pMatProj_in,
 			XMMATRIX* pMatViewProj_in,
-			CDIManipulateur* pGestionnaireDeSaisie_in,
-			std::string tag_in);
+			CDIManipulateur* pGestionnaireDeSaisie_in);
 
 		virtual void AnimeCamera(float tempsEcoule) override;
 

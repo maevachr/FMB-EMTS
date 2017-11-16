@@ -4,6 +4,28 @@ using namespace std;
 
 namespace PM3D {
 
+	void CCameraManager::ParseInput()
+	{
+		if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_F1))
+		{
+			currentCamera = cameraList[DYNAMIC].get();
+		}
+		else if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_F2))
+		{
+			currentCamera = cameraList[STATIC].get();
+		}
+		else if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_F3))
+		{
+			currentCamera = cameraList[THIRD_PERSON].get();
+		}
+		else if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_F4))
+		{
+			currentCamera = cameraList[FIRST_PERSON].get();
+		}
+	}
+
+
+
 	bool CCameraManager::Init(XMMATRIX * pMatView_in,
 		XMMATRIX * pMatProj_in,
 		XMMATRIX * pMatViewProj_in,
@@ -24,9 +46,8 @@ namespace PM3D {
 			pMatView,
 			pMatProj,
 			pMatViewProj,
-			pGestionnaireDeSaisie,
-			"dynamicCamera");
-		cameraList.push_back(move(dynamicCamera));
+			pGestionnaireDeSaisie);
+		cameraList[DYNAMIC] = move(dynamicCamera);
 
 		unique_ptr<CCamera> staticCamera(new CCamera);
 		staticCamera->Init(XMVectorSet(-500.0f, -500.0f, 500.0f, 1.0f),
@@ -34,8 +55,8 @@ namespace PM3D {
 			XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f),
 			pMatView,
 			pMatProj,
-			pMatViewProj, "staticCamera");
-		cameraList.push_back(move(staticCamera));
+			pMatViewProj);
+		cameraList[STATIC] = move(staticCamera);
 
 		unique_ptr<CPlayerCamera> playerCamera(new CPlayerCamera);
 		playerCamera->Init(
@@ -43,8 +64,8 @@ namespace PM3D {
 			pMatView,
 			pMatProj,
 			pMatViewProj,
-			player, "playerCamera");
-		cameraList.push_back(move(playerCamera));
+			player);
+		cameraList[THIRD_PERSON] = move(playerCamera);
 
 		unique_ptr<CFirstPersonCamera> firstPerson(new CFirstPersonCamera);
 		firstPerson->Init(
@@ -52,18 +73,14 @@ namespace PM3D {
 			pMatView,
 			pMatProj,
 			pMatViewProj,
-			player, "firstPerson");
-		cameraList.push_back(move(firstPerson));
+			player);
+		cameraList[FIRST_PERSON] = move(firstPerson);
 
 		//Set priority of the first camera
-		currentCamera = cameraList[0].get();
+		currentCamera = cameraList[DYNAMIC].get();
 		currentCamera->UpdateMatrix();
 
 		return true;
 	}
-
-
-
-
 
 }

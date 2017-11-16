@@ -12,7 +12,15 @@ namespace PM3D {
 
 	class CCameraManager
 	{
-		std::vector<std::unique_ptr<CCamera>> cameraList;
+		enum CameraType{
+			DYNAMIC, 
+			STATIC,
+			THIRD_PERSON,
+			FIRST_PERSON,
+			COUNT
+		};
+
+		std::unique_ptr<CCamera> cameraList[COUNT];
 		CCamera* currentCamera;
 
 		CDIManipulateur* pGestionnaireDeSaisie;
@@ -32,6 +40,8 @@ namespace PM3D {
 		CCameraManager() = default;
 		~CCameraManager() = default;
 
+	private:
+		void ParseInput();
 	public:
 		CCamera& GetCurrentCamera() const { return *currentCamera; }
 
@@ -40,42 +50,12 @@ namespace PM3D {
 			XMMATRIX * pMatViewProj_in,
 			CDIManipulateur* pGestionnaireDeSaisie_in,
 			CObjet3D* player);
-
-	private:
-		CCamera* FindCameraByTag(std::string tag) {
-			auto it = std::find_if(cameraList.begin(), cameraList.end(), [&tag](const std::unique_ptr<CCamera>& uptr) -> bool {
-				if (uptr->GetTag() == tag)
-				{
-					return true;
-				}
-				return false;
-			});
-			if(it == cameraList.end())
-				return nullptr;
-			return it->get();
-		}
+	
 	public:
 		bool AnimeScene(float tempsEcoule) {
-			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_F1))
-			{
-				currentCamera = FindCameraByTag("dynamicCamera");
-			}
-			else if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_F2))
-			{
-				currentCamera = FindCameraByTag("staticCamera");
-			}
-			else if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_F3))
-			{
-				currentCamera = FindCameraByTag("playerCamera");
-			}
-			else if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_F4))
-			{
-				currentCamera = FindCameraByTag("firstPerson");
-			}
-
+			ParseInput();
 			currentCamera->AnimeCamera(tempsEcoule);
 			currentCamera->UpdateMatrix();
-
 			return true;
 		}
 
