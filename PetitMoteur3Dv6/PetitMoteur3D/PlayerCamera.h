@@ -27,21 +27,13 @@ namespace PM3D
 
 
 	public:
-		CPlayerCamera() {}
-		~CPlayerCamera() {}
-		CPlayerCamera(
-			const XMVECTOR& up_in,
-			XMMATRIX* pMatView_in,
-			XMMATRIX* pMatProj_in,
-			XMMATRIX* pMatViewProj_in,
-			CObjet3D* objet_in);
-
 		void Init(
 			const XMVECTOR& up_in,
 			XMMATRIX* pMatView_in,
 			XMMATRIX* pMatProj_in,
 			XMMATRIX* pMatViewProj_in,
-			CObjet3D* objet_in);
+			CObjet3D* objet_in,
+			std::string tag_in);
 
 		virtual void AnimeCamera(float tempsEcoule) {
 			XMVECTOR newPosition = objet->getPosition() + decalage.get(objet->getDirection());
@@ -53,7 +45,7 @@ namespace PM3D
 			auto positionObjet = objet->getPosition() + decalage.hauteur_target;
 			*pMatView = XMMatrixLookAtRH(position,
 				positionObjet,
-				up);
+				upCamera);
 			*pMatViewProj = (*pMatView) * (*pMatProj);
 		}
 

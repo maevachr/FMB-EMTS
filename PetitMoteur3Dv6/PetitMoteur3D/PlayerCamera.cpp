@@ -3,24 +3,13 @@
 
 namespace PM3D
 {
-	CPlayerCamera::CPlayerCamera(
-		const XMVECTOR& up_in,
-		XMMATRIX* pMatView_in,
-		XMMATRIX* pMatProj_in,
-		XMMATRIX* pMatViewProj_in,
-		CObjet3D* objet_in)
-
-	{
-		Init(up_in, pMatView_in, pMatProj_in, pMatViewProj_in, objet_in);
-	}
-
-
 	void CPlayerCamera::Init(
 		const XMVECTOR & up_in,
 		XMMATRIX * pMatView_in,
 		XMMATRIX * pMatProj_in,
 		XMMATRIX * pMatViewProj_in,
-		CObjet3D * objet_in)
+		CObjet3D * objet_in,
+		std::string tag_in)
 	{
 		pMatView = pMatView_in;
 		pMatProj = pMatProj_in;
@@ -32,9 +21,11 @@ namespace PM3D
 		decalage.hauteur_target = XMVECTOR{ 0.0f, 0.0f, HAUTEUR_TARGET_DEFAULT };
 		coeffElast = COEFFELAST_DEFAULT;
 
-		up = XMVector4Normalize(up_in);
-		right = XMVector3Cross(up, direction);
+		upCamera = XMVector4Normalize(up_in);
+		rightCamera = XMVector3Cross(upCamera, frontCamera);
 		position = objet_in->getPosition() + decalage.get(objet_in->getDirection());
+
+		tag = tag_in;
 	}
 
 }

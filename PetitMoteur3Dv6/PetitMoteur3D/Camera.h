@@ -1,6 +1,5 @@
 #pragma once
-
-
+#include <string>
 
 namespace PM3D
 {
@@ -10,47 +9,38 @@ namespace PM3D
 	{
 	protected:
 		XMVECTOR position;
-		XMVECTOR direction; // Y
-		XMVECTOR up; // Z
-					 // Est-ce qu'introduire un 3e vecteur ne va pas favoriser l'accumulation d'erreurs de calcul ?
-		XMVECTOR right; // X
+
+		XMVECTOR rightCamera; // X
+		XMVECTOR frontCamera; // Y
+		XMVECTOR upCamera; // Z
+
 		XMMATRIX* pMatView;
 		XMMATRIX* pMatProj;
 		XMMATRIX* pMatViewProj;
 
-
+		std::string tag;
 	public:
-		CCamera() {}
-		~CCamera() {}
-		CCamera(const XMVECTOR& position_in,
+		virtual void Init(const XMVECTOR& position_in,
 			const XMVECTOR& direction_in,
 			const XMVECTOR& up_in,
 			XMMATRIX* pMatView_in,
 			XMMATRIX* pMatProj_in,
-			XMMATRIX* pMatViewProj_in);
-
-		void Init(const XMVECTOR& position_in,
-			const XMVECTOR& direction_in,
-			const XMVECTOR& up_in,
-			XMMATRIX* pMatView_in,
-			XMMATRIX* pMatProj_in,
-			XMMATRIX* pMatViewProj_in);
+			XMMATRIX* pMatViewProj_in,
+			std::string tag_in);
 
 		virtual void AnimeCamera(float tempsEcoule) {}
 
 		virtual void UpdateMatrix() {
 			// Matrice de la vision
 			*pMatView = XMMatrixLookAtRH(position,
-				(position + direction),
-				up);
+				(position + frontCamera),
+				upCamera);
 
 			*pMatViewProj = (*pMatView) * (*pMatProj);
 		}
 
 		const XMVECTOR& GetPosition() const { return position; }
-		//void SetPosition(const XMVECTOR& position_in) { position = position_in; };
-		//void SetDirection(const XMVECTOR& direction_in) { direction = direction_in; }
-		//void SetUp(const XMVECTOR& up_in) { up = up_in; }
+		const std::string& GetTag() const { return tag; }
 	};
 }
 

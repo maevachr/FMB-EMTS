@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "CameraManager.h"
+using namespace std;
 
 namespace PM3D {
 
@@ -16,37 +17,46 @@ namespace PM3D {
 		pMatViewProj = pMatViewProj_in;
 
 		//Initialize all camera
-		dynamicCamera.Init(XMVectorSet(-100.0f, -100.0f, 50.0f, 1.0f),
+		unique_ptr<CDynamicCamera> dynamicCamera(new CDynamicCamera);
+		dynamicCamera->Init(XMVectorSet(-100.0f, -100.0f, 50.0f, 1.0f),
 			XMVectorSet(1.0f, 1.0f, 0.0f, 0.0f),
 			XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f),
 			pMatView,
 			pMatProj,
 			pMatViewProj,
-			pGestionnaireDeSaisie);
+			pGestionnaireDeSaisie,
+			"dynamicCamera");
+		cameraList.push_back(move(dynamicCamera));
 
-		staticCamera.Init(XMVectorSet(-500.0f, -500.0f, 500.0f, 1.0f),
+		unique_ptr<CCamera> staticCamera(new CCamera);
+		staticCamera->Init(XMVectorSet(-500.0f, -500.0f, 500.0f, 1.0f),
 			XMVectorSet(1.0f, 1.0f, -0.5f, 0.0f),
 			XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f),
 			pMatView,
 			pMatProj,
-			pMatViewProj);
+			pMatViewProj, "staticCamera");
+		cameraList.push_back(move(staticCamera));
 
-		playerCamera.Init(
+		unique_ptr<CPlayerCamera> playerCamera(new CPlayerCamera);
+		playerCamera->Init(
 			XMVectorSet(0.0f, 0.0f, 1.0f, 1.0f),
 			pMatView,
 			pMatProj,
 			pMatViewProj,
-			player);
+			player, "playerCamera");
+		cameraList.push_back(move(playerCamera));
 
-		firstPerson.Init(
+		unique_ptr<CFirstPersonCamera> firstPerson(new CFirstPersonCamera);
+		firstPerson->Init(
 			XMVectorSet(0.0f, 0.0f, 1.0f, 1.0f),
 			pMatView,
 			pMatProj,
 			pMatViewProj,
-			player);
+			player, "firstPerson");
+		cameraList.push_back(move(firstPerson));
 
 		//Set priority of the first camera
-		currentCamera = &dynamicCamera;
+		currentCamera = cameraList[0].get();
 		currentCamera->UpdateMatrix();
 
 		return true;

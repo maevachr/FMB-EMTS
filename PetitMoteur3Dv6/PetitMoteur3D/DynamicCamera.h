@@ -18,23 +18,14 @@ namespace PM3D
 		float vitesse_rotation; // rad/sec
 		CDIManipulateur* pGestionnaireDeSaisie;
 	public:
-		CDynamicCamera() {}
-		~CDynamicCamera() {}
-		CDynamicCamera(const XMVECTOR& position_in,
-			const XMVECTOR& direction_in,
-			const XMVECTOR& up_in,
-			XMMATRIX* pMatView_in,
-			XMMATRIX* pMatProj_in,
-			XMMATRIX* pMatViewProj_in,
-			CDIManipulateur* pGestionnaireDeSaisie_in);
-
 		void Init(const XMVECTOR& position_in,
 			const XMVECTOR& direction_in,
 			const XMVECTOR& up_in,
 			XMMATRIX* pMatView_in,
 			XMMATRIX* pMatProj_in,
 			XMMATRIX* pMatViewProj_in,
-			CDIManipulateur* pGestionnaireDeSaisie_in);
+			CDIManipulateur* pGestionnaireDeSaisie_in,
+			std::string tag_in);
 
 		virtual void AnimeCamera(float tempsEcoule) override;
 
