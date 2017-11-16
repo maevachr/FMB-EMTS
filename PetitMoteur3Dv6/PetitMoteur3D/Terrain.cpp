@@ -144,9 +144,12 @@ namespace PM3D
 		sp.matWorld = XMMatrixTranspose(matWorld);
 
 		//Accéder à la lumière
-		CLight& currentLight = CLightManager::GetInstance().GetCurrentLight();
+		CLightManager& lightManager = CLightManager::GetInstance();
+		CLight* light0 = lightManager.getLight(0);
+		CLight* light1 = lightManager.getLight(1);
 
-		sp.lights[0].vLumiere = currentLight.position;
+		sp.lights[0].vLumiere = light0->position;
+		sp.lights[1].vLumiere = light1->position;
 		sp.vCamera = CCameraManager::GetInstance().GetCurrentCamera().GetPosition();
 		sp.lights[0].vAEcl = XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f);
 		sp.vAMat = XMVectorSet(0.62f, 0.31f, 0.0f, 1.0f);
