@@ -459,11 +459,7 @@ void CObjetMesh::LireFichierBinaire(string nomFichier)
 		// Matrice de la vision vu par la lumière - Le point TO est encore 0,0,0
 		mVLight = XMMatrixLookAtRH(currentLight.position,
 			getPosition(),
-			XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f));
-
-		/*mVLight = XMMatrixLookAtRH(XMVectorSet(0.0f, 0.0f, 100.0f, 1.0f),
-			XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f),
-			XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f));*/
+			XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f));
 
 		 float champDeVision = XM_PI / 4; // 90 degrés
 		 float ratioDAspect = 1.0f; // 512/512

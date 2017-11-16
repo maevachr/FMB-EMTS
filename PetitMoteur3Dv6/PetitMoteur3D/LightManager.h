@@ -1,6 +1,7 @@
 #pragma once
 #include "Light.h"
 #include "DynamicLight.h"
+#include <algorithm>
 
 
 namespace PM3D {
@@ -11,7 +12,7 @@ namespace PM3D {
 		CLight* currentLight;
 
 	public:
-
+		static const size_t NB_MAX_LIGHTS = 2;
 		static CLightManager& GetInstance() {
 			static CLightManager singleton;
 			return singleton;
@@ -21,6 +22,8 @@ namespace PM3D {
 
 		CLight& GetCurrentLight() const { return *currentLight; }
 		CLight* getLight(size_t n) { return &lights[n]; }
+		CLight* begin() { return std::begin(lights); }
+		CLight* end() { return std::end(lights); }
 
 		bool Init();
 
