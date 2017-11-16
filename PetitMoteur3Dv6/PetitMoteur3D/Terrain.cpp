@@ -145,17 +145,21 @@ namespace PM3D
 
 		//Accéder à la lumière
 		CLightManager& lightManager = CLightManager::GetInstance();
+		
 		CLight* light0 = lightManager.getLight(0);
 		CLight* light1 = lightManager.getLight(1);
 
 		sp.lights[0].vLumiere = light0->position;
 		sp.lights[1].vLumiere = light1->position;
 		sp.vCamera = CCameraManager::GetInstance().GetCurrentCamera().GetPosition();
-		sp.lights[0].vAEcl = XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f);
+		sp.lights[0].vAEcl = light0->ambiante;
+		sp.lights[1].vAEcl = light1->ambiante;
 		sp.vAMat = XMVectorSet(0.62f, 0.31f, 0.0f, 1.0f);
-		sp.lights[0].vDEcl = XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f);
+		sp.lights[0].vDEcl = light0->diffuse;
+		sp.lights[1].vDEcl = light1->diffuse;
 		sp.vDMat = XMVectorSet(0.62f, 0.31f, 0.0f, 1.0f);
-		sp.lights[0].vSEcl = XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f);
+		sp.lights[0].vSEcl = light0->speculaire;
+		sp.lights[1].vSEcl = light1->speculaire;
 		sp.vSMat = XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f);
 		sp.puissance = 1.0f;
 		sp.bTex = true;

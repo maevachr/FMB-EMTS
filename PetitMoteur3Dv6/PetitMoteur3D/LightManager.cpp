@@ -15,7 +15,7 @@ namespace PM3D {
 			XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f),
 			1.0f);
 
-		lights[1] = CDynamicLight{};
+		lights[1] = CLight{};
 		lights[1].Init(XMVectorSet(4000.0f, 4000.0f, 700.0f, 1.0f),
 			XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f),
 			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
@@ -23,7 +23,7 @@ namespace PM3D {
 			1.0f);
 
 		//Set priority of the first camera
-		currentLight = &lights[0];
+		currentLight = &lights[1];
 
 		return true;
 	}
