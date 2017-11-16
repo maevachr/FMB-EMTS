@@ -38,6 +38,13 @@ namespace PM3D {
 			pMatViewProj,
 			player);
 
+		firstPerson.Init(
+			XMVectorSet(0.0f, 0.0f, 1.0f, 1.0f),
+			pMatView,
+			pMatProj,
+			pMatViewProj,
+			player);
+
 		//Set priority of the first camera
 		currentCamera = &dynamicCamera;
 		currentCamera->UpdateMatrix();

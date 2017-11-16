@@ -1,7 +1,7 @@
 #pragma once
 #include "DynamicCamera.h"
 #include "PlayerCamera.h"
-
+#include "FirstPersonCamera.h"
 
 namespace PM3D {
 	using namespace DirectX;
@@ -11,6 +11,7 @@ namespace PM3D {
 		CDynamicCamera dynamicCamera;
 		CCamera staticCamera;
 		CPlayerCamera playerCamera;
+		CFirstPersonCamera firstPerson;
 		CCamera* currentCamera;
 
 		CDIManipulateur* pGestionnaireDeSaisie;
@@ -47,6 +48,10 @@ namespace PM3D {
 			else if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_F3))
 			{
 				currentCamera = &playerCamera;
+			}
+			else if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_F4))
+			{
+				currentCamera = &firstPerson;
 			}
 
 			currentCamera->AnimeCamera(tempsEcoule);

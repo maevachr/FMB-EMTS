@@ -1,4 +1,5 @@
 #pragma once
+
 #include "objet3d.h"
 #include "Camera.h"
 
@@ -6,17 +7,15 @@ namespace PM3D
 {
 	using namespace DirectX;
 
-	class CPlayerCamera :public CCamera
-	{
+	class CFirstPersonCamera : public CCamera
+	{ 
 	protected:
-		const float DIST_HORZ_DEFAULT = 200.0f;
-		const float HAUTEUR_DEFAULT = 50.0f;
-		const float COEFFELAST_DEFAULT = 0.9f;
+		const float DIST_HORZ_DEFAULT = -15.0f;
+		const float HAUTEUR_DEFAULT = 10.0f;
 		const float HAUTEUR_TARGET_DEFAULT = 50.0f;
 
 		CObjet3D* objet;
-		float coeffElast;
-		struct Decalage{
+		struct Decalage {
 			float distanceHorizontale;
 			XMVECTOR hauteur;
 			XMVECTOR hauteur_target;
@@ -24,12 +23,11 @@ namespace PM3D
 			Decalage() :distanceHorizontale{}, hauteur{} {}
 
 		} decalage;
-
-
 	public:
-		CPlayerCamera() {}
-		~CPlayerCamera() {}
-		CPlayerCamera(
+		CFirstPersonCamera() {}
+		~CFirstPersonCamera() {}
+
+		CFirstPersonCamera(
 			const XMVECTOR& up_in,
 			XMMATRIX* pMatView_in,
 			XMMATRIX* pMatProj_in,
@@ -44,24 +42,17 @@ namespace PM3D
 			CObjet3D* objet_in);
 
 		virtual void AnimeCamera(float tempsEcoule) {
-			XMVECTOR newPosition = objet->getPosition() + decalage.get(objet->getDirection());
-			position = newPosition + (position- newPosition )*coeffElast ;
+			position = objet->getPosition() + decalage.get(objet->getDirection());
 		}
 
 		void UpdateMatrix() override {
 			// Matrice de la vision
 			auto positionObjet = objet->getPosition() + decalage.hauteur_target;
 			*pMatView = XMMatrixLookAtRH(position,
-				positionObjet,
+				(position + objet->getDirection()),
 				up);
 			*pMatViewProj = (*pMatView) * (*pMatProj);
 		}
-
-
-		//void SetPosition(const XMVECTOR& position_in) { position = position_in; };
-		//void SetDirection(const XMVECTOR& direction_in) { direction = direction_in; }
-		//void SetUp(const XMVECTOR& up_in) { up = up_in; }
 	};
 }
-
 
