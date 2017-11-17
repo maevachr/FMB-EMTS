@@ -7,6 +7,7 @@
 #include "util.h"
 #include "resource.h"
 #include <fstream>
+#include <algorithm>
 
 using namespace UtilitairesDX;
 
@@ -453,18 +454,25 @@ void CObjetMesh::LireFichierBinaire(string nomFichier)
 }
 	void CObjetMesh::InitMatricesShadowMap()
 	{
+		static const float MAX_LIGHT_DIST = 500.f;
 		//Accéder à la lumière
 		CLight& currentLight = CLightManager::GetInstance().GetCurrentLight();
 
-		// Matrice de la vision vu par la lumière - Le point TO est encore 0,0,0
-		mVLight = XMMatrixLookAtRH(currentLight.position,
+		//Approcher la caméra
+		XMVECTOR distance = currentLight.position - getPosition();
+		XMVECTOR direction = XMVector4Normalize(distance);
+		float length = XMVectorGetX(XMVector4Length(distance));
+		XMVECTOR lightPosition = getPosition() + direction * (length > MAX_LIGHT_DIST ? MAX_LIGHT_DIST : length);
+
+		// Matrice de la vision vu par la lumière
+		mVLight = XMMatrixLookAtRH(lightPosition,
 			getPosition(),
 			XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f));
 
-		 float champDeVision = XM_PI / 4; // 90 degrés
+		 float champDeVision = XM_PI / 8; // 22.5 degrés
 		 float ratioDAspect = 1.0f; // 512/512
 		 float planRapproche = 2.0; // Pas besoin d'être trop près
-		 float planEloigne = 200.0; // Suffisemment pour avoir tous les objets
+		 float planEloigne = MAX_LIGHT_DIST; // Suffisemment pour avoir tous les objets
 
 		mPLight = XMMatrixPerspectiveFovRH(champDeVision,
 			ratioDAspect,
@@ -604,7 +612,7 @@ void CObjetMesh::LireFichierBinaire(string nomFichier)
 			&pShadowMapView);
 
 		InitDepthBuffer();
-		InitMatricesShadowMap();
+		
 	}
 
 	void CObjetMesh::InitDepthBuffer()
@@ -672,6 +680,7 @@ void CObjetMesh::LireFichierBinaire(string nomFichier)
 		pImmediateContext->IASetInputLayout(pVertexLayoutShadow);
 		// Initialiser et sélectionner les «constantes» de l'effet
 		ShadersParams sp;
+		InitMatricesShadowMap();
 		sp.matWorldViewProjLight = XMMatrixTranspose(matWorld * mVPLight);
 		// Nous n'avons qu'un seul CBuffer
 		ID3DX11EffectConstantBuffer* pCB = pEffet->GetConstantBufferByName("param");
