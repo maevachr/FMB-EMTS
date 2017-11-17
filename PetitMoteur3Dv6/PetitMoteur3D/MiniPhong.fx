@@ -1,3 +1,5 @@
+#define NB_LIGHTS 2
+
 cbuffer param
 { 
 	struct {
@@ -5,7 +7,7 @@ cbuffer param
 		float4 vAEcl; 			// la valeur ambiante de l'éclairage
 		float4 vDEcl; 			// la valeur diffuse de l'éclairage 
 		float4 vSEcl; 			// la valeur spéculaire de l'éclairage 
-	} lights[2];
+	} lights[NB_LIGHTS];
 	float4x4 matWorldViewProj;   // la matrice totale 
 	float4x4 matWorld;		// matrice de transformation dans le monde 
 	float4 vCamera; 			// la position de la caméra
@@ -49,7 +51,7 @@ SamplerState SampleState;  // l'état de sampling
 float4 MiniPhongPS( VS_Sortie vs ) : SV_Target
 {
 float4 couleur = (float4)0; 
-	for(int i = 0; i< 2; i++){
+	for(int i = 0; i < NB_LIGHTS; i++){
 	float3 vDirLum = lights[i].vLumiere - vs.PosWorld; 
 
 	// Normaliser les paramètres
@@ -74,8 +76,8 @@ float4 couleur = (float4)0;
 		couleurTexture = textureEntree.Sample(SampleState, vs.coordTex);
 
 		// I = A + D * N.L + (R.V)n
-		couleur = couleur + couleurTexture * lights[i].vAEcl +
-			couleurTexture * lights[i].vDEcl * diff +
+		couleur = couleur + couleurTexture * lights[i].vAEcl * vAMat +
+			couleurTexture * lights[i].vDEcl * vDMat * diff +
 			lights[i].vSEcl * vSMat * S;
 	}
 	else

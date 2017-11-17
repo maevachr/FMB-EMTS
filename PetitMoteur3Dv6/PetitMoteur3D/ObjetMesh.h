@@ -6,6 +6,7 @@
 #include "chargeur.h"
 
 #include <vector>
+#include "LightManager.h"
 using namespace std;
 
 namespace PM3D
@@ -116,29 +117,29 @@ namespace PM3D
 
 		struct ShadersParams
 		{
-			XMMATRIX matWorldViewProj;	// la matrice totale 
+			struct {
+				XMVECTOR vLumiere; 			// la position de la source d'éclairage (Point)
+				XMVECTOR vAEcl; 			// la valeur ambiante de l'éclairage
+				XMVECTOR vDEcl; 			// la valeur diffuse de l'éclairage 
+				XMVECTOR vSEcl; 			// la valeur spéculaire de l'éclairage 
+			} lights[CLightManager::NB_MAX_LIGHTS];
 			XMMATRIX matWorldViewProjLight; // WVP pour lumiere
+			XMMATRIX matWorldViewProj;	// la matrice totale 
 			XMMATRIX matWorld;			// matrice de transformation dans le monde 
-			XMVECTOR vLumiere; 			// la position de la source d'éclairage (Point)
 			XMVECTOR vCamera; 			// la position de la caméra
-			XMVECTOR vAEcl; 			// la valeur ambiante de l'éclairage
 			XMVECTOR vAMat; 			// la valeur ambiante du matériau
-			XMVECTOR vDEcl; 			// la valeur diffuse de l'éclairage 
 			XMVECTOR vDMat; 			// la valeur diffuse du matériau
-			XMVECTOR vSEcl; 			// la valeur spéculaire de l'éclairage 
 			XMVECTOR vSMat; 			// la valeur spéculaire du matériau 
 			float puissance;			// la puissance de spécularité
 			int bTex;					// Texture ou materiau 
-			XMFLOAT2 remplissage;
-
+			float fatt;					// facteur d'attenuation
+			float remplissage;
 		};
 
 		// ****  Données membres
 		XMMATRIX matWorld;				// Matrice de transformation dans le monde
 		float rotation;
 
-		XMMATRIX mVLight;
-		XMMATRIX mPLight;
 		XMMATRIX mVPLight;
 
 		// Pour le dessin
@@ -169,7 +170,7 @@ namespace PM3D
 		ID3D11InputLayout* pVertexLayoutShadow; // VertexLayout de l'ombre
 
 		static const int SHADOWMAP_DIM = 512;
-
+		static const int MAX_LIGHT_DIST = 200;
 	};
 }
 

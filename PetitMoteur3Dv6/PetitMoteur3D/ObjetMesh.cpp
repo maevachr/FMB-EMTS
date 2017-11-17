@@ -454,27 +454,26 @@ void CObjetMesh::LireFichierBinaire(string nomFichier)
 }
 	void CObjetMesh::InitMatricesShadowMap()
 	{
-		static const float MAX_LIGHT_DIST = 500.f;
-		//Accéder à la lumière
-		CLight& currentLight = CLightManager::GetInstance().GetCurrentLight();
+		//Accéder à la lumière la plus proche
+		CLight& currentLight = *CLightManager::GetInstance().getLight(0);
 
-		//Approcher la caméra
+		//Approcher la lumière
 		XMVECTOR distance = currentLight.position - getPosition();
 		XMVECTOR direction = XMVector4Normalize(distance);
 		float length = XMVectorGetX(XMVector4Length(distance));
 		XMVECTOR lightPosition = getPosition() + direction * (length > MAX_LIGHT_DIST ? MAX_LIGHT_DIST : length);
 
 		// Matrice de la vision vu par la lumière
-		mVLight = XMMatrixLookAtRH(lightPosition,
+		XMMATRIX mVLight = XMMatrixLookAtRH(lightPosition,
 			getPosition(),
 			XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f));
 
-		 float champDeVision = XM_PI / 8; // 22.5 degrés
-		 float ratioDAspect = 1.0f; // 512/512
-		 float planRapproche = 2.0; // Pas besoin d'être trop près
-		 float planEloigne = MAX_LIGHT_DIST; // Suffisemment pour avoir tous les objets
+		float champDeVision = XM_PI / 8; // 22.5 degrés
+		float ratioDAspect = 1.0f; // 512/512
+		float planRapproche = 2.0; // Pas besoin d'être trop près
+		float planEloigne = MAX_LIGHT_DIST; // Suffisemment pour avoir tous les objets
 
-		mPLight = XMMatrixPerspectiveFovRH(champDeVision,
+		XMMATRIX mPLight = XMMatrixPerspectiveFovRH(champDeVision,
 			ratioDAspect,
 			planRapproche,
 			planEloigne);
@@ -663,9 +662,7 @@ void CObjetMesh::LireFichierBinaire(string nomFichier)
 
 		// ***** OMBRES ---- Premier Rendu - Création du Shadow Map
 		// Utiliser la surface de la texture comme surface de rendu
-		pImmediateContext->OMSetRenderTargets(1, &pRenderTargetView,
-
-			pDepthStencilView);
+		pImmediateContext->OMSetRenderTargets(1, &pRenderTargetView, pDepthStencilView);
 
 		// Effacer le shadow map
 		float Couleur[4] = { 1.0f, 0.0f, 0.0f, 1.0f };
@@ -681,11 +678,25 @@ void CObjetMesh::LireFichierBinaire(string nomFichier)
 		// Initialiser et sélectionner les «constantes» de l'effet
 		ShadersParams sp;
 		InitMatricesShadowMap();
-		sp.matWorldViewProjLight = XMMatrixTranspose(matWorld * mVPLight);
+		CLightManager::GetInstance().SortByDistance(getPosition());
+
+		CLight& closestLight = *CLightManager::GetInstance().getLight(0);
+		CLight& secondClosestLight = *CLightManager::GetInstance().getLight(1);
+		XMVECTOR distance = closestLight.position - getPosition();
+		float length = XMVectorGetX(XMVector4Length(distance));
+		XMVECTOR secondDistance = secondClosestLight.position - getPosition();
+		float secondLength = XMVectorGetX(XMVector4Length(secondDistance));
+		sp.fatt = (length / secondLength) < 0.5f ? 0.5f : length / secondLength;
+
+		for (int i = 0; i < CLightManager::NB_MAX_LIGHTS; ++i) {
+			sp.matWorldViewProjLight = XMMatrixTranspose(matWorld * mVPLight);
+		}
+
 		// Nous n'avons qu'un seul CBuffer
 		ID3DX11EffectConstantBuffer* pCB = pEffet->GetConstantBufferByName("param");
 		pCB->SetConstantBuffer(pConstantBuffer);
 		pImmediateContext->UpdateSubresource(pConstantBuffer, 0, NULL, &sp, 0, 0);
+
 		// Dessiner les subsets non-transparents
 		for (int i = 0; i < NombreSubmesh; ++i)
 		{
@@ -719,14 +730,16 @@ void CObjetMesh::LireFichierBinaire(string nomFichier)
 		sp.matWorldViewProj = XMMatrixTranspose(matWorld * viewProj);
 		sp.matWorld = XMMatrixTranspose(matWorld);
 
-		//Accéder à la lumière
-		CLight& currentLight = CLightManager::GetInstance().GetCurrentLight();
+		for (int i = 0; i < CLightManager::NB_MAX_LIGHTS; ++i) {
+			//Accéder à la lumière
+			CLight& currentLight = *CLightManager::GetInstance().getLight(i);
 
-		sp.vLumiere = currentLight.position;
-		sp.vCamera = CCameraManager::GetInstance().GetCurrentCamera().GetPosition();
-		sp.vAEcl = XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f);
-		sp.vDEcl = XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f);
-		sp.vSEcl = XMVectorSet(0.6f, 0.6f, 0.6f, 1.0f);
+			sp.lights[i].vLumiere = currentLight.position;
+			sp.vCamera = CCameraManager::GetInstance().GetCurrentCamera().GetPosition();
+			sp.lights[i].vAEcl = XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f);
+			sp.lights[i].vDEcl = XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f);
+			sp.lights[i].vSEcl = XMVectorSet(0.6f, 0.6f, 0.6f, 1.0f);
+		}
 
 		// Le sampler state
 		ID3DX11EffectSamplerVariable* variableSampler;

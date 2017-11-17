@@ -1,19 +1,24 @@
+#define NB_LIGHTS 2
+
 cbuffer param
 { 
-	float4x4 matWorldViewProj;   // la matrice totale 
+	struct {
+		float4 vLumiere; 		// la position de la source d'éclairage (Point)
+		float4 vAEcl; 			// la valeur ambiante de l'éclairage
+		float4 vDEcl; 			// la valeur diffuse de l'éclairage 
+		float4 vSEcl; 			// la valeur spéculaire de l'éclairage 
+	} lights[NB_LIGHTS];
 	float4x4 matWorldViewProjLight; // Matrice WVP pour lumière
-	float4x4 matWorld;	// matrice de transformation dans le monde 
-	float4 vLumiere; // la position de la source d'éclairage (Point)
-	float4 vCamera; 	// la position de la caméra
-	float4 vAEcl; 		// la valeur ambiante de l'éclairage
-	float4 vAMat; 	// la valeur ambiante du matériau
-	float4 vDEcl; 		// la valeur diffuse de l'éclairage 
+	float4x4 matWorldViewProj;   // la matrice totale 
+	float4x4 matWorld;		// matrice de transformation dans le monde 
+	float4 vCamera; 			// la position de la caméra
+	float4 vAMat; 			// la valeur ambiante du matériau
 	float4 vDMat; 			// la valeur diffuse du matériau 
-	float4 vSEcl; 			// la valeur spéculaire de l'éclairage 
 	float4 vSMat; 			// la valeur spéculaire du matériau 
-	float puissance;
-	int bTex;		    	// Booléen pour la présence de texture
-	float2 remplissage;
+	float puissance; 		// la puissance de spécularité
+	int bTex;		    		// Booléen pour la présence de texture
+	float fatt;				//facteur d'attenuation;
+	float remplissage;
 }
 
 struct ShadowMapVS_SORTIE
@@ -86,7 +91,7 @@ struct VS_Sortie
 {
 	float4 Pos : SV_Position;
 	float3 Norm :    TEXCOORD0;
-	float3 vDirLum : TEXCOORD1;
+	float3 PosWorld : TEXCOORD1;
 	float3 vDirCam : TEXCOORD2;
 	float2 coordTex : TEXCOORD3; 
 	float4 PosInMap : TEXCOORD4;
@@ -98,22 +103,19 @@ struct VS_Sortie
 VS_Sortie MiniPhongVS(float4 Pos : POSITION, 
                       float3 Normale : NORMAL, float2 coordTex: TEXCOORD0)  
 {
-VS_Sortie sortie = (VS_Sortie)0;
+	VS_Sortie sortie = (VS_Sortie)0;
 	
 	sortie.Pos = mul(Pos, matWorldViewProj); 
 	sortie.Norm = mul(Normale, matWorld); 
 	
- 	float3 PosWorld = mul(Pos, matWorld);
+ 	sortie.PosWorld = mul(Pos, matWorld);
 
-	sortie.vDirLum = vLumiere - PosWorld; 
-	sortie.vDirCam = vCamera - PosWorld; 
+	sortie.vDirCam = vCamera - sortie.PosWorld; 
+	
+	sortie.PosInMap = mul(Pos, matWorldViewProjLight);
 
 	// Coordonnées d'application de texture
 	sortie.coordTex = coordTex;
-
-	// Valeurs pour shadow map
-	// Coordonnées
-	sortie.PosInMap = mul(Pos, matWorldViewProjLight);
 
 	return sortie;
 }
@@ -122,46 +124,59 @@ VS_Sortie sortie = (VS_Sortie)0;
 
 float4 MiniPhongPS( VS_Sortie vs ) : SV_Target
 {
-float4 couleur; 
+	float4 couleur = (float4) 0;
 
-	// Normaliser les paramètres
-	float3 N = normalize(vs.Norm);
- 	float3 L = normalize(vs.vDirLum);
-	float3 V = normalize(vs.vDirCam);
+	for (int i = 0; i < NB_LIGHTS; ++i) {
+		
+		float3 vDirLum = lights[i].vLumiere - vs.PosWorld; 
+		
+		// Normaliser les paramètres
+		float3 N = normalize(vs.Norm);
+		float3 L = normalize(vDirLum);
+		float3 V = normalize(vs.vDirCam);
 
-	// Valeur de la composante diffuse
-	float4 diff = saturate(dot(N, L)); 
+		// Valeur de la composante diffuse
+		float4 diff = saturate(dot(N, L)); 
 
-	// R = 2 * (N.L) * N - L
-	float3 R = normalize(2 * diff * N - L);
-    
-	// Calcul de la spécularité 
-	float4 S = pow(saturate(dot(R, V)), puissance); 
+		// R = 2 * (N.L) * N - L
+		float3 R = normalize(2 * diff * N - L);
+		
+		// Calcul de la spécularité 
+		float4 S = pow(saturate(dot(R, V)), puissance); 
 
-	float4 couleurTexture;  
+		float4 couleurTexture;  
 
-	if (bTex>0)
-	{
-		// Échantillonner la couleur du pixel à partir de la texture  
-		couleurTexture = textureEntree.Sample(SampleState, vs.coordTex);   
+		if (bTex>0)
+		{
+			// Échantillonner la couleur du pixel à partir de la texture  
+			couleurTexture = textureEntree.Sample(SampleState, vs.coordTex);
+
+			// I = A + D * N.L + (R.V)n
+			couleur = couleur + couleurTexture * lights[i].vAEcl * vAMat +
+				couleurTexture * lights[i].vDEcl * vDMat * diff +
+				lights[i].vSEcl * vSMat * S;
+		}
+		else
+		{
+			couleur = couleur + lights[i].vAEcl * vAMat + lights[i].vDEcl * vDMat * diff +
+				lights[i].vSEcl * vSMat * S;
+		}
 	}
-	else
-	{
-		couleurTexture =  vDMat;
-	}
+	
+	float4 PosInMap = vs.PosInMap;
 
 	// Calculer la valeur du shadowmapping
 	// Calculer les coordonnées de texture (ShadowMap)
-	float2 ShadowCoord = 0.5 * vs.PosInMap.xy / vs.PosInMap.w + float2( 0.5, 0.5 );
+	float2 ShadowCoord = 0.5 * PosInMap.xy / PosInMap.w + float2( 0.5, 0.5 );
 	ShadowCoord.y = 1.0f - ShadowCoord.y;
-    
+	
 	float2 PixelActuel = DIMTEX * ShadowCoord; // Pour une texture de 512 X 512
 
 	// Valeur de l'interpolation linéaire           
 	float2 lerps = frac( PixelActuel );
 
 	// Lire les valeurs du tableau, avec les vérifications de profondeur
-	float Profondeur = vs.PosInMap.z / vs.PosInMap.w ; 
+	float Profondeur = PosInMap.z / PosInMap.w ; 
 	float3 kernel[9];
 
 	float echelle = 1.0/DIMTEX;
@@ -177,42 +192,41 @@ float4 couleur;
 	coord[7] = ShadowCoord + float2( echelle, 0.0    ); 
 	coord[8] = ShadowCoord + float2( echelle, echelle);  
 
+	float shadowStrength = fatt;
 	// Colonne 1
-	kernel[0].x=(ShadowTexture.Sample(ShadowMapSampler, coord[0])< Profondeur)? 0.0f: 1.0f;  
-	kernel[0].y=(ShadowTexture.Sample(ShadowMapSampler, coord[1])< Profondeur)? 0.0f: 1.0f; 
-	kernel[0].z=(ShadowTexture.Sample(ShadowMapSampler, coord[2])< Profondeur)? 0.0f: 1.0f; 
+	kernel[0].x=(ShadowTexture.Sample(ShadowMapSampler, coord[0])< Profondeur)? shadowStrength : 1.0f;  
+	kernel[0].y=(ShadowTexture.Sample(ShadowMapSampler, coord[1])< Profondeur)? shadowStrength : 1.0f; 
+	kernel[0].z=(ShadowTexture.Sample(ShadowMapSampler, coord[2])< Profondeur)? shadowStrength : 1.0f; 
 	// Colonne 2
-	kernel[1].x=(ShadowTexture.Sample(ShadowMapSampler, coord[3])< Profondeur)? 0.0f: 1.0f;   
-	kernel[1].y=(ShadowTexture.Sample(ShadowMapSampler, coord[4])< Profondeur)? 0.0f: 1.0f;  
-	kernel[1].z=(ShadowTexture.Sample(ShadowMapSampler, coord[5])< Profondeur)? 0.0f: 1.0f;  
+	kernel[1].x=(ShadowTexture.Sample(ShadowMapSampler, coord[3])< Profondeur)? shadowStrength : 1.0f;   
+	kernel[1].y=(ShadowTexture.Sample(ShadowMapSampler, coord[4])< Profondeur)? shadowStrength : 1.0f;  
+	kernel[1].z=(ShadowTexture.Sample(ShadowMapSampler, coord[5])< Profondeur)? shadowStrength : 1.0f;  
 	// Colonne 3
-	kernel[2].x=(ShadowTexture.Sample(ShadowMapSampler, coord[6])< Profondeur)? 0.0f: 1.0f;  
-	kernel[2].y=(ShadowTexture.Sample(ShadowMapSampler, coord[7])< Profondeur)? 0.0f: 1.0f; 
-	kernel[2].z=(ShadowTexture.Sample(ShadowMapSampler, coord[8])< Profondeur)? 0.0f: 1.0f;  
+	kernel[2].x=(ShadowTexture.Sample(ShadowMapSampler, coord[6])< Profondeur)? shadowStrength : 1.0f;  
+	kernel[2].y=(ShadowTexture.Sample(ShadowMapSampler, coord[7])< Profondeur)? shadowStrength : 1.0f; 
+	kernel[2].z=(ShadowTexture.Sample(ShadowMapSampler, coord[8])< Profondeur)? shadowStrength : 1.0f;  
  
- 	// Les interpolations linéaires
+	// Les interpolations linéaires
 	// Interpoler colonnes 1 et 2
 	float3 col12 = lerp( kernel[0], kernel[1], lerps.x );
 	// Interpoler colonnes 2 et 3
 	float3 col23 = lerp( kernel[1], kernel[2], lerps.x );
- 	// Interpoler ligne 1 et colonne 1
+	// Interpoler ligne 1 et colonne 1
 	float4 lc;
-           lc.x = lerp( col12.x, col12.y, lerps.y );
- 	// Interpoler ligne 2 et colonne 1
-           lc.y = lerp( col12.y, col12.z, lerps.y );
- 	// Interpoler ligne 1 et colonne 2
-           lc.z = lerp( col23.x, col23.y, lerps.y );
+		   lc.x = lerp( col12.x, col12.y, lerps.y );
 	// Interpoler ligne 2 et colonne 1
-           lc.w = lerp( col23.y, col23.z, lerps.y );
+		   lc.y = lerp( col12.y, col12.z, lerps.y );
+	// Interpoler ligne 1 et colonne 2
+		   lc.z = lerp( col23.x, col23.y, lerps.y );
+	// Interpoler ligne 2 et colonne 1
+		   lc.w = lerp( col23.y, col23.z, lerps.y );
 
 	// Faire la moyenne
 	float ValeurOmbre = (lc.x + lc.y + lc.z + lc.w) / 4.0;
-
- 	// I = A + D * N.L + (R.V)n
-	couleur =	(couleurTexture * vAEcl  + 
-				couleurTexture * vDEcl * diff +
-				vSEcl * vSMat * S)   * ValeurOmbre;
-
+	
+	// I = A + D * N.L + (R.V)n
+	couleur = couleur * ValeurOmbre;
+	
 	return couleur;
 }
 

@@ -19,6 +19,7 @@ namespace PM3D {
 		}
 
 		bool IsInitialized() const { return currentLight != nullptr; }
+		void SortByDistance(XMVECTOR position);
 
 		CLight& GetCurrentLight() const { return *currentLight; }
 		CLight* getLight(size_t n) { return &lights[n]; }
