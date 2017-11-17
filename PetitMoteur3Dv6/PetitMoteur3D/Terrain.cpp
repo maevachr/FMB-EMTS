@@ -278,7 +278,7 @@ namespace PM3D
 	void CTerrain::SpawnPhysic()
 	{
 
-		_heightMap = std::make_unique<physx::PxHeightFieldSample[]>(1000*1000);
+		_heightMap = std::make_unique<physx::PxHeightFieldSample[]>(1000 * 1000);
 
 		for (int i = 0; i < vertices.size(); ++i) {
 			_heightMap[i].height = PxI16(vertices[i].position.z); //scaling
@@ -296,16 +296,20 @@ namespace PM3D
 
 		_heightField = physx::unique_ptr<physx::PxHeightField>(SimulationManager::GetInstance().physics().createHeightField(heightMapDesc));
 
-		PxHeightFieldGeometry hfGeom(_heightField.get(), 
+		PxHeightFieldGeometry hfGeom(_heightField.get(),
 			PxMeshGeometryFlag::eDOUBLE_SIDED,
-			1.0f, 
+			1.0f,
 			1.0f,
 			1.0f);
 
-		pxActor = SimulationManager::GetInstance().physics().createRigidStatic(physx::PxTransform::createIdentity());
-		
+		PxTransform transform = physx::PxTransform::createIdentity();
+		transform.q = PxQuat(physx::PxPi / 2, { 1,0,0 })*PxQuat(physx::PxPi / 2, { 0,1,0});
+
+		pxActor = SimulationManager::GetInstance().physics().createRigidStatic(transform);
+
 		actorShape = pxActor->createShape(hfGeom, *material);
 
+		
 
 		SimulationManager::GetInstance().scene().addActor(*pxActor);
 
