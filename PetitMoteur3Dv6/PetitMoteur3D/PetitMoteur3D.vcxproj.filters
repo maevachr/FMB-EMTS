@@ -179,9 +179,6 @@
     <ClInclude Include="LightManager.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="PxPhysicsAPI.forward.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="SimulationManager.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
@@ -199,6 +196,9 @@
     </ClInclude>
     <ClInclude Include="FirstPersonCamera.h">
       <Filter>Fichiers d%27en-tête\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="PxPhysicsAPI.forward.h">
+      <Filter>Fichiers d%27en-tête\PhysX</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
