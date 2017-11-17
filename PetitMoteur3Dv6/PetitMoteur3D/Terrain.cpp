@@ -106,6 +106,9 @@ namespace PM3D
 
 		rotation = 0.0f;
 
+		LoadData();
+		SpawnPhysic();
+
 		return true;
 	}
 
@@ -266,4 +269,45 @@ namespace PM3D
 		pTextureD3D = pTexture->GetD3DTexture();
 	}
 
+	void CTerrain::LoadData()
+	{
+		PxPhysics &physics = SimulationManager::GetInstance().physics();
+		material = physx::unique_ptr<PxMaterial>(physics.createMaterial(0.5f, 0.5f, 0.1f));
+	}
+
+	void CTerrain::SpawnPhysic()
+	{
+
+		_heightMap = std::make_unique<physx::PxHeightFieldSample[]>(1000*1000);
+
+		for (int i = 0; i < vertices.size(); ++i) {
+			_heightMap[i].height = PxI16(vertices[i].position.z); //scaling
+			_heightMap[i].materialIndex0 = 0;
+			_heightMap[i].materialIndex1 = 0;
+			_heightMap[i].clearTessFlag();
+		}
+
+		PxHeightFieldDesc heightMapDesc;
+		heightMapDesc.format = PxHeightFieldFormat::eS16_TM;
+		heightMapDesc.nbColumns = header.X;
+		heightMapDesc.nbRows = header.Y;
+		heightMapDesc.samples.data = _heightMap.get();
+		heightMapDesc.samples.stride = sizeof(PxHeightFieldSample);
+
+		_heightField = physx::unique_ptr<physx::PxHeightField>(SimulationManager::GetInstance().physics().createHeightField(heightMapDesc));
+
+		PxHeightFieldGeometry hfGeom(_heightField.get(), 
+			PxMeshGeometryFlag::eDOUBLE_SIDED,
+			1.0f, 
+			1.0f,
+			1.0f);
+
+		pxActor = SimulationManager::GetInstance().physics().createRigidStatic(physx::PxTransform::createIdentity());
+		
+		actorShape = pxActor->createShape(hfGeom, *material);
+
+
+		SimulationManager::GetInstance().scene().addActor(*pxActor);
+
+	}
 }

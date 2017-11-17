@@ -4,6 +4,18 @@
 #include "DispositifD3D11.h"
 #include <vector>
 #include "Texture.h"
+#include "PxPhysicsAPI.forward.h"
+#include <PxMaterial.h>
+#include <memory.h>
+#include "PhysX/Include/geometry/PxHeightField.h"
+#include "PhysX/Include/geometry/PxHeightFieldSample.h"
+#include "PhysX/Include/geometry/PxHeightFieldGeometry.h"
+#include "PhysX/Include/geometry/PxHeightFieldFlag.h"
+#include "PhysX/Include/geometry/PxHeightFieldDesc.h"
+
+
+using namespace std;
+using namespace physx;
 
 namespace PM3D
 {
@@ -73,6 +85,20 @@ namespace PM3D
 		std::vector<Triangle> triangles;
 		TerrainFileHeader header;
 
+		//Pour physX
+	protected:
+		std::unique_ptr<physx::PxHeightFieldSample[]> _heightMap;
+		physx::unique_ptr<physx::PxHeightField> _heightField;
+
+		physx::PxTransform transform;
+		physx::unique_ptr<PxMaterial> material; 
+		physx::PxShape* actorShape; 
+		physx::PxRigidStatic *pxActor;
+
+	public:
+
+		void LoadData();
+		void SpawnPhysic();
 	};
 
 }
