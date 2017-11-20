@@ -253,8 +253,8 @@ namespace PM3D
 
 		//chargeur.Chargement(param);  // Le chargeur lit le fichier
 
-		//terrainMesh = new CObjetMesh(chargeu
-
+		//newMesh = new CObjetMesh(chargeur,"obj_terrain.omb", pDispositif); 
+		//ListeScene.push_back(newMesh);
 
 
 		//ancien terrain
