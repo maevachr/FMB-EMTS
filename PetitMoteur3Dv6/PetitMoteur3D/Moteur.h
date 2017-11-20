@@ -236,43 +236,42 @@ namespace PM3D
 		crateMesh = new CObjetMesh("obj_crate.omb", pDispositif);
 		ListeScene.push_back(crateMesh);
 
-		//CObjetMesh* pMesh;
-		//pMesh = new CObjetMesh("obj_lexus.omb", pDispositif);
+		CObjetMesh* terrainMesh;
+		terrainMesh = new CObjetMesh("obj_terrain.omb", pDispositif);
+		ListeScene.push_back(terrainMesh);
 
-		// Création d'un objet mesh à partir d'un fichier .OBJ
+		////Ajouter un objet, créer le .omb
+		//CObjetMesh* newMesh;
+		////// Création d'un objet mesh à partir d'un fichier .OBJ
 		//CChargeurAssimp chargeur;
 		//CParametresChargement param;
 
-		//param.NomChemin = ".\\modeles\\Camion\\";
-		//param.NomFichier = "monster.obj";
+		//param.NomChemin = ".\\modeles\\Terrain\\";
+		//param.NomFichier = "terrain.obj";
 		//param.bMainGauche = false;
 		//param.bInverserCulling = true;
 
 		//chargeur.Chargement(param);  // Le chargeur lit le fichier
 
-		//pMesh = new CObjetMesh(chargeur, pDispositif);
-		//pMesh = new CObjetMesh(chargeur, "obj_lexus.omb", pDispositif);
-		//pMesh = new CObjetMesh("obj_lexus.omb", pDispositif);
-
-		// Puis, il est ajouté à la scène
+		//terrainMesh = new CObjetMesh(chargeu
 
 
 
+		//ancien terrain
+		//CTerrain* pTerrain;
 
-		CTerrain* pTerrain;
+		//// Création d'un cube de 2 X 2 X 2 unités
+		//// Le bloc est créé dans notre programme et sur le dispositif
+		//pTerrain = new CTerrain;
 
-		// Création d'un cube de 2 X 2 X 2 unités
-		// Le bloc est créé dans notre programme et sur le dispositif
-		pTerrain = new CTerrain;
+		//std::ifstream file("Sortie.txt", std::ios::binary);
+		//file >> *pTerrain;
+		//pTerrain->Init(pDispositif);
 
-		std::ifstream file("Sortie.txt", std::ios::binary);
-		file >> *pTerrain;
-		pTerrain->Init(pDispositif);
+		//pTerrain->SetTexture(TexturesManager.GetNewTexture(L"dirt4.dds", pDispositif));
 
-		pTerrain->SetTexture(TexturesManager.GetNewTexture(L"dirt4.dds", pDispositif));
-
-		// Puis, il est ajouté à la scène
-		ListeScene.push_back(pTerrain);
+		//// Puis, il est ajouté à la scène
+		//ListeScene.push_back(pTerrain);
 
 		
 		return true;
