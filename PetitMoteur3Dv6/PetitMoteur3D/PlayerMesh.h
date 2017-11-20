@@ -51,6 +51,6 @@ namespace PM3D
 		void SpawnPhysic();
 
 		void UpdatePositionRenderFromPhysX();
-		void UpdatePositionPhysXFromRender();
+		void UpdatePositionPhysXFromRender(); // DEPRECIEE
 	};
 }
