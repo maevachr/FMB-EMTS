@@ -256,7 +256,7 @@ void CObjetMesh::EcrireFichierBinaire(IChargeur& chargeur, string nomFichier)
 		{
 			s.position = chargeur.GetPosition(iSubmesh, i);
 			s.normal = chargeur.GetNormale(iSubmesh, i);
-			//s.coordTex = chargeur.GetCoordTex(iSubmesh, i);
+			s.coordTex = chargeur.GetCoordTex(iSubmesh, i);
 
 			ts.push_back(s);
 		}
