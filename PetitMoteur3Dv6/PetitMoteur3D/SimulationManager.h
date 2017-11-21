@@ -23,7 +23,6 @@ protected:
 
 public:
 	physx::PxPhysics& physics();
-
 	physx::PxScene& scene();
 
 	void InitPhysX();

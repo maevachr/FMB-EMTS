@@ -300,10 +300,11 @@ namespace PM3D
 			PxMeshGeometryFlag::eDOUBLE_SIDED,
 			1.0f,
 			1.0f,
-			1.0f);
+			1.0f); //scaling
 
 		PxTransform transform = physx::PxTransform::createIdentity();
-		transform.q = PxQuat(physx::PxPi / 2, { 1,0,0 })*PxQuat(physx::PxPi / 2, { 0,1,0});
+
+		transform.q = PxQuat(physx::PxPi / 2, { 1,0,0 })*PxQuat(physx::PxPi / 2, { 0,1,0}); //Repositionnement
 
 		pxActor = SimulationManager::GetInstance().physics().createRigidStatic(transform);
 

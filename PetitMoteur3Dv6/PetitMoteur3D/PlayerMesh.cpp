@@ -86,7 +86,10 @@ namespace PM3D
 		pxActor->setGlobalPose(transform);
 
 		PxShape *actorShape = pxActor->createShape(PxBoxGeometry(PxVec3(3, 2, 1)), *material);
+		
+		
 		pxActor->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, true);
+
 
 		SimulationManager::GetInstance().scene().addActor(*pxActor);
 		//Pour collisions : 
