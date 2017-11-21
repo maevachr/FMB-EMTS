@@ -228,37 +228,37 @@ namespace PM3D
 
 	bool InitObjets()
 	{
-		//PlayerMesh* pMesh;
-		//pMesh = new PlayerMesh("monster.omb", pDispositif, &GestionnaireDeSaisie);
-		//ListeScene.push_back(pMesh);
+		PlayerMesh* pMesh;
+		pMesh = new PlayerMesh("monster.omb", pDispositif, &GestionnaireDeSaisie);
+		ListeScene.push_back(pMesh);
 
-		//CObjetMesh* crateMesh;
-		//crateMesh = new CObjetMesh("obj_crate.omb", pDispositif);
-		//ListeScene.push_back(crateMesh);
+		CObjetMesh* crateMesh;
+		crateMesh = new CObjetMesh("obj_crate.omb", pDispositif);
+		ListeScene.push_back(crateMesh);
 
-		//CObjetMesh* terrainMesh;
-		//terrainMesh = new CObjetMesh("obj_terrain.omb", pDispositif);
-		//ListeScene.push_back(terrainMesh);
+		CObjetMesh* terrainMesh;
+		terrainMesh = new CObjetMesh("obj_terrain.omb", pDispositif);
+		ListeScene.push_back(terrainMesh);
 
-		//CObjetMesh* busMesh;
-		//busMesh = new CObjetMesh("obj_School_Bus_Wrecked.omb", pDispositif);
-		//ListeScene.push_back(busMesh);
+		CObjetMesh* busMesh;
+		busMesh = new CObjetMesh("obj_School_Bus_Wrecked.omb", pDispositif);
+		ListeScene.push_back(busMesh);
 
-		//Ajouter un objet, créer le .omb
-		CObjetMesh* newMesh;
-		//// Création d'un objet mesh à partir d'un fichier .OBJ
-		CChargeurAssimp chargeur;
-		CParametresChargement param;
+		////Ajouter un objet, créer le .omb
+		//CObjetMesh* newMesh;
+		////// Création d'un objet mesh à partir d'un fichier .OBJ
+		//CChargeurAssimp chargeur;
+		//CParametresChargement param;
 
-		param.NomChemin = ".\\modeles\\Objets\\Bus\\";
-		param.NomFichier = "turned_bus.obj";
-		param.bMainGauche = false;
-		param.bInverserCulling = true;
+		//param.NomChemin = ".\\modeles\\Objets\\Bus\\";
+		//param.NomFichier = "turned_bus.obj";
+		//param.bMainGauche = false;
+		//param.bInverserCulling = true;
 
-		chargeur.Chargement(param);  // Le chargeur lit le fichier
+		//chargeur.Chargement(param);  // Le chargeur lit le fichier
 
-		newMesh = new CObjetMesh(chargeur, "obj_School_Bus_Wrecked.omb", pDispositif);
-		ListeScene.push_back(newMesh);
+		//newMesh = new CObjetMesh(chargeur, "obj_School_Bus_Wrecked.omb", pDispositif);
+		//ListeScene.push_back(newMesh);
 
 
 		//ancien terrain
