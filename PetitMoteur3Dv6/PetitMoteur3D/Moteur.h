@@ -250,14 +250,14 @@ namespace PM3D
 		//CChargeurAssimp chargeur;
 		//CParametresChargement param;
 
-		//param.NomChemin = ".\\modeles\\Objets\\Bus\\";
-		//param.NomFichier = "turned_bus.obj";
+		//param.NomChemin = ".\\modeles\\Terrain\\";
+		//param.NomFichier = "terrain.obj";
 		//param.bMainGauche = false;
 		//param.bInverserCulling = true;
 
 		//chargeur.Chargement(param);  // Le chargeur lit le fichier
 
-		//newMesh = new CObjetMesh(chargeur, "obj_School_Bus_Wrecked.omb", pDispositif);
+		//newMesh = new CObjetMesh(chargeur, "obj_terrain.omb", pDispositif);
 		//ListeScene.push_back(newMesh);
 
 

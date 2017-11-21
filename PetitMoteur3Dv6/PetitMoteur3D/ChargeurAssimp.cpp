@@ -99,6 +99,7 @@ void CChargeurAssimp::GetMaterial(int _i,
 	XMFLOAT4& _Ambient,
 	XMFLOAT4& _Diffuse,
 	XMFLOAT4& _Specular,
+	float& _Alpha,
 	float& _Puissance)
 {
 	aiString name;
@@ -112,12 +113,14 @@ void CChargeurAssimp::GetMaterial(int _i,
 	else _NomFichierTexture = parametres.NomChemin + _NomFichierTexture;
 
 	aiColor3D color(0.f, 0.f, 0.f); 
+	scene->mMaterials[_i]->Get(AI_MATKEY_OPACITY, _Alpha);
+
 	scene->mMaterials[_i]->Get(AI_MATKEY_COLOR_DIFFUSE, color);
-	_Diffuse = XMFLOAT4(color.r, color.g, color.b, 1.0f);
+	_Diffuse = XMFLOAT4(color.r, color.g, color.b, _Alpha);
 	scene->mMaterials[_i]->Get(AI_MATKEY_COLOR_AMBIENT, color);
-	_Ambient = XMFLOAT4(color.r, color.g, color.b, 1.0f);
+	_Ambient = XMFLOAT4(color.r, color.g, color.b, _Alpha);
 	scene->mMaterials[_i]->Get(AI_MATKEY_COLOR_SPECULAR, color);
-	_Specular = XMFLOAT4(color.r, color.g, color.b, 1.0f);
+	_Specular = XMFLOAT4(color.r, color.g, color.b, _Alpha);
 	float puissance;
 	scene->mMaterials[_i]->Get(AI_MATKEY_SHININESS, puissance);
 	_Puissance = puissance;

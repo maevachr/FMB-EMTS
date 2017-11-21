@@ -37,6 +37,7 @@ namespace PM3D
 			XMFLOAT4 Ambient;
 			XMFLOAT4 Diffuse;
 			XMFLOAT4 Specular;
+			float alpha;
 			float Puissance;
 			bool transparent;
 		};
@@ -51,6 +52,7 @@ namespace PM3D
 			XMFLOAT4 Ambient;
 			XMFLOAT4 Diffuse;
 			XMFLOAT4 Specular;
+			float alpha;
 			float Puissance;
 			bool transparent;
 
@@ -79,8 +81,8 @@ namespace PM3D
 
 			void BlockToMat(MaterialBlock& mb)
 			{
-				NomFichierTexture.append(mb.NomFichierTexture);
-				NomMateriau.append(mb.NomMateriau);
+				NomFichierTexture = mb.NomFichierTexture;
+				NomMateriau = mb.NomMateriau;
 				Ambient = mb.Ambient;
 				Diffuse = mb.Diffuse;
 				Specular = mb.Specular;

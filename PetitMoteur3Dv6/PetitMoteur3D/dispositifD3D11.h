@@ -33,6 +33,9 @@ namespace PM3D
 		void ResetViewPortDimension();
 		void SetNormalRSState();
 
+		void ActiverMelangeAlpha(); 
+		void DesactiverMelangeAlpha();
+
 	protected:
 		CDispositifD3D11(void);
 		void InitDepthBuffer();
@@ -50,5 +53,8 @@ namespace PM3D
 		ID3D11RasterizerState* mSolidCullBackRS;
 
 
+		ID3D11BlendState* alphaBlendEnable; 
+		ID3D11BlendState* alphaBlendDisable;
+		void InitBlendStates();
 	};
 }

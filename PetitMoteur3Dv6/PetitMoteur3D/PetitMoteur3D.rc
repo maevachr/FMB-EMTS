@@ -15,7 +15,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// Français (Canada) resources
+// French (Canada) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_FRC)
 LANGUAGE LANG_FRENCH, SUBLANG_FRENCH_CANADIAN
@@ -141,9 +141,10 @@ BEGIN
     ERREUR_CREATION_DIRECTINPUT "Erreur de creation de DirectInput"
     ERREUR_CREATION_CLAVIER "Erreur de creation du clavier"
     ERREUR_CREATION_FORMAT_CLAVIER "Erreur dans le format du clavier"
+    DXE_ERREURCREATION_BLENDSTATE "Erreur pour le blend, transparence"
 END
 
-#endif    // Français (Canada) resources
+#endif    // French (Canada) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

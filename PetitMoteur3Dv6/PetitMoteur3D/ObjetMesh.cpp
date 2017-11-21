@@ -209,6 +209,7 @@ void CObjetMesh::TransfertObjet(IChargeur& chargeur)
 			mat.Ambient,
 			mat.Diffuse,
 			mat.Specular,
+			mat.alpha,
 			mat.Puissance);
 
 		Material.push_back(mat);
@@ -317,6 +318,7 @@ void CObjetMesh::EcrireFichierBinaire(IChargeur& chargeur, string nomFichier)
 			mat.Ambient,
 			mat.Diffuse,
 			mat.Specular,
+			mat.alpha,
 			mat.Puissance);
 
 		mat.MatToBlock(mb);
@@ -757,6 +759,7 @@ void CObjetMesh::LireFichierBinaire(string nomFichier)
 		// Dessiner les sous-objets non-transparents
 		for (int i = 0; i < NombreSubmesh; ++i)
 		{
+			pDispositif->ActiverMelangeAlpha();
 			int indexStart = SubmeshIndex[i];
 			int indexDrawAmount = SubmeshIndex[i + 1] - SubmeshIndex[i];
 			if (indexDrawAmount)
@@ -792,6 +795,7 @@ void CObjetMesh::LireFichierBinaire(string nomFichier)
 				pImmediateContext->DrawIndexed(indexDrawAmount, indexStart, 0);
 
 			}
+			pDispositif->DesactiverMelangeAlpha();
 		}
 	}
 

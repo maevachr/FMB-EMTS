@@ -145,6 +145,9 @@ namespace PM3D
 
 		InitDepthBuffer();
 
+		// Initialiser les états de mélange (blending states)
+		InitBlendStates();
+
 		pImmediateContext->OMSetRenderTargets( 1, &pRenderTargetView, pDepthStencilView );
 
 		D3D11_VIEWPORT vp;
@@ -227,6 +230,47 @@ namespace PM3D
 	void CDispositifD3D11::SetNormalRSState()
 	{
 		pImmediateContext->RSSetState(mSolidCullBackRS);
+	}
+
+	void CDispositifD3D11::InitBlendStates()
+	{
+		D3D11_BLEND_DESC blendDesc;
+
+		// Effacer la description 
+		ZeroMemory(&blendDesc, sizeof(D3D11_BLEND_DESC));
+
+		// On initialise la description pour un mélange alpha classique
+		blendDesc.RenderTarget[0].BlendEnable = TRUE;
+		blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+		blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+		blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+		blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+		blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+		blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+		blendDesc.RenderTarget[0].RenderTargetWriteMask =
+			D3D11_COLOR_WRITE_ENABLE_ALL;
+
+		// On créé l'état alphaBlendEnable
+		DXEssayer(pD3DDevice->CreateBlendState(&blendDesc, &alphaBlendEnable),
+			DXE_ERREURCREATION_BLENDSTATE);
+
+		// Seul le booleen BlendEnable nécessite d'être modifié
+		blendDesc.RenderTarget[0].BlendEnable = FALSE;
+
+		// On créé l'état alphaBlendDisable 
+		DXEssayer(pD3DDevice->CreateBlendState(&blendDesc, &alphaBlendDisable),
+			DXE_ERREURCREATION_BLENDSTATE);
+	}
+
+	void CDispositifD3D11::ActiverMelangeAlpha() {
+		float facteur[4] = { 0.0f,0.0f,0.0f,0.0f }; // Activer le mélange - alpha blending. 
+		pImmediateContext->OMSetBlendState(alphaBlendEnable, facteur, 0xffffffff); 
+	}
+
+	void CDispositifD3D11::DesactiverMelangeAlpha() {
+		float facteur[4] = { 0.0f,0.0f,0.0f,0.0f }; 
+		// Désactiver le mélange - alpha blending. 
+		pImmediateContext->OMSetBlendState(alphaBlendDisable, facteur, 0xffffffff); 
 	}
 }
 

@@ -36,6 +36,7 @@ public:
 		XMFLOAT4& _Ambient,
 		XMFLOAT4& _Diffuse,
 		XMFLOAT4& _Specular,
+		float& _alpha,
 		float& _Puissance);
 
 	virtual int GetMaterialIndex(int i);

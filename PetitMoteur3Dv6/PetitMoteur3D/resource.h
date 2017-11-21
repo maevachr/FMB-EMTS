@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
-// fichier Include Microsoft Visual C++.
-// Utilisé par PetitMoteur3D.rc
+// Microsoft Visual C++ generated include file.
+// Used by PetitMoteur3D.rc
 //
 #define IDC_MYICON                      2
 #define IDD_PETITMOTEUR3D_DIALOG        102
@@ -28,6 +28,7 @@
 #define ERREUR_CREATION_DIRECTINPUT     119
 #define ERREUR_CREATION_CLAVIER         120
 #define ERREUR_CREATION_FORMAT_CLAVIER  121
+#define DXE_ERREURCREATION_BLENDSTATE   122
 #define IDR_MAINFRAME                   128
 #define IDC_STATIC                      -1
 
