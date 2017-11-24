@@ -7,6 +7,7 @@
 #include "PhysX/Include/foundation/PxFoundation.h"
 #include "Moteur.h"
 #include <chrono>
+#include "PhysX/Include/cooking/PxCooking.h"
 
 using namespace physx;
 using namespace std::chrono;
@@ -87,6 +88,12 @@ void SimulationManager::InitPhysX()
 	if (!_foundation)
 		std::cerr << "PxCreateFoundation failed!";
 
+	PxTolerancesScale scale;
+	scale.length = 100;
+	scale.speed = 98;
+	scale.mass = 1000;
+	cooking = PxCreateCooking(PX_PHYSICS_VERSION, *_foundation, PxCookingParams(scale));
+
 	bool recordMemoryAllocations = true;
 	_profileZoneManager = physx::unique_ptr<PxProfileZoneManager>(
 		&PxProfileZoneManager::createProfileZoneManager(_foundation.get())
@@ -94,9 +101,10 @@ void SimulationManager::InitPhysX()
 	if (!_profileZoneManager)
 		std::cerr << "PxProfileZoneManager::createProfileZoneManager failed" ;
 
+
 	_physics = physx::unique_ptr<PxPhysics>(
 		PxCreatePhysics(PX_PHYSICS_VERSION, *_foundation,
-			PxTolerancesScale(), recordMemoryAllocations, _profileZoneManager.get()));
+			scale, recordMemoryAllocations, _profileZoneManager.get()));
 	if (!_physics)
 		std::cerr << "PxCreatePhysics failed";
 
@@ -143,7 +151,7 @@ void SimulationManager::InitPhysX()
 
 void SimulationManager::CustomizeSceneDesc(PxSceneDesc *aSceneDesc)
 {
-	aSceneDesc->gravity = PxVec3(0.0f, 0.0f, -9.81f);
+	aSceneDesc->gravity = PxVec3(0.0f, 0.0f, -98.1f);
 	//aSceneDesc->gravity = PxVec3(0.0f, 0.0f, 0.0f);
 	aSceneDesc->filterShader = &SimulationFilterShader;
 }

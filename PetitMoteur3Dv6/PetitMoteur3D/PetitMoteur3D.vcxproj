@@ -149,6 +149,7 @@
     <ClInclude Include="CameraManager.h" />
     <ClInclude Include="chargeur.h" />
     <ClInclude Include="ChargeurAssimp.h" />
+    <ClInclude Include="CollisionFilter.h" />
     <ClInclude Include="DIManipulateur.h" />
     <ClInclude Include="dispositif.h" />
     <ClInclude Include="dispositifD3D11.h" />

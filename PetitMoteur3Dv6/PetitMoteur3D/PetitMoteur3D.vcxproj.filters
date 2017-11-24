@@ -200,6 +200,9 @@
     <ClInclude Include="PxPhysicsAPI.forward.h">
       <Filter>Fichiers d%27en-tête\PhysX</Filter>
     </ClInclude>
+    <ClInclude Include="CollisionFilter.h">
+      <Filter>Fichiers d%27en-tête\PhysX</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="PetitMoteur3D.ico">

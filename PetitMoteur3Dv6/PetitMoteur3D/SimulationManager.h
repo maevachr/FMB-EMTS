@@ -35,6 +35,8 @@ public:
 	
 	void Update();
 
+	PxCooking * cooking;
+
 private:
 	physx::unique_ptr<PxFoundation> _foundation;
 	physx::unique_ptr<PxProfileZoneManager> _profileZoneManager;

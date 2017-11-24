@@ -232,17 +232,18 @@ namespace PM3D
 		pMesh = new PlayerMesh("monster.omb", pDispositif, &GestionnaireDeSaisie);
 		ListeScene.push_back(pMesh);
 
-		CObjetMesh* crateMesh;
-		crateMesh = new CObjetMesh("obj_crate.omb", pDispositif);
-		ListeScene.push_back(crateMesh);
+		//CObjetMesh* crateMesh;
+		//crateMesh = new CObjetMesh("obj_crate.omb", pDispositif);
+		//ListeScene.push_back(crateMesh);
 
 		CObjetMesh* terrainMesh;
-		terrainMesh = new CObjetMesh("obj_terrain.omb", pDispositif);
+		CObjetMesh::Terrain tbidon; // je sais ARK
+		terrainMesh = new CObjetMesh("obj_terrain.omb", pDispositif, tbidon);
 		ListeScene.push_back(terrainMesh);
 
-		CObjetMesh* busMesh;
-		busMesh = new CObjetMesh("obj_School_Bus_Wrecked.omb", pDispositif);
-		ListeScene.push_back(busMesh);
+		//CObjetMesh* busMesh;
+		//busMesh = new CObjetMesh("obj_School_Bus_Wrecked.omb", pDispositif);
+		//ListeScene.push_back(busMesh);
 
 		////Ajouter un objet, créer le .omb
 		//CObjetMesh* newMesh;

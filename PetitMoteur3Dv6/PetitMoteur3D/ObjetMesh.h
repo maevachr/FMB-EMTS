@@ -1,16 +1,23 @@
 #pragma once
 #include "objet3d.h"
-#include "objet3d.h"
 #include "dispositifD3D11.h"
 #include "d3dx11effect.h"
 #include "chargeur.h"
+#include <foundation\PxTransform.h>
+#include "PxPhysicsAPI.forward.h"
+#include <PxMaterial.h>
+#include "SimulationManager.h"
+#include "PhysX/Include/cooking/PxCooking.h"
 
 #include <vector>
 #include "LightManager.h"
+
 using namespace std;
+using namespace physx;
 
 namespace PM3D
 {
+
 	class CObjetMesh : public CObjet3D
 	{
 	protected:
@@ -92,9 +99,16 @@ namespace PM3D
 		};
 
 	public:
+		class Terrain { int i{}; };
+
 		CObjetMesh(IChargeur& chargeur, CDispositifD3D11* pDispositif);
 		CObjetMesh(IChargeur& chargeur, string nomfichier, CDispositifD3D11* _pDispositif);
 		CObjetMesh(string nomfichier, CDispositifD3D11* _pDispositif);
+
+		//template<class Physique>
+		CObjetMesh(string nomfichier, CDispositifD3D11* _pDispositif, Terrain bidon);
+
+
 
 		virtual ~CObjetMesh(void);
 
@@ -102,10 +116,10 @@ namespace PM3D
 
 		void Anime(float tempsEcoule);
 
-
+		CObjetMesh();
 
 	protected:
-		CObjetMesh();
+		
 
 		void EcrireFichierBinaire(IChargeur& chargeur, string nomFichier);
 		void LireFichierBinaire(string nomFichier);
@@ -173,7 +187,28 @@ namespace PM3D
 
 		static const int SHADOWMAP_DIM = 512;
 		static const int MAX_LIGHT_DIST = 200;
+
+
+	protected:
+		physx::PxTransform transform;
+		physx::unique_ptr<PxMaterial> material;
+		physx::PxShape* actorShape;
+		physx::PxRigidStatic *pxActor;
+
+		CSommetMesh* ts;
+		unsigned int* index;
+		int nombreSommets;
+		int nombreIndex;
+	public:
+
+
+
+		void LoadData();
+		void SpawnPhysic();
 	};
+
+
+
+
+
 }
-
-

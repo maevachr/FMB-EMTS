@@ -8,8 +8,14 @@
 #include "resource.h"
 #include <fstream>
 #include <algorithm>
+#include <PxMaterial.h>
+#include "SimulationManager.h"
+#include "PhysX/Include/cooking/PxCooking.h"
+
+#include "CollisionFilter.h"
 
 using namespace UtilitairesDX;
+using namespace physx;
 
 namespace PM3D
 {
@@ -84,6 +90,13 @@ namespace PM3D
 		rotation = 0.0f;
 	}
 
+	// Constructeur pour lecture d'un objet de format OMB
+	CObjetMesh::CObjetMesh(string nomfichier, CDispositifD3D11* _pDispositif, Terrain bidon) : CObjetMesh(nomfichier, _pDispositif)
+	{
+		LoadData();
+		SpawnPhysic();
+	}
+
 	CObjetMesh::CObjetMesh()
 	{
 	}
@@ -109,6 +122,9 @@ namespace PM3D
 		DXRelacher(pDepthStencilView);
 		DXRelacher(pDepthTexture);
 		DXRelacher(pVertexLayoutShadow);
+
+		delete[] ts;// a changer, on garde l<information trop longtemps
+		delete[] index;
 	}
 
 void CObjetMesh::TransfertObjet(IChargeur& chargeur)
@@ -345,10 +361,10 @@ void CObjetMesh::LireFichierBinaire(string nomFichier)
 	fichier.open(nomFichier, ios::in | ios_base::binary);
 	// 1. SOMMETS a) Créations des sommets dans un tableau temporaire
 
-	int nombreSommets;
+	
 	fichier.read((char*)&nombreSommets, sizeof(nombreSommets));
 
-	CSommetMesh* ts = new CSommetMesh[nombreSommets];
+	ts = new CSommetMesh[nombreSommets];
 
 	// 1. SOMMETS b) Lecture des sommets à partir d'un fichier binaire
 	fichier.read((char*)ts, nombreSommets * sizeof(CSommetMesh));
@@ -372,14 +388,14 @@ void CObjetMesh::LireFichierBinaire(string nomFichier)
 	DXEssayer(pD3DDevice->CreateBuffer(&bd, &InitData, &pVertexBuffer), DXE_CREATIONVERTEXBUFFER);
 
 	// Détruire ts, devenu inutile
-	delete[] ts;
+	//delete[] ts;
 
 
 	// 2. INDEX 
-	int nombreIndex;
+	
 	fichier.read((char*)&nombreIndex, sizeof(nombreIndex));
 
-	unsigned int* index = new unsigned int[nombreIndex];
+	index = new unsigned int[nombreIndex];
 	fichier.read((char*)index, nombreIndex * sizeof(unsigned int));
 
 	ZeroMemory(&bd, sizeof(bd));
@@ -397,7 +413,7 @@ void CObjetMesh::LireFichierBinaire(string nomFichier)
 		DXE_CREATIONINDEXBUFFER);
 
 	// Détruire index, devenu inutile
-	delete[] index;
+	// delete[] index;
 
 	// 3. Les sous-objets
 	fichier.read((char*)&NombreSubmesh, sizeof(NombreSubmesh));
@@ -808,5 +824,60 @@ void CObjetMesh::LireFichierBinaire(string nomFichier)
 	}
 
 
+	void CObjetMesh::LoadData()
+	{
+		PxPhysics &physics = SimulationManager::GetInstance().physics();
+		material = physx::unique_ptr<PxMaterial>(physics.createMaterial(0.05f, 0.05f, 0.0f));    //static friction, dynamic friction, restitution
+	}
+
+
+	void CObjetMesh::SpawnPhysic()
+	{
+		PxTriangleMeshDesc meshDesc;
+		vector<PxVec3> verts;
+		vector<PxU32>  tri;
+
+		meshDesc.points.count = nombreSommets;
+		for (int i = 0; i < meshDesc.points.count; ++i)
+		{
+			verts.emplace_back(PxVec3{ ts[i].position.x,ts[i].position.y,ts[i].position.z });
+		}
+		meshDesc.points.stride = sizeof(PxVec3);
+		meshDesc.points.data = &verts[0];
+
+		meshDesc.triangles.count = nombreIndex/3;
+		meshDesc.triangles.stride = 3 * sizeof(PxU32);
+		for (int i = 0; i < nombreIndex/3; ++i)
+		{
+			tri.push_back(PxU32{ index[3*i] });
+			tri.push_back(PxU32{ index[3*i+2] });
+			tri.push_back(PxU32{ index[3*i+1] });
+		}
+		meshDesc.triangles.data = &tri[0];
+
+		PxDefaultMemoryOutputStream writeBuffer;
+		bool status = SimulationManager::GetInstance().cooking->cookTriangleMesh(meshDesc, writeBuffer);
+
+		PxDefaultMemoryInputData readBuffer(writeBuffer.getData(), writeBuffer.getSize());
+		PxTriangleMesh * mesh = SimulationManager::GetInstance().physics().createTriangleMesh(readBuffer);
+
+
+
+		pxActor = SimulationManager::GetInstance().physics().createRigidStatic(physx::PxTransform::createIdentity());
+		pxActor->setGlobalPose(transform);
+
+		//PxShape *actorShape = pxActor->createShape(PxBoxGeometry(PxVec3(3, 2, 1)), *material);
+		PxShape *actorShape = pxActor->createShape(PxTriangleMeshGeometry(mesh), *material);
+
+
+
+
+		SimulationManager::GetInstance().scene().addActor(*pxActor);
+
+		PxFilterData filterData;
+		filterData.word0 = eACTOR_TERRAIN;
+		filterData.word1 = eACTOR_PLAYER;
+		actorShape->setSimulationFilterData(filterData);
+	}
 
 }
