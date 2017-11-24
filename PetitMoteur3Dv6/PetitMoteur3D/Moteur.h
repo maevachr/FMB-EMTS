@@ -229,7 +229,7 @@ namespace PM3D
 	bool InitObjets()
 	{
 		PlayerMesh* pMesh;
-		pMesh = new PlayerMesh("monster.omb", pDispositif, &GestionnaireDeSaisie);
+		pMesh = new PlayerMesh("monster2.omb", pDispositif, &GestionnaireDeSaisie);
 		ListeScene.push_back(pMesh);
 
 		//CObjetMesh* crateMesh;
@@ -244,6 +244,23 @@ namespace PM3D
 		//CObjetMesh* busMesh;
 		//busMesh = new CObjetMesh("obj_School_Bus_Wrecked.omb", pDispositif);
 		//ListeScene.push_back(busMesh);
+
+		////Ajouter un objet, créer le .omb
+		//CObjetMesh* newMesh;
+		////// Création d'un objet mesh à partir d'un fichier .OBJ
+		//CChargeurAssimp chargeur;
+		//CParametresChargement param;
+
+		//param.NomChemin = ".\\modeles\\Camion\\";
+		//param.NomFichier = "monster_scale.obj";
+		//param.bMainGauche = false;
+		//param.bInverserCulling = true;
+
+		//chargeur.Chargement(param);  // Le chargeur lit le fichier
+
+		//newMesh = new CObjetMesh(chargeur, "monster2.omb", pDispositif);
+		//ListeScene.push_back(newMesh);
+
 
 		////Ajouter un objet, créer le .omb
 		//CObjetMesh* newMesh;

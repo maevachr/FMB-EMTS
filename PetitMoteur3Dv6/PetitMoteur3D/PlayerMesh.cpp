@@ -17,7 +17,7 @@ namespace PM3D
 
 	PlayerMesh::PlayerMesh(string nomfichier, CDispositifD3D11* _pDispositif, CDIManipulateur* pGestionnaireDeSaisie_) 
 		: directionInit{ -1,0,0,0 }
-		, position{ 5,5,60,1 }
+		, position{ 5,5,6,1 }
 		, vitesse{ 50 }
 		, vitAng{ XM_PIDIV2 }
 		, rotationEnZ{ 0 }	
@@ -92,14 +92,14 @@ namespace PM3D
 		pxActor = SimulationManager::GetInstance().physics().createRigidDynamic(moveInPosition);
 		pxActor->setGlobalPose(transform);
 
-		PxShape *actorShape = pxActor->createShape(PxBoxGeometry(PxVec3(10, 10, 5)), *material);
+		PxShape *actorShape = pxActor->createShape(PxBoxGeometry(PxVec3(2, 2, 1)), *material);
 		
 		PxTransform centerMass = physx::PxTransform::createIdentity();
-		centerMass.p = PxVec3(0, 0, -2.5);
+		centerMass.p = PxVec3(0, 0, -0.5);
 		
 		//pxActor->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, true);
 		//pxActor->setMass(1);
-		pxActor->setMassSpaceInertiaTensor(PxVec3(10.0f, 10.0f, 10.0f));
+		//pxActor->setMassSpaceInertiaTensor(PxVec3(10.0f, 10.0f, 10.0f));
 		pxActor->setCMassLocalPose(centerMass);
 
 		SimulationManager::GetInstance().scene().addActor(*pxActor);
@@ -135,26 +135,26 @@ namespace PM3D
 		if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_W))
 		{
 			// Avancer
-			pxActor->addForce(transform.q.rotate({-800,0,0}));
+			pxActor->addForce(transform.q.rotate({-50,0,0}));
 			//position = XMVector4Transform(position, XMMatrixTranslationFromVector(vitesse*tempsEcoule*directionLive));
 		}
 		if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_S))
 		{
 			// Reculer
-			pxActor->addForce(transform.q.rotate({ +50, 0, 0 }));
+			pxActor->addForce(transform.q.rotate({ +25, 0, 0 }));
 			//position = XMVector4Transform(position, XMMatrixTranslationFromVector(-vitesse*tempsEcoule*directionLive));
 		}
 		if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_A))
 		{
 			// Tourner à gauche
-			pxActor->addTorque({ 0, 0, 50 });
+			pxActor->addTorque({ 0, 0, 20 });
 			//rotationEnZ += vitAng*tempsEcoule;
 			//directionLive = XMVector4Transform(directionLive, XMMatrixRotationZ(vitAng*tempsEcoule));
 		}
 		if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_D))
 		{
 			// Tourner à droite
-			pxActor->addTorque({ 0, 0, -50 });
+			pxActor->addTorque({ 0, 0, -20 });
 			//rotationEnZ -= vitAng*tempsEcoule;
 			//directionLive = XMVector4Transform(directionLive, XMMatrixRotationZ(-vitAng*tempsEcoule));
 		}
