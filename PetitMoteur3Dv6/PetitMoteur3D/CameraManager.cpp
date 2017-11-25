@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "CameraManager.h"
+#include "GameObject.h"
 using namespace std;
 
 namespace PM3D {
@@ -30,7 +31,7 @@ namespace PM3D {
 		XMMATRIX * pMatProj_in,
 		XMMATRIX * pMatViewProj_in,
 		CDIManipulateur* pGestionnaireDeSaisie_in,
-		CObjet3D* player)
+		GameObject* player)
 	{
 
 		pGestionnaireDeSaisie = pGestionnaireDeSaisie_in;
@@ -39,7 +40,7 @@ namespace PM3D {
 		pMatViewProj = pMatViewProj_in;
 
 		//Initialize all camera
-		unique_ptr<CDynamicCamera> dynamicCamera(new CDynamicCamera);
+		std::unique_ptr<CDynamicCamera> dynamicCamera(new CDynamicCamera);
 		dynamicCamera->Init(XMVectorSet(-100.0f, -100.0f, 50.0f, 1.0f),
 			XMVectorSet(1.0f, 1.0f, 0.0f, 0.0f),
 			XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f),
@@ -49,7 +50,7 @@ namespace PM3D {
 			pGestionnaireDeSaisie);
 		cameraList[DYNAMIC] = move(dynamicCamera);
 
-		unique_ptr<CCamera> staticCamera(new CCamera);
+		std::unique_ptr<CCamera> staticCamera(new CCamera);
 		staticCamera->Init(XMVectorSet(-500.0f, -500.0f, 500.0f, 1.0f),
 			XMVectorSet(1.0f, 1.0f, -0.5f, 0.0f),
 			XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f),
@@ -58,7 +59,7 @@ namespace PM3D {
 			pMatViewProj);
 		cameraList[STATIC] = move(staticCamera);
 
-		unique_ptr<CPlayerCamera> playerCamera(new CPlayerCamera);
+		std::unique_ptr<CPlayerCamera> playerCamera(new CPlayerCamera);
 		playerCamera->Init(
 			XMVectorSet(0.0f, 0.0f, 1.0f, 1.0f),
 			pMatView,
@@ -67,7 +68,7 @@ namespace PM3D {
 			player);
 		cameraList[THIRD_PERSON] = move(playerCamera);
 
-		unique_ptr<CFirstPersonCamera> firstPerson(new CFirstPersonCamera);
+		std::unique_ptr<CFirstPersonCamera> firstPerson(new CFirstPersonCamera);
 		firstPerson->Init(
 			XMVectorSet(0.0f, 0.0f, 1.0f, 1.0f),
 			pMatView,

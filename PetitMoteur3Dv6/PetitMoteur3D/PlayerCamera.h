@@ -1,7 +1,7 @@
 #pragma once
 #include "objet3d.h"
 #include "Camera.h"
-
+#include "GameObject.h"
 namespace PM3D
 {
 	using namespace DirectX;
@@ -14,7 +14,7 @@ namespace PM3D
 		const float COEFFELAST_DEFAULT = 0.9f;
 		const float HAUTEUR_TARGET_DEFAULT = 50.0f;
 
-		CObjet3D* objet;
+		GameObject* objet;
 		float coeffElast;
 		struct Decalage{
 			float distanceHorizontale;
@@ -32,16 +32,16 @@ namespace PM3D
 			XMMATRIX* pMatView_in,
 			XMMATRIX* pMatProj_in,
 			XMMATRIX* pMatViewProj_in,
-			CObjet3D* objet_in);
+			GameObject* objet_in);
 
 		virtual void AnimeCamera(float tempsEcoule) {
-			XMVECTOR newPosition = objet->getPosition() + decalage.get(objet->getDirection());
+			XMVECTOR newPosition = objet->GetPosition() + decalage.get(objet->GetDirection());
 			position = newPosition + (position- newPosition )*coeffElast ;
 		}
 
 		void UpdateMatrix() override {
 			// Matrice de la vision
-			auto positionObjet = objet->getPosition() + decalage.hauteur_target;
+			auto positionObjet = objet->GetPosition() + decalage.hauteur_target;
 			*pMatView = XMMatrixLookAtRH(position,
 				positionObjet,
 				upCamera);

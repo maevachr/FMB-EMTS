@@ -14,6 +14,8 @@
 #include "PlayerMesh.h"
 #include "LightManager.h"
 #include "SimulationManager.h"
+#include "WorldGo.h"
+#include "RenderManager.h"
 
 namespace PM3D
 {
@@ -51,6 +53,8 @@ namespace PM3D
 			}
 		}
 		
+		WorldGo* world;
+
 		virtual int Initialisations()
 		{
 
@@ -68,11 +72,16 @@ namespace PM3D
 			// * Initialisation de la scène
 			InitScene();
 
+			world = new WorldGo{};
+			world->OnSpawn(nullptr);
+
+			RenderManager::GetInstance().InitMeshes(pDispositif);
+
 			CCameraManager::GetInstance().Init(&this->matView,
 				&this->matProj,
 				&this->matViewProj,
 				&GestionnaireDeSaisie,
-				ListeScene.front());
+				world->GetChildren().front());
 
 			// * Initialisation des paramètres de l'animation et 
 			//   préparation de la première image
@@ -100,7 +109,7 @@ namespace PM3D
 							* static_cast<float>(EchelleTemps);
 
 				// On prépare la prochaine image
-				AnimeScene(TempsEcoule);
+				//AnimeScene(TempsEcoule);
 
 				// On rend l'image sur la surface de travail 
    				// (tampon d'arrière plan)
@@ -159,12 +168,14 @@ namespace PM3D
 			BeginRenderSceneSpecific();
 
 			// Appeler les fonctions de dessin de chaque objet de la scène
-			std::vector<CObjet3D*>::iterator It;
+		/*	std::vector<CObjet3D*>::iterator It;
 
 			for (It = ListeScene.begin(); It != ListeScene.end(); It++)
 			{
 					(*It)->Draw();
-			}
+			}*/
+
+			RenderManager::GetInstance().Draw();
 
 			EndRenderSceneSpecific();
 			return true;
@@ -201,7 +212,7 @@ namespace PM3D
 	virtual int InitScene()
 	{
 		// Initialisation des objets 3D - création et/ou chargement
-		if (!InitObjets()) return 1;
+		//if (!InitObjets()) return 1;
 	
 		//// Initialisation des matrices View et Proj
 		//// Dans notre cas, ces matrices sont fixes

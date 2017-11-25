@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "PlayerCamera.h"
 
+
 namespace PM3D
 {
 	void CPlayerCamera::Init(
@@ -8,7 +9,7 @@ namespace PM3D
 		XMMATRIX * pMatView_in,
 		XMMATRIX * pMatProj_in,
 		XMMATRIX * pMatViewProj_in,
-		CObjet3D * objet_in)
+		GameObject * objet_in)
 	{
 		pMatView = pMatView_in;
 		pMatProj = pMatProj_in;
@@ -22,7 +23,7 @@ namespace PM3D
 
 		upCamera = XMVector4Normalize(up_in);
 		rightCamera = XMVector3Cross(upCamera, frontCamera);
-		position = objet_in->getPosition() + decalage.get(objet_in->getDirection());
+		position = objet_in->GetPosition() + decalage.get(objet_in->GetDirection());
 	}
 
 }

@@ -110,6 +110,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="Bloc.cpp" />
     <ClCompile Include="BlocEffet1.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -123,16 +124,21 @@
     <ClCompile Include="DynamicCamera.cpp" />
     <ClCompile Include="DynamicLight.cpp" />
     <ClCompile Include="FirstPersonCamera.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GestionnaireDeTextures.cpp" />
     <ClCompile Include="InfoDispositif.cpp" />
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="LightManager.cpp" />
     <ClCompile Include="Moteur.cpp" />
     <ClCompile Include="MoteurWindows.cpp" />
     <ClCompile Include="ObjetMesh.cpp" />
     <ClCompile Include="PetitMoteur3D.cpp" />
+    <ClCompile Include="PhysicManager.cpp" />
     <ClCompile Include="PlayerCamera.cpp" />
     <ClCompile Include="PlayerMesh.cpp" />
+    <ClCompile Include="RenderComponent.cpp" />
+    <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="SimulationManager.cpp" />
     <ClCompile Include="sommetbloc.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -143,6 +149,8 @@
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationComponent.h" />
+    <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="Bloc.h" />
     <ClInclude Include="BlocEffet1.h" />
     <ClInclude Include="Camera.h" />
@@ -150,24 +158,34 @@
     <ClInclude Include="chargeur.h" />
     <ClInclude Include="ChargeurAssimp.h" />
     <ClInclude Include="CollisionFilter.h" />
+    <ClInclude Include="Component.h" />
     <ClInclude Include="DIManipulateur.h" />
     <ClInclude Include="dispositif.h" />
     <ClInclude Include="dispositifD3D11.h" />
     <ClInclude Include="DynamicCamera.h" />
     <ClInclude Include="DynamicLight.h" />
     <ClInclude Include="FirstPersonCamera.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="GestionnaireDeTextures.h" />
     <ClInclude Include="InfoDispositif.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="LightManager.h" />
+    <ClInclude Include="MonsterTruckGo.h" />
     <ClInclude Include="Moteur.h" />
     <ClInclude Include="MoteurWindows.h" />
     <ClInclude Include="objet3d.h" />
     <ClInclude Include="ObjetMesh.h" />
     <ClInclude Include="PetitMoteur3D.h" />
+    <ClInclude Include="PhysicComponent.h" />
+    <ClInclude Include="PhysicManager.h" />
     <ClInclude Include="PlayerCamera.h" />
     <ClInclude Include="PlayerMesh.h" />
+    <ClInclude Include="InputComponent.h" />
+    <ClInclude Include="InputManager.h" />
     <ClInclude Include="PxPhysicsAPI.forward.h" />
+    <ClInclude Include="RenderComponent.h" />
+    <ClInclude Include="RenderManager.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SimulationManager.h" />
     <ClInclude Include="sommetbloc.h" />
@@ -175,6 +193,7 @@
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="util.h" />
+    <ClInclude Include="WorldGo.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PetitMoteur3D.ico" />

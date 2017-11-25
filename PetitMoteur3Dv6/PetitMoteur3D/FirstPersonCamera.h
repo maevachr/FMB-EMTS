@@ -2,6 +2,7 @@
 
 #include "objet3d.h"
 #include "Camera.h"
+#include "GameObject.h"
 
 namespace PM3D
 {
@@ -14,7 +15,7 @@ namespace PM3D
 		const float HAUTEUR_DEFAULT = 10.0f;
 		const float HAUTEUR_TARGET_DEFAULT = 50.0f;
 
-		CObjet3D* objet;
+		GameObject* objet;
 		struct Decalage {
 			float distanceHorizontale;
 			XMVECTOR hauteur;
@@ -29,17 +30,17 @@ namespace PM3D
 			XMMATRIX* pMatView_in,
 			XMMATRIX* pMatProj_in,
 			XMMATRIX* pMatViewProj_in,
-			CObjet3D* objet_in);
+			GameObject* objet_in);
 
 		virtual void AnimeCamera(float tempsEcoule) {
-			position = objet->getPosition() + decalage.get(objet->getDirection());
+			position = objet->GetPosition() + decalage.get(objet->GetDirection());
 		}
 
 		void UpdateMatrix() override {
 			// Matrice de la vision
-			auto positionObjet = objet->getPosition() + decalage.hauteur_target;
+			auto positionObjet = objet->GetPosition() + decalage.hauteur_target;
 			*pMatView = XMMatrixLookAtRH(position,
-				(position + objet->getDirection()),
+				(position + objet->GetDirection()),
 				upCamera);
 			*pMatViewProj = (*pMatView) * (*pMatProj);
 		}

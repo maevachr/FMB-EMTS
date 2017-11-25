@@ -16,14 +16,26 @@
     <Filter Include="Fichiers d%27en-tête\PhysX">
       <UniqueIdentifier>{91481c89-4e00-4d59-b507-7452a560becd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\PhysX">
-      <UniqueIdentifier>{c53a268e-bb0e-46f4-8226-d42f1651966b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers d%27en-tête\Camera">
       <UniqueIdentifier>{377f5654-4fe8-4495-bf60-08f6503ea3bb}</UniqueIdentifier>
     </Filter>
     <Filter Include="Fichiers sources\Camera">
       <UniqueIdentifier>{2089b37f-a364-4396-9748-eb63e2a54a4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\GameObject">
+      <UniqueIdentifier>{614520f3-4fa2-4e0f-9a23-ec93c904891b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Component">
+      <UniqueIdentifier>{1abf9be1-89e2-4e70-9c2a-795d39dc4c6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Manager">
+      <UniqueIdentifier>{337aed7d-8975-4f25-b47d-81cd5d0b0400}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Component">
+      <UniqueIdentifier>{62438a28-5949-4b97-8b87-3eed56bab991}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Manager">
+      <UniqueIdentifier>{4c9fff32-d6dd-4065-b963-b64def5edf55}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -34,9 +46,6 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="PetitMoteur3D.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="stdafx.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="dispositifD3D11.cpp">
@@ -84,12 +93,6 @@
     <ClCompile Include="Light.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="LightManager.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="SimulationManager.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="DynamicCamera.cpp">
       <Filter>Fichiers sources\Camera</Filter>
     </ClCompile>
@@ -104,6 +107,33 @@
     </ClCompile>
     <ClCompile Include="FirstPersonCamera.cpp">
       <Filter>Fichiers sources\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Fichiers sources\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="LightManager.cpp">
+      <Filter>Fichiers sources\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="SimulationManager.cpp">
+      <Filter>Fichiers sources\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderComponent.cpp">
+      <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -202,6 +232,45 @@
     </ClInclude>
     <ClInclude Include="CollisionFilter.h">
       <Filter>Fichiers d%27en-tête\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Fichiers d%27en-tête\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Fichiers d%27en-tête\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="InputComponent.h">
+      <Filter>Fichiers d%27en-tête\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Fichiers d%27en-tête\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderManager.h">
+      <Filter>Fichiers d%27en-tête\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderComponent.h">
+      <Filter>Fichiers d%27en-tête\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationManager.h">
+      <Filter>Fichiers d%27en-tête\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationComponent.h">
+      <Filter>Fichiers d%27en-tête\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicComponent.h">
+      <Filter>Fichiers d%27en-tête\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicManager.h">
+      <Filter>Fichiers d%27en-tête\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectManager.h">
+      <Filter>Fichiers d%27en-tête\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldGo.h">
+      <Filter>Fichiers d%27en-tête\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterTruckGo.h">
+      <Filter>Fichiers d%27en-tête\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

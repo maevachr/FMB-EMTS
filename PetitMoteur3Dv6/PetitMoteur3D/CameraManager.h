@@ -49,7 +49,7 @@ namespace PM3D {
 			XMMATRIX * pMatProj_in,
 			XMMATRIX * pMatViewProj_in,
 			CDIManipulateur* pGestionnaireDeSaisie_in,
-			CObjet3D* player);
+			GameObject* player);
 	
 	public:
 		bool AnimeScene(float tempsEcoule) {
