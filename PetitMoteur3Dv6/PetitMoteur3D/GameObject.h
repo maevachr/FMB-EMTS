@@ -126,8 +126,8 @@ namespace PM3D
 			parent = go;
 		}
 	private:
-		PxTransform transform;
-		XMMATRIX matWorld;		
+		PxTransform transform = PxTransform::createIdentity();
+		XMMATRIX matWorld = XMMatrixIdentity();		
 	public:
 		//For PhysX
 		const PxTransform& GetTransform() const { return transform; }

@@ -16,6 +16,7 @@
 #include "SimulationManager.h"
 #include "WorldGo.h"
 #include "RenderManager.h"
+#include "MonsterTruckGo.h"
 
 namespace PM3D
 {
@@ -53,7 +54,7 @@ namespace PM3D
 			}
 		}
 		
-		WorldGo* world;
+		MonsterTruckGo* world;
 
 		virtual int Initialisations()
 		{
@@ -72,8 +73,8 @@ namespace PM3D
 			// * Initialisation de la scène
 			InitScene();
 
-			world = new WorldGo{};
-			world->OnSpawn(nullptr);
+			MonsterTruckGo* monsterTruck = new MonsterTruckGo();
+			monsterTruck->OnSpawn(nullptr);
 
 			RenderManager::GetInstance().InitMeshes(pDispositif);
 
@@ -81,7 +82,7 @@ namespace PM3D
 				&this->matProj,
 				&this->matViewProj,
 				&GestionnaireDeSaisie,
-				world->GetChildren().front());
+				monsterTruck);
 
 			// * Initialisation des paramètres de l'animation et 
 			//   préparation de la première image
