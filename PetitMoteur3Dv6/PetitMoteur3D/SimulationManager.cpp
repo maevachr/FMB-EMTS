@@ -89,8 +89,8 @@ void SimulationManager::InitPhysX()
 		std::cerr << "PxCreateFoundation failed!";
 
 	PxTolerancesScale scale;
-	scale.length = 100;
-	scale.speed = 98;
+	scale.length = 1;
+	scale.speed = 9,8;
 	scale.mass = 1000;
 	cooking = PxCreateCooking(PX_PHYSICS_VERSION, *_foundation, PxCookingParams(scale));
 
@@ -151,7 +151,7 @@ void SimulationManager::InitPhysX()
 
 void SimulationManager::CustomizeSceneDesc(PxSceneDesc *aSceneDesc)
 {
-	aSceneDesc->gravity = PxVec3(0.0f, 0.0f, -98.1f);
+	aSceneDesc->gravity = PxVec3(0.0f, 0.0f, -9.8f);
 	//aSceneDesc->gravity = PxVec3(0.0f, 0.0f, 0.0f);
 	aSceneDesc->filterShader = &SimulationFilterShader;
 }

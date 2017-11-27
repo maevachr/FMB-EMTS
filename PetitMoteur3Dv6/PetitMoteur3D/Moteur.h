@@ -250,7 +250,7 @@ namespace PM3D
 	bool InitObjets()
 	{
 		PlayerMesh* pMesh;
-		pMesh = new PlayerMesh("monster.omb", pDispositif, &GestionnaireDeSaisie);
+		pMesh = new PlayerMesh("monster2.omb", pDispositif, &GestionnaireDeSaisie);
 		ListeScene.push_back(pMesh);
 
 		//CObjetMesh* crateMesh;
@@ -259,7 +259,7 @@ namespace PM3D
 
 		CObjetMesh* terrainMesh;
 		CObjetMesh::Terrain tbidon; // je sais ARK
-		terrainMesh = new CObjetMesh("obj_terrain.omb", pDispositif, tbidon);
+		terrainMesh = new CObjetMesh("obj_terrain2.omb", pDispositif, tbidon);
 		ListeScene.push_back(terrainMesh);
 
 		//CObjetMesh* busMesh;
@@ -272,14 +272,31 @@ namespace PM3D
 		//CChargeurAssimp chargeur;
 		//CParametresChargement param;
 
-		//param.NomChemin = ".\\modeles\\Terrain\\";
-		//param.NomFichier = "terrain.obj";
+		//param.NomChemin = ".\\modeles\\Camion\\";
+		//param.NomFichier = "monster_scale.obj";
 		//param.bMainGauche = false;
 		//param.bInverserCulling = true;
 
 		//chargeur.Chargement(param);  // Le chargeur lit le fichier
 
-		//newMesh = new CObjetMesh(chargeur, "obj_terrain.omb", pDispositif);
+		//newMesh = new CObjetMesh(chargeur, "monster2.omb", pDispositif);
+		//ListeScene.push_back(newMesh);
+
+
+		////Ajouter un objet, créer le .omb
+		//CObjetMesh* newMesh;
+		////// Création d'un objet mesh à partir d'un fichier .OBJ
+		//CChargeurAssimp chargeur;
+		//CParametresChargement param;
+
+		//param.NomChemin = ".\\modeles\\Terrain\\";
+		//param.NomFichier = "terrain2.obj";
+		//param.bMainGauche = false;
+		//param.bInverserCulling = true;
+
+		//chargeur.Chargement(param);  // Le chargeur lit le fichier
+
+		//newMesh = new CObjetMesh(chargeur, "obj_terrain2.omb", pDispositif);
 		//ListeScene.push_back(newMesh);
 
 

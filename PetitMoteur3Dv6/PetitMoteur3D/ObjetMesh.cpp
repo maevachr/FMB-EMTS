@@ -827,7 +827,7 @@ void CObjetMesh::LireFichierBinaire(string nomFichier)
 	void CObjetMesh::LoadData()
 	{
 		PxPhysics &physics = SimulationManager::GetInstance().physics();
-		material = physx::unique_ptr<PxMaterial>(physics.createMaterial(0.05f, 0.05f, 0.0f));    //static friction, dynamic friction, restitution
+		material = physx::unique_ptr<PxMaterial>(physics.createMaterial(0.5f, 0.5f, 0.0f));    //static friction, dynamic friction, restitution
 	}
 
 

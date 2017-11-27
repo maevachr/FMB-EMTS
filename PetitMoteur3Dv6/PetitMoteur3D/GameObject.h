@@ -49,8 +49,6 @@ namespace PM3D
 		std::vector<Component*>::iterator FindComponentIterator()
 		{
 			auto it = std::find_if(std::begin(components), std::end(components), [&](Component* c) -> bool {
-				auto f = c->GetTypeId();
-				auto fu = T::typeId;
 				return c->GetTypeId() == T::typeId;
 			});
 			return it;
@@ -136,7 +134,8 @@ namespace PM3D
 		void SetTransform(const PxTransform& t) { 
 			transform = t; 
 			PxTransform wTransform = GetWorldTransform();
-			matWorld = XMMatrixRotationRollPitchYawFromVector(GetDirection(wTransform))* XMMatrixTranslationFromVector(GetPosition(wTransform));
+			XMVECTOR quaternion = { wTransform.q.x, wTransform.q.y, wTransform.q.z, wTransform.q.w };
+			matWorld = XMMatrixRotationQuaternion(quaternion)* XMMatrixTranslationFromVector(GetPosition(wTransform));
 		}
 
 		PxTransform GetWorldTransform() const

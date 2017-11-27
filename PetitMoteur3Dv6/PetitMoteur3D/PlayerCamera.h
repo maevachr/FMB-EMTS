@@ -9,10 +9,10 @@ namespace PM3D
 	class CPlayerCamera :public CCamera
 	{
 	protected:
-		const float DIST_HORZ_DEFAULT = 200.0f;
-		const float HAUTEUR_DEFAULT = 50.0f;
+		const float DIST_HORZ_DEFAULT = 20.0f;
+		const float HAUTEUR_DEFAULT = 5.0f;
 		const float COEFFELAST_DEFAULT = 0.9f;
-		const float HAUTEUR_TARGET_DEFAULT = 50.0f;
+		const float HAUTEUR_TARGET_DEFAULT = 5.0f;
 
 		GameObject* objet;
 		float coeffElast;

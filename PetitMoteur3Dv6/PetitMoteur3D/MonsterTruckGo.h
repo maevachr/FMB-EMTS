@@ -35,7 +35,7 @@ namespace PM3D
 			//Set Components
 			//-----RenderComponent
 			RenderComponent* p = CreateComponent<RenderComponent>();
-			p->InitFile("monster.omb");
+			p->InitFile("monster2.omb");
 
 			//-----DynamicPhysicComponent
 			DynamicPhysicComponent* d = CreateComponent<DynamicPhysicComponent>();
@@ -44,9 +44,9 @@ namespace PM3D
 			PxFilterData filterData;
 			filterData.word0 = eACTOR_PLAYER;
 			filterData.word1 = eACTOR_TERRAIN;
-			d->InitData(PxBoxGeometry(PxVec3(10, 10, 10)), move(material), filterData);
+			d->InitData(PxBoxGeometry(PxVec3(2, 2, 1)), move(material), filterData);
 			PxTransform centerMass = physx::PxTransform::createIdentity();
-			centerMass.p = PxVec3(0, 0, -2.5);
+			centerMass.p = PxVec3(0, 0, -0.5);
 			d->InitMass(5, centerMass);
 
 			//-----MonsterTruckInputComponent

@@ -30,7 +30,7 @@ namespace PM3D
 			//Set Components
 			//-----RenderComponent
 			RenderComponent* p = CreateComponent<RenderComponent>();
-			p->InitFile("obj_terrain.omb");
+			p->InitFile("obj_terrain2.omb");
 
 			//-----StaticPhysicComponent
 			TerrainPhysicComponent* t = CreateComponent<TerrainPhysicComponent>();			
