@@ -40,6 +40,8 @@ namespace PM3D
 			pComponents.erase(it);
 		}
 	public:
+		void InitTerrainPhysic();
+		void AddActors();
 		void UpdateGoTransform();
 	};
 }

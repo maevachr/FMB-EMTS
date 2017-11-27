@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "MonsterTruckGo.h"
+#include "TerrainGo.h"
 
 namespace PM3D
 {
@@ -19,6 +20,11 @@ namespace PM3D
 			MonsterTruckGo* monsterTruck = new MonsterTruckGo();
 			monsterTruck->OnSpawn(this);
 			AddChild(monsterTruck);
+
+			TerrainGo* terrain = new TerrainGo{};
+			terrain->OnSpawn(this);
+			AddChild(terrain);
+			
 
 			//Set Components
 		}

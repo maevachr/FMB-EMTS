@@ -135,6 +135,9 @@
     <ClCompile Include="RenderComponent.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="MonsterTruckInputComponent.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Moteur.h">
@@ -270,6 +273,12 @@
       <Filter>Fichiers d%27en-tête\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="MonsterTruckGo.h">
+      <Filter>Fichiers d%27en-tête\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterTruckInputComponent.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainGo.h">
       <Filter>Fichiers d%27en-tête\GameObject</Filter>
     </ClInclude>
   </ItemGroup>

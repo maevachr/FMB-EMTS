@@ -23,8 +23,6 @@ namespace PM3D {
 		std::unique_ptr<CCamera> cameraList[COUNT];
 		CCamera* currentCamera;
 
-		CDIManipulateur* pGestionnaireDeSaisie;
-
 		XMMATRIX* pMatView;
 		XMMATRIX* pMatProj;
 		XMMATRIX* pMatViewProj;
@@ -48,7 +46,6 @@ namespace PM3D {
 		bool Init(XMMATRIX * pMatView_in,
 			XMMATRIX * pMatProj_in,
 			XMMATRIX * pMatViewProj_in,
-			CDIManipulateur* pGestionnaireDeSaisie_in,
 			GameObject* player);
 	
 	public:

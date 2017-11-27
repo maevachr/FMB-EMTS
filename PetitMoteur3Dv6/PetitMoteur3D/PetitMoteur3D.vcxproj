@@ -130,6 +130,7 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="LightManager.cpp" />
+    <ClCompile Include="MonsterTruckInputComponent.cpp" />
     <ClCompile Include="Moteur.cpp" />
     <ClCompile Include="MoteurWindows.cpp" />
     <ClCompile Include="ObjetMesh.cpp" />
@@ -171,7 +172,9 @@
     <ClInclude Include="InfoDispositif.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="LightManager.h" />
+    <ClInclude Include="TerrainGo.h" />
     <ClInclude Include="MonsterTruckGo.h" />
+    <ClInclude Include="MonsterTruckInputComponent.h" />
     <ClInclude Include="Moteur.h" />
     <ClInclude Include="MoteurWindows.h" />
     <ClInclude Include="objet3d.h" />

@@ -18,7 +18,7 @@ namespace PM3D
 		virtual ~RenderComponent();
 	public:
 		static constexpr char* typeId = "RenderComponent";
-
+		virtual const char* GetTypeId() { return "RenderComponent"; }
 	private:
 		GameObject* owner;
 	public:
@@ -36,7 +36,7 @@ namespace PM3D
 			RenderManager::GetInstance().RemoveComponent(this);
 		}
 
-	private:
+	public:
 		class CSommetMesh
 		{
 		public:
@@ -53,6 +53,7 @@ namespace PM3D
 			XMFLOAT2 coordTex;
 		};
 
+	private:
 		struct MaterialBlock
 		{
 			char NomFichierTexture[200];
@@ -166,21 +167,32 @@ namespace PM3D
 		static const int SHADOWMAP_DIM = 512;
 		static const int MAX_LIGHT_DIST = 200;
 
-		CSommetMesh* ts;
-		unsigned int* index;
-		int nombreSommets;
-		int nombreIndex;
+	public:
+		struct TerrainItems {
+			CSommetMesh* ts;
+			unsigned int* index;
+			int nombreSommets;
+			int nombreIndex;
+		};
+	private:
+		TerrainItems terrainItems;
+	public:
+		TerrainItems GetTerrainItems() { return terrainItems; }
+
+	private:
 
 		CDispositifD3D11* pDispositif;
-		
+
 		void InitDepthBuffer();
 		void LireFichierBinaire();
 		void InitEffet();
 		void InitMatricesShadowMap();
 	public:
-		void InitFile(std::string _file) { file = _file; }
+		void InitFile(std::string _file) {
+			file = _file;
+		}
 		virtual void InitMeshes(CDispositifD3D11* pDispositif);
-		virtual void Draw();		
+		virtual void Draw();
 	};
 }
 

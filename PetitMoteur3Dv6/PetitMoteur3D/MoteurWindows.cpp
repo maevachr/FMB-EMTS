@@ -2,7 +2,7 @@
 #include "resource.h"
 
 #include "MoteurWindows.h"
-
+#include "InputManager.h"
 
 namespace PM3D
 {
@@ -207,7 +207,7 @@ int CMoteurWindows::InitialisationsSpecific()
 	Show();
 
 	// Initialisation de DirectInput
-	GestionnaireDeSaisie.Init(hAppInstance, hMainWnd);
+	InputManager::GetInstance().Init(hAppInstance, hMainWnd);
 
 	return 0;
 }

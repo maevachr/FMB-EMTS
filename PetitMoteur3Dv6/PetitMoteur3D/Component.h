@@ -11,6 +11,7 @@ namespace PM3D
 	{
 	public:
 		static constexpr char* typeId = "Component";
+		virtual const char* GetTypeId() = 0;
 	public:
 		virtual GameObject* GetOwner() const = 0;
 

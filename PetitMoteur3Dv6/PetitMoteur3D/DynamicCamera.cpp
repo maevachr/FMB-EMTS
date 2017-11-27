@@ -1,5 +1,6 @@
 #include "StdAfx.h"
 #include "DynamicCamera.h"
+#include "InputManager.h"
 
 namespace PM3D {
 
@@ -8,8 +9,7 @@ namespace PM3D {
 		const XMVECTOR & up_in,
 		XMMATRIX * pMatView_in,
 		XMMATRIX * pMatProj_in,
-		XMMATRIX * pMatViewProj_in,
-		CDIManipulateur* pGestionnaireDeSaisie_in)
+		XMMATRIX * pMatViewProj_in)
 	{
 		CCamera::Init(position_in,
 			direction_in,
@@ -20,11 +20,10 @@ namespace PM3D {
 
 		vitesse_translation = VITESSE_T_DEFAULT;
 		vitesse_rotation = VITESSE_R_DEFAULT;
-
-		pGestionnaireDeSaisie = pGestionnaireDeSaisie_in;
 	}
 	void CDynamicCamera::AnimeCamera(float tempsEcoule)
 	{
+		CDIManipulateur* pGestionnaireDeSaisie = InputManager::GetInstance().GetDIManipulateur();
 		if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_UP))
 		{
 			// Avancer

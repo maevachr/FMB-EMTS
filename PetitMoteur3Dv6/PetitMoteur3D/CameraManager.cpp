@@ -1,12 +1,15 @@
 #include "stdafx.h"
 #include "CameraManager.h"
 #include "GameObject.h"
+#include "InputManager.h"
 using namespace std;
 
 namespace PM3D {
 
 	void CCameraManager::ParseInput()
 	{
+		CDIManipulateur* pGestionnaireDeSaisie = InputManager::GetInstance().GetDIManipulateur();
+
 		if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_F1))
 		{
 			currentCamera = cameraList[DYNAMIC].get();
@@ -30,11 +33,8 @@ namespace PM3D {
 	bool CCameraManager::Init(XMMATRIX * pMatView_in,
 		XMMATRIX * pMatProj_in,
 		XMMATRIX * pMatViewProj_in,
-		CDIManipulateur* pGestionnaireDeSaisie_in,
 		GameObject* player)
 	{
-
-		pGestionnaireDeSaisie = pGestionnaireDeSaisie_in;
 		pMatView = pMatView_in;
 		pMatProj = pMatProj_in;
 		pMatViewProj = pMatViewProj_in;
@@ -46,8 +46,7 @@ namespace PM3D {
 			XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f),
 			pMatView,
 			pMatProj,
-			pMatViewProj,
-			pGestionnaireDeSaisie);
+			pMatViewProj);
 		cameraList[DYNAMIC] = move(dynamicCamera);
 
 		std::unique_ptr<CCamera> staticCamera(new CCamera);

@@ -49,7 +49,9 @@ namespace PM3D
 		std::vector<Component*>::iterator FindComponentIterator()
 		{
 			auto it = std::find_if(std::begin(components), std::end(components), [&](Component* c) -> bool {
-				return c->typeId == T::typeId;
+				auto f = c->GetTypeId();
+				auto fu = T::typeId;
+				return c->GetTypeId() == T::typeId;
 			});
 			return it;
 		}
@@ -102,7 +104,7 @@ namespace PM3D
 		T* As()
 		{
 			auto it = FindComponentIterator<T>();
-			assert(it == components.end());
+			assert(it != components.end());
 			return static_cast<T*>(*it);
 		}
 	protected:
@@ -143,6 +145,7 @@ namespace PM3D
 			if (parent != nullptr)
 			{
 				PxTransform pTransform = parent->GetWorldTransform();
+				wTransform *= pTransform;
 			}
 			return wTransform;
 		}

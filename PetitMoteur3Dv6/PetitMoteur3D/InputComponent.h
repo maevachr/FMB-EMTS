@@ -10,8 +10,8 @@ namespace PM3D
 	{
 	public:
 		static constexpr char* typeId = "InputComponent";
-
-	private:
+		virtual const char* GetTypeId() { return "InputComponent"; }
+	protected:
 		GameObject* owner;
 	public:
 		virtual GameObject* GetOwner() const { return owner; }
@@ -28,6 +28,6 @@ namespace PM3D
 			InputManager::GetInstance().RemoveComponent(this);
 		}
 	public:
-		virtual void ProcessInput(const CDIManipulateur& pGestionnaireDeSaisie) = 0;
+		virtual void ProcessInput(CDIManipulateur* pGestionnaireDeSaisie) = 0;
 	};
 }

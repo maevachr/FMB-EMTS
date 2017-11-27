@@ -6,7 +6,6 @@
 #include "util.h"
 #include "resource.h"
 #include <fstream>
-#include <PxMaterial.h>
 
 #include "CollisionFilter.h"
 
@@ -100,6 +99,7 @@ namespace PM3D
 		//pxActor->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, true);
 		pxActor->setMass(5);
 		pxActor->setCMassLocalPose(centerMass);
+
 
 		SimulationManager::GetInstance().scene().addActor(*pxActor);
 

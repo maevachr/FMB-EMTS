@@ -2,10 +2,29 @@
 #include "PhysicManager.h"
 #include "PhysicComponent.h"
 
-void PM3D::PhysicManager::UpdateGoTransform()
+namespace PM3D
 {
-	std::for_each(std::begin(pComponents), std::end(pComponents), [](PhysicComponent* pc)
+	void PhysicManager::InitTerrainPhysic()
 	{
-		pc->UpdateGoTransform();
-	});
+		std::for_each(std::begin(pComponents), std::end(pComponents), [](PhysicComponent* pc)
+		{
+			pc->InitTerrainPhysic();
+		});
+	}
+
+	void PhysicManager::AddActors()
+	{
+		std::for_each(std::begin(pComponents), std::end(pComponents), [](PhysicComponent* pc)
+		{
+			pc->AddActor();
+		});
+	}
+
+	void PhysicManager::UpdateGoTransform()
+	{
+		std::for_each(std::begin(pComponents), std::end(pComponents), [](PhysicComponent* pc)
+		{
+			pc->UpdateGoTransform();
+		});
+	}
 }

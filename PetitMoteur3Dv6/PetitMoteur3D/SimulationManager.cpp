@@ -220,6 +220,7 @@ void SimulationManager::Update()
 			_scene->fetchResults(true);
 		}
 
+
 }
 
 physx::PxPhysics& SimulationManager::physics()

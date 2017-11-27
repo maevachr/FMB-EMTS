@@ -9,7 +9,7 @@ namespace PM3D
 	{
 	public:
 		static constexpr char* typeId = "AnimationComponent";
-
+		virtual const char* GetTypeId() { return "AnimationComponent"; }
 	private:
 		GameObject* owner;
 	public:

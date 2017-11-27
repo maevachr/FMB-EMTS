@@ -16,7 +16,8 @@
 #include "SimulationManager.h"
 #include "WorldGo.h"
 #include "RenderManager.h"
-#include "MonsterTruckGo.h"
+#include "InputManager.h"
+#include "PhysicManager.h"
 
 namespace PM3D
 {
@@ -54,35 +55,45 @@ namespace PM3D
 			}
 		}
 		
-		MonsterTruckGo* world;
-
 		virtual int Initialisations()
 		{
 
 			// Propre à la plateforme
 			InitialisationsSpecific();
 
-			//Initialisation de physX
-			SimulationManager::GetInstance().InitPhysX();
+			
 
 			// * Initialisation du dispositif de rendu
 			pDispositif = CreationDispositifSpecific( CDS_FENETRE );
 
+			//Initialisation de physX
+			SimulationManager::GetInstance().InitPhysX();
+			//Initialisation des lumières
 			CLightManager::GetInstance().Init();
 
-			// * Initialisation de la scène
-			InitScene();
+			//Initialisation du Monde
+			world = std::make_unique<WorldGo>();
+			world->OnSpawn(nullptr);
 
-			MonsterTruckGo* monsterTruck = new MonsterTruckGo();
-			monsterTruck->OnSpawn(nullptr);
-
+			//Initialisation des Mesh de rendu
 			RenderManager::GetInstance().InitMeshes(pDispositif);
 
+			//Initialisation du terrain avec la Mesh chargée
+			PhysicManager::GetInstance().InitTerrainPhysic();
+
+			//Ajout des acteurs à la simulation
+			PhysicManager::GetInstance().AddActors();
+
+			
+
+			// * Initialisation des matrices de projections
+			InitScene();
+
+			// Initialisation des caméras
 			CCameraManager::GetInstance().Init(&this->matView,
 				&this->matProj,
 				&this->matViewProj,
-				&GestionnaireDeSaisie,
-				monsterTruck);
+				world->GetChildren().front());
 
 			// * Initialisation des paramètres de l'animation et 
 			//   préparation de la première image
@@ -111,6 +122,9 @@ namespace PM3D
 
 				// On prépare la prochaine image
 				//AnimeScene(TempsEcoule);
+
+				// ON ANIME LA SCENE SI BESOIN
+				AnimeScene(TempsEcoule);
 
 				// On rend l'image sur la surface de travail 
    				// (tampon d'arrière plan)
@@ -189,18 +203,13 @@ namespace PM3D
 			// Vider les textures
 			TexturesManager.Cleanup();
 
+			world.release();
+
 			//Terminaison de physX
 			SimulationManager::GetInstance().TerminatePhysX();
 
 			// détruire les objets
 			std::vector<CObjet3D*>::iterator It;
-
-			for (It = ListeScene.begin(); It != ListeScene.end();It++)
-			{
-				delete *It;
-			}
-
-			ListeScene.clear();
 
 			// Détruire le dispositif
 			if (pDispositif) 
@@ -297,17 +306,13 @@ namespace PM3D
 	bool AnimeScene(float tempsEcoule)
 	{
 		// Prendre en note le statut du clavier
-		GestionnaireDeSaisie.StatutClavier();
+		InputManager::GetInstance().ProcessInput();
 
 		//Mise a jour de la simulation physique
 		SimulationManager::GetInstance().Update();
+		PhysicManager::GetInstance().UpdateGoTransform();
 
-		std::vector<CObjet3D*>::iterator It;
-
-	    for (It = ListeScene.begin(); It != ListeScene.end();It++)
-		{
-			(*It)->Anime(tempsEcoule);
-		}
+		//ANIME SCENE
 
 		CCameraManager::GetInstance().AnimeScene(tempsEcoule);
 		CLightManager::GetInstance().AnimeScene(tempsEcoule);
@@ -326,10 +331,6 @@ namespace PM3D
 		// Le dispositif de rendu
 		TClasseDispositif* pDispositif;
 
-
-		// La seule scène
-		std::vector<CObjet3D*> ListeScene;
-
 		// Le seul gestionnaire de saisie
 		CDIManipulateur GestionnaireDeSaisie;
 
@@ -340,6 +341,9 @@ namespace PM3D
 
 		// Le gestionnaire de texture
 		CGestionnaireDeTextures TexturesManager;
+
+		//La seule scène
+		std::unique_ptr<WorldGo> world;
 
     };
 
