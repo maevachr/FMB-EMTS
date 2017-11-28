@@ -3,6 +3,7 @@
 #include "MonsterTruckGo.h"
 #include "TerrainGo.h"
 #include "SkyBoxGo.h"
+#include "CrateGo.h"
 
 namespace PM3D
 {
@@ -30,6 +31,10 @@ namespace PM3D
 			terrain->OnSpawn(this);
 			AddChild(terrain);
 			
+			CrateGo* crateGo = new CrateGo{};
+			crateGo->OnSpawn(this);
+			AddChild(crateGo);
+
 
 			//Set Components
 		}

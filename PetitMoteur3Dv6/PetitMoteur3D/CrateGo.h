@@ -6,17 +6,16 @@
 #include "PxPhysicsAPI.forward.h"
 #include <PxMaterial.h>
 #include "SimulationManager.h"
-#include "MonsterTruckInputComponent.h"
 #include "CollisionFilter.h"
 
 using namespace physx;
 
 namespace PM3D
 {
-	class MonsterTruckGo : public GameObject
+	class CrateGo : public GameObject
 	{
 	private:
-		static constexpr char* typeId = "MonsterTruckGo";
+		static constexpr char* typeId = "CrateGo";
 	public:
 
 		virtual void OnSpawn(GameObject* _parent) override
@@ -25,7 +24,7 @@ namespace PM3D
 
 			//Set Position
 			PxTransform location = PxTransform::createIdentity();
-			location.p = PxVec3{ 5, 5, 3};
+			location.p = PxVec3{ 5, 10, 6 };
 			SetTransform(location);
 
 
@@ -35,23 +34,20 @@ namespace PM3D
 			//Set Components
 			//-----RenderComponent
 			RenderComponent* p = CreateComponent<RenderComponent>();
-			p->InitFile("monster2.omb");
+			p->InitFile("obj_crate_scale_1m3.omb");
 
 			//-----DynamicPhysicComponent
 			DynamicPhysicComponent* d = CreateComponent<DynamicPhysicComponent>();
 			PxPhysics &physics = SimulationManager::GetInstance().physics();
 			physx::unique_ptr<PxMaterial> material = physx::unique_ptr<PxMaterial>(physics.createMaterial(0.05f, 0.05f, 0.0f));
 			PxFilterData filterData;
-			filterData.word0 = eACTOR_PLAYER;
-			filterData.word1 = eACTOR_TERRAIN;
-			d->InitData(PxBoxGeometry(PxVec3(2, 2, 1)), move(material), filterData);
+			filterData.word0 = eACTOR_CRATE;
+			filterData.word1 = eACTOR_TERRAIN | eACTOR_PLAYER;
+			d->InitData(PxBoxGeometry(PxVec3(1, 1, 1)), move(material), filterData);
 			PxTransform centerMass = physx::PxTransform::createIdentity();
-			centerMass.p = PxVec3(0, 0, -0.5);
-			PxVec3 inertiaTensor = { 10,10,10 };
-			d->InitMass(150, centerMass, inertiaTensor);
+			centerMass.p = PxVec3(0, 0, 0);
+			d->InitMass(5, centerMass);
 
-			//-----MonsterTruckInputComponent
-			MonsterTruckInputComponent* i = CreateComponent<MonsterTruckInputComponent>();
 		}
 
 

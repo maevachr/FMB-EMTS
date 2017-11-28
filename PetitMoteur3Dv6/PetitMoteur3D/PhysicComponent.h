@@ -70,7 +70,7 @@ namespace PM3D
 		{
 			SimulationManager::GetInstance().scene().addActor(*pxActor);
 		}
-		virtual void InitTerrainPhysic(){}
+		virtual void InitTerrainPhysic() {}
 		virtual void UpdateGoTransform()
 		{
 			owner->SetTransform(pxActor->getGlobalPose());
@@ -92,11 +92,11 @@ namespace PM3D
 			actorShape->setSimulationFilterData(filterData);
 		}
 
-		void InitMass(const PxReal& mass, const PxTransform& centerMass = PxTransform::createIdentity()){
+		void InitMass(const PxReal& mass, const PxTransform& centerMass = PxTransform::createIdentity(), const PxVec3& inertiaTensor = { 1,1,1 }) {
 			pxActor->setMass(mass);
+			pxActor->setMassSpaceInertiaTensor(inertiaTensor);
 			pxActor->setCMassLocalPose(centerMass);
-
-		}	
+		}
 	};
 
 	class TerrainPhysicComponent : public PhysicComponent
@@ -121,7 +121,7 @@ namespace PM3D
 		physx::unique_ptr<PxMaterial> material;
 		PxShape* actorShape;
 		physx::PxRigidStatic *pxActor;
-	
+
 	public:
 		physx::PxRigidStatic * GetActor() { return pxActor; }
 		virtual void AddActor()
@@ -172,7 +172,7 @@ namespace PM3D
 			filterData.word1 = eACTOR_PLAYER;
 			actorShape->setSimulationFilterData(filterData);
 		}
-		virtual void UpdateGoTransform(){}
+		virtual void UpdateGoTransform() {}
 	};
 }
 
