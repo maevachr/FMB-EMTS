@@ -3,7 +3,6 @@
 #include "GameObject.h"
 #include "RenderManager.h"
 #include "LightManager.h"
-#include "objet3d.h"
 #include "dispositifD3D11.h"
 #include "d3dx11effect.h"
 #include "chargeur.h"

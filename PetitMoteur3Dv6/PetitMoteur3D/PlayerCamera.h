@@ -1,5 +1,4 @@
 #pragma once
-#include "objet3d.h"
 #include "Camera.h"
 #include "GameObject.h"
 namespace PM3D

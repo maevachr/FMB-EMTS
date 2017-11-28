@@ -111,8 +111,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AnimationManager.cpp" />
-    <ClCompile Include="Bloc.cpp" />
-    <ClCompile Include="BlocEffet1.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraManager.cpp" />
     <ClCompile Include="ChargeurAssimp.cpp" />
@@ -133,28 +131,21 @@
     <ClCompile Include="MonsterTruckInputComponent.cpp" />
     <ClCompile Include="Moteur.cpp" />
     <ClCompile Include="MoteurWindows.cpp" />
-    <ClCompile Include="ObjetMesh.cpp" />
     <ClCompile Include="PetitMoteur3D.cpp" />
     <ClCompile Include="PhysicManager.cpp" />
     <ClCompile Include="PlayerCamera.cpp" />
-    <ClCompile Include="PlayerMesh.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="SimulationManager.cpp" />
-    <ClCompile Include="SkyBox.cpp" />
-    <ClCompile Include="sommetbloc.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationComponent.h" />
     <ClInclude Include="AnimationManager.h" />
-    <ClInclude Include="Bloc.h" />
-    <ClInclude Include="BlocEffet1.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraManager.h" />
     <ClInclude Include="chargeur.h" />
@@ -173,20 +164,16 @@
     <ClInclude Include="InfoDispositif.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="LightManager.h" />
-    <ClInclude Include="SkyBox.h" />
     <ClInclude Include="SkyBoxGo.h" />
     <ClInclude Include="TerrainGo.h" />
     <ClInclude Include="MonsterTruckGo.h" />
     <ClInclude Include="MonsterTruckInputComponent.h" />
     <ClInclude Include="Moteur.h" />
     <ClInclude Include="MoteurWindows.h" />
-    <ClInclude Include="objet3d.h" />
-    <ClInclude Include="ObjetMesh.h" />
     <ClInclude Include="PetitMoteur3D.h" />
     <ClInclude Include="PhysicComponent.h" />
     <ClInclude Include="PhysicManager.h" />
     <ClInclude Include="PlayerCamera.h" />
-    <ClInclude Include="PlayerMesh.h" />
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="PxPhysicsAPI.forward.h" />
@@ -194,9 +181,7 @@
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SimulationManager.h" />
-    <ClInclude Include="sommetbloc.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Terrain.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="util.h" />
     <ClInclude Include="WorldGo.h" />

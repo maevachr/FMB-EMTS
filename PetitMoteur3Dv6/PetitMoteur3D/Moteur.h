@@ -4,14 +4,9 @@
 
 #include <vector>
 #include <fstream>
-#include "Objet3D.h"
-#include "BlocEffet1.h"
 #include "GestionnaireDeTextures.h"
-#include "ObjetMesh.h"
 #include "ChargeurAssimp.h"
-#include "Terrain.h"
 #include "CameraManager.h"
-#include "PlayerMesh.h"
 #include "LightManager.h"
 #include "SimulationManager.h"
 #include "WorldGo.h"
@@ -205,9 +200,6 @@ namespace PM3D
 
 			//Terminaison de physX
 			SimulationManager::GetInstance().TerminatePhysX();
-
-			// détruire les objets
-			std::vector<CObjet3D*>::iterator It;
 
 			// Détruire le dispositif
 			if (pDispositif) 

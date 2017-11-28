@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "texture.h"
+#include "dispositifD3D11.h"
 
 namespace PM3D
 {
