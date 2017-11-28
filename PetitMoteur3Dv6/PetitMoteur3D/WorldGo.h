@@ -37,9 +37,6 @@ namespace PM3D
 
 		virtual void OnUnspawn() override
 		{
-			//Remove Components
-			RemoveAllComponent();
-
 			//Remove GameObjects
 			std::for_each(std::begin(children), std::end(children), [](GameObject* go) {
 				delete(go);
