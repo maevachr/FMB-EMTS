@@ -4,6 +4,7 @@
 #include "TerrainGo.h"
 #include "SkyBoxGo.h"
 #include "CrateGo.h"
+#include "BusGo.h"
 
 namespace PM3D
 {
@@ -34,6 +35,11 @@ namespace PM3D
 			CrateGo* crateGo = new CrateGo{};
 			crateGo->OnSpawn(this);
 			AddChild(crateGo);
+
+// 			BusGo* busGo = new BusGo{};
+// 			busGo->OnSpawn(this);
+// 			AddChild(busGo);
+
 
 
 			//Set Components

@@ -7,16 +7,15 @@
 #include <PxMaterial.h>
 #include "SimulationManager.h"
 #include "CollisionFilter.h"
-#include "CrateCollisionHandler.h"
 
 using namespace physx;
 
 namespace PM3D
 {
-	class CrateGo : public GameObject
+	class BusGo : public GameObject
 	{
 	private:
-		static constexpr char* typeId = "CrateGo";
+		static constexpr char* typeId = "BusGo";
 	public:
 
 		virtual void OnSpawn(GameObject* _parent) override
@@ -25,7 +24,7 @@ namespace PM3D
 
 			//Set Position
 			PxTransform location = PxTransform::createIdentity();
-			location.p = PxVec3{ 20, 20, 6 };
+			location.p = PxVec3{ 10, 10, 6 };
 			SetTransform(location);
 
 
@@ -35,21 +34,19 @@ namespace PM3D
 			//Set Components
 			//-----RenderComponent
 			RenderComponent* p = CreateComponent<RenderComponent>();
-			p->InitFile("obj_crate_scale_1m3.omb");
+			p->InitFile("obj_bus_scaled.omb");
 
 			//-----DynamicPhysicComponent
 			DynamicPhysicComponent* d = CreateComponent<DynamicPhysicComponent>();
 			PxPhysics &physics = SimulationManager::GetInstance().physics();
 			physx::unique_ptr<PxMaterial> material = physx::unique_ptr<PxMaterial>(physics.createMaterial(0.05f, 0.05f, 0.0f));
 			PxFilterData filterData;
-			filterData.word0 = eACTOR_CRATE;
+			filterData.word0 = eACTOR_BUS;
 			filterData.word1 = eACTOR_TERRAIN | eACTOR_PLAYER;
 			d->InitData(PxBoxGeometry(PxVec3(1, 1, 1)), move(material), filterData);
 			PxTransform centerMass = physx::PxTransform::createIdentity();
 			centerMass.p = PxVec3(0, 0, 0);
-			d->InitMass(5, centerMass);
-			std::unique_ptr<CrateCollisionHandler> handler = std::make_unique<CrateCollisionHandler>(this);
-			d->SetHandler(std::move(handler));
+			d->InitMass(300, centerMass);
 
 		}
 

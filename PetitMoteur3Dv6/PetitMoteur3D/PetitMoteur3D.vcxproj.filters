@@ -37,6 +37,9 @@
     <Filter Include="Fichiers sources\Manager">
       <UniqueIdentifier>{4c9fff32-d6dd-4065-b963-b64def5edf55}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\CollisionHandler">
+      <UniqueIdentifier>{24970477-81cf-4c09-b843-78a20612718a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Moteur.cpp">
@@ -247,6 +250,15 @@
     </ClInclude>
     <ClInclude Include="CrateGo.h">
       <Filter>Fichiers d%27en-tête\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="BusGo.h">
+      <Filter>Fichiers d%27en-tête\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ICollisionHandler.h">
+      <Filter>Fichiers d%27en-tête\CollisionHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="CrateCollisionHandler.h">
+      <Filter>Fichiers d%27en-tête\CollisionHandler</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

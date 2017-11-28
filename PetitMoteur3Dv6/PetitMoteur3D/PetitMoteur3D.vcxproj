@@ -146,12 +146,14 @@
   <ItemGroup>
     <ClInclude Include="AnimationComponent.h" />
     <ClInclude Include="AnimationManager.h" />
+    <ClInclude Include="BusGo.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraManager.h" />
     <ClInclude Include="chargeur.h" />
     <ClInclude Include="ChargeurAssimp.h" />
     <ClInclude Include="CollisionFilter.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="CrateCollisionHandler.h" />
     <ClInclude Include="CrateGo.h" />
     <ClInclude Include="DIManipulateur.h" />
     <ClInclude Include="dispositif.h" />
@@ -162,6 +164,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="GestionnaireDeTextures.h" />
+    <ClInclude Include="ICollisionHandler.h" />
     <ClInclude Include="InfoDispositif.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="LightManager.h" />

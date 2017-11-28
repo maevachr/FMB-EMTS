@@ -9,6 +9,7 @@
 #include "PhysX/Include/cooking/PxCooking.h"
 #include "RenderComponent.h"
 #include "CollisionFilter.h"
+#include "ICollisionHandler.h"
 
 using namespace physx;
 
@@ -39,6 +40,27 @@ namespace PM3D
 		virtual void InitTerrainPhysic() = 0;
 		virtual void AddActor() = 0;
 		virtual void UpdateGoTransform() = 0;
+	protected:
+		std::unique_ptr<ICollisionHandler> handler;
+	public:
+		virtual void OnContact(const physx::PxContactPair &aContactPair)
+		{
+			if (handler)
+			{
+				handler->OnContact(aContactPair);
+			}
+		}
+		virtual void OnTrigger(bool triggerEnter, physx::PxShape *actorShape, physx::PxShape *contactShape)
+		{
+			if (handler)
+			{
+				handler->OnTrigger(triggerEnter, actorShape, contactShape);
+			}
+		}
+		virtual void SetHandler(std::unique_ptr<ICollisionHandler> iHandler)
+		{
+			handler = move(iHandler);
+		}
 	};
 
 	class DynamicPhysicComponent : public PhysicComponent
@@ -57,6 +79,7 @@ namespace PM3D
 		virtual void OnDetached() override
 		{
 			owner = nullptr;
+			pxActor->release();
 			PhysicManager::GetInstance().RemoveComponent(this);
 		}
 	private:
@@ -68,6 +91,7 @@ namespace PM3D
 		physx::PxRigidDynamic * GetActor() { return pxActor; }
 		virtual void AddActor()
 		{
+			pxActor->userData = static_cast<GameObject*>(GetOwner());
 			SimulationManager::GetInstance().scene().addActor(*pxActor);
 		}
 		virtual void InitTerrainPhysic() {}
@@ -115,6 +139,7 @@ namespace PM3D
 		virtual void OnDetached() override
 		{
 			owner = nullptr;
+			pxActor->release();
 			PhysicManager::GetInstance().RemoveComponent(this);
 		}
 	private:
@@ -126,6 +151,7 @@ namespace PM3D
 		physx::PxRigidStatic * GetActor() { return pxActor; }
 		virtual void AddActor()
 		{
+			pxActor->userData = static_cast<GameObject*>(GetOwner());
 			SimulationManager::GetInstance().scene().addActor(*pxActor);
 		}
 		virtual void InitTerrainPhysic()
@@ -140,7 +166,7 @@ namespace PM3D
 			vector<PxU32>  tri;
 
 			meshDesc.points.count = t.nombreSommets;
-			for (int i = 0; i < meshDesc.points.count; ++i)
+			for (unsigned int i = 0; i < meshDesc.points.count; ++i)
 			{
 				verts.emplace_back(PxVec3{ t.ts[i].position.x,t.ts[i].position.y,t.ts[i].position.z });
 			}

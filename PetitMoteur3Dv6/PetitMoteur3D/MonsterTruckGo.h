@@ -43,7 +43,7 @@ namespace PM3D
 			physx::unique_ptr<PxMaterial> material = physx::unique_ptr<PxMaterial>(physics.createMaterial(0.05f, 0.05f, 0.0f));
 			PxFilterData filterData;
 			filterData.word0 = eACTOR_PLAYER;
-			filterData.word1 = eACTOR_TERRAIN;
+			filterData.word1 = eACTOR_TERRAIN | eACTOR_CRATE | eACTOR_BUS;
 			d->InitData(PxBoxGeometry(PxVec3(2, 2, 1)), move(material), filterData);
 			PxTransform centerMass = physx::PxTransform::createIdentity();
 			centerMass.p = PxVec3(0, 0, -0.5);
