@@ -240,7 +240,7 @@ void CObjetMesh::TransfertObjet(IChargeur& chargeur)
 
 	// 4d) Chargement des textures
 	CGestionnaireDeTextures& TexturesManager =
-		CMoteurWindows::GetInstance().GetTextureManager();
+		CGestionnaireDeTextures::GetInstance();
 
 	for (unsigned int i = 0; i<Material.size(); ++i)
 	{
@@ -453,7 +453,7 @@ void CObjetMesh::LireFichierBinaire(string nomFichier)
 	delete[] smi;
 
 	// 4d) Chargement des textures
-	CGestionnaireDeTextures& TexturesManager = CMoteurWindows::GetInstance().GetTextureManager();
+	CGestionnaireDeTextures& TexturesManager = CGestionnaireDeTextures::GetInstance();
 
 	for (unsigned int i = 0; i<Material.size(); ++i)
 	{

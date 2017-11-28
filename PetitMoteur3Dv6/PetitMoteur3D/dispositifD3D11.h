@@ -36,6 +36,11 @@ namespace PM3D
 		void ActiverMelangeAlpha(); 
 		void DesactiverMelangeAlpha();
 
+		void ActiverZBuffer();
+		void DesactiverZBuffer();
+		void ActiverCulling();
+		void DesactiverCulling();
+
 	protected:
 		CDispositifD3D11(void);
 		void InitDepthBuffer();
@@ -51,7 +56,9 @@ namespace PM3D
 
 		// Variables d'état
 		ID3D11RasterizerState* mSolidCullBackRS;
-
+		ID3D11RasterizerState* mSolidCullNoneRS;
+		ID3D11DepthStencilState* mZBufferActif;
+		ID3D11DepthStencilState* mZBufferInactif;
 
 		ID3D11BlendState* alphaBlendEnable; 
 		ID3D11BlendState* alphaBlendDisable;

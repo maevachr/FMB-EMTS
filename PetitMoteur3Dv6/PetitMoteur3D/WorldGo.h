@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "MonsterTruckGo.h"
 #include "TerrainGo.h"
+#include "SkyBoxGo.h"
 
 namespace PM3D
 {
@@ -20,6 +21,10 @@ namespace PM3D
 			MonsterTruckGo* monsterTruck = new MonsterTruckGo();
 			monsterTruck->OnSpawn(this);
 			AddChild(monsterTruck);
+
+			SkyBoxGo* skybox = new SkyBoxGo();
+			skybox->OnSpawn(this);
+			AddChild(skybox);
 
 			TerrainGo* terrain = new TerrainGo{};
 			terrain->OnSpawn(this);

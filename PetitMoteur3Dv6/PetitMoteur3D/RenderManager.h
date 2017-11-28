@@ -8,6 +8,7 @@
 namespace PM3D
 {
 	class RenderComponent;
+	class RenderSkyBoxComponent;
 
 	class RenderManager
 	{
@@ -26,6 +27,7 @@ namespace PM3D
 		}
 
 	private:
+		RenderSkyBoxComponent* rsbComponent;
 		std::vector<RenderComponent*> rComponents;
 
 	public:
@@ -33,11 +35,19 @@ namespace PM3D
 		{
 			rComponents.push_back(rc);
 		}
+		void CreateSkyBoxComponent(RenderSkyBoxComponent* rsbc)
+		{
+			rsbComponent = rsbc;
+		}
 		void RemoveComponent(RenderComponent* rc)
 		{
 			auto it = std::find(begin(rComponents), end(rComponents), rc);
 			assert(it != rComponents.end());
 			rComponents.erase(it);
+		}
+		void RemoveSkyBoxComponent()
+		{
+			rsbComponent = nullptr;
 		}
 	public:
 		void InitMeshes(CDispositifD3D11* _pDispositif);

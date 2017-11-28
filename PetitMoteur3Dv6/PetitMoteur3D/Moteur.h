@@ -142,8 +142,6 @@ namespace PM3D
 		XMMATRIX GetMatProj() { return matProj; }
 		XMMATRIX GetMatViewProj() { return matViewProj; }
 
-		CGestionnaireDeTextures& GetTextureManager(){ return TexturesManager; }
-
     protected :
 
         // Constructeur par défaut
@@ -201,7 +199,7 @@ namespace PM3D
 		{
 
 			// Vider les textures
-			TexturesManager.Cleanup();
+			CGestionnaireDeTextures::GetInstance().Cleanup();
 
 			world.release();
 
@@ -355,9 +353,6 @@ namespace PM3D
 		XMMATRIX matView;
 		XMMATRIX matProj;
 		XMMATRIX matViewProj;
-
-		// Le gestionnaire de texture
-		CGestionnaireDeTextures TexturesManager;
 
 		//La seule scène
 		std::unique_ptr<WorldGo> world;

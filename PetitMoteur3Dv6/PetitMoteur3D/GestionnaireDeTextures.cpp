@@ -6,15 +6,6 @@
 namespace PM3D
 {
 
-CGestionnaireDeTextures::CGestionnaireDeTextures(void)
-{
-}
-
-CGestionnaireDeTextures::~CGestionnaireDeTextures(void)
-{
-	Cleanup();
-}
-
 CTexture* const CGestionnaireDeTextures::GetNewTexture(const wchar_t* filename_in,CDispositifD3D11* pDispositif)
 {	
 	CTexture* pTexture;

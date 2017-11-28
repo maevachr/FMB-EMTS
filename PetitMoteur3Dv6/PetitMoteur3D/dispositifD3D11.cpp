@@ -18,15 +18,15 @@ namespace PM3D
 	{
 		pSwapChain->SetFullscreenState(FALSE, NULL); // passer en mode fenêtré
 
-		DXRelacher (mSolidCullBackRS);
-		DXRelacher (pDepthTexture);
-		DXRelacher (pDepthStencilView );
+		DXRelacher(mSolidCullBackRS);
+		DXRelacher(pDepthTexture);
+		DXRelacher(pDepthStencilView);
 
 		if (pImmediateContext) pImmediateContext->ClearState();
-		DXRelacher(pRenderTargetView);		
+		DXRelacher(pRenderTargetView);
 		DXRelacher(pImmediateContext);
 		DXRelacher(pSwapChain);
-		DXRelacher (pD3DDevice);
+		DXRelacher(pD3DDevice);
 	}
 
 	//  FONCTION : CDispositifD3D11, constructeur paramètré 
@@ -39,16 +39,16 @@ namespace PM3D
 	//    	nécessaire pour la fonction de création du 
 	//				dispositif
 	CDispositifD3D11::CDispositifD3D11(const CDS_MODE cdsMode,
-                   const HWND hWnd)
+		const HWND hWnd)
 	{
 
 		UINT largeur;
 		UINT hauteur;
 		UINT createDeviceFlags = 0;
 
-		#ifdef _DEBUG
-			createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
-		#endif
+#ifdef _DEBUG
+		createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
+#endif
 
 		D3D_FEATURE_LEVEL featureLevels[] =
 		{
@@ -56,17 +56,17 @@ namespace PM3D
 			D3D_FEATURE_LEVEL_10_1,
 			D3D_FEATURE_LEVEL_10_0,
 		};
-		UINT numFeatureLevels = ARRAYSIZE( featureLevels );
+		UINT numFeatureLevels = ARRAYSIZE(featureLevels);
 
-		pImmediateContext = NULL;		
+		pImmediateContext = NULL;
 		pSwapChain = NULL;
 		pRenderTargetView = NULL;
 
 		DXGI_SWAP_CHAIN_DESC sd;
-		ZeroMemory( &sd, sizeof(sd) );
+		ZeroMemory(&sd, sizeof(sd));
 
 		// Obtenir les informations de l'adaptateur de défaut
-		CInfoDispositif Dispo0( ADAPTATEUR_COURANT );
+		CInfoDispositif Dispo0(ADAPTATEUR_COURANT);
 
 		largeur = 1024;
 		hauteur = 768;
@@ -82,7 +82,7 @@ namespace PM3D
 			sd.Windowed = FALSE;
 			break;
 
-		}	
+		}
 
 		DXGI_MODE_DESC  desc;
 		desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
@@ -111,7 +111,7 @@ namespace PM3D
 		sd.OutputWindow = hWnd;
 		sd.SampleDesc.Count = 1;
 		sd.SampleDesc.Quality = 0;
-		
+
 		sd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH; // Permettre l'échange plein écran
 
 		// régler le problème no 1 du passage en mode fenêtré
@@ -121,26 +121,26 @@ namespace PM3D
 		GetWindowRect(hWnd, &rcWindow);
 		ptDiff.x = (rcWindow.right - rcWindow.left) - rcClient.right;
 		ptDiff.y = (rcWindow.bottom - rcWindow.top) - rcClient.bottom;
-		MoveWindow(hWnd,rcWindow.left, rcWindow.top, largeur + ptDiff.x, hauteur + ptDiff.y, TRUE);
+		MoveWindow(hWnd, rcWindow.left, rcWindow.top, largeur + ptDiff.x, hauteur + ptDiff.y, TRUE);
 
-		DXEssayer( D3D11CreateDeviceAndSwapChain(	0, 
-													D3D_DRIVER_TYPE_HARDWARE, 
-													NULL, 
-													createDeviceFlags, 
-													featureLevels, numFeatureLevels,
-													D3D11_SDK_VERSION, 
-													&sd, 
-													&pSwapChain, 
-													&pD3DDevice, 
-													NULL, 
-													&pImmediateContext ),
-													DXE_ERREURCREATIONDEVICE) ;
+		DXEssayer(D3D11CreateDeviceAndSwapChain(0,
+			D3D_DRIVER_TYPE_HARDWARE,
+			NULL,
+			createDeviceFlags,
+			featureLevels, numFeatureLevels,
+			D3D11_SDK_VERSION,
+			&sd,
+			&pSwapChain,
+			&pD3DDevice,
+			NULL,
+			&pImmediateContext),
+			DXE_ERREURCREATIONDEVICE);
 
 		// Création d'un «render target view»
 		ID3D11Texture2D *pBackBuffer;
-		DXEssayer( pSwapChain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), (LPVOID*)&pBackBuffer ), DXE_ERREUROBTENTIONBUFFER ) ;
- 
-		DXEssayer(pD3DDevice->CreateRenderTargetView( pBackBuffer, NULL, &pRenderTargetView ), DXE_ERREURCREATIONRENDERTARGET);
+		DXEssayer(pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer), DXE_ERREUROBTENTIONBUFFER);
+
+		DXEssayer(pD3DDevice->CreateRenderTargetView(pBackBuffer, NULL, &pRenderTargetView), DXE_ERREURCREATIONRENDERTARGET);
 		pBackBuffer->Release();
 
 		InitDepthBuffer();
@@ -148,7 +148,7 @@ namespace PM3D
 		// Initialiser les états de mélange (blending states)
 		InitBlendStates();
 
-		pImmediateContext->OMSetRenderTargets( 1, &pRenderTargetView, pDepthStencilView );
+		pImmediateContext->OMSetRenderTargets(1, &pRenderTargetView, pDepthStencilView);
 
 		D3D11_VIEWPORT vp;
 		vp.Width = (FLOAT)largeur;
@@ -157,29 +157,47 @@ namespace PM3D
 		vp.MaxDepth = 1.0f;
 		vp.TopLeftX = 0;
 		vp.TopLeftY = 0;
-		pImmediateContext->RSSetViewports( 1, &vp );
+		pImmediateContext->RSSetViewports(1, &vp);
 
 		// Création et initialisation des états
+		// 1. Culling
 		D3D11_RASTERIZER_DESC rsDesc;
 		ZeroMemory(&rsDesc, sizeof(D3D11_RASTERIZER_DESC));
-		rsDesc.FillMode = fillMode;
+		rsDesc.FillMode = D3D11_FILL_SOLID;
 		rsDesc.CullMode = D3D11_CULL_BACK;
 		rsDesc.FrontCounterClockwise = false;
 		pD3DDevice->CreateRasterizerState(&rsDesc, &mSolidCullBackRS);
 
+		ZeroMemory(&rsDesc, sizeof(D3D11_RASTERIZER_DESC));
+		rsDesc.FillMode = D3D11_FILL_SOLID;
+		rsDesc.CullMode = D3D11_CULL_NONE;
+		rsDesc.FrontCounterClockwise = false;
+		pD3DDevice->CreateRasterizerState(&rsDesc, &mSolidCullNoneRS);
 		pImmediateContext->RSSetState(mSolidCullBackRS);
+
+		// 2. Z-Buffer
+		pImmediateContext->OMGetDepthStencilState(&mZBufferActif, 0);
+		D3D11_DEPTH_STENCIL_DESC dsd;
+		if (mZBufferActif)
+			mZBufferActif->GetDesc(&dsd);
+		else
+			ZeroMemory(&dsd, sizeof(D3D11_DEPTH_STENCIL_DESC));
+		dsd.DepthEnable = false;
+		dsd.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+		dsd.DepthFunc = D3D11_COMPARISON_LESS;
+		pD3DDevice->CreateDepthStencilState(&dsd, &mZBufferInactif);
 
 	}
 
 	void CDispositifD3D11::PresentSpecific()
 	{
-		pSwapChain->Present( 0, 0 );
+		pSwapChain->Present(0, 0);
 	}
 
 	void CDispositifD3D11::InitDepthBuffer()
 	{
 		D3D11_TEXTURE2D_DESC depthTextureDesc;
-		ZeroMemory( &depthTextureDesc, sizeof( depthTextureDesc ) );
+		ZeroMemory(&depthTextureDesc, sizeof(depthTextureDesc));
 		depthTextureDesc.Width = largeurEcran;
 		depthTextureDesc.Height = hauteurEcran;
 		depthTextureDesc.MipLevels = 1;
@@ -192,16 +210,16 @@ namespace PM3D
 		depthTextureDesc.CPUAccessFlags = 0;
 		depthTextureDesc.MiscFlags = 0;
 
-		DXEssayer( pD3DDevice->CreateTexture2D( &depthTextureDesc, NULL, &pDepthTexture ),DXE_ERREURCREATIONTEXTURE );
+		DXEssayer(pD3DDevice->CreateTexture2D(&depthTextureDesc, NULL, &pDepthTexture), DXE_ERREURCREATIONTEXTURE);
 
 		// Création de la vue du tampon de profondeur (ou de stencil)
 		D3D11_DEPTH_STENCIL_VIEW_DESC descDSView;
-		ZeroMemory( &descDSView, sizeof( descDSView ) );
+		ZeroMemory(&descDSView, sizeof(descDSView));
 		descDSView.Format = depthTextureDesc.Format;
 		descDSView.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
 		descDSView.Texture2D.MipSlice = 0;
-		DXEssayer( pD3DDevice->CreateDepthStencilView( pDepthTexture, &descDSView, &pDepthStencilView ), DXE_ERREURCREATIONDEPTHSTENCILTARGET  );
-	
+		DXEssayer(pD3DDevice->CreateDepthStencilView(pDepthTexture, &descDSView, &pDepthStencilView), DXE_ERREURCREATIONDEPTHSTENCILTARGET);
+
 	}
 
 	void CDispositifD3D11::SetViewPortDimension(float largeur_in, float
@@ -264,13 +282,30 @@ namespace PM3D
 
 	void CDispositifD3D11::ActiverMelangeAlpha() {
 		float facteur[4] = { 0.0f,0.0f,0.0f,0.0f }; // Activer le mélange - alpha blending. 
-		pImmediateContext->OMSetBlendState(alphaBlendEnable, facteur, 0xffffffff); 
+		pImmediateContext->OMSetBlendState(alphaBlendEnable, facteur, 0xffffffff);
 	}
 
 	void CDispositifD3D11::DesactiverMelangeAlpha() {
-		float facteur[4] = { 0.0f,0.0f,0.0f,0.0f }; 
+		float facteur[4] = { 0.0f,0.0f,0.0f,0.0f };
 		// Désactiver le mélange - alpha blending. 
-		pImmediateContext->OMSetBlendState(alphaBlendDisable, facteur, 0xffffffff); 
+		pImmediateContext->OMSetBlendState(alphaBlendDisable, facteur, 0xffffffff);
+	}
+
+	void CDispositifD3D11::ActiverZBuffer()
+	{
+		pImmediateContext->OMSetDepthStencilState(mZBufferActif, 0);
+	}
+	void CDispositifD3D11::DesactiverZBuffer()
+	{
+		pImmediateContext->OMSetDepthStencilState(mZBufferInactif, 0);
+	}
+	void CDispositifD3D11::ActiverCulling()
+	{
+		pImmediateContext->RSSetState(mSolidCullBackRS);
+	}
+	void CDispositifD3D11::DesactiverCulling()
+	{
+		pImmediateContext->RSSetState(mSolidCullNoneRS);
 	}
 }
 

@@ -7,6 +7,7 @@
 #include "dispositifD3D11.h"
 #include "d3dx11effect.h"
 #include "chargeur.h"
+#include "Texture.h"
 
 namespace PM3D
 {
@@ -194,6 +195,94 @@ namespace PM3D
 		virtual void InitMeshes(CDispositifD3D11* pDispositif);
 		virtual void Draw();
 	};
+
+	class RenderSkyBoxComponent : public Component
+	{
+	private:
+		std::string file;
+	public:
+		virtual ~RenderSkyBoxComponent();
+	public:
+		static constexpr char* typeId = "RenderSkyBoxComponent";
+		virtual const char* GetTypeId() { return "RenderSkyBoxComponent"; }
+	private:
+		GameObject* owner;
+	public:
+		virtual GameObject* GetOwner() const { return owner; }
+
+	public:
+		virtual void OnAttached(GameObject* _owner) override
+		{
+			owner = _owner;
+			RenderManager::GetInstance().CreateSkyBoxComponent(this);
+		}
+		virtual void OnDetached() override
+		{
+			owner = nullptr;
+			RenderManager::GetInstance().RemoveSkyBoxComponent();
+		}
+	public:
+		class CSommetSky
+		{
+		public:
+			CSommetSky() {}
+			CSommetSky(XMFLOAT3 p, XMFLOAT2 c = XMFLOAT2(0.0f, 0.0f))
+			{
+				position = p;
+				coordTex = c;
+			}
+			XMFLOAT3 position;
+			XMFLOAT2 coordTex;
+			static UINT numElements;
+			static D3D11_INPUT_ELEMENT_DESC layout[];
+		};
+	private:
+		struct ShadersParamsSky
+		{
+			XMMATRIX matWorldViewProj; // la matrice totale
+		};
+
+	private:
+		void InitEffet();
+		
+	public:
+		void InitMeshes(CDispositifD3D11* pDispositif);
+		void SetTexture(CTexture* pTexture);
+		void Draw();
+		
+	private:
+		const unsigned int index[36] = {
+			0, 1, 2, // devant
+			0, 2, 3, // devant
+			4, 5, 6, // arrière
+			4, 6, 7, // arrière
+			8, 9, 10, // dessous
+			8, 10, 11, // dessous
+			12, 13, 14, // dessus
+			12, 14, 15, // dessus
+			16, 17, 18, // gauche
+			16, 18, 19, // gauche
+			20, 21, 22, // droite
+			20, 22, 23 // droite
+		};
+
+
+		CDispositifD3D11* pDispositif;
+
+		ID3D11Buffer* pVertexBuffer;
+		ID3D11Buffer* pIndexBuffer;
+		// Définitions des valeurs d'animation
+		ID3D11Buffer* pConstantBuffer;
+
+		// Pour les effets
+		ID3DX11Effect* pEffet;
+		ID3DX11EffectTechnique* pTechnique;
+		ID3DX11EffectPass* pPasse;
+		ID3D11InputLayout* pVertexLayout;
+		ID3D11ShaderResourceView* pTextureD3D;
+		ID3D11SamplerState* pSampleState;
+	};
+	
 }
 
 

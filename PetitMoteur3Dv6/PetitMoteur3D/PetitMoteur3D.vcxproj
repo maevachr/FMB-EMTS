@@ -141,6 +141,7 @@
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="SimulationManager.cpp" />
+    <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="sommetbloc.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -172,6 +173,8 @@
     <ClInclude Include="InfoDispositif.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="LightManager.h" />
+    <ClInclude Include="SkyBox.h" />
+    <ClInclude Include="SkyBoxGo.h" />
     <ClInclude Include="TerrainGo.h" />
     <ClInclude Include="MonsterTruckGo.h" />
     <ClInclude Include="MonsterTruckInputComponent.h" />

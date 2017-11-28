@@ -25,7 +25,7 @@ namespace PM3D
 
 			//Set Position
 			PxTransform location = PxTransform::createIdentity();
-			location.p = PxVec3{ 5, 5, 60};
+			location.p = PxVec3{ 5, 5, 6};
 			SetTransform(location);
 
 
