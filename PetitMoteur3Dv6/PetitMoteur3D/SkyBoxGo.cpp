@@ -13,7 +13,7 @@ namespace PM3D
 		//Set Components
 		//-----RenderComponent
 		RenderSkyBoxComponent* r = CreateComponent<RenderSkyBoxComponent>();
-
+		r->GetSkyBoxMesh();
 	}
 
 	void PM3D::SkyBoxGo::OnUnspawn()

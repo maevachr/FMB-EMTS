@@ -5,6 +5,7 @@
 
 
 namespace PM3D {
+
 	using namespace DirectX;
 	class CLightManager
 	{

@@ -1,5 +1,5 @@
 #include "stdafx.h"
-
+#include "MeshManager.h"
 #include <string>
 #include "moteurWindows.h"
 #include "util.h"
@@ -7,33 +7,34 @@
 #include <fstream>
 #include <algorithm>
 
-#include "RenderComponent.h"
 #include "resource.h"
 
 #include <fstream>
 #include <algorithm>
 #include "GestionnaireDeTextures.h"
+#include "LightManager.h"
+#include "dispositifD3D11.h"
+#include "chargeur.h"
+#include "Texture.h"
 
 using namespace UtilitairesDX;
-using namespace std;
-
 
 namespace PM3D
 {
 	// Definir l'organisation de notre sommet
-	D3D11_INPUT_ELEMENT_DESC RenderComponent::CSommetMesh::layout[] =
+	D3D11_INPUT_ELEMENT_DESC NormalMesh::CSommetMesh::layout[] =
 	{
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
 
-	UINT RenderComponent::CSommetMesh::numElements;
-	RenderComponent::CSommetMesh::CSommetMesh(XMFLOAT3 _position, XMFLOAT3 _normal, XMFLOAT2 _coordTex)
+	UINT NormalMesh::CSommetMesh::numElements;
+	NormalMesh::CSommetMesh::CSommetMesh(XMFLOAT3 _position, XMFLOAT3 _normal, XMFLOAT2 _coordTex)
 	{
 	}
 
-	RenderComponent::~RenderComponent()
+	NormalMesh::~NormalMesh()
 	{
 		SubmeshMaterialIndex.clear();
 		SubmeshIndex.clear();
@@ -58,7 +59,7 @@ namespace PM3D
 		delete[] terrainItems.index;
 	}
 
-	void RenderComponent::InitDepthBuffer()
+	void NormalMesh::InitDepthBuffer()
 	{
 		ID3D11Device* pD3DDevice = pDispositif->GetD3DDevice();
 		D3D11_TEXTURE2D_DESC depthTextureDesc;
@@ -88,7 +89,7 @@ namespace PM3D
 			DXE_ERREURCREATIONDEPTHSTENCILTARGET);
 	}
 
-	void RenderComponent::LireFichierBinaire()
+	void NormalMesh::LireFichierBinaire()
 	{
 
 		ifstream fichier;
@@ -204,7 +205,7 @@ namespace PM3D
 		fichier.close();
 	}
 
-	void RenderComponent::InitEffet()
+	void NormalMesh::InitEffet()
 	{
 		// Compilation et chargement du vertex shader
 		ID3D11Device* pD3DDevice = pDispositif->GetD3DDevice();
@@ -335,20 +336,20 @@ namespace PM3D
 
 		InitDepthBuffer();
 	}
-	void RenderComponent::InitMatricesShadowMap()
+	void NormalMesh::InitMatricesShadowMap(XMVECTOR ownerPosition)
 	{
 		//Accéder à la lumière la plus proche
 		CLight& currentLight = *CLightManager::GetInstance().getLight(0);
 
 		//Approcher la lumière
-		XMVECTOR distance = currentLight.position - GetOwner()->GetPosition();
+		XMVECTOR distance = currentLight.position - ownerPosition;
 		XMVECTOR direction = XMVector4Normalize(distance);
 		float length = XMVectorGetX(XMVector4Length(distance));
-		XMVECTOR lightPosition = GetOwner()->GetPosition() + direction * (length > MAX_LIGHT_DIST ? MAX_LIGHT_DIST : length);
+		XMVECTOR lightPosition = ownerPosition + direction * (length > MAX_LIGHT_DIST ? MAX_LIGHT_DIST : length);
 
 		// Matrice de la vision vu par la lumière
 		XMMATRIX mVLight = XMMatrixLookAtRH(lightPosition,
-			GetOwner()->GetPosition(),
+			ownerPosition,
 			XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f));
 
 		float champDeVision = XM_PI / 8; // 22.5 degrés
@@ -363,16 +364,14 @@ namespace PM3D
 
 		mVPLight = mVLight * mPLight;
 	}
-	void RenderComponent::InitMeshes(CDispositifD3D11 * _pDispositif)
+	void NormalMesh::InitMeshes(CDispositifD3D11 * _pDispositif)
 	{
 		pDispositif = _pDispositif;
 		LireFichierBinaire();
 		InitEffet();
 	}
-	void RenderComponent::Draw()
+	void NormalMesh::Draw(XMMATRIX matWorld, XMVECTOR ownerPosition)
 	{
-		XMMATRIX matWorld = GetOwner()->GetMatWorld();
-
 		// Obtenir le contexte
 		ID3D11DeviceContext* pImmediateContext = pDispositif->GetImmediateContext();
 
@@ -404,14 +403,14 @@ namespace PM3D
 		pImmediateContext->IASetInputLayout(pVertexLayoutShadow);
 		// Initialiser et sélectionner les «constantes» de l'effet
 		ShadersParams sp;
-		InitMatricesShadowMap();
-		CLightManager::GetInstance().SortByDistance(GetOwner()->GetPosition());
+		InitMatricesShadowMap(ownerPosition);
+		CLightManager::GetInstance().SortByDistance(ownerPosition);
 
 		CLight& closestLight = *CLightManager::GetInstance().getLight(0);
 		CLight& secondClosestLight = *CLightManager::GetInstance().getLight(1);
-		XMVECTOR distance = closestLight.position - GetOwner()->GetPosition();
+		XMVECTOR distance = closestLight.position - ownerPosition;
 		float length = XMVectorGetX(XMVector4Length(distance));
-		XMVECTOR secondDistance = secondClosestLight.position - GetOwner()->GetPosition();
+		XMVECTOR secondDistance = secondClosestLight.position - ownerPosition;
 		float secondLength = XMVectorGetX(XMVector4Length(secondDistance));
 		sp.fatt = (length / secondLength) < 0.5f ? 0.5f : length / secondLength;
 
@@ -525,21 +524,21 @@ namespace PM3D
 	}
 
 	// Definir l'organisation de notre sommet
-	D3D11_INPUT_ELEMENT_DESC RenderSkyBoxComponent::CSommetSky::layout[] =
+	D3D11_INPUT_ELEMENT_DESC SkyBoxMesh::CSommetSky::layout[] =
 	{
-	{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
-	UINT RenderSkyBoxComponent::CSommetSky::numElements = ARRAYSIZE(RenderSkyBoxComponent::CSommetSky::layout);
+	UINT SkyBoxMesh::CSommetSky::numElements = ARRAYSIZE(SkyBoxMesh::CSommetSky::layout);
 
-	RenderSkyBoxComponent::~RenderSkyBoxComponent()
+	SkyBoxMesh::~SkyBoxMesh()
 	{
 		DXRelacher(pEffet);
 		DXRelacher(pVertexLayout);
 		DXRelacher(pIndexBuffer);
 		DXRelacher(pVertexBuffer);
 	}
-	void RenderSkyBoxComponent::InitEffet()
+	void SkyBoxMesh::InitEffet()
 	{
 		// Compilation et chargement du vertex shader
 		ID3D11Device* pD3DDevice = pDispositif->GetD3DDevice();
@@ -605,17 +604,15 @@ namespace PM3D
 		// Création de l'état de sampling
 		pD3DDevice->CreateSamplerState(&samplerDesc, &pSampleState);
 	}
-	void RenderSkyBoxComponent::SetTexture(CTexture * pTexture)
+	void SkyBoxMesh::SetTexture(CTexture * pTexture)
 	{
 		pTextureD3D = pTexture->GetD3DTexture();
 	}
-	void RenderSkyBoxComponent::InitMeshes(CDispositifD3D11 * _pDispositif)
+	void SkyBoxMesh::InitMeshes(CDispositifD3D11 * _pDispositif)
 	{
 		pDispositif = _pDispositif; // Prendre en note le dispositif
 
-		XMMATRIX matWorld = GetOwner()->GetMatWorld();
-
-		// Les points
+									// Les points
 		XMFLOAT3 point[8];
 		point[0] = XMFLOAT3(-1.0f, -1.0f, 1.0f);
 		point[1] = XMFLOAT3(1.0f, -1.0f, 1.0f);
@@ -684,12 +681,11 @@ namespace PM3D
 			DXE_CREATIONINDEXBUFFER);
 		// Initialisation de l'effet
 		InitEffet();
-		matWorld = XMMatrixIdentity();
 
 		SetTexture(CGestionnaireDeTextures::GetInstance().GetNewTexture(L"skybox3.dds", pDispositif));
 
 	}
-	void RenderSkyBoxComponent::Draw()
+	void SkyBoxMesh::Draw(XMMATRIX matWorld, XMVECTOR ownerPosition)
 	{
 		// Obtenir le contexte
 		ID3D11DeviceContext* pImmediateContext = pDispositif->GetImmediateContext();

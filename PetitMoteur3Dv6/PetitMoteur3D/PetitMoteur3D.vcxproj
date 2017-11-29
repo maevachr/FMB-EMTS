@@ -130,13 +130,13 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="LightManager.cpp" />
+    <ClCompile Include="MeshManager.cpp" />
     <ClCompile Include="MonsterTruckGo.cpp" />
     <ClCompile Include="Moteur.cpp" />
     <ClCompile Include="MoteurWindows.cpp" />
     <ClCompile Include="PetitMoteur3D.cpp" />
     <ClCompile Include="PhysicManager.cpp" />
     <ClCompile Include="PlayerCamera.cpp" />
-    <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="SimulationManager.cpp" />
     <ClCompile Include="SkyBoxGo.cpp" />
@@ -170,6 +170,7 @@
     <ClInclude Include="InfoDispositif.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="LightManager.h" />
+    <ClInclude Include="MeshManager.h" />
     <ClInclude Include="SkyBoxGo.h" />
     <ClInclude Include="SpawnManager.h" />
     <ClInclude Include="TerrainGo.h" />

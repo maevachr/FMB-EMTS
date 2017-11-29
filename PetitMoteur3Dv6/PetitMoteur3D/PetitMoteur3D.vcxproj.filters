@@ -120,9 +120,6 @@
     <ClCompile Include="MonsterTruckGo.cpp">
       <Filter>Fichiers sources\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="RenderComponent.cpp">
-      <Filter>Fichiers sources\Component</Filter>
-    </ClCompile>
     <ClCompile Include="InputComponent.cpp">
       <Filter>Fichiers sources\Component</Filter>
     </ClCompile>
@@ -137,6 +134,9 @@
     </ClCompile>
     <ClCompile Include="AnimationManager.cpp">
       <Filter>Fichiers sources\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshManager.cpp">
+      <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -264,6 +264,9 @@
       <Filter>Fichiers d%27en-tête\Manager</Filter>
     </ClInclude>
     <ClInclude Include="SimulationManager.h">
+      <Filter>Fichiers d%27en-tête\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshManager.h">
       <Filter>Fichiers d%27en-tête\Manager</Filter>
     </ClInclude>
   </ItemGroup>

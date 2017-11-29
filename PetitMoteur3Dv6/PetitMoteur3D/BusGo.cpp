@@ -17,7 +17,7 @@ namespace PM3D
 		//Set Components
 		//-----RenderComponent
 		RenderComponent* p = CreateComponent<RenderComponent>();
-		p->InitFile("obj_bus_scaled.omb");
+		p->GetMesh("bus");
 
 		//-----DynamicPhysicComponent
 		DynamicPhysicComponent* d = CreateComponent<DynamicPhysicComponent>();

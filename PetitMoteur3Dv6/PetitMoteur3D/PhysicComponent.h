@@ -159,7 +159,7 @@ namespace PM3D
 			PxPhysics &physics = SimulationManager::GetInstance().physics();
 			material = physx::unique_ptr<PxMaterial>(physics.createMaterial(0.05f, 0.05f, 0.0f));
 
-			RenderComponent::TerrainItems t = owner->As<RenderComponent>()->GetTerrainItems();
+			NormalMesh::TerrainItems t = owner->As<RenderComponent>()->GetNormalMesh()->GetTerrainItems();
 
 			PxTriangleMeshDesc meshDesc;
 			vector<PxVec3> verts;

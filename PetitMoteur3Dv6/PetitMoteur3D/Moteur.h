@@ -13,6 +13,7 @@
 #include "InputManager.h"
 #include "PhysicManager.h"
 #include "SpawnManager.h"
+#include "MeshManager.h"
 
 namespace PM3D
 {
@@ -63,15 +64,17 @@ namespace PM3D
 
 			//Initialisation de physX
 			SimulationManager::GetInstance().InitPhysX();
+			
 			//Initialisation des lumières
 			CLightManager::GetInstance().Init();
 
+			//Initialisation des Mesh de rendu
+			MeshManager::GetInstance().SetMeshes();
+			
 			//Initialisation des objets
 			SpawnManager::GetInstance().Init();
 
-
-			//Initialisation des Mesh de rendu
-			RenderManager::GetInstance().InitMeshes(pDispositif);
+			MeshManager::GetInstance().InitMeshes(pDispositif);
 
 			//Initialisation du terrain avec la Mesh chargée
 			PhysicManager::GetInstance().InitTerrainPhysic();
@@ -200,6 +203,8 @@ namespace PM3D
 
 			//Terminaison de physX
 			SimulationManager::GetInstance().TerminatePhysX();
+
+			MeshManager::GetInstance().CleanUp();
 
 			// Détruire le dispositif
 			if (pDispositif) 

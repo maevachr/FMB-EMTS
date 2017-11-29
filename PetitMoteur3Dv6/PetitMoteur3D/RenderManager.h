@@ -50,7 +50,6 @@ namespace PM3D
 			rsbComponent = nullptr;
 		}
 	public:
-		void InitMeshes(CDispositifD3D11* _pDispositif);
 		void Draw();
 	};
 }

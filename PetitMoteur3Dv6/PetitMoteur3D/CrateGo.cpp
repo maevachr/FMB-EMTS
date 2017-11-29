@@ -42,7 +42,7 @@ namespace PM3D
 		//Set Components
 		//-----RenderComponent
 		RenderComponent* p = CreateComponent<RenderComponent>();
-		p->InitFile("obj_crate_scale_1m3.omb");
+		p->GetMesh("crate");
 
 		//-----DynamicPhysicComponent
 		DynamicPhysicComponent* d = CreateComponent<DynamicPhysicComponent>();

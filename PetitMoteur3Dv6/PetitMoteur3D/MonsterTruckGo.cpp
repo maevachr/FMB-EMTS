@@ -18,7 +18,7 @@ namespace PM3D
 		//Set Components
 		//-----RenderComponent
 		RenderComponent* p = CreateComponent<RenderComponent>();
-		p->InitFile("monster2.omb");
+		p->GetMesh("monster");
 
 		//-----DynamicPhysicComponent
 		DynamicPhysicComponent* d = CreateComponent<DynamicPhysicComponent>();
