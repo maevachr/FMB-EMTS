@@ -28,17 +28,20 @@
     <Filter Include="Fichiers d%27en-tête\Component">
       <UniqueIdentifier>{1abf9be1-89e2-4e70-9c2a-795d39dc4c6f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\Manager">
-      <UniqueIdentifier>{337aed7d-8975-4f25-b47d-81cd5d0b0400}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Component">
-      <UniqueIdentifier>{62438a28-5949-4b97-8b87-3eed56bab991}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers sources\Manager">
       <UniqueIdentifier>{4c9fff32-d6dd-4065-b963-b64def5edf55}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\CollisionHandler">
-      <UniqueIdentifier>{24970477-81cf-4c09-b843-78a20612718a}</UniqueIdentifier>
+    <Filter Include="Fichiers d%27en-tête\Manager">
+      <UniqueIdentifier>{f8a19b03-36b5-4842-b1fd-891f7a4a2cde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Manager\ComponentManager">
+      <UniqueIdentifier>{337aed7d-8975-4f25-b47d-81cd5d0b0400}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\GameObjects">
+      <UniqueIdentifier>{62438a28-5949-4b97-8b87-3eed56bab991}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Component">
+      <UniqueIdentifier>{e0e8d8b9-13a1-405c-ab3b-0c4e2e014318}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -58,9 +61,6 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="GestionnaireDeTextures.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="DDSTextureLoader.cpp">
@@ -105,23 +105,38 @@
     <ClCompile Include="SimulationManager.cpp">
       <Filter>Fichiers sources\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="RenderManager.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="BusGo.cpp">
+      <Filter>Fichiers sources\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="CrateGo.cpp">
+      <Filter>Fichiers sources\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="PhysicManager.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="SkyBoxGo.cpp">
+      <Filter>Fichiers sources\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="AnimationManager.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="TerrainGo.cpp">
+      <Filter>Fichiers sources\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterTruckGo.cpp">
+      <Filter>Fichiers sources\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="RenderComponent.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\Component</Filter>
     </ClCompile>
-    <ClCompile Include="MonsterTruckInputComponent.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="InputComponent.cpp">
+      <Filter>Fichiers sources\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicManager.cpp">
+      <Filter>Fichiers sources\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderManager.cpp">
+      <Filter>Fichiers sources\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="GestionnaireDeTextures.cpp">
+      <Filter>Fichiers sources\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationManager.cpp">
+      <Filter>Fichiers sources\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,9 +170,6 @@
     <ClInclude Include="Texture.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="GestionnaireDeTextures.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="chargeur.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
@@ -174,9 +186,6 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="LightManager.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="SimulationManager.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="CameraManager.h">
@@ -200,26 +209,20 @@
     <ClInclude Include="CollisionFilter.h">
       <Filter>Fichiers d%27en-tête\PhysX</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Fichiers d%27en-tête\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Fichiers d%27en-tête\Component</Filter>
-    </ClInclude>
     <ClInclude Include="InputComponent.h">
       <Filter>Fichiers d%27en-tête\Component</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
-      <Filter>Fichiers d%27en-tête\Manager</Filter>
+      <Filter>Fichiers d%27en-tête\Manager\ComponentManager</Filter>
     </ClInclude>
     <ClInclude Include="RenderManager.h">
-      <Filter>Fichiers d%27en-tête\Manager</Filter>
+      <Filter>Fichiers d%27en-tête\Manager\ComponentManager</Filter>
     </ClInclude>
     <ClInclude Include="RenderComponent.h">
       <Filter>Fichiers d%27en-tête\Component</Filter>
     </ClInclude>
     <ClInclude Include="AnimationManager.h">
-      <Filter>Fichiers d%27en-tête\Manager</Filter>
+      <Filter>Fichiers d%27en-tête\Manager\ComponentManager</Filter>
     </ClInclude>
     <ClInclude Include="AnimationComponent.h">
       <Filter>Fichiers d%27en-tête\Component</Filter>
@@ -228,19 +231,10 @@
       <Filter>Fichiers d%27en-tête\Component</Filter>
     </ClInclude>
     <ClInclude Include="PhysicManager.h">
-      <Filter>Fichiers d%27en-tête\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObjectManager.h">
-      <Filter>Fichiers d%27en-tête\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="WorldGo.h">
-      <Filter>Fichiers d%27en-tête\GameObject</Filter>
+      <Filter>Fichiers d%27en-tête\Manager\ComponentManager</Filter>
     </ClInclude>
     <ClInclude Include="MonsterTruckGo.h">
       <Filter>Fichiers d%27en-tête\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="MonsterTruckInputComponent.h">
-      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="TerrainGo.h">
       <Filter>Fichiers d%27en-tête\GameObject</Filter>
@@ -254,11 +248,23 @@
     <ClInclude Include="BusGo.h">
       <Filter>Fichiers d%27en-tête\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="ICollisionHandler.h">
-      <Filter>Fichiers d%27en-tête\CollisionHandler</Filter>
+    <ClInclude Include="SpawnManager.h">
+      <Filter>Fichiers d%27en-tête\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="CrateCollisionHandler.h">
-      <Filter>Fichiers d%27en-tête\CollisionHandler</Filter>
+    <ClInclude Include="Component.h">
+      <Filter>Fichiers d%27en-tête\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Fichiers d%27en-tête\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ICollisionHandler.h">
+      <Filter>Fichiers d%27en-tête\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GestionnaireDeTextures.h">
+      <Filter>Fichiers d%27en-tête\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="SimulationManager.h">
+      <Filter>Fichiers d%27en-tête\Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -23,8 +23,11 @@ namespace PM3D
 		static constexpr char* typeId = "GameObject";
 
 		//New all the child gameObjects
-		virtual void OnSpawn(GameObject* _parent)
+		virtual void OnSpawn(const PxTransform& _transform = PxTransform::createIdentity(), GameObject* _parent = nullptr)
 		{
+			//Set Position
+			SetTransform(_transform);
+
 			//Set parent
 			parent = _parent;
 		}
@@ -126,8 +129,8 @@ namespace PM3D
 			parent = go;
 		}
 	private:
-		PxTransform transform = PxTransform::createIdentity();
-		XMMATRIX matWorld = XMMatrixIdentity();		
+		PxTransform transform;
+		XMMATRIX matWorld;		
 	public:
 		//For PhysX
 		const PxTransform& GetTransform() const { return transform; }

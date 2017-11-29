@@ -1,13 +1,5 @@
 #pragma once
 #include "GameObject.h"
-#include "RenderComponent.h"
-#include "PhysicComponent.h"
-#include <foundation\PxTransform.h>
-#include "PxPhysicsAPI.forward.h"
-#include <PxMaterial.h>
-#include "SimulationManager.h"
-#include "MonsterTruckInputComponent.h"
-#include "CollisionFilter.h"
 
 using namespace physx;
 
@@ -19,53 +11,7 @@ namespace PM3D
 		static constexpr char* typeId = "MonsterTruckGo";
 	public:
 
-		virtual void OnSpawn(GameObject* _parent) override
-		{
-			GameObject::OnSpawn(_parent);
-
-			//Set Position
-			PxTransform location = PxTransform::createIdentity();
-			location.p = PxVec3{ 5, 5, 3};
-			SetTransform(location);
-
-
-			//Set GameObjects
-
-
-			//Set Components
-			//-----RenderComponent
-			RenderComponent* p = CreateComponent<RenderComponent>();
-			p->InitFile("monster2.omb");
-
-			//-----DynamicPhysicComponent
-			DynamicPhysicComponent* d = CreateComponent<DynamicPhysicComponent>();
-			PxPhysics &physics = SimulationManager::GetInstance().physics();
-			physx::unique_ptr<PxMaterial> material = physx::unique_ptr<PxMaterial>(physics.createMaterial(0.05f, 0.05f, 0.0f));
-			PxFilterData filterData;
-			filterData.word0 = eACTOR_PLAYER;
-			filterData.word1 = eACTOR_TERRAIN | eACTOR_CRATE | eACTOR_BUS;
-			d->InitData(PxBoxGeometry(PxVec3(2, 2, 1)), move(material), filterData);
-			PxTransform centerMass = physx::PxTransform::createIdentity();
-			centerMass.p = PxVec3(0, 0, -0.5);
-			PxVec3 inertiaTensor = { 10,10,10 };
-			d->InitMass(150, centerMass, inertiaTensor);
-
-			//-----MonsterTruckInputComponent
-			MonsterTruckInputComponent* i = CreateComponent<MonsterTruckInputComponent>();
-		}
-
-
-		virtual void OnUnspawn() override
-		{
-			GameObject::OnUnspawn();
-
-			//Remove GameObjects
-			std::for_each(std::begin(children), std::end(children), [](GameObject* go) {
-				delete(go);
-			});
-			children.clear();
-
-		}
-
+		virtual void OnSpawn(const PxTransform& _transform = PxTransform::createIdentity(), GameObject* _parent = nullptr) override;
+		virtual void OnUnspawn() override;
 	};
 }

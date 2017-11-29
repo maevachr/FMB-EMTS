@@ -5,7 +5,6 @@
 
 namespace PM3D
 {
-	//TO DO : Faire des classes dérivées qui implémentent ProcessInput et qui modifie le transforme du Go en fonction
 	class InputComponent : public Component
 	{
 	public:
@@ -29,5 +28,13 @@ namespace PM3D
 		}
 	public:
 		virtual void ProcessInput(CDIManipulateur* pGestionnaireDeSaisie) = 0;
+	};
+
+	class MonsterTruckInputComponent : public InputComponent
+	{
+	public:
+		static constexpr char* typeId = "MonsterTruckInputComponent";
+	public:
+		virtual void ProcessInput(CDIManipulateur* pGestionnaireDeSaisie) override;
 	};
 }

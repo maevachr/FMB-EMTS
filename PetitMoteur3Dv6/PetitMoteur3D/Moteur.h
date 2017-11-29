@@ -9,10 +9,10 @@
 #include "CameraManager.h"
 #include "LightManager.h"
 #include "SimulationManager.h"
-#include "WorldGo.h"
 #include "RenderManager.h"
 #include "InputManager.h"
 #include "PhysicManager.h"
+#include "SpawnManager.h"
 
 namespace PM3D
 {
@@ -66,9 +66,9 @@ namespace PM3D
 			//Initialisation des lumières
 			CLightManager::GetInstance().Init();
 
-			//Initialisation du Monde
-			world = std::make_unique<WorldGo>();
-			world->OnSpawn(nullptr);
+			//Initialisation des objets
+			SpawnManager::GetInstance().Init();
+
 
 			//Initialisation des Mesh de rendu
 			RenderManager::GetInstance().InitMeshes(pDispositif);
@@ -88,7 +88,7 @@ namespace PM3D
 			CCameraManager::GetInstance().Init(&this->matView,
 				&this->matProj,
 				&this->matViewProj,
-				world->GetChildren().front());
+				SpawnManager::GetInstance().GetPlayer());
 
 			// * Initialisation des paramètres de l'animation et 
 			//   préparation de la première image
@@ -196,7 +196,7 @@ namespace PM3D
 			// Vider les textures
 			CGestionnaireDeTextures::GetInstance().Cleanup();
 
-			world.release();
+			SpawnManager::GetInstance().CleanUp();
 
 			//Terminaison de physX
 			SimulationManager::GetInstance().TerminatePhysX();
@@ -237,79 +237,6 @@ namespace PM3D
 		return 0;
 	}
 
-	bool InitObjets()
-	{
-		PlayerMesh* pMesh;
-		pMesh = new PlayerMesh("monster2.omb", pDispositif, &GestionnaireDeSaisie);
-		ListeScene.push_back(pMesh);
-
-		//CObjetMesh* crateMesh;
-		//crateMesh = new CObjetMesh("obj_crate.omb", pDispositif);
-		//ListeScene.push_back(crateMesh);
-
-		CObjetMesh* terrainMesh;
-		CObjetMesh::Terrain tbidon; // je sais ARK
-		terrainMesh = new CObjetMesh("obj_terrain2.omb", pDispositif, tbidon);
-		ListeScene.push_back(terrainMesh);
-
-		//CObjetMesh* busMesh;
-		//busMesh = new CObjetMesh("obj_School_Bus_Wrecked.omb", pDispositif);
-		//ListeScene.push_back(busMesh);
-
-		////Ajouter un objet, créer le .omb
-		//CObjetMesh* newMesh;
-		////// Création d'un objet mesh à partir d'un fichier .OBJ
-		//CChargeurAssimp chargeur;
-		//CParametresChargement param;
-
-		//param.NomChemin = ".\\modeles\\Camion\\";
-		//param.NomFichier = "monster_scale.obj";
-		//param.bMainGauche = false;
-		//param.bInverserCulling = true;
-
-		//chargeur.Chargement(param);  // Le chargeur lit le fichier
-
-		//newMesh = new CObjetMesh(chargeur, "monster2.omb", pDispositif);
-		//ListeScene.push_back(newMesh);
-
-
-		////Ajouter un objet, créer le .omb
-		//CObjetMesh* newMesh;
-		////// Création d'un objet mesh à partir d'un fichier .OBJ
-		//CChargeurAssimp chargeur;
-		//CParametresChargement param;
-
-		//param.NomChemin = ".\\modeles\\Terrain\\";
-		//param.NomFichier = "terrain2.obj";
-		//param.bMainGauche = false;
-		//param.bInverserCulling = true;
-
-		//chargeur.Chargement(param);  // Le chargeur lit le fichier
-
-		//newMesh = new CObjetMesh(chargeur, "obj_terrain2.omb", pDispositif);
-		//ListeScene.push_back(newMesh);
-
-
-		//ancien terrain
-		//CTerrain* pTerrain;
-
-		//// Création d'un cube de 2 X 2 X 2 unités
-		//// Le bloc est créé dans notre programme et sur le dispositif
-		//pTerrain = new CTerrain;
-
-		//std::ifstream file("Sortie.txt", std::ios::binary);
-		//file >> *pTerrain;
-		//pTerrain->Init(pDispositif);
-
-		//pTerrain->SetTexture(TexturesManager.GetNewTexture(L"dirt4.dds", pDispositif));
-
-		//// Puis, il est ajouté à la scène
-		//ListeScene.push_back(pTerrain);
-
-		
-		return true;
-	}
-
 	bool AnimeScene(float tempsEcoule)
 	{
 		// Prendre en note le statut du clavier
@@ -323,6 +250,8 @@ namespace PM3D
 
 		CCameraManager::GetInstance().AnimeScene(tempsEcoule);
 		CLightManager::GetInstance().AnimeScene(tempsEcoule);
+
+		SpawnManager::GetInstance().Update();
 
 		return true;
 	}
@@ -345,9 +274,6 @@ namespace PM3D
 		XMMATRIX matView;
 		XMMATRIX matProj;
 		XMMATRIX matViewProj;
-
-		//La seule scène
-		std::unique_ptr<WorldGo> world;
 
     };
 
