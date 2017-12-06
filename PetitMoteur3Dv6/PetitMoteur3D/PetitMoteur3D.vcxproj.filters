@@ -43,6 +43,9 @@
     <Filter Include="Fichiers sources\Component">
       <UniqueIdentifier>{e0e8d8b9-13a1-405c-ab3b-0c4e2e014318}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Sprite">
+      <UniqueIdentifier>{ffb88fbc-3001-4a7d-9863-5d781a85b8ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Moteur.cpp">
@@ -142,6 +145,9 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="ExplodedBox.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteManager.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -283,6 +289,9 @@
     </ClInclude>
     <ClInclude Include="CallBackManager.h">
       <Filter>Fichiers d%27en-tête\Manager\ComponentManager</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteManager.h">
+      <Filter>Fichiers d%27en-tête\Sprite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
