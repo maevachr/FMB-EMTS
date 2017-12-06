@@ -7,6 +7,33 @@
 
 namespace PM3D
 {
+	//class MiniCrateGoCollisionHandler : public ICollisionHandler
+	//{
+	//private:
+	//	GameObject* go;
+	//public:
+	//	MiniCrateGoCollisionHandler(GameObject* _go) : go{ _go }
+	//	{
+	//	}
+
+	//	virtual void OnContact(const physx::PxContactPair &aContactPair) override
+	//	{
+	//		auto other = aContactPair.shapes[1];
+	//		auto detect = eACTOR_TERRAIN;
+	//		if (other->getSimulationFilterData().word0 & detect)
+	//		{
+	//			SpawnManager::GetInstance().Unspawn(go);
+	//		}
+	//	}
+
+	//	virtual void OnTrigger(bool triggerEnter, physx::PxShape *actorShape, physx::PxShape *contactShape) override
+	//	{
+	//	}
+
+	//};
+
+
+
 	void MiniCrateGo::OnSpawn(const PxTransform & _transform, GameObject * _parent)
 	{
 		GameObject::OnSpawn(_transform, _parent);
@@ -30,6 +57,9 @@ namespace PM3D
 		PxTransform centerMass = physx::PxTransform::createIdentity();
 		centerMass.p = PxVec3(0, 0, 0);
 		d->InitMass(0.5, centerMass);
+
+		//std::unique_ptr<MiniCrateGoCollisionHandler> handler = std::make_unique<MiniCrateGoCollisionHandler>(this);
+		//d->SetHandler(std::move(handler));
 	}
 
 	void MiniCrateGo::OnUnspawn()

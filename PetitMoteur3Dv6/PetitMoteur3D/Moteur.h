@@ -14,6 +14,7 @@
 #include "PhysicManager.h"
 #include "SpawnManager.h"
 #include "MeshManager.h"
+#include "CallBackManager.h"
 
 namespace PM3D
 {
@@ -244,6 +245,8 @@ namespace PM3D
 
 	bool AnimeScene(float tempsEcoule)
 	{
+
+
 		PhysicManager::GetInstance().AddActors();
 		// Prendre en note le statut du clavier
 		InputManager::GetInstance().ProcessInput();
@@ -258,6 +261,8 @@ namespace PM3D
 		CLightManager::GetInstance().AnimeScene(tempsEcoule);
 
 		SpawnManager::GetInstance().Update();
+
+		CallBackManager::GetInstance().UpdateTime(tempsEcoule);
 
 		return true;
 	}

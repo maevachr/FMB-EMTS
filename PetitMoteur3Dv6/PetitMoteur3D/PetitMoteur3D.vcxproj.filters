@@ -281,6 +281,9 @@
     <ClInclude Include="ExplodedBox.h">
       <Filter>Fichiers d%27en-tête\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="CallBackManager.h">
+      <Filter>Fichiers d%27en-tête\Manager\ComponentManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="PetitMoteur3D.ico">

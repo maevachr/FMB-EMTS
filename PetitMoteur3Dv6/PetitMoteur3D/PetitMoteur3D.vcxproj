@@ -165,6 +165,7 @@
     <ClInclude Include="dispositifD3D11.h" />
     <ClInclude Include="DynamicCamera.h" />
     <ClInclude Include="DynamicLight.h" />
+    <ClInclude Include="CallBackManager.h" />
     <ClInclude Include="ExplodedBox.h" />
     <ClInclude Include="FirstPersonCamera.h" />
     <ClInclude Include="GameObject.h" />

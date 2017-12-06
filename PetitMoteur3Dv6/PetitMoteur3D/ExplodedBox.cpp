@@ -5,6 +5,7 @@
 #include "CollisionFilter.h"
 #include "SpawnManager.h"
 #include "MiniCrateGo.h"
+#include "CallBackManager.h"
 
 namespace PM3D
 {
@@ -12,6 +13,7 @@ namespace PM3D
 	{
 		GameObject::OnSpawn(_transform, _parent);
 		GenerateExplosion();
+		CallBackManager::GetInstance().AddCallBack(new UnspawnCallBack{ this, 3.f });
 	}
 
 	void ExplodedBox::OnUnspawn()

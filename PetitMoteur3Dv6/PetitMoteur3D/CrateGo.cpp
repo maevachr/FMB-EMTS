@@ -57,6 +57,7 @@ namespace PM3D
 		PxTransform centerMass = physx::PxTransform::createIdentity();
 		centerMass.p = PxVec3(0, 0, 0);
 		d->InitMass(5, centerMass);
+
 		std::unique_ptr<CrateCollisionHandler> handler = std::make_unique<CrateCollisionHandler>(this);
 		d->SetHandler(std::move(handler));
 	}
