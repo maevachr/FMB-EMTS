@@ -1,0 +1,20 @@
+Position of wheels :
+back left
+x: 19.25881
+y: -9.28435
+z: -13.9461
+
+back right
+x: 19.2589
+y: -9.26439
+z: 13.9456
+
+forward left
+x: -10.055
+y: -9.28433
+z: -13.9512
+
+forward right
+x: -10.0549
+y: -9.28438
+z: 13.9457
