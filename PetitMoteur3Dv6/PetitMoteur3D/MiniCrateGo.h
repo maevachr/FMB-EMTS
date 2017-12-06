@@ -5,10 +5,10 @@ using namespace physx;
 
 namespace PM3D
 {
-	class CrateGo : public GameObject
+	class MiniCrateGo : public GameObject
 	{
 	private:
-		static constexpr char* typeId = "MiniCrateGo";
+		static constexpr char* typeId = "CrateGo";
 	public:
 		virtual void OnSpawn(const PxTransform& _transform = PxTransform::createIdentity(), GameObject* _parent = nullptr) override;
 		virtual void OnUnspawn() override;

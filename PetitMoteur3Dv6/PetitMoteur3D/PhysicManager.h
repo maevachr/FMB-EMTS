@@ -4,10 +4,12 @@
 #include <assert.h>
 #include <algorithm>
 
+using namespace std;
 
 namespace PM3D
 {
-	class PhysicComponent;
+	class TerrainPhysicComponent;
+	class DynamicPhysicComponent;
 
 	class PhysicManager
 	{
@@ -26,16 +28,26 @@ namespace PM3D
 		}
 
 	private:
-		std::vector<PhysicComponent*> pComponents;
+		TerrainPhysicComponent* terrain;
+		std::vector<DynamicPhysicComponent*> pComponents;
+		std::vector<DynamicPhysicComponent*> pNewComponents;
 
 	public:
-		void CreateComponent(PhysicComponent* pc)
+		void CreateTerrain(TerrainPhysicComponent* tc)
 		{
-			pComponents.push_back(pc);
+			terrain = tc;
 		}
-		void RemoveComponent(PhysicComponent* pc)
+		void RemoveTerrain()
 		{
-			auto it = std::find(begin(pComponents), end(pComponents), pc);
+			terrain = nullptr;
+		}
+		void CreateComponent(DynamicPhysicComponent* pc)
+		{
+			pNewComponents.push_back(pc);
+		}
+		void RemoveComponent(DynamicPhysicComponent* pc)
+		{
+			vector<DynamicPhysicComponent*>::iterator it = find(pComponents.begin(), pComponents.end(), pc);
 			assert(it != pComponents.end());
 			pComponents.erase(it);
 		}

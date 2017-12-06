@@ -15,33 +15,22 @@ using namespace physx;
 
 namespace PM3D
 {
-	class PhysicComponent : public Component
+
+	class CollidingComponent :  public Component
 	{
 	public:
-		static constexpr char* typeId = "PhysicComponent";
-		virtual const char* GetTypeId() { return "PhysicComponent"; }
+		static constexpr char* typeId = "CollidingComponent";
+		virtual const char* GetTypeId() { return "CollidingComponent"; }
+	protected:
+		std::unique_ptr<ICollisionHandler> handler;
 	private:
 		GameObject* owner;
 	public:
 		virtual GameObject* GetOwner() const { return owner; }
 
 	public:
-		virtual void OnAttached(GameObject* _owner) override
-		{
-			owner = _owner;
-			PhysicManager::GetInstance().CreateComponent(this);
-		}
-		virtual void OnDetached() override
-		{
-			owner = nullptr;
-			PhysicManager::GetInstance().RemoveComponent(this);
-		}
-	public:
-		virtual void InitTerrainPhysic() = 0;
-		virtual void AddActor() = 0;
-		virtual void UpdateGoTransform() = 0;
-	protected:
-		std::unique_ptr<ICollisionHandler> handler;
+		virtual void OnAttached(GameObject* _owner) = 0;
+		virtual void OnDetached() = 0;
 	public:
 		virtual void OnContact(const physx::PxContactPair &aContactPair)
 		{
@@ -63,7 +52,8 @@ namespace PM3D
 		}
 	};
 
-	class DynamicPhysicComponent : public PhysicComponent
+
+	class DynamicPhysicComponent : public CollidingComponent
 	{
 	private:
 		GameObject* owner;
@@ -89,22 +79,27 @@ namespace PM3D
 
 	public:
 		physx::PxRigidDynamic * GetActor() { return pxActor; }
-		virtual void AddActor()
+		void AddActor()
 		{
 			pxActor->userData = static_cast<GameObject*>(GetOwner());
 			SimulationManager::GetInstance().scene().addActor(*pxActor);
 		}
-		virtual void InitTerrainPhysic() {}
-		virtual void UpdateGoTransform()
+		void UpdateGoTransform()
 		{
-			owner->SetTransform(pxActor->getGlobalPose());
+			PxTransform localPose = pxActor->getGlobalPose();
+			GameObject* parent = GetOwner()->GetParent();
+			if (parent)
+			{
+				localPose = localPose * parent->GetWorldTransform().getInverse() ;
+			}
+			owner->SetTransform(localPose);	
 		}
 	public:
 		void InitData(const PxGeometry& g, physx::unique_ptr<PxMaterial> m, const PxFilterData& filterData = PxFilterData{})
 		{
 			material = move(m);
 
-			PxTransform transform = owner->GetTransform();
+			PxTransform transform = owner->GetWorldTransform();
 
 			PxTransform moveInPosition = physx::PxTransform::createIdentity();
 			moveInPosition.p = transform.p;
@@ -123,7 +118,7 @@ namespace PM3D
 		}
 	};
 
-	class TerrainPhysicComponent : public PhysicComponent
+	class TerrainPhysicComponent : public CollidingComponent
 	{
 	private:
 		GameObject* owner;
@@ -134,13 +129,13 @@ namespace PM3D
 		virtual void OnAttached(GameObject* _owner) override
 		{
 			owner = _owner;
-			PhysicManager::GetInstance().CreateComponent(this);
+			PhysicManager::GetInstance().CreateTerrain(this);
 		}
 		virtual void OnDetached() override
 		{
 			owner = nullptr;
 			pxActor->release();
-			PhysicManager::GetInstance().RemoveComponent(this);
+			PhysicManager::GetInstance().RemoveTerrain();
 		}
 	private:
 		physx::unique_ptr<PxMaterial> material;
@@ -149,12 +144,12 @@ namespace PM3D
 
 	public:
 		physx::PxRigidStatic * GetActor() { return pxActor; }
-		virtual void AddActor()
+		void AddActor()
 		{
 			pxActor->userData = static_cast<GameObject*>(GetOwner());
 			SimulationManager::GetInstance().scene().addActor(*pxActor);
 		}
-		virtual void InitTerrainPhysic()
+		void InitTerrainPhysic()
 		{
 			PxPhysics &physics = SimulationManager::GetInstance().physics();
 			material = physx::unique_ptr<PxMaterial>(physics.createMaterial(0.05f, 0.05f, 0.0f));
@@ -198,7 +193,6 @@ namespace PM3D
 			filterData.word1 = eACTOR_PLAYER;
 			actorShape->setSimulationFilterData(filterData);
 		}
-		virtual void UpdateGoTransform() {}
 	};
 }
 

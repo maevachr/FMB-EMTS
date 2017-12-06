@@ -314,6 +314,11 @@ namespace PM3D
 			terrainMesh->InitName("terrain");
 			nMeshes.push_back(terrainMesh);
 
+			NormalMesh* miniCrate = new NormalMesh{};
+			miniCrate->InitFile("obj_mini_caisse.omb");
+			miniCrate->InitName("miniCrate");
+			nMeshes.push_back(miniCrate);
+
 			sbMesh = new SkyBoxMesh{};
 
 		}

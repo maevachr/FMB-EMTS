@@ -43,10 +43,10 @@ namespace PM3D
 			for (int i = 0; i < (int)nbPairs; ++i)
 			{
 				if (actor0)
-					actor0->As<PhysicComponent>()->OnContact(pairs[i]);
+					actor0->As<CollidingComponent>()->OnContact(pairs[i]);
 
 				if (actor1)
-					actor1->As<PhysicComponent>()->OnContact(pairs[i]);
+					actor1->As<CollidingComponent>()->OnContact(pairs[i]);
 			}
 		}
 
@@ -71,10 +71,10 @@ namespace PM3D
 					other = static_cast<GameObject*>(pairs[i].otherShape->getActor()->userData);
 
 				if (trigger)
-					trigger->As<PhysicComponent>()->OnTrigger(triggerEnter, pairs[i].triggerShape, other ? pairs[i].otherShape : nullptr);
+					trigger->As<CollidingComponent>()->OnTrigger(triggerEnter, pairs[i].triggerShape, other ? pairs[i].otherShape : nullptr);
 
 				if (other)
-					other->As<PhysicComponent>()->OnTrigger(triggerEnter, pairs[i].otherShape, trigger ? pairs[i].triggerShape : nullptr);
+					other->As<CollidingComponent>()->OnTrigger(triggerEnter, pairs[i].otherShape, trigger ? pairs[i].triggerShape : nullptr);
 			}
 		}
 

@@ -244,6 +244,7 @@ namespace PM3D
 
 	bool AnimeScene(float tempsEcoule)
 	{
+		PhysicManager::GetInstance().AddActors();
 		// Prendre en note le statut du clavier
 		InputManager::GetInstance().ProcessInput();
 

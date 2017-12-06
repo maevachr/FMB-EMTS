@@ -123,6 +123,7 @@
     <ClCompile Include="dispositifD3D11.cpp" />
     <ClCompile Include="DynamicCamera.cpp" />
     <ClCompile Include="DynamicLight.cpp" />
+    <ClCompile Include="ExplodedBox.cpp" />
     <ClCompile Include="FirstPersonCamera.cpp" />
     <ClCompile Include="GestionnaireDeTextures.cpp" />
     <ClCompile Include="InfoDispositif.cpp" />
@@ -131,6 +132,7 @@
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="LightManager.cpp" />
     <ClCompile Include="MeshManager.cpp" />
+    <ClCompile Include="MiniCrateGo.cpp" />
     <ClCompile Include="MonsterTruckGo.cpp" />
     <ClCompile Include="Moteur.cpp" />
     <ClCompile Include="MoteurWindows.cpp" />
@@ -163,6 +165,7 @@
     <ClInclude Include="dispositifD3D11.h" />
     <ClInclude Include="DynamicCamera.h" />
     <ClInclude Include="DynamicLight.h" />
+    <ClInclude Include="ExplodedBox.h" />
     <ClInclude Include="FirstPersonCamera.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GestionnaireDeTextures.h" />
@@ -171,6 +174,7 @@
     <ClInclude Include="Light.h" />
     <ClInclude Include="LightManager.h" />
     <ClInclude Include="MeshManager.h" />
+    <ClInclude Include="MiniCrateGo.h" />
     <ClInclude Include="SkyBoxGo.h" />
     <ClInclude Include="SpawnManager.h" />
     <ClInclude Include="TerrainGo.h" />

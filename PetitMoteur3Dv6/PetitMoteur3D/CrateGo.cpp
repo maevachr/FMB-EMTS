@@ -4,6 +4,7 @@
 #include "PhysicComponent.h"
 #include "CollisionFilter.h"
 #include "SpawnManager.h"
+#include "ExplodedBox.h"
 
 namespace PM3D
 {
@@ -22,6 +23,7 @@ namespace PM3D
 			auto detect = eACTOR_PLAYER;
 			if (other->getSimulationFilterData().word0 & detect)
 			{
+				SpawnManager::GetInstance().Spawn<ExplodedBox>(go->GetWorldTransform());
 				SpawnManager::GetInstance().Unspawn(go);
 			}
 		}

@@ -6,23 +6,24 @@ namespace PM3D
 {
 	void PhysicManager::InitTerrainPhysic()
 	{
-		std::for_each(std::begin(pComponents), std::end(pComponents), [](PhysicComponent* pc)
-		{
-			pc->InitTerrainPhysic();
-		});
+		terrain->InitTerrainPhysic();
 	}
 
 	void PhysicManager::AddActors()
 	{
-		std::for_each(std::begin(pComponents), std::end(pComponents), [](PhysicComponent* pc)
+		terrain->AddActor();
+
+		for_each(pNewComponents.begin(), pNewComponents.end(), [&](DynamicPhysicComponent* pc)
 		{
 			pc->AddActor();
+			pComponents.push_back(pc);
 		});
+		pNewComponents.clear();
 	}
 
 	void PhysicManager::UpdateGoTransform()
 	{
-		std::for_each(std::begin(pComponents), std::end(pComponents), [](PhysicComponent* pc)
+		for_each(pComponents.begin(), pComponents.end(), [](DynamicPhysicComponent* pc)
 		{
 			pc->UpdateGoTransform();
 		});
