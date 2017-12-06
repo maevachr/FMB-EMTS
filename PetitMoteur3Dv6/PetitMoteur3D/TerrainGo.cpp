@@ -2,12 +2,14 @@
 #include "TerrainGo.h"
 #include "RenderComponent.h"
 #include "PhysicComponent.h"
+#include "SpawnManager.h"
 
 namespace PM3D
 {
 	void PM3D::TerrainGo::OnSpawn(const PxTransform & _transform, GameObject * _parent)
 	{
 		GameObject::OnSpawn(_transform, _parent);
+		SpawnManager::GetInstance().AddGameObjects(this);
 
 		//Set GameObjects
 

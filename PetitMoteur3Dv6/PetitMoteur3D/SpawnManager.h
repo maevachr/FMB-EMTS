@@ -95,13 +95,15 @@ namespace PM3D
 			});
 		}
 
+		void AddGameObjects(GameObject* go) {
+			existingGameObjects.push_back(go);
+		}
 
 		template<class T>
 		void Spawn(const PxTransform& transform = PxTransform::createIdentity())
 		{
 			T* t = new T();
 			t->OnSpawn(transform);
-			existingGameObjects.push_back(t);
 		}
 		
 		void Unspawn(GameObject* go)

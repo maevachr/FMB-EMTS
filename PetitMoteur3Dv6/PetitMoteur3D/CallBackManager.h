@@ -5,10 +5,13 @@
 #include <algorithm>
 #include "GameObject.h"
 
+using namespace std;
+
 namespace PM3D
 {
 	class ICallBack {
 	protected:
+		float basetime;
 		float time;
 	public:
 		bool Update(float tempsEcoule) {
@@ -28,6 +31,7 @@ namespace PM3D
 	public:
 		UnspawnCallBack(GameObject* go, float _time) : go{ go }
 		{
+			basetime = _time;
 			time = _time;
 		}
 
@@ -54,18 +58,28 @@ namespace PM3D
 		}
 
 	private:
-		std::vector<ICallBack*> callBack;
-
+		vector<ICallBack*> callBack;
 	public:
 		void AddCallBack(ICallBack* cb)
 		{
 			callBack.push_back(cb);
 		}
+
 	public:
 		void UpdateTime(float tempsEcoule) {
-			std::remove_if(begin(callBack), end(callBack), [tempsEcoule](ICallBack* cb) -> bool {
-				return cb->Update(tempsEcoule);
+			vector<vector<ICallBack*>::iterator> callBackRemoved;
+			for (auto it = callBack.begin(); it != callBack.end(); ++it)
+			{
+				if ((*it)->Update(tempsEcoule)) 
+				{
+					callBackRemoved.push_back(it);
+				}
+			}
+
+			for_each(begin(callBackRemoved), end(callBackRemoved), [&](vector<ICallBack*>::iterator cb) {
+				callBack.erase(cb);
 			});
+
 		}
 	};
 }
