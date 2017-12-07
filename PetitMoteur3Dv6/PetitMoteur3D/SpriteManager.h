@@ -4,13 +4,15 @@
 #include <vector>
 #include "d3dx11effect.h"
 #include <algorithm>
+#include <Gdiplus.h>
+using namespace Gdiplus;
+#pragma comment(lib, "gdiplus.lib")
 
 using namespace DirectX;
 using namespace std;
 
 namespace PM3D
 {
-
 	class Sprite {
 	public:
 		class CSommetSprite
@@ -27,11 +29,11 @@ namespace PM3D
 			XMFLOAT3 position;
 			XMFLOAT2 coordTex;
 		};
-	private:
+	protected:
 		ID3D11ShaderResourceView* pTextureD3D;
 		XMMATRIX matPosDim;
 		static CSommetSprite sommets[6];
-		
+
 		ID3D11Buffer* pVertexBuffer;
 		CDispositifD3D11* pDispositif;
 
@@ -42,27 +44,46 @@ namespace PM3D
 		ID3D11InputLayout* pVertexLayout;
 		ID3D11SamplerState* pSampleState;
 
-	private:
-		string NomTexture;
-		void InitEffet();
 	public:
-		Sprite(string NomTexture, int _x, int _y, int _dx, int _dy, CDispositifD3D11* pDispositif);
+		Sprite(CDispositifD3D11* pDispositif);
 		~Sprite();
-
+		void InitEffet();
 		void Draw();
+		// void Rotate( = MatrixIdentity); pour rotate un objet TO DO
 	};
 
+	class TextureSprite : public Sprite {
+	public:
+		TextureSprite(string NomTexture, int _x, int _y, int _dx, int _dy, CDispositifD3D11* _pDispositif);
+	};
+
+	class TextSprite : public Sprite {
+	public:
+		TextSprite(Font * pPolice, int _x, int _y, int _dx, int _dy, CDispositifD3D11* _pDispositif);
+		~TextSprite() {
+			pTexture->Release();
+			delete pBlackBrush;
+			delete pCharGraphics;
+			delete pCharBitmap;
+		}
+	protected:
+		UINT TexWidth;
+		UINT TexHeight;
+		ID3D11Texture2D *pTexture;
+		IDXGISurface1* pSurface;
+		Font* pFont;
+		Bitmap* pCharBitmap;
+		Graphics* pCharGraphics;
+		SolidBrush* pBlackBrush;
+	public:
+		void Ecrire(wstring s);
+	};
 
 
 	class SpriteManager {
 	private:
 		SpriteManager() = default;
-		~SpriteManager() {
-			for_each(sprites.begin(), sprites.end(), [](Sprite* s) {
-				delete(s);
-			}); 
-			sprites.clear();
-		}
+		~SpriteManager() = default;
 	public:
 		SpriteManager(const SpriteManager&) = delete;
 		SpriteManager operator=(const SpriteManager&) = delete;
@@ -75,26 +96,53 @@ namespace PM3D
 		}
 
 	private:
-		std::vector<Sprite*> sprites;
-
+		TextureSprite* sprite;
+		TextureSprite* sprite2;
+		TextSprite* text1;
 
 	private:
-		void AddSprite(Sprite* s)
+		// Variables statiques pour GDI+
+		static ULONG_PTR token;
+		wstring str;
+		Gdiplus::Font* pPolice;
+	private:
+		void InitText()
 		{
-			sprites.push_back(s);
+			GdiplusStartupInput startupInput(0, TRUE, TRUE);
+			GdiplusStartupOutput startupOutput;
+			GdiplusStartup(&token, &startupInput, &startupOutput);
 		}
+		void CloseText()
+		{
+			GdiplusShutdown(token);
+		}
+
 	public:
-		void InitSprite(CDispositifD3D11* _pDispositif) {
-			Sprite* s = new Sprite{ "test.dds", 50, 50, 50, 50, _pDispositif };
-			AddSprite(s);
-			//autres sprites
+		void Init(CDispositifD3D11* _pDispositif) {
+			InitText();
+
+			sprite = new TextureSprite{ "test.dds", 50, 50, 50, 50, _pDispositif };
+			
+			sprite2 = new TextureSprite{ "test.dds",200, 200, 50, 50, _pDispositif };
+
+			const FontFamily oFamily(L"Arial", NULL);
+			pPolice = new Font(&oFamily, 16.00, FontStyleBold, UnitPixel);
+			text1 = new TextSprite(pPolice, 500, 500, 200, 20, _pDispositif);
+			text1->Ecrire(L"Pret pour le passage à ta version?");
 		}
-		
+
+		void CleanUp()
+		{
+			delete sprite;
+			CloseText();
+		}
+
 		void Draw()
 		{
-			for_each(begin(sprites), end(sprites), [](Sprite* s) {
-				s->Draw();
-			});
+			sprite->Draw();
+			sprite2->Draw();
+			text1->Draw();
 		}
 	};
 }
+

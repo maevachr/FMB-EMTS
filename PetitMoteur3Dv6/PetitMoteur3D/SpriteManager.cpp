@@ -8,6 +8,8 @@
 using namespace UtilitairesDX;
 namespace PM3D
 {
+	ULONG_PTR SpriteManager::token = 0;
+
 	// Definir l'organisation de notre sommet
 	D3D11_INPUT_ELEMENT_DESC Sprite::CSommetSprite::layout[] =
 	{
@@ -139,13 +141,44 @@ namespace PM3D
 		pDispositif->DesactiverMelangeAlpha();
 	}
 
-	Sprite::Sprite(string NomTexture, int _x, int _y, int _dx, int _dy, CDispositifD3D11* _pDispositif)
+	Sprite::Sprite(CDispositifD3D11* _pDispositif)
 	{
 		pDispositif = _pDispositif; // Prendre en note le dispositif
 
+		pVertexBuffer = 0;
+		pConstantBuffer = 0;
+		pEffet = 0;
+		pTechnique = 0;
+		pPasse = 0;
+		pVertexLayout = 0;
+		pSampleState = 0;
+
+		// Création du vertex buffer et copie des sommets
+		ID3D11Device* pD3DDevice = pDispositif->GetD3DDevice();
+		D3D11_BUFFER_DESC bd;
+		ZeroMemory(&bd, sizeof(bd));
+		bd.Usage = D3D11_USAGE_DEFAULT;
+		bd.ByteWidth = sizeof(CSommetSprite) * 6;
+		bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+		bd.CPUAccessFlags = 0;
+		D3D11_SUBRESOURCE_DATA InitData;
+		ZeroMemory(&InitData, sizeof(InitData));
+		InitData.pSysMem = sommets;
+		pVertexBuffer = NULL;
+		DXEssayer(pD3DDevice->CreateBuffer(&bd, &InitData, &pVertexBuffer),
+			DXE_CREATIONVERTEXBUFFER);
+		// Initialisation de l'effet
+		InitEffet();
+	}
+
+
+	TextureSprite::TextureSprite(string NomTexture, int _x, int _y, int _dx, int _dy, CDispositifD3D11* _pDispositif)
+		: Sprite(_pDispositif)
+	{
 		float x, y, dx, dy;
 		float posX, posY;
 		float facteurX, facteurY;
+
 		// Initialisation de la texture
 		CGestionnaireDeTextures& TexturesManager = CGestionnaireDeTextures::GetInstance();
 
@@ -181,32 +214,6 @@ namespace PM3D
 		posY = 1.0f - y*2.0f / pDispositif->GetHauteur();
 		matPosDim = XMMatrixScaling(facteurX, facteurY, 1.0f) *
 			XMMatrixTranslation(posX, posY, 0.0f);
-
-		pVertexBuffer = 0;
-		pConstantBuffer = 0;
-		pEffet = 0;
-		pTechnique = 0;
-		pPasse = 0;
-		pVertexLayout = 0;
-		pSampleState = 0;
-		
-
-									// Création du vertex buffer et copie des sommets
-		ID3D11Device* pD3DDevice = pDispositif->GetD3DDevice();
-		D3D11_BUFFER_DESC bd;
-		ZeroMemory(&bd, sizeof(bd));
-		bd.Usage = D3D11_USAGE_DEFAULT;
-		bd.ByteWidth = sizeof(CSommetSprite) * 6;
-		bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-		bd.CPUAccessFlags = 0;
-		D3D11_SUBRESOURCE_DATA InitData;
-		ZeroMemory(&InitData, sizeof(InitData));
-		InitData.pSysMem = sommets;
-		pVertexBuffer = NULL;
-		DXEssayer(pD3DDevice->CreateBuffer(&bd, &InitData, &pVertexBuffer),
-			DXE_CREATIONVERTEXBUFFER);
-		// Initialisation de l'effet
-		InitEffet();
 	}
 
 	Sprite::~Sprite()
@@ -218,33 +225,110 @@ namespace PM3D
 		DXRelacher(pVertexBuffer);
 	}
 
-	//void AfficheurSprite::AjouterSpriteTexte(
-	//	ID3D11ShaderResourceView* pTexture, int _x, int _y)
-	//{
-	//	CSprite* pSprite = new CSprite;
-	//	pSprite->pTextureD3D = pTexture;
-	//	// Obtenir la dimension de la texture;
-	//	ID3D11Resource* pResource;
-	//	ID3D11Texture2D *pTextureInterface = 0;
-	//	pSprite->pTextureD3D->GetResource(&pResource);
-	//	pResource->QueryInterface<ID3D11Texture2D>(&pTextureInterface);
-	//	D3D11_TEXTURE2D_DESC desc;
-	//	pTextureInterface->GetDesc(&desc);
-	//	float dx = float(desc.Width);
-	//	float dy = float(desc.Height);
-	//	// Dimension en facteur
-	//	float facteurX = dx*2.0f / pDispositif->GetLargeur();
-	//	float facteurY = dy*2.0f / pDispositif->GetHauteur();
-	//	// Position en coordonnées logiques
-	//	// 0,0 pixel = -1,1
-	//	float x = float(_x);
-	//	float y = float(_y);
-	//	float posX = x*2.0f / pDispositif->GetLargeur() - 1.0f;
-	//	float posY = 1.0f - y*2.0f / pDispositif->GetHauteur();
-	//	pSprite->matPosDim = XMMatrixScaling(facteurX, facteurY, 1.0f) *
-	//		XMMatrixTranslation(posX, posY, 0.0f);
-	//	// On l'ajoute à notre vecteur
-	//	tabSprites.push_back(pSprite);
-	//}
+	TextSprite::TextSprite(Font * pPolice, int _x, int _y, int _dx, int _dy, CDispositifD3D11* _pDispositif)
+		: Sprite(_pDispositif)
+	{
+		TexWidth = _dx;
+		TexHeight = _dy;
+		// Prendre en note la police
+		pFont = pPolice;
+		// Créer le bitmap et un objet GRAPHICS (un dessinateur)
+		pCharBitmap = new Bitmap(TexWidth, TexHeight, PixelFormat32bppARGB);
+		pCharGraphics = new Graphics(pCharBitmap);
+		// Paramètres de l'objet Graphics
+		pCharGraphics->SetCompositingMode(CompositingModeSourceOver);
+		pCharGraphics->SetCompositingQuality(CompositingQualityHighSpeed);
+		pCharGraphics->SetInterpolationMode(InterpolationModeHighQuality);
+		pCharGraphics->SetPixelOffsetMode(PixelOffsetModeHighSpeed);
+		pCharGraphics->SetSmoothingMode(SmoothingModeNone);
+		pCharGraphics->SetPageUnit(UnitPixel);
+		TextRenderingHint hint = TextRenderingHintAntiAlias;
+		// TextRenderingHintSystemDefault;
+
+		pCharGraphics->SetTextRenderingHint(hint);
+		// Un brosse noire pour le remplissage
+		// Notez que la brosse aurait pu être passée
+		// en paramètre pour plus de flexibilité
+		pBlackBrush = new SolidBrush(Gdiplus::Color(255, 0, 0, 0));
+		// On efface le bitmap (notez le NOIR TRANSPARENT...)
+		pCharGraphics->Clear(Gdiplus::Color(0, 0, 0, 0));
+		// Nous pourrions ici écrire une valeur initiale sur le bitmap
+		// wstring s=L"Valeur initiale";
+		// pCharGraphics->DrawString( s.c_str(), s.size(), pFont,
+		// PointF( 0.0f, 0.0f ), pBlackBrush );
+		// Accéder aux bits du bitmap
+		Gdiplus::BitmapData bmData;
+		pCharBitmap->LockBits(&Rect(0, 0, TexWidth, TexHeight),
+
+			ImageLockModeRead, PixelFormat32bppARGB, &bmData);
+		// Création d'une texture de même dimension sur la carte graphique
+		D3D11_TEXTURE2D_DESC texDesc;
+		texDesc.Width = TexWidth;
+		texDesc.Height = TexHeight;
+		texDesc.MipLevels = 1;
+		texDesc.ArraySize = 1;
+		texDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
+		texDesc.SampleDesc.Count = 1;
+		texDesc.SampleDesc.Quality = 0;
+		texDesc.Usage = D3D11_USAGE_DEFAULT;
+		texDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+		texDesc.CPUAccessFlags = 0;
+		texDesc.MiscFlags = 0;
+		D3D11_SUBRESOURCE_DATA data;
+		data.pSysMem = bmData.Scan0;
+		data.SysMemPitch = TexWidth * 4;
+		data.SysMemSlicePitch = 0;
+		// Création de la texture à partir des données du bitmap
+		HRESULT hr = pDispositif->GetD3DDevice()->CreateTexture2D(&texDesc, &data,
+			&pTexture);
+		// Création d'un «resourve view» pour accéder facilement à la texture
+		// (comme pour les sprites)
+		D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
+		srvDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
+		srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+		srvDesc.Texture2D.MipLevels = 1;
+		srvDesc.Texture2D.MostDetailedMip = 0;
+		hr = pDispositif->GetD3DDevice()->CreateShaderResourceView(pTexture,
+			&srvDesc, &pTextureD3D);
+
+		pCharBitmap->UnlockBits(&bmData);
+
+		// Obtenir la dimension de la texture;
+		ID3D11Resource* pResource;
+		ID3D11Texture2D *pTextureInterface = 0;
+		pTextureD3D->GetResource(&pResource);
+		pResource->QueryInterface<ID3D11Texture2D>(&pTextureInterface);
+		D3D11_TEXTURE2D_DESC desc;
+		pTextureInterface->GetDesc(&desc);
+		float dx = float(desc.Width);
+		float dy = float(desc.Height);
+		// Dimension en facteur
+		float facteurX = dx*2.0f / pDispositif->GetLargeur();
+		float facteurY = dy*2.0f / pDispositif->GetHauteur();
+		// Position en coordonnées logiques
+		// 0,0 pixel = -1,1
+		float x = float(_x);
+		float y = float(_y);
+		float posX = x*2.0f / pDispositif->GetLargeur() - 1.0f;
+		float posY = 1.0f - y*2.0f / pDispositif->GetHauteur();
+		matPosDim = XMMatrixScaling(facteurX, facteurY, 1.0f) *
+			XMMatrixTranslation(posX, posY, 0.0f);
+	}
+
+	void TextSprite::Ecrire(wstring s)
+		{
+			// Effacer
+			pCharGraphics->Clear(Gdiplus::Color(0, 0, 0, 0));
+			// Écrire le nouveau texte
+			pCharGraphics->DrawString(s.c_str(), s.size(), pFont,
+				PointF(0.0f, 0.0f), pBlackBrush);
+			// Transférer
+			Gdiplus::BitmapData bmData;
+			pCharBitmap->LockBits(&Rect(0, 0, TexWidth, TexHeight),
+				ImageLockModeRead, PixelFormat32bppARGB, &bmData);
+			pDispositif->GetImmediateContext()->UpdateSubresource(pTexture, 0, 0,
+				bmData.Scan0, TexWidth * 4, 0);
+			pCharBitmap->UnlockBits(&bmData);
+		}
 }
 

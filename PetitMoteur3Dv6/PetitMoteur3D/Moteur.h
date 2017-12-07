@@ -77,7 +77,7 @@ namespace PM3D
 			SpawnManager::GetInstance().Init();
 
 			MeshManager::GetInstance().InitMeshes(pDispositif);
-			SpriteManager::GetInstance().InitSprite(pDispositif);
+			SpriteManager::GetInstance().Init(pDispositif);
 
 			//Initialisation du terrain avec la Mesh chargée
 			PhysicManager::GetInstance().InitTerrainPhysic();
