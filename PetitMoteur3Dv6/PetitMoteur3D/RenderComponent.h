@@ -38,6 +38,7 @@ namespace PM3D
 		}
 		virtual void Draw()
 		{
+			GetOwner()->UpdateTransform();
 			nm->Draw(GetOwner()->GetMatWorld(), GetOwner()->GetPosition());
 		}
 	};

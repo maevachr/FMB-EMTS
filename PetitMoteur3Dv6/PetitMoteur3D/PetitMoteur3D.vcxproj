@@ -156,6 +156,7 @@
     <ClCompile Include="VehicleFilterShader.cpp" />
     <ClCompile Include="VehicleRaycast.cpp" />
     <ClCompile Include="VehicleTireFriction.cpp" />
+    <ClCompile Include="WheelGo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationComponent.h" />
@@ -212,6 +213,7 @@
     <ClInclude Include="VehicleFilterShader.h" />
     <ClInclude Include="VehicleRaycast.h" />
     <ClInclude Include="VehicleTireFriction.h" />
+    <ClInclude Include="wheelGo.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PetitMoteur3D.ico" />

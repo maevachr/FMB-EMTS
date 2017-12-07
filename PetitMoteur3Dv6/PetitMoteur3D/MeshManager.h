@@ -299,6 +299,16 @@ namespace PM3D
 			monsterMesh->InitName("monster");
 			nMeshes.push_back(monsterMesh);
 
+			NormalMesh* monsterChassisMesh = new NormalMesh{};
+			monsterChassisMesh->InitFile("obj_chassis.omb");
+			monsterChassisMesh->InitName("monsterChassis");
+			nMeshes.push_back(monsterChassisMesh);
+
+			NormalMesh* monsterWheelMesh = new NormalMesh{};
+			monsterWheelMesh->InitFile("obj_wheel.omb");
+			monsterWheelMesh->InitName("monsterWheel");
+			nMeshes.push_back(monsterWheelMesh);
+
 			NormalMesh* crateMesh = new NormalMesh{};
 			crateMesh->InitFile("obj_crate_scale_1m3.omb");
 			crateMesh->InitName("crate");

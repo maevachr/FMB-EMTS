@@ -136,9 +136,13 @@ namespace PM3D
 		const PxTransform& GetTransform() const { return transform; }
 		void SetTransform(const PxTransform& t) { 
 			transform = t; 
+			//UpdateTransform();
+		}
+
+		void UpdateTransform() {
 			PxTransform wTransform = GetWorldTransform();
 			XMVECTOR quaternion = { wTransform.q.x, wTransform.q.y, wTransform.q.z, wTransform.q.w };
-			matWorld = XMMatrixRotationQuaternion(quaternion)* XMMatrixTranslationFromVector(GetPosition(wTransform));
+			matWorld = XMMatrixRotationQuaternion(quaternion) * XMMatrixTranslationFromVector(GetPosition(wTransform));
 		}
 
 		PxTransform GetWorldTransform() const
@@ -147,7 +151,8 @@ namespace PM3D
 			if (parent != nullptr)
 			{
 				PxTransform pTransform = parent->GetWorldTransform();
-				wTransform *= pTransform;
+				//wTransform = pTransform*wTransform;
+				wTransform = wTransform*pTransform;
 			}
 			return wTransform;
 		}
