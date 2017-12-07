@@ -31,7 +31,7 @@ namespace PM3D
 
 		PxTransform centerMass = physx::PxTransform::createIdentity();
 		centerMass.p = PxVec3(0, 0, -1);
-		PxVec3 inertiaTensor = { 10,10,10 };
+		PxVec3 inertiaTensor = { 10,100,10 };
 		d->InitMass(300, centerMass, inertiaTensor);
 	}
 	void BusGo::OnUnspawn()

@@ -19,7 +19,7 @@ namespace PM3D
 		//Set Components
 		//-----RenderComponent
 		RenderComponent* p = CreateComponent<RenderComponent>();
-		p->GetMesh("monster");
+		p->GetMesh("monsterChassis");
 
 		//-----DynamicPhysicComponent
 		VehiclePhysicComponent* d = CreateComponent<VehiclePhysicComponent>();
