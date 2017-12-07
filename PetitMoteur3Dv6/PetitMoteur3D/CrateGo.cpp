@@ -2,7 +2,6 @@
 #include "CrateGo.h"
 #include "RenderComponent.h"
 #include "PhysicComponent.h"
-#include "CollisionFilter.h"
 #include "SpawnManager.h"
 #include "ExplodedBox.h"
 
@@ -20,7 +19,7 @@ namespace PM3D
 		virtual void OnContact(const physx::PxContactPair &aContactPair) override
 		{
 			auto other = aContactPair.shapes[1];
-			auto detect = eACTOR_PLAYER;
+			auto detect = COLLISION_FLAG_CHASSIS | COLLISION_FLAG_WHEEL;
 			if (other->getSimulationFilterData().word0 & detect)
 			{
 				SpawnManager::GetInstance().Spawn<ExplodedBox>(go->GetWorldTransform());
@@ -52,8 +51,8 @@ namespace PM3D
 		PxPhysics &physics = SimulationManager::GetInstance().physics();
 		physx::unique_ptr<PxMaterial> material = physx::unique_ptr<PxMaterial>(physics.createMaterial(0.05f, 0.05f, 0.0f));
 		PxFilterData filterData;
-		filterData.word0 = eACTOR_CRATE;
-		filterData.word1 = eACTOR_TERRAIN | eACTOR_PLAYER;
+		filterData.word0 = COLLISION_FLAG_CRATE;
+		filterData.word1 = COLLISION_FLAG_CRATE_AGAINST;
 		d->InitData(PxBoxGeometry(PxVec3(1, 1, 1)), move(material), filterData);
 		PxTransform centerMass = physx::PxTransform::createIdentity();
 		centerMass.p = PxVec3(0, 0, 0);

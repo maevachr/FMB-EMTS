@@ -13,7 +13,7 @@ namespace PM3D
 	{
 		terrain->AddActor();
 
-		for_each(pNewComponents.begin(), pNewComponents.end(), [&](DynamicPhysicComponent* pc)
+		for_each(pNewComponents.begin(), pNewComponents.end(), [&](CollidingComponent* pc)
 		{
 			pc->AddActor();
 			pComponents.push_back(pc);
@@ -23,7 +23,7 @@ namespace PM3D
 
 	void PhysicManager::UpdateGoTransform()
 	{
-		for_each(pComponents.begin(), pComponents.end(), [](DynamicPhysicComponent* pc)
+		for_each(pComponents.begin(), pComponents.end(), [](CollidingComponent* pc)
 		{
 			pc->UpdateGoTransform();
 		});

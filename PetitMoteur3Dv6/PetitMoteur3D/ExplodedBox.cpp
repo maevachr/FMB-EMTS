@@ -2,7 +2,6 @@
 #include "ExplodedBox.h"
 #include "RenderComponent.h"
 #include "PhysicComponent.h"
-#include "CollisionFilter.h"
 #include "SpawnManager.h"
 #include "MiniCrateGo.h"
 #include "CallBackManager.h"

@@ -2,7 +2,6 @@
 #include "MiniCrateGo.h"
 #include "RenderComponent.h"
 #include "PhysicComponent.h"
-#include "CollisionFilter.h"
 #include "SpawnManager.h"
 
 namespace PM3D
@@ -51,8 +50,8 @@ namespace PM3D
 		PxPhysics &physics = SimulationManager::GetInstance().physics();
 		physx::unique_ptr<PxMaterial> material = physx::unique_ptr<PxMaterial>(physics.createMaterial(0.05f, 0.05f, 0.0f));
 		PxFilterData filterData;
-		filterData.word0 = eACTOR_CRATE;
-		filterData.word1 = eACTOR_TERRAIN | eACTOR_PLAYER | eACTOR_CRATE;
+		filterData.word0 = COLLISION_FLAG_CRATE;
+		filterData.word1 = COLLISION_FLAG_CRATE_AGAINST;
 		d->InitData(PxBoxGeometry(PxVec3(0.25, 0.25, 0.25)), move(material), filterData);
 		PxTransform centerMass = physx::PxTransform::createIdentity();
 		centerMass.p = PxVec3(0, 0, 0);

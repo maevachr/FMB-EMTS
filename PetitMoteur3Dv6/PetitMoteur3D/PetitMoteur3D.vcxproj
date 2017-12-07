@@ -85,7 +85,7 @@
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>dxguid.lib;winmm.lib;dinput8.lib;d3d11.lib;d3dcompiler.lib;DXGI.lib;assimp.lib;effects11d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dxguid.lib;winmm.lib;dinput8.lib;d3d11.lib;d3dcompiler.lib;DXGI.lib;assimp.lib;effects11d.lib;PhysX3VehicleDEBUG.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
   </ItemDefinitionGroup>
@@ -138,6 +138,7 @@
     <ClCompile Include="MoteurWindows.cpp" />
     <ClCompile Include="PetitMoteur3D.cpp" />
     <ClCompile Include="PhysicManager.cpp" />
+    <ClCompile Include="PhysxVehicle.cpp" />
     <ClCompile Include="PlayerCamera.cpp" />
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="SimulationManager.cpp" />
@@ -149,6 +150,11 @@
     </ClCompile>
     <ClCompile Include="TerrainGo.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Vehicle4WCreate.cpp" />
+    <ClCompile Include="VehicleCreate.cpp" />
+    <ClCompile Include="VehicleFilterShader.cpp" />
+    <ClCompile Include="VehicleRaycast.cpp" />
+    <ClCompile Include="VehicleTireFriction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationComponent.h" />
@@ -158,7 +164,6 @@
     <ClInclude Include="CameraManager.h" />
     <ClInclude Include="chargeur.h" />
     <ClInclude Include="ChargeurAssimp.h" />
-    <ClInclude Include="CollisionFilter.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="CrateGo.h" />
     <ClInclude Include="DIManipulateur.h" />
@@ -177,6 +182,9 @@
     <ClInclude Include="LightManager.h" />
     <ClInclude Include="MeshManager.h" />
     <ClInclude Include="MiniCrateGo.h" />
+    <ClInclude Include="PhysxVehicle.h" />
+    <ClInclude Include="Print.h" />
+    <ClInclude Include="PVD.h" />
     <ClInclude Include="SkyBoxGo.h" />
     <ClInclude Include="SpawnManager.h" />
     <ClInclude Include="SpriteManager.h" />
@@ -198,6 +206,10 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="util.h" />
+    <ClInclude Include="VehicleCreate.h" />
+    <ClInclude Include="VehicleFilterShader.h" />
+    <ClInclude Include="VehicleRaycast.h" />
+    <ClInclude Include="VehicleTireFriction.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PetitMoteur3D.ico" />

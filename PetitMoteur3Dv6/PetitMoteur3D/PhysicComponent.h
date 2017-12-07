@@ -8,8 +8,8 @@
 #include "SimulationManager.h"
 #include "PhysX/Include/cooking/PxCooking.h"
 #include "RenderComponent.h"
-#include "CollisionFilter.h"
 #include "ICollisionHandler.h"
+#include "PhysxVehicle.h"
 
 using namespace physx;
 
@@ -50,6 +50,8 @@ namespace PM3D
 		{
 			handler = move(iHandler);
 		}
+		virtual void AddActor() {};
+		virtual void UpdateGoTransform() {};
 	};
 
 
@@ -79,12 +81,12 @@ namespace PM3D
 
 	public:
 		physx::PxRigidDynamic * GetActor() { return pxActor; }
-		void AddActor()
+		void AddActor() override
 		{
 			pxActor->userData = static_cast<GameObject*>(GetOwner());
 			SimulationManager::GetInstance().scene().addActor(*pxActor);
 		}
-		void UpdateGoTransform()
+		void UpdateGoTransform() override
 		{
 			PxTransform localPose = pxActor->getGlobalPose();
 			GameObject* parent = GetOwner()->GetParent();
@@ -188,10 +190,64 @@ namespace PM3D
 			pxActor->setGlobalPose(owner->GetTransform());
 
 			actorShape = pxActor->createShape(PxTriangleMeshGeometry(mesh), *material);
+
+			physx::PxFilterData qryFilterData;
+			qryFilterData.word3 = (PxU32)DRIVABLE_SURFACE;
+			actorShape->setQueryFilterData(qryFilterData);
+
 			PxFilterData filterData;
-			filterData.word0 = eACTOR_TERRAIN;
-			filterData.word1 = eACTOR_PLAYER;
+			filterData.word0 = COLLISION_FLAG_GROUND;
+			filterData.word1 = COLLISION_FLAG_GROUND_AGAINST;
 			actorShape->setSimulationFilterData(filterData);
+		}
+	};
+
+	class VehiclePhysicComponent : public CollidingComponent
+	{
+	private:
+		GameObject* owner;
+	public:
+		virtual GameObject* GetOwner() const { return owner; }
+
+	public:
+		virtual void OnAttached(GameObject* _owner) override
+		{
+			owner = _owner;
+			PhysicManager::GetInstance().CreateComponent(this);
+		}
+		virtual void OnDetached() override
+		{
+			owner = nullptr;
+			PhysicManager::GetInstance().RemoveComponent(this);
+		}
+	private:
+		physx::unique_ptr<PxMaterial> material;
+		PxRigidDynamic *pxActor;
+		PhysxVehicle physxVehicle;
+
+	public:
+		physx::PxRigidDynamic * GetActor() { return pxActor; }
+		PhysxVehicle* GetVehicle() { return &physxVehicle; }
+		virtual void AddActor()
+		{
+			SimulationManager::GetInstance().scene().addActor(*pxActor);
+		}
+		virtual void InitTerrainPhysic() {}
+		virtual void UpdateGoTransform()
+		{
+			physxVehicle.stepPhysics();
+			owner->SetTransform(pxActor->getGlobalPose());
+		}
+	public:
+		void InitData(const PxGeometry& g, physx::unique_ptr<PxMaterial> m, const PxFilterData& filterData = PxFilterData{})
+		{
+			pxActor = physxVehicle.initPhysics();
+		}
+
+		void InitMass(const PxReal& mass, const PxTransform& centerMass = PxTransform::createIdentity()) {
+			pxActor->setMass(mass);
+			pxActor->setCMassLocalPose(centerMass);
+
 		}
 	};
 }

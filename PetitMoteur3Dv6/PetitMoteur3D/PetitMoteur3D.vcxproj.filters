@@ -43,8 +43,11 @@
     <Filter Include="Fichiers sources\Component">
       <UniqueIdentifier>{e0e8d8b9-13a1-405c-ab3b-0c4e2e014318}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\Sprite">
-      <UniqueIdentifier>{ffb88fbc-3001-4a7d-9863-5d781a85b8ac}</UniqueIdentifier>
+    <Filter Include="Fichiers d%27en-tête\Vehicle">
+      <UniqueIdentifier>{81523937-190d-4eea-8dd2-888336c6b808}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Vehicle">
+      <UniqueIdentifier>{2b56db99-0d22-4290-a29f-53b5fae56c4f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -147,8 +150,23 @@
     <ClCompile Include="ExplodedBox.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteManager.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="PhysxVehicle.cpp">
+      <Filter>Fichiers sources\Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="Vehicle4WCreate.cpp">
+      <Filter>Fichiers sources\Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="VehicleCreate.cpp">
+      <Filter>Fichiers sources\Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="VehicleFilterShader.cpp">
+      <Filter>Fichiers sources\Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="VehicleRaycast.cpp">
+      <Filter>Fichiers sources\Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="VehicleTireFriction.cpp">
+      <Filter>Fichiers sources\Vehicle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -216,9 +234,6 @@
       <Filter>Fichiers d%27en-tête\Camera</Filter>
     </ClInclude>
     <ClInclude Include="PxPhysicsAPI.forward.h">
-      <Filter>Fichiers d%27en-tête\PhysX</Filter>
-    </ClInclude>
-    <ClInclude Include="CollisionFilter.h">
       <Filter>Fichiers d%27en-tête\PhysX</Filter>
     </ClInclude>
     <ClInclude Include="InputComponent.h">
@@ -290,8 +305,26 @@
     <ClInclude Include="CallBackManager.h">
       <Filter>Fichiers d%27en-tête\Manager\ComponentManager</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteManager.h">
-      <Filter>Fichiers d%27en-tête\Sprite</Filter>
+    <ClInclude Include="PhysxVehicle.h">
+      <Filter>Fichiers d%27en-tête\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="Print.h">
+      <Filter>Fichiers d%27en-tête\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="PVD.h">
+      <Filter>Fichiers d%27en-tête\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="VehicleCreate.h">
+      <Filter>Fichiers d%27en-tête\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="VehicleFilterShader.h">
+      <Filter>Fichiers d%27en-tête\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="VehicleRaycast.h">
+      <Filter>Fichiers d%27en-tête\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="VehicleTireFriction.h">
+      <Filter>Fichiers d%27en-tête\Vehicle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

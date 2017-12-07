@@ -4,28 +4,42 @@
 
 void PM3D::MonsterTruckInputComponent::ProcessInput(CDIManipulateur * pGestionnaireDeSaisie)
 {
-	physx::PxRigidDynamic * pxActor = owner->As<DynamicPhysicComponent>()->GetActor();
+	PhysxVehicle* vehicle = owner->As<VehiclePhysicComponent>()->GetVehicle();
 	physx::PxTransform transform = owner->GetTransform();
 
-	//UpdatePositionPhysXFromRender();
 	if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_W))
 	{
 		// Avancer
-		pxActor->addForce(transform.q.rotate({ -500,0,0 }));
+		vehicle->startAccelerateForwardsMode();
 	}
-	if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_S))
+	else if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_S))
 	{
 		// Reculer
-		pxActor->addForce(transform.q.rotate({ +500, 0, 0 }));
+		vehicle->startAccelerateReverseMode();
 	}
+	else {
+		vehicle->releaseAccelerate();
+	}
+
 	if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_A))
 	{
 		// Tourner à gauche
-		pxActor->addTorque({ 0, 0, 1000 });
+		vehicle->startTurnHardLeftMode();
 	}
-	if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_D))
+	else if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_D))
 	{
 		// Tourner à droite
-		pxActor->addTorque({ 0, 0, -1000 });
+		vehicle->startTurnHardRightMode();
+	}
+	else {
+		vehicle->releaseSteering();
+	}
+
+	if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_SPACE)) {
+		// Freiner
+		vehicle->startHandbrakeMode();
+	}
+	else {
+		vehicle->releaseHandbrake();
 	}
 }

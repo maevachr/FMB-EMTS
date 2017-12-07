@@ -8,8 +8,8 @@ using namespace std;
 
 namespace PM3D
 {
+	class CollidingComponent;
 	class TerrainPhysicComponent;
-	class DynamicPhysicComponent;
 
 	class PhysicManager
 	{
@@ -29,8 +29,8 @@ namespace PM3D
 
 	private:
 		TerrainPhysicComponent* terrain;
-		std::vector<DynamicPhysicComponent*> pComponents;
-		std::vector<DynamicPhysicComponent*> pNewComponents;
+		std::vector<CollidingComponent*> pComponents;
+		std::vector<CollidingComponent*> pNewComponents;
 
 	public:
 		void CreateTerrain(TerrainPhysicComponent* tc)
@@ -41,13 +41,13 @@ namespace PM3D
 		{
 			terrain = nullptr;
 		}
-		void CreateComponent(DynamicPhysicComponent* pc)
+		void CreateComponent(CollidingComponent* pc)
 		{
 			pNewComponents.push_back(pc);
 		}
-		void RemoveComponent(DynamicPhysicComponent* pc)
+		void RemoveComponent(CollidingComponent* pc)
 		{
-			vector<DynamicPhysicComponent*>::iterator it = find(pComponents.begin(), pComponents.end(), pc);
+			vector<CollidingComponent*>::iterator it = find(pComponents.begin(), pComponents.end(), pc);
 			assert(it != pComponents.end());
 			pComponents.erase(it);
 		}

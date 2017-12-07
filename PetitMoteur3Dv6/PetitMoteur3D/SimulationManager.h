@@ -35,6 +35,11 @@ namespace PM3D
 			PxFilterObjectAttributes attributes1, PxFilterData filterData1,
 			PxPairFlags& pairFlags, const void* constantBlock, PxU32 constantBlockSize);
 		void TerminatePhysX();
+		const physx::unique_ptr<PxFoundation>& GetFoundation() { return _foundation; }
+		const physx::unique_ptr<PxProfileZoneManager>& GetProfileZoneManager() { return _profileZoneManager; }
+		const physx::unique_ptr<PxPhysics>& GetPhysics() { return _physics; };
+		const physx::unique_ptr<PxDefaultCpuDispatcher>& GetDefaultCpuDispatcher() { return _cpuDispatcher; }
+		const physx::unique_ptr<debugger::comm::PvdConnection>& GetPVDConnection() { return _visualDebuggerConnection; }
 
 		void Update();
 
