@@ -141,6 +141,7 @@ VehicleDesc PhysxVehicle::initVehicleDesc()
 
 void PhysxVehicle::startAccelerateForwardsMode()
 {
+	gVehicle4W->mDriveDynData.forceGearChange(PxVehicleGearsData::eFIRST);
 	if (gMimicKeyInputs)
 	{
 		gVehicleInputData.setDigitalAccel(true);
@@ -165,29 +166,16 @@ void PhysxVehicle::startAccelerateReverseMode()
 	}
 }
 
-void PhysxVehicle::startBrakeMode()
-{
-	if (gMimicKeyInputs)
-	{
-		gVehicleInputData.setDigitalBrake(true);
-	}
-	else
-	{
-		gVehicleInputData.setAnalogBrake(1.0f);
-	}
-}
-
 void PhysxVehicle::startTurnHardLeftMode()
 {
 	if (gMimicKeyInputs)
 	{
-		gVehicleInputData.setDigitalAccel(true);
-		gVehicleInputData.setDigitalSteerLeft(true);
+		gVehicleInputData.setDigitalSteerRight(true);
+		gVehicleInputData.setDigitalSteerLeft(false);
 	}
 	else
 	{
-		gVehicleInputData.setAnalogAccel(true);
-		gVehicleInputData.setAnalogSteer(-1.0f);
+		gVehicleInputData.setAnalogSteer(1.0f);
 	}
 }
 
@@ -195,13 +183,12 @@ void PhysxVehicle::startTurnHardRightMode()
 {
 	if (gMimicKeyInputs)
 	{
-		gVehicleInputData.setDigitalAccel(true);
-		gVehicleInputData.setDigitalSteerRight(true);
+		gVehicleInputData.setDigitalSteerLeft(true);
+		gVehicleInputData.setDigitalSteerRight(false);
 	}
 	else
 	{
-		gVehicleInputData.setAnalogAccel(1.0f);
-		gVehicleInputData.setAnalogSteer(1.0f);
+		gVehicleInputData.setAnalogSteer(-1.0f);
 	}
 }
 
@@ -233,6 +220,63 @@ void PhysxVehicle::startHandbrakeTurnRightMode()
 	}
 }
 
+void PhysxVehicle::releaseSteering() {
+	if (gMimicKeyInputs)
+	{
+		gVehicleInputData.setDigitalSteerLeft(false);
+		gVehicleInputData.setDigitalSteerRight(false);
+	}
+	else
+	{
+		gVehicleInputData.setAnalogSteer(0.0f);
+	}
+}
+
+void PhysxVehicle::releaseAccelerate() {
+	if (gMimicKeyInputs)
+	{
+		gVehicleInputData.setDigitalAccel(false);
+	}
+	else
+	{
+		gVehicleInputData.setAnalogAccel(0.0f);
+	}
+}
+
+void PhysxVehicle::startBrakeMode()
+{
+	if (gMimicKeyInputs)
+	{
+		gVehicleInputData.setDigitalBrake(true);
+	}
+	else
+	{
+		gVehicleInputData.setAnalogBrake(1.0f);
+	}
+}
+
+void PhysxVehicle::startHandbrakeMode()
+{
+	if (gMimicKeyInputs)
+	{
+		gVehicleInputData.setDigitalHandbrake(true);
+	}
+	else
+	{
+		gVehicleInputData.setAnalogHandbrake(1.0f);
+	}
+}
+
+void PhysxVehicle::releaseHandbrake() {
+	if (gMimicKeyInputs)
+	{
+		gVehicleInputData.setDigitalHandbrake(false);
+	}
+	else
+	{
+		gVehicleInputData.setAnalogHandbrake(0.0f);
+	}
+}
 
 void PhysxVehicle::releaseAllControls()
 {
@@ -297,7 +341,7 @@ PxRigidDynamic* PhysxVehicle::initPhysics()
 
 	gVehicleModeTimer = 0.0f;
 	gVehicleOrderProgress = 0;
-	startBrakeMode();
+	//startBrakeMode();
 
 	return gVehicle4W->getRigidDynamicActor();
 }
@@ -367,7 +411,7 @@ void PhysxVehicle::stepPhysics()
 	const PxF32 timestep = 1.0f / 60.0f;
 
 	//Cycle through the driving modes to demonstrate how to accelerate/reverse/brake/turn etc.
-	incrementDrivingMode(timestep);
+	//incrementDrivingMode(timestep);
 
 	//Update the control inputs for the vehicle.
 	if (gMimicKeyInputs)

@@ -34,21 +34,6 @@ using namespace physx;
 
 class PhysxVehicle {
 public:
-	VehicleDesc initVehicleDesc();
-	void startAccelerateForwardsMode();
-	void startAccelerateReverseMode();
-	void startBrakeMode();
-	void startTurnHardLeftMode();
-	void startTurnHardRightMode();
-	void startHandbrakeTurnLeftMode();
-	void startHandbrakeTurnRightMode();
-	void releaseAllControls();
-	PxRigidDynamic* initPhysics();
-	void incrementDrivingMode(const PxF32 timestep);
-	void stepPhysics();
-	void cleanupPhysics();
-	void keyPress(const char key, const PxTransform& camera);
-
 	enum DriveMode
 	{
 		eDRIVE_MODE_ACCEL_FORWARDS = 0,
@@ -60,6 +45,25 @@ public:
 		eDRIVE_MODE_BRAKE,
 		eDRIVE_MODE_NONE
 	};
+
+	VehicleDesc initVehicleDesc();
+	void startAccelerateForwardsMode();
+	void startAccelerateReverseMode();
+	void startBrakeMode();
+	void startTurnHardLeftMode();
+	void startTurnHardRightMode();
+	void startHandbrakeTurnLeftMode();
+	void startHandbrakeTurnRightMode();
+	void startHandbrakeMode();
+	void releaseHandbrake();
+	void releaseSteering();
+	void releaseAccelerate();
+	void releaseAllControls();
+	PxRigidDynamic* initPhysics();
+	void incrementDrivingMode(const PxF32 timestep);
+	void stepPhysics();
+	void cleanupPhysics();
+	void keyPress(const char key, const PxTransform& camera);
 
 	PxDefaultAllocator		gAllocator;
 	PxDefaultErrorCallback	gErrorCallback;
@@ -98,4 +102,5 @@ public:
 	PxU32					gVehicleOrderProgress = 0;
 	bool					gVehicleOrderComplete = false;
 	bool					gMimicKeyInputs = false;
+private:
 };

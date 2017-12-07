@@ -205,7 +205,6 @@ namespace PM3D
 	class VehiclePhysicComponent : public CollidingComponent
 	{
 	private:
-		PhysxVehicle physxVehicle;
 		GameObject* owner;
 	public:
 		virtual GameObject* GetOwner() const { return owner; }
@@ -224,9 +223,11 @@ namespace PM3D
 	private:
 		physx::unique_ptr<PxMaterial> material;
 		PxRigidDynamic *pxActor;
+		PhysxVehicle physxVehicle;
 
 	public:
 		physx::PxRigidDynamic * GetActor() { return pxActor; }
+		PhysxVehicle* GetVehicle() { return &physxVehicle; }
 		virtual void AddActor()
 		{
 			SimulationManager::GetInstance().scene().addActor(*pxActor);
