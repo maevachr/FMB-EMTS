@@ -16,9 +16,9 @@ cbuffer param
 	float4 vDMat; 			// la valeur diffuse du matériau 
 	float4 vSMat; 			// la valeur spéculaire du matériau 
 	float puissance; 		// la puissance de spécularité
-	int bTex;		    		// Booléen pour la présence de texture
+	int bTex;		    	// Booléen pour la présence de texture
+	int nTex;				// Booléen pour la présence de bump
 	float fatt;				//facteur d'attenuation;
-	float remplissage;
 }
 
 struct ShadowMapVS_SORTIE
@@ -79,6 +79,8 @@ technique11 ShadowMap
 Texture2D textureEntree;    // la texture
 SamplerState SampleState;   // l'état de sampling
 
+Texture2D BumpTexture;    // la texture
+
 Texture2D ShadowTexture;	// La texture du shadow map
 SamplerState ShadowMapSampler
 {
@@ -129,9 +131,17 @@ float4 MiniPhongPS( VS_Sortie vs ) : SV_Target
 	for (int i = 0; i < NB_LIGHTS; ++i) {
 		
 		float3 vDirLum = lights[i].vLumiere - vs.PosWorld; 
+		float3 N;
+		
+		if(nTex > 0) {
+			// Échantillonner la couleur du pixel à partir de la texture  
+			float3 bump = BumpTexture.Sample(SampleState, vs.coordTex);
+			N = normalize(vs.Norm + bump);
+		} else {
+			N = normalize(vs.Norm);
+		}
 		
 		// Normaliser les paramètres
-		float3 N = normalize(vs.Norm);
 		float3 L = normalize(vDirLum);
 		float3 V = normalize(vs.vDirCam);
 

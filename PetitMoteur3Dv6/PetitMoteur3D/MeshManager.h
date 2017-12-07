@@ -126,8 +126,8 @@ namespace PM3D
 			XMVECTOR vSMat; 			// la valeur spéculaire du matériau 
 			float puissance;			// la puissance de spécularité
 			int bTex;					// Texture ou materiau 
+			int nTex;					// Booléen pour la présence de bump
 			float fatt;					// facteur d'attenuation
-			float remplissage;
 		};
 
 	private:
@@ -320,7 +320,7 @@ namespace PM3D
 			nMeshes.push_back(busMesh);
 
 			NormalMesh* terrainMesh = new NormalMesh{};
-			terrainMesh->InitFile("obj_terrain2.omb");
+			terrainMesh->InitFile("obj_Terrain_bumpy.omb");
 			terrainMesh->InitName("terrain");
 			nMeshes.push_back(terrainMesh);
 
