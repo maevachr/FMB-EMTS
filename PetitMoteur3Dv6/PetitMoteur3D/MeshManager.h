@@ -295,7 +295,7 @@ namespace PM3D
 		void SetMeshes()
 		{
 			NormalMesh* monsterMesh = new NormalMesh{};
-			monsterMesh->InitFile("monster2.omb");
+			monsterMesh->InitFile("monster_LH.omb");
 			monsterMesh->InitName("monster");
 			nMeshes.push_back(monsterMesh);
 

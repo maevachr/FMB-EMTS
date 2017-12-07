@@ -164,13 +164,13 @@ namespace PM3D
 
 		XMVECTOR GetDirection() const 
 		{ 
-			XMFLOAT4 dataPos = { -1,0,0,0 };
+			XMFLOAT4 dataPos = { 0,0,1,0 };
 			PxVec3 data = transform.q.rotate({ dataPos.x , dataPos.y , dataPos.z });
 			return { data.x,data.y,data.z,0 };
 		}
 		static XMVECTOR GetDirection(const PxTransform& transform)
 		{
-			XMFLOAT4 dataPos = { -1,0,0,0 };
+			XMFLOAT4 dataPos = { 0,0,1,0 };
 			PxVec3 data = transform.q.rotate({ dataPos.x , dataPos.y , dataPos.z });
 			return { data.x,data.y,data.z,0 };
 		}

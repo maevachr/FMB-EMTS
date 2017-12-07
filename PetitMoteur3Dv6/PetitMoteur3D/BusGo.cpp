@@ -3,7 +3,6 @@
 #include "RenderComponent.h"
 #include "PhysicComponent.h"
 #include "SimulationManager.h"
-#include "CollisionFilter.h"
 #include "SpawnManager.h"
 
 namespace PM3D
@@ -25,8 +24,8 @@ namespace PM3D
 		PxPhysics &physics = SimulationManager::GetInstance().physics();
 		physx::unique_ptr<PxMaterial> material = physx::unique_ptr<PxMaterial>(physics.createMaterial(0.05f, 0.05f, 0.0f));
 		PxFilterData filterData;
-		filterData.word0 = eACTOR_BUS;
-		filterData.word1 = eACTOR_TERRAIN | eACTOR_PLAYER;
+		filterData.word0 = COLLISION_FLAG_OBSTACLE;
+		filterData.word1 = COLLISION_FLAG_OBSTACLE_AGAINST;
 
 		d->InitData(PxBoxGeometry(PxVec3(1.3, 6.5, 1.9)), move(material), filterData);
 
