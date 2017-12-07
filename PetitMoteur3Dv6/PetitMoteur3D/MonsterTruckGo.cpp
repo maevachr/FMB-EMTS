@@ -5,6 +5,7 @@
 #include "InputComponent.h"
 #include "SpawnManager.h"
 #include "PhysxVehicle.h"
+#include "wheelGo.h"
 
 namespace PM3D
 {
@@ -21,6 +22,12 @@ namespace PM3D
 		RenderComponent* p = CreateComponent<RenderComponent>();
 		p->GetMesh("monsterChassis");
 
+		WheelGo* t = new WheelGo();
+		PxTransform trans = PxTransform::createIdentity();
+		trans.p = PxVec3{ 0.5 , 0 , 0.5 };
+		t->OnSpawn(trans, this);
+		AddChild(t);
+
 		//-----DynamicPhysicComponent
 		VehiclePhysicComponent* d = CreateComponent<VehiclePhysicComponent>();
 		PxPhysics &physics = SimulationManager::GetInstance().physics();
@@ -34,6 +41,7 @@ namespace PM3D
 
 		//-----MonsterTruckInputComponent
 		MonsterTruckInputComponent* i = CreateComponent<MonsterTruckInputComponent>();
+
 	}
 
 	void MonsterTruckGo::OnUnspawn()
@@ -42,6 +50,7 @@ namespace PM3D
 
 		//Remove GameObjects
 		std::for_each(std::begin(children), std::end(children), [](GameObject* go) {
+			go->OnUnspawn();
 			delete(go);
 		});
 		children.clear();

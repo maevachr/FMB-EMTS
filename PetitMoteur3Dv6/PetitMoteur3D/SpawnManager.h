@@ -63,9 +63,9 @@ namespace PM3D
 			locationCrate4.p = PxVec3{ 80, 20, 6 };
 			Spawn<CrateGo>(locationCrate4);
 
-			PxTransform explodedBox = PxTransform::createIdentity();
-			explodedBox.p = PxVec3{ 30, 20, 6 };
-			Spawn<ExplodedBox>(explodedBox);
+// 			PxTransform explodedBox = PxTransform::createIdentity();
+// 			explodedBox.p = PxVec3{ 30, 20, 6 };
+// 			Spawn<ExplodedBox>(explodedBox);
 
 			PxTransform locationBus = PxTransform::createIdentity();
 			locationBus.p = PxVec3{ 10, 10, 6 };

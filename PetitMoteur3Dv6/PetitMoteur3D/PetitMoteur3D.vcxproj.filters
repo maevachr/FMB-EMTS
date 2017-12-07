@@ -168,6 +168,9 @@
     <ClCompile Include="VehicleTireFriction.cpp">
       <Filter>Fichiers sources\Vehicle</Filter>
     </ClCompile>
+    <ClCompile Include="WheelGo.cpp">
+      <Filter>Fichiers sources\GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Moteur.h">
@@ -325,6 +328,9 @@
     </ClInclude>
     <ClInclude Include="VehicleTireFriction.h">
       <Filter>Fichiers d%27en-tête\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="wheelGo.h">
+      <Filter>Fichiers d%27en-tête\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

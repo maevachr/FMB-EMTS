@@ -206,6 +206,7 @@ namespace PM3D
 	{
 	private:
 		GameObject* owner;
+		PxShape* wheel;
 	public:
 		virtual GameObject* GetOwner() const { return owner; }
 
@@ -237,6 +238,8 @@ namespace PM3D
 		{
 			physxVehicle.stepPhysics();
 			owner->SetTransform(pxActor->getGlobalPose());
+
+			owner->GetChildren();
 		}
 	public:
 		void InitData(const PxGeometry& g, physx::unique_ptr<PxMaterial> m, const PxFilterData& filterData = PxFilterData{})
