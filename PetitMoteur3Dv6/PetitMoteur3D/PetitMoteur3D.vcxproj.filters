@@ -168,6 +168,12 @@
     <ClCompile Include="VehicleTireFriction.cpp">
       <Filter>Fichiers sources\Vehicle</Filter>
     </ClCompile>
+    <ClCompile Include="SpriteManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="BillBoardManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Moteur.h">
@@ -325,6 +331,12 @@
     </ClInclude>
     <ClInclude Include="VehicleTireFriction.h">
       <Filter>Fichiers d%27en-tête\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteManager.h">
+      <Filter>Fichiers d%27en-tête\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="BillBoardManager.h">
+      <Filter>Fichiers d%27en-tête\Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
