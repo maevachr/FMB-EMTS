@@ -508,6 +508,21 @@ namespace PM3D
 					sp.bTex = 0;
 				}
 
+				// Activation du bump ou non
+				if (SubmeshMaterialIndex[i] + 1 < Material.size() && Material[SubmeshMaterialIndex[i] + 1].pTextureD3D != NULL)
+				{
+					ID3DX11EffectShaderResourceVariable* variableTexture;
+					variableTexture =
+						pEffet->GetVariableByName("BumpTexture")->AsShaderResource();
+
+					variableTexture->SetResource(Material[SubmeshMaterialIndex[i] + 1].pTextureD3D);
+					sp.nTex = 1;
+				}
+				else
+				{
+					sp.nTex = 0;
+				}
+
 				// IMPORTANT pour ajuster les param.
 				pPasse->Apply(0, pImmediateContext);
 
