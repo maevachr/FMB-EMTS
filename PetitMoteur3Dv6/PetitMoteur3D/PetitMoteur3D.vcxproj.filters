@@ -171,6 +171,15 @@
     <ClCompile Include="WheelGo.cpp">
       <Filter>Fichiers sources\GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="BillBoardManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="BillBoardComponentManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Moteur.h">
@@ -331,6 +340,18 @@
     </ClInclude>
     <ClInclude Include="wheelGo.h">
       <Filter>Fichiers d%27en-tête\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteManager.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="BillBoardComponentManager.h">
+      <Filter>Fichiers d%27en-tête\Manager\ComponentManager</Filter>
+    </ClInclude>
+    <ClInclude Include="BillBoardComponent.h">
+      <Filter>Fichiers d%27en-tête\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="BillBoardManager.h">
+      <Filter>Fichiers d%27en-tête\Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
