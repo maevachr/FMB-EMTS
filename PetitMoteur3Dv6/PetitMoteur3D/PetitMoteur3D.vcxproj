@@ -111,6 +111,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AnimationManager.cpp" />
+    <ClCompile Include="BillBoardManager.cpp" />
     <ClCompile Include="BusGo.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraManager.cpp" />
@@ -160,6 +161,7 @@
   <ItemGroup>
     <ClInclude Include="AnimationComponent.h" />
     <ClInclude Include="AnimationManager.h" />
+    <ClInclude Include="BillBoardManager.h" />
     <ClInclude Include="BusGo.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraManager.h" />

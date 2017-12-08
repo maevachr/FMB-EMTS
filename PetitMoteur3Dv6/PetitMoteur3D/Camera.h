@@ -38,6 +38,8 @@ namespace PM3D
 		}
 
 		const XMVECTOR& GetPosition() const { return position; }
+
+		const XMVECTOR& GetFront() const { return frontCamera; }
 	};
 }
 
