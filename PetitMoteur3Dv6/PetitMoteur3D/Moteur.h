@@ -193,8 +193,9 @@ namespace PM3D
 			}*/
 
 			RenderManager::GetInstance().Draw();
-			SpriteManager::GetInstance().Draw();
 			BillBoardManager::GetInstance().Draw();
+			SpriteManager::GetInstance().Draw();
+			
 			EndRenderSceneSpecific();
 			return true;
 		}

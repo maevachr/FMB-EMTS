@@ -37,7 +37,7 @@ namespace PM3D
 					MiniCrateGo* t = new MiniCrateGo();
 					PxTransform trans = PxTransform::createIdentity();
 					trans.p = PxVec3{ 0.255f * i - 0.375f ,0.255f*j - 0.375f ,0.255f * k - 0.375f };
-					t->OnSpawn(trans, this);
+					t->OnSpawn(GetTransform()* trans, nullptr);
 					AddChild(t);
 				}
 			}
