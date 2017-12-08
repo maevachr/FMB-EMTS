@@ -39,6 +39,7 @@ namespace PM3D
 		virtual void Draw()
 		{
 			GetOwner()->UpdateTransform();
+			nm->DrawShadows(GetOwner()->GetMatWorld(), GetOwner()->GetPosition());
 			nm->Draw(GetOwner()->GetMatWorld(), GetOwner()->GetPosition());
 		}
 	};

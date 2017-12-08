@@ -22,6 +22,7 @@ namespace PM3D
 		virtual void InitName(char* _typeId) = 0;
 		virtual char* GetName() = 0;
 		virtual void Draw(XMMATRIX matWorld, XMVECTOR ownerPosition) = 0;
+		virtual void DrawShadows(XMMATRIX matWorld, XMVECTOR ownerPosition) = 0;
 		virtual void InitMeshes(CDispositifD3D11* pDispositif) = 0;
 		virtual ~Mesh() {}
 	};
@@ -131,7 +132,7 @@ namespace PM3D
 		};
 
 	private:
-		XMMATRIX mVPLight;
+		
 
 		// Pour le dessin
 		ID3D11Buffer* pVertexBuffer;
@@ -151,15 +152,10 @@ namespace PM3D
 		ID3DX11EffectPass* pPasse;
 		ID3D11InputLayout* pVertexLayout;
 
-		ID3D11Texture2D* pTextureShadowMap; // Texture pour le shadow map
-		ID3D11RenderTargetView* pRenderTargetView; // Vue cible de rendu
-		ID3D11ShaderResourceView* pShadowMapView; // Vue ressource de shader
-		ID3D11Texture2D* pDepthTexture; // texture de profondeur
-		ID3D11DepthStencilView* pDepthStencilView; // Vue tampon de profondeur
 		ID3D11InputLayout* pVertexLayoutShadow; // VertexLayout de l'ombre
 
-		static const int SHADOWMAP_DIM = 512;
-		static const int MAX_LIGHT_DIST = 200;
+		ShadersParams sp;
+
 
 	public:
 		struct TerrainItems {
@@ -178,10 +174,8 @@ namespace PM3D
 
 		CDispositifD3D11* pDispositif;
 
-		void InitDepthBuffer();
 		void LireFichierBinaire();
 		void InitEffet();
-		void InitMatricesShadowMap(XMVECTOR ownerPosition);
 	public:
 		void InitFile(std::string _file) {
 			file = _file;
@@ -193,6 +187,7 @@ namespace PM3D
 		virtual char* GetName() { return typeId; }
 
 		virtual void InitMeshes(CDispositifD3D11* pDispositif);
+		virtual void DrawShadows(XMMATRIX matWorld, XMVECTOR ownerPosition);
 		virtual void Draw(XMMATRIX matWorld, XMVECTOR ownerPosition);
 	};
 
@@ -236,6 +231,7 @@ namespace PM3D
 		void InitMeshes(CDispositifD3D11* pDispositif);
 		void SetTexture(CTexture* pTexture);
 		void Draw(XMMATRIX matWorld, XMVECTOR ownerPosition);
+		void DrawShadows(XMMATRIX matWorld, XMVECTOR ownerPosition) override {}
 
 	private:
 		const unsigned int index[36] = {

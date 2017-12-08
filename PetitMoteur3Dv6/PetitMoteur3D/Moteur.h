@@ -77,6 +77,9 @@ namespace PM3D
 			//Initialisation des objets
 			SpawnManager::GetInstance().Init();
 
+			//Initialisation des textures pour les ombres
+			CLightManager::GetInstance().InitShadows(pDispositif);
+
 			//Mesh-Sprite-BillBoard
 			MeshManager::GetInstance().InitMeshes(pDispositif);
 			SpriteManager::GetInstance().Init(pDispositif);
@@ -192,6 +195,8 @@ namespace PM3D
 					(*It)->Draw();
 			}*/
 
+			CLightManager::GetInstance().ResetShadowTextures(pDispositif);
+			CLightManager::GetInstance().InitMatricesShadowMap();
 			RenderManager::GetInstance().Draw();
 			BillBoardManager::GetInstance().Draw();
 			SpriteManager::GetInstance().Draw();

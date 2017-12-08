@@ -70,7 +70,7 @@ bool CDIManipulateur::Init(HINSTANCE hInstance, HWND hWnd)
 			ERREUR_CREATION_FORMAT_CLAVIER);
 
 		pClavier->SetCooperativeLevel(hWnd,
-			DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
+			DISCL_BACKGROUND | DISCL_NONEXCLUSIVE);
 
 		pClavier->Acquire();
 

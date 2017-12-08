@@ -2,6 +2,7 @@
 #include "Light.h"
 #include "DynamicLight.h"
 #include <algorithm>
+#include "dispositifD3D11.h"
 
 
 namespace PM3D {
@@ -9,36 +10,51 @@ namespace PM3D {
 	using namespace DirectX;
 	class CLightManager
 	{
-		CLight lights[2];
-		CLight* currentLight;
-
 	public:
-		static const size_t NB_MAX_LIGHTS = 2;
+		static const size_t NB_MAX_LIGHTS = 1;
+		static const int SHADOWMAP_DIM = 2048;
+		static const int MAX_LIGHT_DIST = 500;
+		XMMATRIX mVPLight[NB_MAX_LIGHTS];
+
+		ID3D11Texture2D* pTextureShadowMap[NB_MAX_LIGHTS]; // Texture pour le shadow map
+		ID3D11RenderTargetView* pRenderTargetView[NB_MAX_LIGHTS]; // Vue cible de rendu
+		ID3D11ShaderResourceView* pShadowMapView[NB_MAX_LIGHTS]; // Vue ressource de shader
+		ID3D11Texture2D* pDepthTexture[NB_MAX_LIGHTS]; // texture de profondeur
+		ID3D11DepthStencilView* pDepthStencilView[NB_MAX_LIGHTS]; // Vue tampon de profondeur
+
 		static CLightManager& GetInstance() {
 			static CLightManager singleton;
 			return singleton;
 		}
 
-		bool IsInitialized() const { return currentLight != nullptr; }
 		void SortByDistance(XMVECTOR position);
 
-		CLight& GetCurrentLight() const { return *currentLight; }
+		void InitShadows(CDispositifD3D11 * _pDispositif);
+
+		void ResetShadowTextures(CDispositifD3D11 * _pDispositif);
+
 		CLight* getLight(size_t n) { return &lights[n]; }
 		CLight* begin() { return std::begin(lights); }
 		CLight* end() { return std::end(lights); }
 
 		bool Init();
+		void InitMatricesShadowMap();
 
 		CLightManager(const CLightManager&) = delete;
 		CLightManager& operator=(const CLightManager&) = delete;
 
 		bool AnimeScene(float tempsEcoule) {
-			currentLight->AnimeLight(tempsEcoule);
+			for (int i = 0; i < NB_MAX_LIGHTS; ++i) {
+				lights[i].AnimeLight(tempsEcoule);
+				
+			}
 			return true;
 		}
 	protected:
 		CLightManager() = default;
-		~CLightManager() = default;
+		~CLightManager();
+	private:
+		CLight lights[NB_MAX_LIGHTS];
 	};
-
+	
 }

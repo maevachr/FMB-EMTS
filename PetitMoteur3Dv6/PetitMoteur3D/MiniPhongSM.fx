@@ -1,4 +1,4 @@
-#define NB_LIGHTS 2
+#define NB_LIGHTS 1
 
 cbuffer param
 { 
@@ -81,7 +81,8 @@ SamplerState SampleState;   // l'état de sampling
 
 Texture2D BumpTexture;    // la texture
 
-Texture2D ShadowTexture;	// La texture du shadow map
+Texture2D ShadowTexture0;	// Les textures du shadow map
+//Texture2D ShadowTexture1;
 SamplerState ShadowMapSampler
 {
     Filter = MIN_MAG_MIP_POINT;
@@ -122,7 +123,7 @@ VS_Sortie MiniPhongVS(float4 Pos : POSITION,
 	return sortie;
 }
 
-#define DIMTEX 512
+#define DIMTEX 2048
 
 float4 MiniPhongPS( VS_Sortie vs ) : SV_Target
 {
@@ -202,19 +203,32 @@ float4 MiniPhongPS( VS_Sortie vs ) : SV_Target
 	coord[7] = ShadowCoord + float2( echelle, 0.0    ); 
 	coord[8] = ShadowCoord + float2( echelle, echelle);  
 
-	float shadowStrength = fatt;
+	float shadowStrength = 0.6f;
 	// Colonne 1
-	kernel[0].x=(ShadowTexture.Sample(ShadowMapSampler, coord[0])< Profondeur)? shadowStrength : 1.0f;  
-	kernel[0].y=(ShadowTexture.Sample(ShadowMapSampler, coord[1])< Profondeur)? shadowStrength : 1.0f; 
-	kernel[0].z=(ShadowTexture.Sample(ShadowMapSampler, coord[2])< Profondeur)? shadowStrength : 1.0f; 
+	kernel[0].x=(ShadowTexture0.Sample(ShadowMapSampler, coord[0])< Profondeur)? shadowStrength : 1.0f;  
+	kernel[0].y=(ShadowTexture0.Sample(ShadowMapSampler, coord[1])< Profondeur)? shadowStrength : 1.0f; 
+	kernel[0].z=(ShadowTexture0.Sample(ShadowMapSampler, coord[2])< Profondeur)? shadowStrength : 1.0f; 
 	// Colonne 2
-	kernel[1].x=(ShadowTexture.Sample(ShadowMapSampler, coord[3])< Profondeur)? shadowStrength : 1.0f;   
-	kernel[1].y=(ShadowTexture.Sample(ShadowMapSampler, coord[4])< Profondeur)? shadowStrength : 1.0f;  
-	kernel[1].z=(ShadowTexture.Sample(ShadowMapSampler, coord[5])< Profondeur)? shadowStrength : 1.0f;  
+	kernel[1].x=(ShadowTexture0.Sample(ShadowMapSampler, coord[3])< Profondeur)? shadowStrength : 1.0f;   
+	kernel[1].y=(ShadowTexture0.Sample(ShadowMapSampler, coord[4])< Profondeur)? shadowStrength : 1.0f;  
+	kernel[1].z=(ShadowTexture0.Sample(ShadowMapSampler, coord[5])< Profondeur)? shadowStrength : 1.0f;  
 	// Colonne 3
-	kernel[2].x=(ShadowTexture.Sample(ShadowMapSampler, coord[6])< Profondeur)? shadowStrength : 1.0f;  
-	kernel[2].y=(ShadowTexture.Sample(ShadowMapSampler, coord[7])< Profondeur)? shadowStrength : 1.0f; 
-	kernel[2].z=(ShadowTexture.Sample(ShadowMapSampler, coord[8])< Profondeur)? shadowStrength : 1.0f;  
+	kernel[2].x=(ShadowTexture0.Sample(ShadowMapSampler, coord[6])< Profondeur)? shadowStrength : 1.0f;  
+	kernel[2].y=(ShadowTexture0.Sample(ShadowMapSampler, coord[7])< Profondeur)? shadowStrength : 1.0f; 
+	kernel[2].z=(ShadowTexture0.Sample(ShadowMapSampler, coord[8])< Profondeur)? shadowStrength : 1.0f;  
+	
+	// Colonne 1
+	//kernel[0].x=(ShadowTexture1.Sample(ShadowMapSampler, coord[0])< kernel[0].x)? shadowStrength : kernel[0].x;  
+	//kernel[0].y=(ShadowTexture1.Sample(ShadowMapSampler, coord[1])< kernel[0].y)? shadowStrength : kernel[0].y; 
+	//kernel[0].z=(ShadowTexture1.Sample(ShadowMapSampler, coord[2])< kernel[0].z)? shadowStrength : kernel[0].z; 
+	// Colonne 2
+	//kernel[1].x=(ShadowTexture1.Sample(ShadowMapSampler, coord[3])< kernel[1].x)? shadowStrength : kernel[1].x;   
+	//kernel[1].y=(ShadowTexture1.Sample(ShadowMapSampler, coord[4])< kernel[1].y)? shadowStrength : kernel[1].y;  
+	//kernel[1].z=(ShadowTexture1.Sample(ShadowMapSampler, coord[5])< kernel[1].z)? shadowStrength : kernel[1].z;  
+	// Colonne 3
+	//kernel[2].x=(ShadowTexture1.Sample(ShadowMapSampler, coord[6])< kernel[2].x)? shadowStrength : kernel[2].x;  
+	//kernel[2].y=(ShadowTexture1.Sample(ShadowMapSampler, coord[7])< kernel[2].y)? shadowStrength : kernel[2].y; 
+	//kernel[2].z=(ShadowTexture1.Sample(ShadowMapSampler, coord[8])< kernel[2].z)? shadowStrength : kernel[2].z;  
  
 	// Les interpolations linéaires
 	// Interpoler colonnes 1 et 2
@@ -235,7 +249,9 @@ float4 MiniPhongPS( VS_Sortie vs ) : SV_Target
 	float ValeurOmbre = (lc.x + lc.y + lc.z + lc.w) / 4.0;
 	
 	// I = A + D * N.L + (R.V)n
-	couleur = couleur * ValeurOmbre;
+	couleur.r *= ValeurOmbre;
+	couleur.g *= ValeurOmbre;
+	couleur.b *= ValeurOmbre;
 	
 	return couleur;
 }
