@@ -39,13 +39,13 @@ namespace PM3D
 	};
 
 
-	XMMATRIX BillBoard::GetMatrixOrientation(const XMVECTOR & posCameraVec)
+	XMMATRIX BillBoard::GetMatrixOrientation(const XMVECTOR & posCameraVec, XMFLOAT4 parent)
 	{
 		XMMATRIX matRotation;
 		XMFLOAT3 vdir;
 		XMFLOAT3 posCamera;
 		XMStoreFloat3(&posCamera, posCameraVec);
-		vdir = { position.x - posCamera.x, position.y - posCamera.y, 0.f };
+		vdir = { position.x + parent.x - posCamera.x, position.y + parent.y - posCamera.y, 0.f };
 		if (vdir.x > 0)
 			matRotation = XMMatrixRotationZ(atanf(vdir.y / vdir.x) - 3.14f / 2);
 		else
@@ -113,9 +113,6 @@ namespace PM3D
 		// Position en coordonnées du monde
 		XMMATRIX viewProj = CMoteurWindows::GetInstance().GetMatViewProj();
 		position = _position;
-
-		matPosDim = XMMatrixScaling(dimension.x, dimension.y, 1.0f) *
-			XMMatrixTranslation(position.x, position.y, position.z) * viewProj;
 	}
 
 	BillBoard::~BillBoard()
@@ -192,8 +189,11 @@ namespace PM3D
 		pD3DDevice->CreateSamplerState(&samplerDesc, &pSampleState);
 	}
 
-	void BillBoard::Draw()
+	void BillBoard::Draw(XMVECTOR ownerPosition)
 	{
+		XMFLOAT4 parent;
+		XMStoreFloat4(&parent, ownerPosition);
+			
 		// Obtenir le contexte
 		ID3D11DeviceContext* pImmediateContext = pDispositif->GetImmediateContext();
 		// Choisir la topologie des primitives
@@ -225,9 +225,8 @@ namespace PM3D
 		ShadersParams sp;
 		XMMATRIX matRot = XMMatrixRotationZ(XMVectorGetZ(XMVector3AngleBetweenVectors(frontVecCamera, normal)));
 		auto mat = XMMatrixScaling(dimension.x, 1.0f, dimension.y)
-				//* matRot
-				* GetMatrixOrientation(posCamera)
-				* XMMatrixTranslation(position.x, position.y, position.z)
+				* GetMatrixOrientation(posCamera, parent)
+				* XMMatrixTranslation(position.x + parent.x, position.y + parent.y, position.z + parent.z)
 				* viewProj;
 
 			sp.matWVP = XMMatrixTranspose(mat);
