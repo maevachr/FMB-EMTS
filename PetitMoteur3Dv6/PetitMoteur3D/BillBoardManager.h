@@ -5,6 +5,7 @@
 #include "Texture.h" 
 #include <vector>
 #include <DirectXMath.h>
+#include <algorithm>
 
 using namespace std;
 using namespace DirectX;
@@ -14,6 +15,7 @@ namespace PM3D
 	class GameObject;
 
 	class BillBoard {
+
 	public:
 		class CSommetPanneau
 		{
@@ -42,19 +44,24 @@ namespace PM3D
 		ID3D11SamplerState* pSampleState;
 
 		ID3D11ShaderResourceView* pTextureD3D;
-		XMMATRIX matPosDim;
 		XMFLOAT3 position;
 		XMFLOAT2 dimension;
 		XMVECTOR normal{ 0.f, -1.f, 0.f, 0.f };
 
-		XMMATRIX GetMatrixOrientation(const XMVECTOR &posCamera);
+		XMMATRIX GetMatrixOrientation(const XMVECTOR & posCameraVec, XMFLOAT4 parent);
 
 		void InitEffet();
 	public:
 		BillBoard(CDispositifD3D11* pDispositif, string NomTexture, const XMFLOAT3& _position, int _dx = 0, int _dy = 0, GameObject* go = nullptr);
 		~BillBoard();
+
+	private:
+		char* typeId;
+	public:
+		virtual void InitName(char* _typeId) { typeId = _typeId; }
+		virtual char* GetName() { return typeId; }
 		
-		void Draw();
+		void Draw(XMVECTOR ownerPosition);
 	};
 
 
@@ -75,20 +82,34 @@ namespace PM3D
 		}
 
 	private:
-		BillBoard* billBoard;
+		std::vector<BillBoard*> billBoards;
 	public:
-		void Init(CDispositifD3D11* _pDispositif) {
-			billBoard = new BillBoard(_pDispositif, "test.dds", XMFLOAT3(50.0f, -30.0f, 50.0f), 100, 100);
+
+		void InitBillBoard(CDispositifD3D11* _pDispositif) {
+			/*	BillBoard* b = new BillBoard(_pDispositif, "test.dds", XMFLOAT3(50.0f, -30.0f, 50.0f), 100, 100);
+				b->InitName("test");
+				billBoards.push_back(b);*/
+
+			BillBoard* b = new BillBoard(_pDispositif, "arrow2.dds", XMFLOAT3(0.0f, 0.0f, 5.0f), 1, 1);
+			b->InitName("arrow");
+			billBoards.push_back(b);
 		}
 
 		void CleanUp()
 		{
-			delete billBoard;
+			std::for_each(std::begin(billBoards), std::end(billBoards), [](BillBoard* b)
+			{
+				delete b;
+			});
 		}
 
-		void Draw()
+		BillBoard* GetBillBoard(const char* name)
 		{
-			billBoard->Draw();
+			std::vector<BillBoard*>::iterator it = find_if(begin(billBoards), end(billBoards), [&](BillBoard* b) -> bool {
+				return b->GetName() == name;
+			});
+			assert(it != billBoards.end());
+			return *it;
 		}
 	};
 }
