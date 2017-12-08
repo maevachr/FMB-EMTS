@@ -22,11 +22,13 @@ namespace PM3D
 		RenderComponent* p = CreateComponent<RenderComponent>();
 		p->GetMesh("monsterChassis");
 
-		WheelGo* t = new WheelGo();
-		PxTransform trans = PxTransform::createIdentity();
-		trans.p = PxVec3{ 0.5 , 0 , 0.5 };
-		t->OnSpawn(trans, this);
-		AddChild(t);
+		for (int i = 0; i < 4; i++) {
+			WheelGo* t = new WheelGo();
+			PxTransform trans = PxTransform::createIdentity();
+			//		trans.p = PxVec3{ 0.5 , 0 , 0.5 }; //to correct wheel position
+			t->OnSpawn(trans, this);
+			AddChild(t);
+		}
 
 		//-----DynamicPhysicComponent
 		VehiclePhysicComponent* d = CreateComponent<VehiclePhysicComponent>();

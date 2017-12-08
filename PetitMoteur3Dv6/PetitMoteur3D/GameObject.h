@@ -151,8 +151,8 @@ namespace PM3D
 			if (parent != nullptr)
 			{
 				PxTransform pTransform = parent->GetWorldTransform();
-				//wTransform = pTransform*wTransform;
-				wTransform = wTransform*pTransform;
+				wTransform = pTransform*wTransform;
+				//wTransform = wTransform*pTransform;
 			}
 			return wTransform;
 		}

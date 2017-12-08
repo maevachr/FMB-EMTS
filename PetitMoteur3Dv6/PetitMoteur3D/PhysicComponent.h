@@ -206,7 +206,7 @@ namespace PM3D
 	{
 	private:
 		GameObject* owner;
-		PxShape* wheel;
+		PxShape** buf;
 	public:
 		virtual GameObject* GetOwner() const { return owner; }
 
@@ -215,6 +215,7 @@ namespace PM3D
 		{
 			owner = _owner;
 			PhysicManager::GetInstance().CreateComponent(this);
+
 		}
 		virtual void OnDetached() override
 		{
@@ -232,19 +233,24 @@ namespace PM3D
 		virtual void AddActor()
 		{
 			SimulationManager::GetInstance().scene().addActor(*pxActor);
+
 		}
 		virtual void InitTerrainPhysic() {}
 		virtual void UpdateGoTransform()
 		{
 			physxVehicle.stepPhysics();
 			owner->SetTransform(pxActor->getGlobalPose());
-
-			owner->GetChildren();
+			std::vector<GameObject*> child = owner->GetChildren();
+			for (int i = 0; i < 4; i++) {
+				child[i]->SetTransform(buf[i]->getLocalPose());
+			}
 		}
 	public:
 		void InitData(const PxGeometry& g, physx::unique_ptr<PxMaterial> m, const PxFilterData& filterData = PxFilterData{})
 		{
+			buf = new PxShape*[5];
 			pxActor = physxVehicle.initPhysics();
+			pxActor->getShapes(buf, 5);
 		}
 
 		void InitMass(const PxReal& mass, const PxTransform& centerMass = PxTransform::createIdentity()) {
