@@ -17,6 +17,7 @@
 #include "CallBackManager.h"
 #include "SpriteManager.h"
 #include "BillBoardManager.h"
+#include "BillBoardComponentManager.h"
 
 namespace PM3D
 {
@@ -73,14 +74,15 @@ namespace PM3D
 
 			//Initialisation des Mesh de rendu
 			MeshManager::GetInstance().SetMeshes();
-			
+			BillBoardManager::GetInstance().InitBillBoard(pDispositif);
+
 			//Initialisation des objets
 			SpawnManager::GetInstance().Init();
 
 			//Mesh-Sprite-BillBoard
 			MeshManager::GetInstance().InitMeshes(pDispositif);
 			SpriteManager::GetInstance().Init(pDispositif);
-			BillBoardManager::GetInstance().Init(pDispositif);
+			
 
 			//Initialisation du terrain avec la Mesh chargée
 			PhysicManager::GetInstance().InitTerrainPhysic();
@@ -193,7 +195,7 @@ namespace PM3D
 			}*/
 
 			RenderManager::GetInstance().Draw();
-			BillBoardManager::GetInstance().Draw();
+			BillBoardComponentManager::GetInstance().Draw();
 			SpriteManager::GetInstance().Draw();
 			
 			EndRenderSceneSpecific();

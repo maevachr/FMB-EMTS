@@ -4,6 +4,7 @@
 #include "PhysicComponent.h"
 #include "SpawnManager.h"
 #include "ExplodedBox.h"
+#include "BillBoardComponent.h"
 
 namespace PM3D
 {
@@ -45,6 +46,10 @@ namespace PM3D
 		//-----RenderComponent
 		RenderComponent* p = CreateComponent<RenderComponent>();
 		p->GetMesh("crate");
+
+		//-----BillBoardComponent
+		BillBoardComponent* b = CreateComponent<BillBoardComponent>();
+		b->GetBillBoard("arrow");
 
 		//-----DynamicPhysicComponent
 		DynamicPhysicComponent* d = CreateComponent<DynamicPhysicComponent>();
