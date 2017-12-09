@@ -163,7 +163,7 @@
   <ItemGroup>
     <ClInclude Include="AnimationComponent.h" />
     <ClInclude Include="AnimationManager.h" />
-    <ClInclude Include="BeamGo.h" />
+    <ClInclude Include="AreneGO.h" />    <ClInclude Include="BeamGo.h" />
     <ClInclude Include="BillBoardComponent.h" />
     <ClInclude Include="BillBoardComponentManager.h" />
     <ClInclude Include="BillBoardManager.h" />

@@ -7,14 +7,6 @@
 
 namespace PM3D
 {
-	AreneGO::AreneGO()
-	{
-	}
-
-
-	AreneGO::~AreneGO()
-	{
-	}
 	
 	void AreneGO::OnSpawn(const PxTransform & _transform, GameObject * _parent)
 	{	
