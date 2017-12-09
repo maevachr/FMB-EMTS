@@ -33,7 +33,7 @@ namespace PM3D
 		//-----DynamicPhysicComponent
 		VehiclePhysicComponent* d = CreateComponent<VehiclePhysicComponent>();
 		PxPhysics &physics = SimulationManager::GetInstance().physics();
-		physx::unique_ptr<PxMaterial> material = physx::unique_ptr<PxMaterial>(physics.createMaterial(0.05f, 0.05f, 0.0f));
+		physx::unique_ptr<PxMaterial> material = physx::unique_ptr<PxMaterial>(physics.createMaterial(0.15f, 0.15f, 0.0f));
 		PxFilterData filterData;
 		d->InitData(PxBoxGeometry(PxVec3(2, 2, 1)), move(material), filterData);
 		/*PxTransform centerMass = physx::PxTransform::createIdentity();
