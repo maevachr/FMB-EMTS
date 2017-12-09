@@ -198,7 +198,6 @@ namespace PM3D
 			}*/
 
 			CLightManager::GetInstance().ResetShadowTextures(pDispositif);
-			CLightManager::GetInstance().InitMatricesShadowMap();
 			RenderManager::GetInstance().Draw();
 			BillBoardComponentManager::GetInstance().Draw();
 			SpriteManager::GetInstance().Draw();

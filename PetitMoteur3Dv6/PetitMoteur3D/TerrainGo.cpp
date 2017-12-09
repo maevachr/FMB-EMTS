@@ -16,7 +16,7 @@ namespace PM3D
 
 		//Set Components
 		//-----RenderComponent
-		RenderComponent* p = CreateComponent<RenderComponent>();
+		RenderTerrainComponent* p = CreateComponent<RenderTerrainComponent>();
 		p->GetMesh("terrain");
 
 		//-----StaticPhysicComponent

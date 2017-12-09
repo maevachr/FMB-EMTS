@@ -42,23 +42,25 @@ namespace PM3D {
 
 	void CLightManager::InitMatricesShadowMap()
 	{
-		XMVECTOR ownerPosition = SpawnManager::GetInstance().GetPlayer()->GetPosition();
-		//XMVECTOR ownerPosition = { 0,0,0,0 };
+		//XMVECTOR ownerPosition = SpawnManager::GetInstance().GetPlayer()->GetPosition();
+		XMVECTOR center = { 0,0,0,0 };
 		for (int i = 0; i < CLightManager::NB_MAX_LIGHTS; ++i) {
 			CLight& currentLight = *CLightManager::GetInstance().getLight(i);
+			XMVECTOR lookat = currentLight.position;
+			lookat = XMVectorSetZ(lookat, 0.0f);
 
 			//Approcher la lumière
-			XMVECTOR distance = currentLight.position - ownerPosition;
+			/*XMVECTOR distance = currentLight.position - ownerPosition;
 			XMVECTOR direction = XMVector4Normalize(distance);
 			float length = XMVectorGetX(XMVector4Length(distance));
 			XMVECTOR lightPosition = ownerPosition + direction * (length > MAX_LIGHT_DIST ? MAX_LIGHT_DIST : length);
-
+*/
 			// Matrice de la vision vu par la lumière
-			XMMATRIX mVLight = XMMatrixLookAtRH(lightPosition,
-				ownerPosition,
-				XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f));
+			XMMATRIX mVLight = XMMatrixLookAtRH(currentLight.position,
+				center,
+				XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f));
 
-			float champDeVision = XM_PI / 4; // 90 degrés
+			float champDeVision = XM_PI / 2; // 90 degrés
 			float ratioDAspect = 1.0f; // 512/512
 			float planRapproche = 2.0; // Pas besoin d'être trop près
 			float planEloigne = MAX_LIGHT_DIST *2; // Suffisemment pour avoir tous les objets
@@ -125,8 +127,8 @@ namespace PM3D {
 
 			D3D11_TEXTURE2D_DESC depthTextureDesc;
 			ZeroMemory(&depthTextureDesc, sizeof(depthTextureDesc));
-			depthTextureDesc.Width = 2048;
-			depthTextureDesc.Height = 2048;
+			depthTextureDesc.Width = SHADOWMAP_DIM;
+			depthTextureDesc.Height = SHADOWMAP_DIM;
 			depthTextureDesc.MipLevels = 1;
 			depthTextureDesc.ArraySize = 1;
 			depthTextureDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;

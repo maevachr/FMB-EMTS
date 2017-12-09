@@ -22,7 +22,7 @@ namespace PM3D
 		virtual void InitName(char* _typeId) = 0;
 		virtual char* GetName() = 0;
 		virtual void Draw(XMMATRIX matWorld, XMVECTOR ownerPosition) = 0;
-		virtual void DrawShadows(XMMATRIX matWorld, XMVECTOR ownerPosition) = 0;
+		virtual void DrawShadows(XMMATRIX matWorld) = 0;
 		virtual void InitMeshes(CDispositifD3D11* pDispositif) = 0;
 		virtual ~Mesh() {}
 	};
@@ -187,7 +187,7 @@ namespace PM3D
 		virtual char* GetName() { return typeId; }
 
 		virtual void InitMeshes(CDispositifD3D11* pDispositif);
-		virtual void DrawShadows(XMMATRIX matWorld, XMVECTOR ownerPosition);
+		virtual void DrawShadows(XMMATRIX matWorld);
 		virtual void Draw(XMMATRIX matWorld, XMVECTOR ownerPosition);
 	};
 
@@ -231,7 +231,7 @@ namespace PM3D
 		void InitMeshes(CDispositifD3D11* pDispositif);
 		void SetTexture(CTexture* pTexture);
 		void Draw(XMMATRIX matWorld, XMVECTOR ownerPosition);
-		void DrawShadows(XMMATRIX matWorld, XMVECTOR ownerPosition) override {}
+		void DrawShadows(XMMATRIX matWorld) override {}
 
 	private:
 		const unsigned int index[36] = {

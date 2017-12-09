@@ -265,7 +265,7 @@ namespace PM3D
 		LireFichierBinaire();
 		InitEffet();
 	}
-	void NormalMesh::DrawShadows(XMMATRIX matWorld, XMVECTOR ownerPosition) {
+	void NormalMesh::DrawShadows(XMMATRIX matWorld) {
 		// Obtenir le contexte
 		ID3D11DeviceContext* pImmediateContext = pDispositif->GetImmediateContext();
 

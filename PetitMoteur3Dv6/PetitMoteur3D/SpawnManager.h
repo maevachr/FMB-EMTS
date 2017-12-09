@@ -118,5 +118,9 @@ namespace PM3D
 		{
 			return existingGameObjects.front();
 		}
+
+		std::vector<GameObject*> GetAll() {
+			return existingGameObjects;
+		}
 	};
 }

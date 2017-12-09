@@ -10,8 +10,8 @@ namespace PM3D
 	{
 	public:
 		static constexpr char* typeId = "RenderComponent";
-		virtual const char* GetTypeId() { return "RenderComponent"; }
-	private:
+		virtual const char* GetTypeId() { return typeId; }
+	protected:
 		GameObject* owner;
 	public:
 		virtual GameObject* GetOwner() const { return owner; }
@@ -36,10 +36,10 @@ namespace PM3D
 		{
 			nm = MeshManager::GetInstance().GetNormalMesh(name);
 		}
-		virtual void Draw()
+		void Draw()
 		{
 			GetOwner()->UpdateTransform();
-			nm->DrawShadows(GetOwner()->GetMatWorld(), GetOwner()->GetPosition());
+			nm->DrawShadows(GetOwner()->GetMatWorld());
 			nm->Draw(GetOwner()->GetMatWorld(), GetOwner()->GetPosition());
 		}
 	};
@@ -48,7 +48,7 @@ namespace PM3D
 	{
 	public:
 		static constexpr char* typeId = "RenderSkyBoxComponent";
-		virtual const char* GetTypeId() { return "RenderSkyBoxComponent"; }
+		virtual const char* GetTypeId() { return typeId; }
 	private:
 		GameObject* owner;
 	public:
@@ -75,6 +75,23 @@ namespace PM3D
 		virtual void Draw()
 		{
 			sbm->Draw(GetOwner()->GetMatWorld(), GetOwner()->GetPosition());
+		}
+	};
+
+	class RenderTerrainComponent : public RenderComponent {
+	public:
+		static constexpr char* typeId = "RenderTerrainComponent";
+		virtual const char* GetTypeId() { return typeId; }
+
+		virtual void OnAttached(GameObject* _owner) override
+		{
+			owner = _owner;
+			RenderManager::GetInstance().CreateTerrainComponent(this);
+		}
+		virtual void OnDetached() override
+		{
+			owner = nullptr;
+			RenderManager::GetInstance().RemoveTerrainComponent();
 		}
 	};
 }
