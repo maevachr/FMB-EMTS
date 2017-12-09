@@ -141,7 +141,7 @@ VehicleDesc PhysxVehicle::initVehicleDesc()
 
 void PhysxVehicle::startAccelerateForwardsMode()
 {
-	gVehicle4W->mDriveDynData.forceGearChange(PxVehicleGearsData::eFIRST);
+	gVehicle4W->mDriveDynData.forceGearChange(PxVehicleGearsData::eSECOND);
 	if (gMimicKeyInputs)
 	{
 		gVehicleInputData.setDigitalAccel(true);
@@ -151,6 +151,7 @@ void PhysxVehicle::startAccelerateForwardsMode()
 		gVehicleInputData.setAnalogAccel(1.0f);
 	}
 }
+
 
 void PhysxVehicle::startAccelerateReverseMode()
 {

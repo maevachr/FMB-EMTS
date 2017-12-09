@@ -22,7 +22,7 @@ namespace PM3D
 		//-----DynamicPhysicComponent
 		DynamicPhysicComponent* d = CreateComponent<DynamicPhysicComponent>();
 		PxPhysics &physics = SimulationManager::GetInstance().physics();
-		physx::unique_ptr<PxMaterial> material = physx::unique_ptr<PxMaterial>(physics.createMaterial(0.05f, 0.05f, 0.0f));
+		physx::unique_ptr<PxMaterial> material = physx::unique_ptr<PxMaterial>(physics.createMaterial(0.1f, 0.2f, 0.01f));
 		PxFilterData filterData;
 		filterData.word0 = COLLISION_FLAG_OBSTACLE;
 		filterData.word1 = COLLISION_FLAG_OBSTACLE_AGAINST;
@@ -31,8 +31,8 @@ namespace PM3D
 
 		PxTransform centerMass = physx::PxTransform::createIdentity();
 		centerMass.p = PxVec3(0, 0, -1);
-		PxVec3 inertiaTensor = { 10,100,10 };
-		d->InitMass(300, centerMass, inertiaTensor);
+		PxVec3 inertiaTensor = { 5000,5000,5000 };
+		d->InitMass(10000, centerMass, inertiaTensor);
 	}
 	void BusGo::OnUnspawn()
 	{

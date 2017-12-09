@@ -222,6 +222,9 @@ namespace PM3D
 			owner = nullptr;
 			PhysicManager::GetInstance().RemoveComponent(this);
 		}
+		PxRigidDynamic* GetPxActor() {
+			return pxActor;
+		}
 	private:
 		physx::unique_ptr<PxMaterial> material;
 		PxRigidDynamic *pxActor;
