@@ -8,7 +8,7 @@ namespace PM3D
 	class CPlayerCamera :public CCamera
 	{
 	protected:
-		const float DIST_HORZ_DEFAULT = 20.0f;
+		float * DIST_HORZ;
 		const float HAUTEUR_DEFAULT = 5.0f;
 		const float COEFFELAST_DEFAULT = 0.9f;
 		const float HAUTEUR_TARGET_DEFAULT = 5.0f;
@@ -16,10 +16,10 @@ namespace PM3D
 		GameObject* objet;
 		float coeffElast;
 		struct Decalage{
-			float distanceHorizontale;
+			float* distanceHorizontale;
 			XMVECTOR hauteur;
 			XMVECTOR hauteur_target;
-			XMVECTOR get(const XMVECTOR& directionObjet) { return -directionObjet*distanceHorizontale + hauteur; }
+			XMVECTOR get(const XMVECTOR& directionObjet) { return -directionObjet * *distanceHorizontale + hauteur; }
 			Decalage() :distanceHorizontale{}, hauteur{} {}
 
 		} decalage;
@@ -31,6 +31,7 @@ namespace PM3D
 			XMMATRIX* pMatView_in,
 			XMMATRIX* pMatProj_in,
 			XMMATRIX* pMatViewProj_in,
+			float* dist,
 			GameObject* objet_in);
 
 		virtual void AnimeCamera(float tempsEcoule) {

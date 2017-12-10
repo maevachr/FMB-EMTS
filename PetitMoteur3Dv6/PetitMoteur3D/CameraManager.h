@@ -26,9 +26,11 @@ namespace PM3D {
 		XMMATRIX* pMatView;
 		XMMATRIX* pMatProj;
 		XMMATRIX* pMatViewProj;
+		float DIST_HORZ = 20.0;
 	public:
 
 		XMMATRIX* GetMatProj();
+		float * GetpDist();
 
 		static CCameraManager& GetInstance() {
 			static CCameraManager singleton;

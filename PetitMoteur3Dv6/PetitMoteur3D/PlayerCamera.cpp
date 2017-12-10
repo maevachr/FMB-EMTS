@@ -9,6 +9,7 @@ namespace PM3D
 		XMMATRIX * pMatView_in,
 		XMMATRIX * pMatProj_in,
 		XMMATRIX * pMatViewProj_in,
+		float * dist,
 		GameObject * objet_in)
 	{
 		pMatView = pMatView_in;
@@ -16,7 +17,9 @@ namespace PM3D
 		pMatViewProj = pMatViewProj_in;
 		objet = objet_in;
 
-		decalage.distanceHorizontale = DIST_HORZ_DEFAULT;
+		DIST_HORZ = dist;
+
+		decalage.distanceHorizontale = DIST_HORZ;
 		decalage.hauteur = XMVECTOR{ 0.0f, 0.0f, HAUTEUR_DEFAULT };
 		decalage.hauteur_target = XMVECTOR{ 0.0f, 0.0f, HAUTEUR_TARGET_DEFAULT };
 		coeffElast = COEFFELAST_DEFAULT;

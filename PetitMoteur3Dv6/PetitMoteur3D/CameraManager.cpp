@@ -32,6 +32,10 @@ namespace PM3D {
 		return pMatProj; 
 	}
 
+	float * CCameraManager::GetpDist() {
+		return &DIST_HORZ;
+	}
+
 	bool CCameraManager::Init(CDispositifD3D11 * pDispositif,
 		XMMATRIX* MatView,
 		XMMATRIX* MatProj,
@@ -79,6 +83,7 @@ namespace PM3D {
 			pMatView,
 			pMatProj,
 			pMatViewProj,
+			&DIST_HORZ,
 			player);
 		cameraList[THIRD_PERSON] = move(playerCamera);
 
