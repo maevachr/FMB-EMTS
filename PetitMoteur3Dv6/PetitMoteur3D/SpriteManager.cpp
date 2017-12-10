@@ -3,7 +3,10 @@
 #include "resource.h"
 #include "MoteurWindows.h"
 #include "GestionnaireDeTextures.h"
+#include "PhysicComponent.h"
 #include "util.h"
+#include "BlackBoard.h"
+#include <string>
 
 using namespace UtilitairesDX;
 namespace PM3D
@@ -249,7 +252,7 @@ namespace PM3D
 		// Un brosse noire pour le remplissage
 		// Notez que la brosse aurait pu être passée
 		// en paramètre pour plus de flexibilité
-		pBlackBrush = new SolidBrush(Gdiplus::Color(255, 0, 0, 0));
+		pBlackBrush = new SolidBrush(Gdiplus::Color(255, 255, 255, 255));
 		// On efface le bitmap (notez le NOIR TRANSPARENT...)
 		pCharGraphics->Clear(Gdiplus::Color(0, 0, 0, 0));
 		// Nous pourrions ici écrire une valeur initiale sur le bitmap
@@ -318,7 +321,7 @@ namespace PM3D
 	void TextSprite::Ecrire(wstring s)
 		{
 			// Effacer
-			pCharGraphics->Clear(Gdiplus::Color(0, 0, 0, 0));
+			pCharGraphics->Clear(Gdiplus::Color(255,0,255,0));
 			// Écrire le nouveau texte
 			pCharGraphics->DrawString(s.c_str(), s.size(), pFont,
 				PointF(0.0f, 0.0f), pBlackBrush);
@@ -330,5 +333,41 @@ namespace PM3D
 				bmData.Scan0, TexWidth * 4, 0);
 			pCharBitmap->UnlockBits(&bmData);
 		}
+
+
+
+	void SpriteManager::UpdateSpeedText()
+	{
+		VehiclePhysicComponent* vpc = SpawnManager::GetInstance().GetPlayer()->As<VehiclePhysicComponent>();
+		PxRigidDynamic* actor = vpc->GetPxActor();
+		float vitesse = actor->getLinearVelocity().normalize();
+		int unit = vitesse;
+		int decimal = static_cast<int>((vitesse - unit) * 10.f);
+		string s = to_string(unit) + "." + to_string(decimal);
+		speedText->Ecrire({ s.begin(), s.end() });
+	}
+
+	void SpriteManager::UpdateChronoText()
+	{
+		float time = BlackBoard::GetInstance().GetChrono();
+		int unit = static_cast<int>(time) / 60;
+		int decimal1 = static_cast<int>(time) % 60 / 10;
+		int decimal2 = static_cast<int>(time) % 60 % 10;
+
+		string s = to_string(unit) + ":" + to_string(decimal1) + to_string(decimal2);
+		chronoText->Ecrire({ s.begin(), s.end() });
+	}
+
+	void SpriteManager::Draw()
+	{
+		sprite->Draw();
+		sprite2->Draw();
+
+		UpdateSpeedText();
+		speedText->Draw();
+
+		UpdateChronoText();
+		chronoText->Draw();
+	}
 }
 

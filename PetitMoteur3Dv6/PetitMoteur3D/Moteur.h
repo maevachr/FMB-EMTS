@@ -18,6 +18,7 @@
 #include "SpriteManager.h"
 #include "BillBoardManager.h"
 #include "BillBoardComponentManager.h"
+#include "BlackBoard.h"
 
 namespace PM3D
 {
@@ -130,6 +131,9 @@ namespace PM3D
 
 				// ON ANIME LA SCENE SI BESOIN
 				AnimeScene(TempsEcoule);
+
+				//On met à jour les informations de chrono et de score
+				BlackBoard::GetInstance().Update(TempsEcoule);
 
 				// On rend l'image sur la surface de travail 
    				// (tampon d'arrière plan)

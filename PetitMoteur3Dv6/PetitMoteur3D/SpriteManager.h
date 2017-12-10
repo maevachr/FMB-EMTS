@@ -107,7 +107,9 @@ namespace PM3D
 	private:
 		TextureSprite* sprite;
 		TextureSprite* sprite2;
-		TextSprite* text1;
+
+		TextSprite* speedText;
+		TextSprite* chronoText;
 
 
 	private:
@@ -136,9 +138,13 @@ namespace PM3D
 			sprite2 = new TextureSprite{ "test.dds",200, 200, 50, 50, _pDispositif };
 
 			const FontFamily oFamily(L"Arial", NULL);
-			pPolice = new Font(&oFamily, 16.00, FontStyleBold, UnitPixel);
-			text1 = new TextSprite(pPolice, 500, 500, 200, 20, _pDispositif);
-			text1->Ecrire(L"Pret pour le passage à ta version?");
+			pPolice = new Font(&oFamily, 60.00, FontStyleBold, UnitPixel);
+
+			speedText = new TextSprite(pPolice, 10, 600, 160, 60, _pDispositif);
+			speedText->Ecrire(L"0");
+
+			chronoText = new TextSprite(pPolice, 600, 300, 160, 60, _pDispositif);
+			chronoText->Ecrire(L"0");
 		}
 
 		void CleanUp()
@@ -146,15 +152,11 @@ namespace PM3D
 			delete sprite;
 			CloseText();
 		}
-
-
-
-		void Draw()
-		{
-			sprite->Draw();
-			sprite2->Draw();
-			text1->Draw();
-		}
+	private:
+		void UpdateSpeedText();
+		void UpdateChronoText();
+	public:
+		void Draw();
 	};
 }
 

@@ -359,6 +359,9 @@
     <ClInclude Include="TunnelGo.h">
       <Filter>Fichiers d%27en-tête\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="BlackBoard.h">
+      <Filter>Fichiers d%27en-tête\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="PetitMoteur3D.ico">

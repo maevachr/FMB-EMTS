@@ -166,6 +166,7 @@
     <ClInclude Include="BillBoardComponent.h" />
     <ClInclude Include="BillBoardComponentManager.h" />
     <ClInclude Include="BillBoardManager.h" />
+    <ClInclude Include="BlackBoard.h" />
     <ClInclude Include="BusGo.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraManager.h" />
