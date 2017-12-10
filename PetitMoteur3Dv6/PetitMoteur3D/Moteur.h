@@ -193,9 +193,18 @@ namespace PM3D
 					(*It)->Draw();
 			}*/
 
+			// pour le post effect, rendu sur une texture
+			SpriteManager::GetInstance().GetPost()->DebutPostEffect();
+			BeginRenderSceneSpecific();
+
 			CLightManager::GetInstance().ResetShadowTextures(pDispositif);
 			RenderManager::GetInstance().Draw();
 			BillBoardComponentManager::GetInstance().Draw();
+
+			EndRenderSceneSpecific();
+			SpriteManager::GetInstance().GetPost()->FinPostEffect();
+			// post effect fini
+
 			SpriteManager::GetInstance().Draw();
 			
 			EndRenderSceneSpecific();
