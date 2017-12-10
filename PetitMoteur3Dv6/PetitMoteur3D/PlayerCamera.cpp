@@ -21,7 +21,6 @@ namespace PM3D
 
 		decalage.distanceHorizontale = DIST_HORZ;
 		decalage.hauteur = XMVECTOR{ 0.0f, 0.0f, HAUTEUR_DEFAULT };
-		decalage.hauteur_target = XMVECTOR{ 0.0f, 0.0f, HAUTEUR_TARGET_DEFAULT };
 		coeffElast = COEFFELAST_DEFAULT;
 
 		upCamera = XMVector4Normalize(up_in);

@@ -10,16 +10,16 @@ namespace PM3D
 	{
 	protected:
 		float * DIST_HORZ;
-		const float HAUTEUR_DEFAULT = 5.0f;
-		const float COEFFELAST_DEFAULT = 0.9f;
-		const float HAUTEUR_TARGET_DEFAULT = 5.0f;
+		const float HAUTEUR_DEFAULT = 6.0f;
+		const float COEFFELAST_DEFAULT = 0.7f;
+		const float LONGEUR_TARGET_DEFAULT = 10.0f;
+		const float HAUTEUR_TARGET_DEFAULT = 2.0f;
 
 		GameObject* objet;
 		float coeffElast;
 		struct Decalage{
 			float* distanceHorizontale;
 			XMVECTOR hauteur;
-			XMVECTOR hauteur_target;
 			XMVECTOR get(const XMVECTOR& directionObjet) { return -directionObjet * *distanceHorizontale + hauteur; }
 			Decalage() :distanceHorizontale{}, hauteur{} {}
 
@@ -54,7 +54,7 @@ namespace PM3D
 			// The main result from this call is the closest hit, stored in the 'hit.block' structure
 			bool status = SimulationManager::GetInstance().scene().raycast(origin, unitDir, maxDistance, hit,PxHitFlag::eDEFAULT, filterData);
 			if (status) {
-				XMVECTOR newPosition = GameObject::GetPosition(hit.block.position);
+				XMVECTOR newPosition = GameObject::GetPosition(hit.block.position - unitDir * 1.5f);
 				position = newPosition + (position - newPosition)*coeffElast;
 			}
 			else {
@@ -64,8 +64,12 @@ namespace PM3D
 		}
 
 		void UpdateMatrix() override {
+			XMVECTOR directionNormalized = XMVector3Normalize(objet->GetDirection());
+
 			// Matrice de la vision
-			auto positionObjet = objet->GetPosition() + decalage.hauteur_target;
+			auto positionObjet = objet->GetPosition() 
+				+ HAUTEUR_TARGET_DEFAULT * XMVECTOR{0,0,1}
+				+ LONGEUR_TARGET_DEFAULT * directionNormalized;
 			*pMatView = XMMatrixLookAtRH(position,
 				positionObjet,
 				upCamera);
