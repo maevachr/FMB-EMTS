@@ -1,6 +1,7 @@
 #pragma once
 #include "Camera.h"
 #include "GameObject.h"
+#include "SimulationManager.h"
 namespace PM3D
 {
 	using namespace DirectX;
@@ -34,8 +35,31 @@ namespace PM3D
 			GameObject* objet_in);
 
 		virtual void AnimeCamera(float tempsEcoule) {
-			XMVECTOR newPosition = objet->GetPosition() + decalage.get(objet->GetDirection());
-			position = newPosition + (position- newPosition )*coeffElast ;
+			PxTransform playerTransform = objet->GetTransform();
+			PxVec3 origin = playerTransform.p;    
+			XMFLOAT3 direction;
+			XMStoreFloat3(&direction, decalage.get(objet->GetDirection()));
+
+			// [in] Ray origin
+			PxVec3 dir = PxVec3{ direction.x, direction.y, direction.z};  
+		
+			
+			PxVec3 unitDir = dir.getNormalized();// [in] Normalized ray direction
+			PxReal maxDistance = dir.normalize();// [in] Raycast max distance
+			PxRaycastBuffer hit;                 // [out] Raycast results
+			// [in] Define filter for static objects only
+			PxQueryFilterData filterData(PxQueryFlag::eSTATIC);
+			// Raycast against all static & dynamic objects (no filtering)
+			// The main result from this call is the closest hit, stored in the 'hit.block' structure
+			bool status = SimulationManager::GetInstance().scene().raycast(origin, unitDir, maxDistance, hit,PxHitFlag::eDEFAULT, filterData);
+			if (status) {
+				XMVECTOR newPosition = GameObject::GetPosition(hit.block.position);
+				position = newPosition + (position - newPosition)*coeffElast;
+			}
+			else {
+				XMVECTOR newPosition = objet->GetPosition() + decalage.get(objet->GetDirection());
+				position = newPosition + (position - newPosition)*coeffElast;
+			}
 		}
 
 		void UpdateMatrix() override {

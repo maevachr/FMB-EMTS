@@ -166,6 +166,10 @@ namespace PM3D
 		{
 			return { transform.p.x, transform.p.y, transform.p.z,1 };
 		}
+		static XMVECTOR GetPosition(const PxVec3& position)
+		{
+			return { position.x, position.y, position.z,1 };
+		}
 
 		XMVECTOR GetDirection() const 
 		{ 
