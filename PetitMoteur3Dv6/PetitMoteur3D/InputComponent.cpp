@@ -2,6 +2,7 @@
 #include "InputComponent.h"
 #include "PhysicComponent.h"
 #include "CameraManager.h"
+#include "SpawnManager.h"
 
 void PM3D::MonsterTruckInputComponent::ProcessInput(CDIManipulateur * pGestionnaireDeSaisie)
 {
@@ -11,6 +12,8 @@ void PM3D::MonsterTruckInputComponent::ProcessInput(CDIManipulateur * pGestionna
 
 	PxVec3 dir = transform.q.rotate(PxVec3(0.0f, 0.0f, 1.0f));
 	PxVec3 vel = Actor->getLinearVelocity();
+
+	PostEffectSprite* post = SpriteManager::GetInstance().GetPost();
 
 	CCameraManager& camM = PM3D::CCameraManager::GetInstance();
 	XMMATRIX * pMatProj = camM.GetMatProj();
@@ -32,6 +35,8 @@ void PM3D::MonsterTruckInputComponent::ProcessInput(CDIManipulateur * pGestionna
 
 	if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_E))
 	{
+		post->mode=PostEffectSprite::Radial;
+		if (post->radialStrenght < 0.1) post->radialStrenght += 0.0005;
 		if (dir.dot(vel) < 50)
 			Actor->addForce(25000*dir);
 		if (camM.champDeVision > XM_PI / 12)
@@ -49,6 +54,8 @@ void PM3D::MonsterTruckInputComponent::ProcessInput(CDIManipulateur * pGestionna
 	}
 	else 
 	{
+		if (post->radialStrenght > 0.0005) post->radialStrenght -= 0.0005;
+		else post->mode = PostEffectSprite::Nul;
 		if (vel.normalize() > 25) {
 			Actor->addForce(-5000 * vel.getNormalized());
 		}

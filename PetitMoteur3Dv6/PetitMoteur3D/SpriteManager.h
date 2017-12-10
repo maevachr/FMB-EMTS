@@ -83,10 +83,36 @@ namespace PM3D
 	public:
 		PostEffectSprite(CDispositifD3D11* pDispositif_in);
 		~PostEffectSprite();
+
+		void DebutPostEffect();
+		void FinPostEffect();
 		void Draw();
 
+		enum postType {
+			Nul,
+			Radial
+		};
+
+		postType mode = Nul;
+		float radialStrenght = 0.0;
+
 	protected:
+		static CSommetSprite sommetsPost[6];
+
 		void InitEffet();
+
+		// Texture de rendu pour effets 
+		ID3D11Texture2D* pTextureScene;
+		ID3D11RenderTargetView* pRenderTargetView; 
+		ID3D11ShaderResourceView* pResourceView;
+		ID3D11Texture2D* pDepthTexture; 
+		ID3D11DepthStencilView* pDepthStencilView;
+
+		ID3D11RenderTargetView* pOldRenderTargetView; 
+		ID3D11DepthStencilView* pOldDepthStencilView;
+
+		static const int NOMBRE_TECHNIQUES = 2;
+		ID3D11InputLayout* pVertexLayoutTab[NOMBRE_TECHNIQUES];
 	};
 
 	class SpriteManager {
@@ -104,7 +130,11 @@ namespace PM3D
 			return sm;
 		}
 
+		PostEffectSprite * GetPost() { return post; }
+
 	private:
+
+		PostEffectSprite* post;
 		TextureSprite* sprite;
 		TextureSprite* sprite2;
 
@@ -132,6 +162,8 @@ namespace PM3D
 	public:
 		void Init(CDispositifD3D11* _pDispositif) {
 			InitText();
+
+			post = new PostEffectSprite(_pDispositif);
 
 			sprite = new TextureSprite{ "test.dds", 50, 50, 50, 50, _pDispositif };
 			
