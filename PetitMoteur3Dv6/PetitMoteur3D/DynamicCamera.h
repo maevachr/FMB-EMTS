@@ -11,7 +11,7 @@ namespace PM3D
 	class CDynamicCamera : public CCamera
 	{
 	protected:
-		const float VITESSE_T_DEFAULT = 500.0f;
+		const float VITESSE_T_DEFAULT = 50.0f;
 		const float VITESSE_R_DEFAULT = XM_PIDIV2;
 
 		float vitesse_translation; // unit/sec

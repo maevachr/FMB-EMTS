@@ -93,13 +93,9 @@ namespace PM3D
 			//Ajout des acteurs à la simulation
 			PhysicManager::GetInstance().AddActors();
 
-			
-
-			// * Initialisation des matrices de projections
-			InitScene();
-
 			// Initialisation des caméras
-			CCameraManager::GetInstance().Init(&this->matView,
+			CCameraManager::GetInstance().Init(pDispositif, 
+				&this->matView,
 				&this->matProj,
 				&this->matViewProj,
 				SpawnManager::GetInstance().GetPlayer());
@@ -227,34 +223,6 @@ namespace PM3D
 				pDispositif = NULL;
 			}
 		}
-
-	virtual int InitScene()
-	{
-		// Initialisation des objets 3D - création et/ou chargement
-		//if (!InitObjets()) return 1;
-	
-		//// Initialisation des matrices View et Proj
-		//// Dans notre cas, ces matrices sont fixes
-		//matView = XMMatrixLookAtRH( XMVectorSet( 0.0f, -150.0f, 50.0f, 1.0f ),
-  //     								XMVectorSet( 0.0f, 0.0f, 0.0f, 1.0f ),
-  //                   				XMVectorSet( 0.0f, 1.0f, 0.0f, 1.0f ) );
-
-		float champDeVision = XM_PI/4; 	// 45 degrés
-		float ratioDAspect = pDispositif->GetLargeur()/pDispositif->GetHauteur();		
-		float planRapproche = 0.05f;
-		float planEloigne = 10000000.0f;
-		
-		matProj = XMMatrixPerspectiveFovRH( 
-									champDeVision,
-									ratioDAspect,
-									planRapproche,
-									planEloigne );
-
-		//// Calcul de VP à l'avance
-		//matViewProj = matView * matProj;
-
-		return 0;
-	}
 
 	bool AnimeScene(float tempsEcoule)
 	{
