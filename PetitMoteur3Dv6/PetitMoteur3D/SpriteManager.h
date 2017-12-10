@@ -48,7 +48,7 @@ namespace PM3D
 		Sprite(CDispositifD3D11* pDispositif);
 		~Sprite();
 		void InitEffet();
-		void Draw();
+		virtual void Draw();
 		// void Rotate( = MatrixIdentity); pour rotate un objet TO DO
 	};
 
@@ -79,6 +79,15 @@ namespace PM3D
 		void Ecrire(wstring s);
 	};
 
+	class PostEffectSprite : public Sprite{
+	public:
+		PostEffectSprite(CDispositifD3D11* pDispositif_in);
+		~PostEffectSprite();
+		void Draw();
+
+	protected:
+		void InitEffet();
+	};
 
 	class SpriteManager {
 	private:
@@ -99,6 +108,7 @@ namespace PM3D
 		TextureSprite* sprite;
 		TextureSprite* sprite2;
 		TextSprite* text1;
+
 
 	private:
 		// Variables statiques pour GDI+
@@ -136,6 +146,8 @@ namespace PM3D
 			delete sprite;
 			CloseText();
 		}
+
+
 
 		void Draw()
 		{

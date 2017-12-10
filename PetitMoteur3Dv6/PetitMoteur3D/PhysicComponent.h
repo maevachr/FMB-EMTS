@@ -154,7 +154,7 @@ namespace PM3D
 		void InitTriangleMeshPhysic()
 		{
 			PxPhysics &physics = SimulationManager::GetInstance().physics();
-			material = physx::unique_ptr<PxMaterial>(physics.createMaterial(0.05f, 0.05f, 0.0f));
+			material = physx::unique_ptr<PxMaterial>(physics.createMaterial(0.25f, 0.25f, 0.0f));
 
 			NormalMesh::MeshData t = owner->As<RenderComponent>()->GetNormalMesh()->GetMeshData();
 

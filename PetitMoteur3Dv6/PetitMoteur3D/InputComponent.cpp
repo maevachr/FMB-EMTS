@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "InputComponent.h"
 #include "PhysicComponent.h"
+#include "CameraManager.h"
 
 void PM3D::MonsterTruckInputComponent::ProcessInput(CDIManipulateur * pGestionnaireDeSaisie)
 {
@@ -10,6 +11,10 @@ void PM3D::MonsterTruckInputComponent::ProcessInput(CDIManipulateur * pGestionna
 
 	PxVec3 dir = transform.q.rotate(PxVec3(0.0f, 0.0f, 1.0f));
 	PxVec3 vel = Actor->getLinearVelocity();
+
+	CCameraManager& camM = PM3D::CCameraManager::GetInstance();
+	XMMATRIX * pMatProj = camM.GetMatProj();
+	float * pDist = camM.GetpDist();
 
 	if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_W))
 	{
@@ -29,11 +34,39 @@ void PM3D::MonsterTruckInputComponent::ProcessInput(CDIManipulateur * pGestionna
 	{
 		if (dir.dot(vel) < 50)
 			Actor->addForce(25000*dir);
+		if (camM.champDeVision > XM_PI / 12)
+		{
+			camM.champDeVision -= XM_PI / 1000;
+			*pMatProj = XMMatrixPerspectiveFovRH(
+				camM.champDeVision,
+				camM.ratioDAspect,
+				camM.planRapproche,
+				camM.planEloigne);
+		}
+		if (*pDist < 80.0) {
+			*pDist += 0.3;
+		}
 	}
-	else if (vel.normalize() > 25)
+	else 
 	{
-		Actor->addForce(-5000 * vel.getNormalized());
+		if (vel.normalize() > 25) {
+			Actor->addForce(-5000 * vel.getNormalized());
+		}
+		if (camM.champDeVision < XM_PI / 4)
+		{
+			camM.champDeVision += XM_PI / 1000;
+			*pMatProj = XMMatrixPerspectiveFovRH(
+				camM.champDeVision,
+				camM.ratioDAspect,
+				camM.planRapproche,
+				camM.planEloigne);
+		}
+		if (*pDist > 20.0) {
+			*pDist -= 0.5;
+		}
 	}
+
+
 
 	if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_A))
 	{
