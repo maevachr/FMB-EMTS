@@ -325,6 +325,11 @@ namespace PM3D
 			miniCrate->InitName("miniCrate");
 			nMeshes.push_back(miniCrate);
 
+			NormalMesh* tunnel = new NormalMesh{};
+			tunnel->InitFile("obj_tunnel.omb");
+			tunnel->InitName("tunnel");
+			nMeshes.push_back(tunnel);
+
 			sbMesh = new SkyBoxMesh{};
 
 		}

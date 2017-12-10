@@ -1,12 +1,12 @@
 #include "stdafx.h"
-#include "TerrainGo.h"
+#include "TunnelGo.h"
 #include "RenderComponent.h"
 #include "PhysicComponent.h"
 #include "SpawnManager.h"
 
 namespace PM3D
 {
-	void TerrainGo::OnSpawn(const PxTransform & _transform, GameObject * _parent)
+	void TunnelGo::OnSpawn(const PxTransform & _transform, GameObject * _parent)
 	{
 		GameObject::OnSpawn(_transform, _parent);
 		SpawnManager::GetInstance().AddGameObjects(this);
@@ -14,16 +14,16 @@ namespace PM3D
 		//Set GameObjects
 
 
-		//Set Components
-		//-----RenderComponent
-		RenderTerrainComponent* p = CreateComponent<RenderTerrainComponent>();
-		p->GetMesh("terrain");
+		////Set Components
+		////-----RenderComponent
+		RenderComponent* p = CreateComponent<RenderComponent>();
+		p->GetMesh("tunnel");
 
-		//-----StaticPhysicComponent
-		TerrainPhysicComponent* t = CreateComponent<TerrainPhysicComponent>();
+		////-----StaticPhysicComponent
+		//TerrainPhysicComponent* t = CreateComponent<TerrainPhysicComponent>();
 	}
 
-	void TerrainGo::OnUnspawn()
+	void TunnelGo::OnUnspawn()
 	{
 		GameObject::OnUnspawn();
 

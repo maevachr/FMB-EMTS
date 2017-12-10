@@ -9,6 +9,7 @@
 #include "BusGo.h"
 #include "MiniCrateGo.h"
 #include "ExplodedBox.h"
+#include "TunnelGo.h"
 
 namespace PM3D
 {
@@ -62,6 +63,10 @@ namespace PM3D
 			PxTransform locationCrate4 = PxTransform::createIdentity();
 			locationCrate4.p = PxVec3{ 80, 20, 6 };
 			Spawn<CrateGo>(locationCrate4);
+
+			PxTransform locationTunnel = PxTransform::createIdentity();
+			locationTunnel.p = PxVec3{ 100, 50, 6 };
+			Spawn<TunnelGo>(locationTunnel);
 
 // 			PxTransform explodedBox = PxTransform::createIdentity();
 // 			explodedBox.p = PxVec3{ 30, 20, 6 };
