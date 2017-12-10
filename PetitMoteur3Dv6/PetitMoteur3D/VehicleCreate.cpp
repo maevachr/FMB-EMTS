@@ -132,6 +132,7 @@ PxRigidDynamic* createVehicleActor
 		wheelShape->setQueryFilterData(wheelQryFilterData);
 		wheelShape->setSimulationFilterData(wheelSimFilterData);
 		wheelShape->setLocalPose(PxTransform(PxIdentity));
+		wheelShape->setName("wheel");
 	}
 
 	//Add the chassis shapes to the actor.
@@ -142,6 +143,7 @@ PxRigidDynamic* createVehicleActor
 		chassisShape->setQueryFilterData(chassisQryFilterData);
 		chassisShape->setSimulationFilterData(chassisSimFilterData);
 		chassisShape->setLocalPose(PxTransform(PxIdentity));
+		chassisShape->setName("chassis");
 	}
 
 	vehActor->setMass(chassisData.mMass);

@@ -26,7 +26,9 @@ protected:
 protected:
 	virtual int InitialisationsSpecific();
 	virtual bool RunSpecific();
+public:
 	__int64 CMoteurWindows::GetTimeSpecific();
+protected:
 	virtual CDispositifD3D11* CreationDispositifSpecific(const CDS_MODE cdsMode);
 	virtual void BeginRenderSceneSpecific();
 	virtual void EndRenderSceneSpecific();

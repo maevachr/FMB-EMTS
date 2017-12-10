@@ -88,7 +88,7 @@ namespace PM3D
 			
 
 			//Initialisation du terrain avec la Mesh chargée
-			PhysicManager::GetInstance().InitTerrainPhysic();
+			PhysicManager::GetInstance().InitStaticComponents();
 
 			//Ajout des acteurs à la simulation
 			PhysicManager::GetInstance().AddActors();
@@ -109,8 +109,8 @@ namespace PM3D
 
 		virtual bool Animation()
 		{
-		__int64 TempsCourant;
-		float TempsEcoule;
+			__int64 TempsCourant;
+			float TempsEcoule;
 
 			// méthode pour lire l'heure et calculer le 
 			// temps écoulé

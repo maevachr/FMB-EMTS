@@ -9,6 +9,7 @@
 #include "BusGo.h"
 #include "MiniCrateGo.h"
 #include "ExplodedBox.h"
+#include "TunnelGo.h"
 
 namespace PM3D
 {
@@ -45,7 +46,6 @@ namespace PM3D
 			Spawn<MonsterTruckGo>(locationTruck);
 
 			Spawn<SkyBoxGo>();
-			Spawn<TerrainGo>();
 
 			PxTransform locationCrate = PxTransform::createIdentity();
 			locationCrate.p = PxVec3{ 20, 20, 6 };
@@ -63,6 +63,10 @@ namespace PM3D
 			locationCrate4.p = PxVec3{ 80, 20, 6 };
 			Spawn<CrateGo>(locationCrate4);
 
+			PxTransform locationTunnel = PxTransform::createIdentity();
+			locationTunnel.p = PxVec3{ 100, 50, 6 };
+			Spawn<TunnelGo>(locationTunnel);
+
 // 			PxTransform explodedBox = PxTransform::createIdentity();
 // 			explodedBox.p = PxVec3{ 30, 20, 6 };
 // 			Spawn<ExplodedBox>(explodedBox);
@@ -70,6 +74,10 @@ namespace PM3D
 			PxTransform locationBus = PxTransform::createIdentity();
 			locationBus.p = PxVec3{ 10, 10, 6 };
 			Spawn<BusGo>(locationBus);
+
+
+			//Dernier objet à être rendu
+			Spawn<TerrainGo>();
 		}
 
 		void Update()
@@ -109,9 +117,11 @@ namespace PM3D
 		void Unspawn(GameObject* go)
 		{
 			auto it = std::find(begin(existingGameObjects), end(existingGameObjects), go);
-			assert(it != existingGameObjects.end());
-			unspawnlist.push_back(*it);
-			existingGameObjects.erase(it);
+			//Bloc unspawning of non existing object
+			if (it != existingGameObjects.end()) {
+				unspawnlist.push_back(*it);
+				existingGameObjects.erase(it);
+			}
 		}
 
 		GameObject* GetPlayer()

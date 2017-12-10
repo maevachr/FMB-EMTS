@@ -76,6 +76,7 @@ namespace PM3D
 				}
 			}
 
+			reverse(begin(callBackRemoved), end(callBackRemoved));
 			for_each(begin(callBackRemoved), end(callBackRemoved), [&](vector<ICallBack*>::iterator cb) {
 				callBack.erase(cb);
 			});
