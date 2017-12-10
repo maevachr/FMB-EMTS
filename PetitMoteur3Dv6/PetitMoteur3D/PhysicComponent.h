@@ -243,7 +243,7 @@ namespace PM3D
 	private:
 		bool isReverse() {
 			PxVec3 upTruck = owner->GetTransform().q.rotate(PxVec3(0.0, 1.0, 0.0));
-			return upTruck.z < 0;
+			return upTruck.z < 0.40;
 		}
 
 		float lastTime;
@@ -275,6 +275,7 @@ namespace PM3D
 					PxTransform newTransform = PxTransform::createIdentity();
 					PxTransform transforTruck = owner->GetTransform();
 					newTransform.p = PxVec3{ transforTruck.p.x, transforTruck.p.y, transforTruck.p.z + 3 };
+					
 					newTransform.q = PxQuat(0.707, 0, 0, 0.707);
 					pxActor->setGlobalPose(newTransform);
 					owner->SetTransform(newTransform);

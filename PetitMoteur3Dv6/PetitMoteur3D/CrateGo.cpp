@@ -58,7 +58,7 @@ namespace PM3D
 		PxFilterData filterData;
 		filterData.word0 = COLLISION_FLAG_CRATE;
 		filterData.word1 = COLLISION_FLAG_CRATE_AGAINST;
-		d->InitData(PxBoxGeometry(PxVec3(1, 1, 1)), move(material), filterData);
+		d->InitData(PxBoxGeometry(PxVec3(0.5, 0.5, 0.5)), move(material), filterData);
 		PxTransform centerMass = physx::PxTransform::createIdentity();
 		centerMass.p = PxVec3(0, 0, 0);
 		d->InitMass(5, centerMass);
