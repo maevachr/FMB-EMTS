@@ -77,21 +77,4 @@ namespace PM3D
 			sbm->Draw(GetOwner()->GetMatWorld(), GetOwner()->GetPosition());
 		}
 	};
-
-	class RenderTerrainComponent : public RenderComponent {
-	public:
-		static constexpr char* typeId = "RenderTerrainComponent";
-		virtual const char* GetTypeId() { return typeId; }
-
-		virtual void OnAttached(GameObject* _owner) override
-		{
-			owner = _owner;
-			RenderManager::GetInstance().CreateTerrainComponent(this);
-		}
-		virtual void OnDetached() override
-		{
-			owner = nullptr;
-			RenderManager::GetInstance().RemoveTerrainComponent();
-		}
-	};
 }

@@ -120,7 +120,7 @@ namespace PM3D
 		}
 	};
 
-	class TerrainPhysicComponent : public CollidingComponent
+	class StaticPhysicComponent : public CollidingComponent
 	{
 	private:
 		GameObject* owner;
@@ -131,13 +131,13 @@ namespace PM3D
 		virtual void OnAttached(GameObject* _owner) override
 		{
 			owner = _owner;
-			PhysicManager::GetInstance().CreateTerrain(this);
+			PhysicManager::GetInstance().CreateStaticComponent(this);
 		}
 		virtual void OnDetached() override
 		{
 			owner = nullptr;
 			pxActor->release();
-			PhysicManager::GetInstance().RemoveTerrain();
+			PhysicManager::GetInstance().RemoveStaticComponent(this);
 		}
 	private:
 		physx::unique_ptr<PxMaterial> material;
@@ -151,12 +151,12 @@ namespace PM3D
 			pxActor->userData = static_cast<GameObject*>(GetOwner());
 			SimulationManager::GetInstance().scene().addActor(*pxActor);
 		}
-		void InitTerrainPhysic()
+		void InitTriangleMeshPhysic()
 		{
 			PxPhysics &physics = SimulationManager::GetInstance().physics();
 			material = physx::unique_ptr<PxMaterial>(physics.createMaterial(0.05f, 0.05f, 0.0f));
 
-			NormalMesh::TerrainItems t = owner->As<RenderTerrainComponent>()->GetNormalMesh()->GetTerrainItems();
+			NormalMesh::MeshData t = owner->As<RenderComponent>()->GetNormalMesh()->GetMeshData();
 
 			PxTriangleMeshDesc meshDesc;
 			vector<PxVec3> verts;

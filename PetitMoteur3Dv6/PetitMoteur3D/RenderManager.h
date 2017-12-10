@@ -29,7 +29,6 @@ namespace PM3D
 
 	private:
 		RenderSkyBoxComponent* rsbComponent;
-		RenderTerrainComponent* rtComponent;
 		std::vector<RenderComponent*> rComponents;
 
 	public:
@@ -41,10 +40,6 @@ namespace PM3D
 		{
 			rsbComponent = rsbc;
 		}
-		void CreateTerrainComponent(RenderTerrainComponent* rtc)
-		{
-			rtComponent = rtc;
-		}
 		void RemoveComponent(RenderComponent* rc)
 		{
 			auto it = std::find(begin(rComponents), end(rComponents), rc);
@@ -54,10 +49,6 @@ namespace PM3D
 		void RemoveSkyBoxComponent()
 		{
 			rsbComponent = nullptr;
-		}
-		void RemoveTerrainComponent()
-		{
-			rtComponent = nullptr;
 		}
 	public:
 		void Draw();

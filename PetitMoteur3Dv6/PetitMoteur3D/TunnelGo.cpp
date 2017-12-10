@@ -20,7 +20,7 @@ namespace PM3D
 		p->GetMesh("tunnel");
 
 		////-----StaticPhysicComponent
-		//TerrainPhysicComponent* t = CreateComponent<TerrainPhysicComponent>();
+		StaticPhysicComponent* s = CreateComponent<StaticPhysicComponent>();
 	}
 
 	void TunnelGo::OnUnspawn()

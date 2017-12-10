@@ -158,16 +158,16 @@ namespace PM3D
 
 
 	public:
-		struct TerrainItems {
+		struct MeshData {
 			CSommetMesh* ts;
 			unsigned int* index;
 			int nombreSommets;
 			int nombreIndex;
 		};
 	private:
-		TerrainItems terrainItems;
+		MeshData meshData;
 	public:
-		TerrainItems GetTerrainItems() { return terrainItems; }
+		MeshData GetMeshData() { return meshData; }
 
 	private:
 		std::string file;

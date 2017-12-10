@@ -16,11 +16,11 @@ namespace PM3D
 
 		//Set Components
 		//-----RenderComponent
-		RenderTerrainComponent* p = CreateComponent<RenderTerrainComponent>();
+		RenderComponent* p = CreateComponent<RenderComponent>();
 		p->GetMesh("terrain");
 
 		//-----StaticPhysicComponent
-		TerrainPhysicComponent* t = CreateComponent<TerrainPhysicComponent>();
+		StaticPhysicComponent* t = CreateComponent<StaticPhysicComponent>();
 	}
 
 	void TerrainGo::OnUnspawn()

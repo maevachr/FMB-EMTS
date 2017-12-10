@@ -88,7 +88,7 @@ namespace PM3D
 			
 
 			//Initialisation du terrain avec la Mesh chargée
-			PhysicManager::GetInstance().InitTerrainPhysic();
+			PhysicManager::GetInstance().InitStaticComponents();
 
 			//Ajout des acteurs à la simulation
 			PhysicManager::GetInstance().AddActors();
