@@ -109,9 +109,11 @@ namespace PM3D
 		void Unspawn(GameObject* go)
 		{
 			auto it = std::find(begin(existingGameObjects), end(existingGameObjects), go);
-			assert(it != existingGameObjects.end());
-			unspawnlist.push_back(*it);
-			existingGameObjects.erase(it);
+			//Bloc unspawning of non existing object
+			if (it != existingGameObjects.end()) {
+				unspawnlist.push_back(*it);
+				existingGameObjects.erase(it);
+			}
 		}
 
 		GameObject* GetPlayer()

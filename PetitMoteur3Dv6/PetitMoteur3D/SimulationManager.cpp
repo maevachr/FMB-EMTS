@@ -206,7 +206,6 @@ namespace PM3D
 
 	void SimulationManager::Update()
 	{
-
 		duration<double, std::milli> remainingToSimulate(1000 / PM3D::IMAGESPARSECONDE);
 
 		auto durationStep = 100ms;

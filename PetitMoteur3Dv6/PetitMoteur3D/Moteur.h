@@ -113,8 +113,8 @@ namespace PM3D
 
 		virtual bool Animation()
 		{
-		__int64 TempsCourant;
-		float TempsEcoule;
+			__int64 TempsCourant;
+			float TempsEcoule;
 
 			// méthode pour lire l'heure et calculer le 
 			// temps écoulé

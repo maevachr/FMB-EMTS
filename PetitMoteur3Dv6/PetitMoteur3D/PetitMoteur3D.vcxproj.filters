@@ -314,9 +314,6 @@
     <ClInclude Include="ExplodedBox.h">
       <Filter>Fichiers d%27en-tête\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="CallBackManager.h">
-      <Filter>Fichiers d%27en-tête\Manager\ComponentManager</Filter>
-    </ClInclude>
     <ClInclude Include="PhysxVehicle.h">
       <Filter>Fichiers d%27en-tête\Vehicle</Filter>
     </ClInclude>
@@ -351,6 +348,9 @@
       <Filter>Fichiers d%27en-tête\Component</Filter>
     </ClInclude>
     <ClInclude Include="BillBoardManager.h">
+      <Filter>Fichiers d%27en-tête\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="CallBackManager.h">
       <Filter>Fichiers d%27en-tête\Manager</Filter>
     </ClInclude>
   </ItemGroup>

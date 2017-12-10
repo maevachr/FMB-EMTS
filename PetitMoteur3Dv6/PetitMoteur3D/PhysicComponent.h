@@ -10,6 +10,7 @@
 #include "RenderComponent.h"
 #include "ICollisionHandler.h"
 #include "PhysxVehicle.h"
+#include "MoteurWindows.h"
 
 using namespace physx;
 
@@ -53,7 +54,6 @@ namespace PM3D
 		virtual void AddActor() {};
 		virtual void UpdateGoTransform() {};
 	};
-
 
 	class DynamicPhysicComponent : public CollidingComponent
 	{
@@ -235,12 +235,51 @@ namespace PM3D
 		PhysxVehicle* GetVehicle() { return &physxVehicle; }
 		virtual void AddActor()
 		{
+			pxActor->userData = static_cast<GameObject*>(GetOwner());
 			SimulationManager::GetInstance().scene().addActor(*pxActor);
-
 		}
 		virtual void InitTerrainPhysic() {}
+
+	private:
+		bool isReverse() {
+			PxVec3 upTruck = owner->GetTransform().q.rotate(PxVec3(0.0, 1.0, 0.0));
+			return upTruck.z < 0;
+		}
+
+		float lastTime;
+		int nbTic;
+
+		bool isRepositioningTime() {
+			float time = static_cast<float>(CMoteurWindows::GetInstance().GetTimeSpecific()) * 0.001f;
+			if (time - lastTime < 0.5f) {
+				++nbTic;
+			}
+			else {
+				nbTic = 0;
+			}
+			lastTime = time;
+			if (nbTic >= 350) {
+				nbTic = 0;
+				return true;
+			}
+			return false;
+		}
+
+	
+
+	public:
 		virtual void UpdateGoTransform()
 		{
+			if (isReverse()) {
+				if (isRepositioningTime()) {
+					PxTransform newTransform = PxTransform::createIdentity();
+					PxTransform transforTruck = owner->GetTransform();
+					newTransform.p = PxVec3{ transforTruck.p.x, transforTruck.p.y, transforTruck.p.z + 3 };
+					newTransform.q = PxQuat(0.707, 0, 0, 0.707);
+					pxActor->setGlobalPose(newTransform);
+					owner->SetTransform(newTransform);
+				}
+			}
 			physxVehicle.stepPhysics();
 			owner->SetTransform(pxActor->getGlobalPose());
 			std::vector<GameObject*> child = owner->GetChildren();

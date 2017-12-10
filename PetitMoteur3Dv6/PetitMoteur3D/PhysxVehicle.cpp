@@ -330,7 +330,7 @@ PxRigidDynamic* PhysxVehicle::initPhysics()
 	//Create a vehicle that will drive on the plane.
 	VehicleDesc vehicleDesc = initVehicleDesc();
 	gVehicle4W = createVehicle4W(vehicleDesc, gPhysics, gCooking);
-	PxTransform startTransform(PxVec3(0, 0, 20), PxQuat(0.5253, 0, 0, 0.8509));
+	PxTransform startTransform(PxVec3(0, 0, 20), PxQuat(0.707, 0, 0, 0.707));
 	gVehicle4W->getRigidDynamicActor()->setGlobalPose(startTransform);
 	gScene->addActor(*gVehicle4W->getRigidDynamicActor());
 
