@@ -140,6 +140,7 @@ namespace PM3D
 
 		TextSprite* speedText;
 		TextSprite* chronoText;
+		TextSprite* boostText;
 
 
 	private:
@@ -172,11 +173,14 @@ namespace PM3D
 			const FontFamily oFamily(L"Arial", NULL);
 			pPolice = new Font(&oFamily, 60.00, FontStyleBold, UnitPixel);
 
-			speedText = new TextSprite(pPolice, 10, 600, 160, 60, _pDispositif);
+			speedText = new TextSprite(pPolice, 10, 600, 500, 60, _pDispositif);
 			speedText->Ecrire(L"0");
 
-			chronoText = new TextSprite(pPolice, 600, 300, 160, 60, _pDispositif);
+			chronoText = new TextSprite(pPolice, 600, 300, 500, 60, _pDispositif);
 			chronoText->Ecrire(L"0");
+
+			boostText = new TextSprite(pPolice, 300, 300, 500, 60, _pDispositif);
+			boostText->Ecrire(L"0");
 		}
 
 		void CleanUp()
@@ -187,6 +191,7 @@ namespace PM3D
 	private:
 		void UpdateSpeedText();
 		void UpdateChronoText();
+		void UpdateBoostText();
 	public:
 		void Draw();
 	};

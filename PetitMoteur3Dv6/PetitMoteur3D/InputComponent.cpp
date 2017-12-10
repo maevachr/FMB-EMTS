@@ -3,6 +3,7 @@
 #include "PhysicComponent.h"
 #include "CameraManager.h"
 #include "SpawnManager.h"
+#include "BlackBoard.h"
 
 void PM3D::MonsterTruckInputComponent::ProcessInput(CDIManipulateur * pGestionnaireDeSaisie)
 {
@@ -33,12 +34,12 @@ void PM3D::MonsterTruckInputComponent::ProcessInput(CDIManipulateur * pGestionna
 		vehicle->releaseAccelerate();
 	}
 
-	if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_E))
+	if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_E) && BlackBoard::GetInstance().UseBoost())
 	{
-		post->mode=PostEffectSprite::Radial;
+		post->mode = PostEffectSprite::Radial;
 		if (post->radialStrenght < 0.1) post->radialStrenght += 0.0005;
 		if (dir.dot(vel) < 50)
-			Actor->addForce(25000*dir);
+			Actor->addForce(25000 * dir);
 		if (camM.champDeVision > XM_PI / 12)
 		{
 			camM.champDeVision -= XM_PI / 1000;
@@ -52,7 +53,7 @@ void PM3D::MonsterTruckInputComponent::ProcessInput(CDIManipulateur * pGestionna
 			*pDist += 0.3;
 		}
 	}
-	else 
+	else
 	{
 		if (post->radialStrenght > 0.0005) post->radialStrenght -= 0.0005;
 		else post->mode = PostEffectSprite::Nul;

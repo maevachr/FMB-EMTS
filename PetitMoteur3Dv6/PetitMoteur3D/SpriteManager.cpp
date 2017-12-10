@@ -585,7 +585,7 @@ namespace PM3D
 		float vitesse = actor->getLinearVelocity().normalize();
 		int unit = vitesse;
 		int decimal = static_cast<int>((vitesse - unit) * 10.f);
-		string s = to_string(unit) + "." + to_string(decimal);
+		string s = "Vitesse : " + to_string(unit) + "." + to_string(decimal);
 		speedText->Ecrire({ s.begin(), s.end() });
 	}
 
@@ -596,8 +596,15 @@ namespace PM3D
 		int decimal1 = static_cast<int>(time) % 60 / 10;
 		int decimal2 = static_cast<int>(time) % 60 % 10;
 
-		string s = to_string(unit) + ":" + to_string(decimal1) + to_string(decimal2);
+		string s = "Chrono : "+ to_string(unit) + ":" + to_string(decimal1) + to_string(decimal2);
 		chronoText->Ecrire({ s.begin(), s.end() });
+	}
+
+	void SpriteManager::UpdateBoostText()
+	{
+		int boost = static_cast<int>(BlackBoard::GetInstance().GetBoost());
+		string s = "Boost : " + to_string(boost);
+		boostText->Ecrire({ s.begin(), s.end() });
 	}
 
 	void SpriteManager::Draw()
@@ -612,6 +619,9 @@ namespace PM3D
 
 		UpdateChronoText();
 		chronoText->Draw();
+
+		UpdateBoostText();
+		boostText->Draw();
 	}
 }
 
