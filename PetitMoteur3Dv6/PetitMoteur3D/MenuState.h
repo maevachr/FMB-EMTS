@@ -15,4 +15,8 @@ public:
 private:
 	Sprite			background;
 	Texte			title;
+	Texte			textEnter;
+
+	bool			mShowText = true;
+	Time			mTextEffectTime = 0.f;
 };
