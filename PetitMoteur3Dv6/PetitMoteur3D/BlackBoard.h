@@ -28,7 +28,13 @@ namespace PM3D
 		bool boostDown = true;
 
 	public:
-		void AddPoints(int nbPoints) { score += nbPoints; }
+		void AddPoints(int nbPoints) { 
+			score += nbPoints;
+		}
+		int GetScore() { return score; }
+		void AddBoost(float b) {
+			boost += b;
+		}
 		bool UseBoost() {
 			if (boost > 0 && boostDown) {
 				usedBoost = true;
@@ -42,14 +48,15 @@ namespace PM3D
 		}
 		void Update(float TempsEcoule) {
 			chrono -= TempsEcoule;
+			boost += TempsEcoule * 4.0f;
+			if (boost > MAX_BOOST) {
+				boost = MAX_BOOST;
+			}
 			if (usedBoost)
 			{
 				boost -= TempsEcoule * 40.0f;
 				usedBoost = false;
-			}
-			if (boost < MAX_BOOST) {
-				boost += TempsEcoule * 4.0f;
-			}
+			}	
 			if (boost > USE_MIN_WHEN_UP)
 			{
 				boostDown = true;

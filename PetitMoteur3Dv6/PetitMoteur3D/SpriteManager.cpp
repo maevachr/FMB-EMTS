@@ -621,6 +621,13 @@ namespace PM3D
 		sprite2->Rotate(1.0f);
 	}
 
+	void SpriteManager::UpdateScoreText()
+	{
+		int score = BlackBoard::GetInstance().GetScore();
+		string s = "Score : " + to_string(score);
+		scoreText->Ecrire({ s.begin(), s.end() });
+	}
+
 	void SpriteManager::Draw()
 	{
 		post->Draw();
@@ -641,6 +648,9 @@ namespace PM3D
 
 		UpdateBoostText();
 		boostText->Draw();
+
+		UpdateScoreText();
+		scoreText->Draw();
 
 		//Activer Z buffer
 		pDispositif->ActiverZBuffer();
