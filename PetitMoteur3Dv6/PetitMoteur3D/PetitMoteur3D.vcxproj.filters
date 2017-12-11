@@ -204,11 +204,14 @@
     <ClCompile Include="GameState.cpp">
       <Filter>Fichiers sources\Menus</Filter>
     </ClCompile>
-    <ClCompile Include="BeamGo.cpp">
-      <Filter>Fichiers sources\GameObjects</Filter>
-    </ClCompile>
     <ClCompile Include="AreneGo.cpp">
       <Filter>Fichiers sources\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="CircusGo.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="ContainerGo.cpp">
+      <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -410,11 +413,14 @@
     <ClInclude Include="PauseState.h">
       <Filter>Fichiers d%27en-tête\Menus</Filter>
     </ClInclude>
-    <ClInclude Include="BeamGo.h">
-      <Filter>Fichiers d%27en-tête\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="AreneGo.h">
       <Filter>Fichiers d%27en-tête\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="CircusGo.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="ContainerGo.h">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

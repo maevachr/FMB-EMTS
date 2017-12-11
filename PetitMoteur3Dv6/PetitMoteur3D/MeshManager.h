@@ -355,6 +355,11 @@ namespace PM3D
  			areneLimits->InitName("areneLimits");
  			nMeshes.push_back(areneLimits);
 
+			NormalMesh* container = new NormalMesh{};
+			container->InitFile("obj_container.omb");
+			container->InitName("container");
+			nMeshes.push_back(container);
+
 			sbMesh = new SkyBoxMesh{};
 
 		}

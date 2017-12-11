@@ -30,14 +30,14 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		CChargeurAssimp chargeur;
 		CParametresChargement param;
 
-		param.NomChemin = ".\\modeles\\Arene\\";
+		param.NomChemin = ".\\modeles\\Objets\\Container\\"; 
 
-		param.NomFichier = "Bordure.obj";		
+		param.NomFichier = "Cargo_container_02.obj";		
 		param.bMainGauche = false;
 		param.bInverserCulling = true;
 
 		chargeur.Chargement(param);  // Le chargeur lit le fichier
-		s.EcrireFichierBinaire(chargeur, "areneLimites.omb");
+		s.EcrireFichierBinaire(chargeur, "obj_container.omb");
 		return (int)1;
     }
 

@@ -12,6 +12,7 @@
 #include "TunnelGo.h"
 #include "CircusGo.h"
 #include "AreneGo.h"
+#include "ContainerGo.h"
 
 namespace PM3D
 {
@@ -87,6 +88,11 @@ namespace PM3D
 			locationArene.p = PxVec3{ 0, 0, 8 };
 			//rotation de l'arene
 			Spawn<AreneGo>(locationArene);
+
+			PxTransform locationContainer = PxTransform::createIdentity();
+			locationContainer.p = PxVec3{ 20, -10, 5 };
+			//rotation de l'arene
+			Spawn<ContainerGo>(locationContainer);
 		}
 
 		void Update()
