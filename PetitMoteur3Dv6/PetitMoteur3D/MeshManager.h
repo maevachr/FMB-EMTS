@@ -326,7 +326,7 @@ namespace PM3D
 			nMeshes.push_back(terrainMesh);
 
 			NormalMesh* miniCrate = new NormalMesh{};
-			miniCrate->InitFile("obj_mini_caisse.omb");
+			miniCrate->InitFile("obj_mini_crate_3x3.omb");
 			miniCrate->InitName("miniCrate");
 			nMeshes.push_back(miniCrate);
 
@@ -339,6 +339,21 @@ namespace PM3D
 			beam->InitFile("obj_Beam.omb");
 			beam->InitName("beam");
 			nMeshes.push_back(beam);
+
+			NormalMesh* anneau = new NormalMesh{};
+			anneau->InitFile("obj_Anneau.omb");
+			anneau->InitName("anneau");
+			nMeshes.push_back(anneau);
+
+			NormalMesh* arene = new NormalMesh{};
+			arene->InitFile("arene.omb");
+			arene->InitName("arene");
+			nMeshes.push_back(arene);
+
+ 			NormalMesh* areneLimits = new NormalMesh{};
+ 			areneLimits->InitFile("areneMur.omb");
+ 			areneLimits->InitName("areneLimits");
+ 			nMeshes.push_back(areneLimits);
 
 			sbMesh = new SkyBoxMesh{};
 

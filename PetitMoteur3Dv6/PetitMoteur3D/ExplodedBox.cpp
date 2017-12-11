@@ -27,15 +27,15 @@ namespace PM3D
 	}
 	void ExplodedBox::GenerateExplosion()
 	{
-		for (int i = 0; i < 4; ++i)
+		for (int i = 0; i < 3; ++i)
 		{
-			for (int j = 0; j < 4; ++j)
+			for (int j = 0; j < 3; ++j)
 			{
-				for (int k = 0; k < 4; ++k)
+				for (int k = 0; k < 3; ++k)
 				{
 					MiniCrateGo* t = new MiniCrateGo();
 					PxTransform trans = PxTransform::createIdentity();
-					trans.p = PxVec3{ 0.255f * i - 0.375f ,0.255f*j - 0.375f ,0.255f * k - 0.375f };
+					trans.p = PxVec3{ 0.33f * i - 0.33f, 0.33f * j - 0.33f, 0.33f * k - 0.33f };
 					t->OnSpawn(GetTransform()* trans, nullptr);
 					AddChild(t);
 				}
