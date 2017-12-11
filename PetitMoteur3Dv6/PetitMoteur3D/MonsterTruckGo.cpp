@@ -40,10 +40,6 @@ namespace PM3D
 		centerMass.p = PxVec3(0, 0, -0.5);
 		PxVec3 inertiaTensor = { 10,10,10 };
 		d->InitMass(150, centerMass, inertiaTensor);*/
-
-		//-----MonsterTruckInputComponent
-		//MonsterTruckInputComponent* i = CreateComponent<MonsterTruckInputComponent>();
-
 	}
 
 	void MonsterTruckGo::OnUnspawn()

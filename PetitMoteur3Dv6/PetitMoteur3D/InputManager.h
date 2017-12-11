@@ -46,6 +46,5 @@ namespace PM3D
 			return &pGestionnaireDeSaisie;
 		}
 		void Init(HINSTANCE hInstance, HWND hWnd);
-		void ProcessInput();
 	};
 }

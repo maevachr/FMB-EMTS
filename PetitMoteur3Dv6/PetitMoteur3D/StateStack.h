@@ -15,7 +15,6 @@ class StateStack : Incopiable
 {
 public:
 	using Time = float;
-	using Event = bool;
 public:
 	enum Action
 	{
@@ -33,10 +32,8 @@ public:
 
 	void				update(Time dt); //Update all active states from top to bottom (may stop)
 	void				draw(); //Draw all active states from bottom to top
-	void				handleEvent(const Event& event); //Deliver event to the active states from top to bottom (may stop)
 
-
-														 /* These 3 methods add a PendingChange (an action to do later) in the mPendingList*/
+	/* These 3 methods add a PendingChange (an action to do later) in the mPendingList*/
 	void				pushState(States::ID stateID); //Add state to the stack
 	void				popState(); //Remove a state from the stack
 	void				clearStates(); //Empty the stack

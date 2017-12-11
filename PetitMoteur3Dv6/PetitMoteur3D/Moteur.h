@@ -43,9 +43,14 @@ namespace PM3D
 	//        le dispositif Direct3D), l'utilisation d'un singleton 
 	//        nous simplifiera plusieurs aspects.
 	//
-	template <class T, class TClasseDispositif> class CMoteur :public CSingleton<T>
+	template <class T, class TClasseDispositif> 
+	class CMoteur : public CSingleton<T>
 	{
 	public:
+
+		static CMoteur<T, TClasseDispositif>& GetInstance() {
+			return CSingleton<T>::GetInstance();
+		}
 
 		virtual void Run()
 		{
@@ -195,30 +200,12 @@ namespace PM3D
 		virtual bool RenderScene()
 		{
 			BeginRenderSceneSpecific();
-			if (mStateStack->size() == 2) {
-				// pour le post effect, rendu sur une texture
-				SpriteManager::GetInstance().GetPost()->DebutPostEffect();
-				BeginRenderSceneSpecific();
-
-				CLightManager::GetInstance().ResetShadowTextures(pDispositif);
-				RenderManager::GetInstance().Draw();
-				BillBoardComponentManager::GetInstance().Draw();
-
-				EndRenderSceneSpecific();
-				SpriteManager::GetInstance().GetPost()->FinPostEffect();
-				// post effect fini
-
-				SpriteManager::GetInstance().Draw();
-			}
-			else {
-				mStateStack->draw();
-			}
-			
+						
+			mStateStack->draw();
 			
 			EndRenderSceneSpecific();
 			return true;
 		}
-
 
 		virtual void Cleanup()
 		{
@@ -258,9 +245,26 @@ namespace PM3D
 	{
 		mStateStack->registerState<MenuState>(States::Menu);
 		mStateStack->registerState<GameState>(States::Game);
-		//mStateStack->registerState<GameState>(States::Pause);
-		//mStateStack->registerState<GameState>(States::End);*/
+		mStateStack->registerState<PauseState>(States::Pause);
+		mStateStack->registerState<EndState>(States::End);
 	}
+
+	public:
+		void drawGame() {
+			// pour le post effect, rendu sur une texture
+			SpriteManager::GetInstance().GetPost()->DebutPostEffect();
+			BeginRenderSceneSpecific();
+
+			CLightManager::GetInstance().ResetShadowTextures(pDispositif);
+			RenderManager::GetInstance().Draw();
+			BillBoardComponentManager::GetInstance().Draw();
+
+			EndRenderSceneSpecific();
+			SpriteManager::GetInstance().GetPost()->FinPostEffect();
+			// post effect fini
+
+			SpriteManager::GetInstance().Draw();
+		}
 
 
 	protected:

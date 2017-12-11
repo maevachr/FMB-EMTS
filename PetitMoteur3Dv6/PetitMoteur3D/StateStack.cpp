@@ -31,18 +31,6 @@ void StateStack::draw()
 		state->draw();
 }
 
-void StateStack::handleEvent(const Event& event)
-{
-	/* Iterate the active stack from the end to the beginning. Stop when a state returns false */
-	for (auto itr = mStack.rbegin(); itr != mStack.rend(); ++itr)
-	{
-		if (!(*itr)->handleEvent(event)) //handleEvent of the current state
-			break;
-	}
-
-	applyPendingChanges();
-}
-
 void StateStack::pushState(States::ID stateID)
 {
 	mPendingList.push_back(PendingChange(Push, stateID));

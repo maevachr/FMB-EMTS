@@ -4,8 +4,8 @@
 
 #include "StateIdentifiers.h"
 #include "dispositifD3D11.h" 
-
-
+#include "SpriteManager.h"
+#include "InputManager.h"
 
 class StateStack;
 
@@ -13,8 +13,9 @@ class State
 {
 public:
 	using Time = float;
-	using Event = bool;
 	using Ptr = std::unique_ptr<State>;
+	using Sprite = PM3D::TextureSprite;
+	using Texte = PM3D::TextSprite;
 
 public:
 	/* Holder of shared objects */
@@ -32,7 +33,6 @@ public:
 
 	virtual void		draw() = 0;
 	virtual bool		update(Time dt) = 0;
-	virtual bool		handleEvent(const Event& event) = 0;
 
 	virtual void		ProcessInput() = 0;
 	virtual void		CleanUp();
@@ -46,7 +46,7 @@ protected:
 	Context				getContext() const;
 
 
-private:
+protected:
 	StateStack*			mStack;
 	Context				mContext;
 };

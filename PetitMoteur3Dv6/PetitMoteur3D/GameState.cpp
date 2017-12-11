@@ -13,6 +13,7 @@
 #include "BillBoardManager.h"
 
 #include "moteurWindows.h"
+#include "moteur.h"
 
 
 using namespace PM3D;
@@ -31,6 +32,7 @@ GameState::GameState(StateStack& stack, Context context) :
 
 void GameState::draw()
 {
+	CMoteur<CMoteurWindows, CDispositifD3D11>::GetInstance().drawGame();
 }
 
 bool GameState::update(Time dt)
@@ -50,10 +52,6 @@ bool GameState::update(Time dt)
 	return true;
 }
 
-bool GameState::handleEvent(const Event& event)
-{
-	return true;
-}
 
 void GameState::ProcessInput()
 {
@@ -63,6 +61,11 @@ void GameState::ProcessInput()
 	//if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_ESCAPE)) {
 	//	requestStackPop();
 	//}
+
+	//Pause
+	if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_P)) {
+		requestStackPush(States::Pause);
+	}
 
 	pMonsterTruck->ProcessInput();
 }

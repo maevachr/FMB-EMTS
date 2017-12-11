@@ -1,8 +1,6 @@
 #include "stdafx.h"
 #include "MenuState.h"
-#include "InputManager.h"
-#include "SpriteManager.h"
-
+#include "StateStack.h"
 
 using namespace PM3D;
 
@@ -19,18 +17,16 @@ MenuState::MenuState(StateStack& stack, Context context)
 
 void MenuState::draw()
 {
-	background.Draw();
-	title.Draw();
+	if (mStack->size() == 1) {
+		background.Draw();
+		title.Draw();
+	}
+	
 }
 
 bool MenuState::update(Time)
 {
 	return true;
-}
-
-bool MenuState::handleEvent(const Event& event)
-{
-	return false;
 }
 
 void MenuState::ProcessInput()

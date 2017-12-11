@@ -1,8 +1,14 @@
 #pragma once
-class PauseState
+
+#include "State.h"
+
+class PauseState : public State
 {
 public:
-	PauseState();
-	~PauseState();
-};
+	PauseState(StateStack& stack, Context context);
 
+	virtual void	draw();
+	virtual bool	update(Time dt);
+
+	virtual void	ProcessInput();
+};

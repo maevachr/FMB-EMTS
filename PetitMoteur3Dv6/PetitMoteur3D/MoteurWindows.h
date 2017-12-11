@@ -16,6 +16,9 @@ public:
 
 public:
 	void SetWindowsAppInstance(HINSTANCE hInstance);
+	static CMoteurWindows& GetInstance() {
+		return CSingleton<CMoteurWindows>::GetInstance();
+	}
 
 protected:
 	ATOM	MyRegisterClass(HINSTANCE hInstance);

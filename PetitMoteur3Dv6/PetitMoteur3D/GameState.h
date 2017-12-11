@@ -8,11 +8,10 @@ class GameState : public State
 public:
 	GameState(StateStack& stack, Context context);
 
-	virtual void		draw();
-	virtual bool		update(Time dt);
-	virtual bool		handleEvent(const Event& event);
+	virtual void	draw();
+	virtual bool	update(Time dt);
 
-	virtual void		ProcessInput();
+	virtual void	ProcessInput();
 
 private:
 	PM3D::MonsterTruckGo* pMonsterTruck;
