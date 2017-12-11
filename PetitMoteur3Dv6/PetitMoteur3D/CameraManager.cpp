@@ -89,7 +89,6 @@ namespace PM3D {
 
 		std::unique_ptr<CFirstPersonCamera> firstPerson(new CFirstPersonCamera);
 		firstPerson->Init(
-			XMVectorSet(0.0f, 0.0f, 1.0f, 1.0f),
 			pMatView,
 			pMatProj,
 			pMatViewProj,

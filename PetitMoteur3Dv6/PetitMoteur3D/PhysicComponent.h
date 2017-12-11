@@ -78,7 +78,7 @@ namespace PM3D
 		physx::unique_ptr<PxMaterial> material;
 		PxShape* actorShape;
 		PxRigidDynamic *pxActor;
-
+		bool isSleeping;
 	public:
 		physx::PxRigidDynamic * GetActor() { return pxActor; }
 		void AddActor() override
@@ -97,7 +97,8 @@ namespace PM3D
 			owner->SetTransform(localPose);	
 		}
 	public:
-		void InitData(const PxGeometry& g, physx::unique_ptr<PxMaterial> m, const PxFilterData& filterData = PxFilterData{})
+		void InitData(const PxGeometry& g, physx::unique_ptr<PxMaterial> m, 
+			const PxFilterData& filterData = PxFilterData{})
 		{
 			material = move(m);
 

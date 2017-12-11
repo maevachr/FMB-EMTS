@@ -40,7 +40,7 @@ namespace PM3D
 		SpawnManager::GetInstance().AddGameObjects(this);
 
 		//Set GameObjects
-
+		
 
 		//Set Components
 		//-----RenderComponent
