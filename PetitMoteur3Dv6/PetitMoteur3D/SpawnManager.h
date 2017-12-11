@@ -79,7 +79,7 @@ namespace PM3D
 			locationBus.p = PxVec3{ 10, 10, 6 };
 			Spawn<BusGo>(locationBus);
 			PxTransform locationArene = PxTransform::createIdentity();
-			locationArene.p = PxVec3{ 0, 0, 20 };
+			locationArene.p = PxVec3{ -250, -250, -10 };
 			Spawn<AreneGO>(locationArene);
 			PxTransform locationBeam = PxTransform::createIdentity();
 			locationBeam.p = PxVec3{ -10, -10, 0 };
