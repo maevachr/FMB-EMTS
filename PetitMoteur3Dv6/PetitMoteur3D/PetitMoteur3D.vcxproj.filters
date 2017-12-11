@@ -183,6 +183,9 @@
     <ClCompile Include="BeamGo.cpp">
       <Filter>Fichiers sources\GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="AreneGo.cpp">
+      <Filter>Fichiers sources\GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Moteur.h">
@@ -363,6 +366,9 @@
       <Filter>Fichiers d%27en-tête\Manager</Filter>
     </ClInclude>
     <ClInclude Include="BeamGo.h">
+      <Filter>Fichiers d%27en-tête\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="AreneGo.h">
       <Filter>Fichiers d%27en-tête\GameObject</Filter>
     </ClInclude>
   </ItemGroup>

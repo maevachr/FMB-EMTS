@@ -13,6 +13,5 @@ namespace PM3D
 		virtual void OnSpawn(const PxTransform& _transform = PxTransform::createIdentity(), GameObject* _parent = nullptr) override;
 		virtual void OnUnspawn() override;
 		void GenerateExplosion();
-		void TriggerExplosion();
 	};
 }
