@@ -10,9 +10,9 @@ namespace PM3D
 	class CFirstPersonCamera : public CCamera
 	{ 
 	protected:
-		const float DIST_HORZ_DEFAULT = -15.0f;
-		const float HAUTEUR_DEFAULT = 10.0f;
-		const float HAUTEUR_TARGET_DEFAULT = 50.0f;
+		const float DIST_HORZ_DEFAULT = -0.7f;
+		const float HAUTEUR_DEFAULT = 0.4f;
+		const float HAUTEUR_TARGET_DEFAULT = 0.4f;
 
 		GameObject* objet;
 		struct Decalage {
