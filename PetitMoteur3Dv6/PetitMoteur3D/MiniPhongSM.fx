@@ -161,7 +161,7 @@ float4 MiniPhongPS( VS_Sortie vs ) : SV_Target
 		if(nTex > 0) {
 			// Échantillonner la couleur du pixel à partir de la texture  
 			float3 bump = BumpTexture.Sample(SampleState, vs.coordTex);
-			N = normalize(vs.Norm + bump);
+			N = normalize(bump);
 		} else {
 			N = normalize(vs.Norm);
 		}
