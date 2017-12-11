@@ -84,7 +84,7 @@ namespace PM3D
 			Spawn<CircusGo>(locationCircusGo);
 
 			PxTransform locationArene = PxTransform::createIdentity();
-			locationArene.p = PxVec3{ 0, 0, 0 };
+			locationArene.p = PxVec3{ 0, 0, 8 };
 			//rotation de l'arene
 			Spawn<AreneGo>(locationArene);
 		}
