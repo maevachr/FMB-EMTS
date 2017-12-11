@@ -13,9 +13,9 @@ namespace PM3D
 
 	void InputManager::ProcessInput()
 	{
-		pGestionnaireDeSaisie.StatutClavier();
+		/*pGestionnaireDeSaisie.StatutClavier();
 		std::for_each(begin(iComponents), end(iComponents), [&](InputComponent* ic) {
 			ic->ProcessInput(&pGestionnaireDeSaisie);
-		});
+		});*/
 	}
 }

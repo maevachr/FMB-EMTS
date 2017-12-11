@@ -64,5 +64,5 @@ void GameState::ProcessInput()
 	//	requestStackPop();
 	//}
 
-	//pMonsterTruck->ProcessInput();
+	pMonsterTruck->ProcessInput();
 }
