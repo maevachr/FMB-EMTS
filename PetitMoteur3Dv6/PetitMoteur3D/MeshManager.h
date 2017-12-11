@@ -339,6 +339,11 @@ namespace PM3D
 			beam->InitName("beam");
 			nMeshes.push_back(beam);
 
+			NormalMesh* anneau = new NormalMesh{};
+			anneau->InitFile("obj_Anneau.omb");
+			anneau->InitName("anneau");
+			nMeshes.push_back(anneau);
+
 			NormalMesh* arene = new NormalMesh{};
 			arene->InitFile("arene.omb");
 			arene->InitName("arene");
