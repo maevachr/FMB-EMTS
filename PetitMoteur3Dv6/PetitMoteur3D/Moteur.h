@@ -20,6 +20,10 @@
 #include "BillBoardComponentManager.h"
 #include "BlackBoard.h"
 #include "StateStack.h"
+#include "MenuState.h"
+#include "GameState.h"
+#include "PauseState.h"
+#include "EndState.h"
 
 namespace PM3D
 {
@@ -102,6 +106,12 @@ namespace PM3D
 				&this->matViewProj,
 				SpawnManager::GetInstance().GetPlayer());
 
+			mStateStack = new StateStack(State::Context(pDispositif));
+			registerStates();
+			mStateStack->pushState(States::Menu);
+			mStateStack->applyPendingChanges();
+
+
 			// * Initialisation des paramètres de l'animation et 
 			//   préparation de la première image
 			InitAnimation();
@@ -127,17 +137,13 @@ namespace PM3D
 				TempsEcoule=static_cast<float>(TempsCourant-TempsPrecedent) 
 							* static_cast<float>(EchelleTemps);
 
-				// On prépare la prochaine image
-				//AnimeScene(TempsEcoule);
-
-				// ON ANIME LA SCENE SI BESOIN
+				// Update
 				AnimeScene(TempsEcoule);
 
 				//On met à jour les informations de chrono et de score
 				BlackBoard::GetInstance().Update(TempsEcoule);
 
-				// On rend l'image sur la surface de travail 
-   				// (tampon d'arrière plan)
+				// Draw
 				RenderScene();
 
 				// Calcul du temps du prochain affichage
@@ -189,28 +195,25 @@ namespace PM3D
 		virtual bool RenderScene()
 		{
 			BeginRenderSceneSpecific();
+			if (mStateStack->size() == 2) {
+				// pour le post effect, rendu sur une texture
+				SpriteManager::GetInstance().GetPost()->DebutPostEffect();
+				BeginRenderSceneSpecific();
 
-			// Appeler les fonctions de dessin de chaque objet de la scène
-		/*	std::vector<CObjet3D*>::iterator It;
+				CLightManager::GetInstance().ResetShadowTextures(pDispositif);
+				RenderManager::GetInstance().Draw();
+				BillBoardComponentManager::GetInstance().Draw();
 
-			for (It = ListeScene.begin(); It != ListeScene.end(); It++)
-			{
-					(*It)->Draw();
-			}*/
+				EndRenderSceneSpecific();
+				SpriteManager::GetInstance().GetPost()->FinPostEffect();
+				// post effect fini
 
-			// pour le post effect, rendu sur une texture
-			SpriteManager::GetInstance().GetPost()->DebutPostEffect();
-			BeginRenderSceneSpecific();
-
-			CLightManager::GetInstance().ResetShadowTextures(pDispositif);
-			RenderManager::GetInstance().Draw();
-			BillBoardComponentManager::GetInstance().Draw();
-
-			EndRenderSceneSpecific();
-			SpriteManager::GetInstance().GetPost()->FinPostEffect();
-			// post effect fini
-
-			SpriteManager::GetInstance().Draw();
+				SpriteManager::GetInstance().Draw();
+			}
+			else {
+				mStateStack->draw();
+			}
+			
 			
 			EndRenderSceneSpecific();
 			return true;
@@ -238,36 +241,25 @@ namespace PM3D
 			}
 		}
 
-	bool AnimeScene(float tempsEcoule)
-	{
+		void ProcessInput() {
+			mStateStack->ProcessInput();
+		}
+
+		bool AnimeScene(float tempsEcoule)
+		{
+			ProcessInput();
+			mStateStack->update(tempsEcoule);
+			return true;
+		}
 
 
-		PhysicManager::GetInstance().AddActors();
-		// Prendre en note le statut du clavier
-		InputManager::GetInstance().ProcessInput();
-
-		//Mise a jour de la simulation physique
-		SimulationManager::GetInstance().Update();
-		PhysicManager::GetInstance().UpdateGoTransform();
-
-		//ANIME SCENE
-
-		CCameraManager::GetInstance().AnimeScene(tempsEcoule);
-		CLightManager::GetInstance().AnimeScene(tempsEcoule);
-
-		SpawnManager::GetInstance().Update();
-
-		CallBackManager::GetInstance().UpdateTime(tempsEcoule);
-
-		return true;
-	}
 
 	void registerStates()
 	{
-		/*mStateStack->registerState<MenuState>(States::Menu);
+		mStateStack->registerState<MenuState>(States::Menu);
 		mStateStack->registerState<GameState>(States::Game);
-		mStateStack->registerState<GameState>(States::Pause);
-		mStateStack->registerState<GameState>(States::End);*/
+		//mStateStack->registerState<GameState>(States::Pause);
+		//mStateStack->registerState<GameState>(States::End);*/
 	}
 
 

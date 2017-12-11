@@ -43,6 +43,7 @@ public:
 
 	bool				isEmpty() const;
 
+	int					size() { return mStack.size(); }
 	void				ProcessInput();
 
 private:

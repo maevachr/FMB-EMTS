@@ -41,7 +41,10 @@ namespace PM3D
 	private:
 		CDIManipulateur pGestionnaireDeSaisie;
 	public:
-		CDIManipulateur* GetDIManipulateur() { return &pGestionnaireDeSaisie; }
+		CDIManipulateur* GetDIManipulateur() {
+			pGestionnaireDeSaisie.StatutClavier();
+			return &pGestionnaireDeSaisie;
+		}
 		void Init(HINSTANCE hInstance, HWND hWnd);
 		void ProcessInput();
 	};
