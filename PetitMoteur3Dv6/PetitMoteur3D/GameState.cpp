@@ -11,6 +11,7 @@
 #include "CallBackManager.h"
 #include "SpriteManager.h"
 #include "BillBoardManager.h"
+#include "BlackBoard.h"
 
 #include "moteurWindows.h"
 #include "moteur.h"
@@ -47,6 +48,8 @@ bool GameState::update(Time dt)
 	CLightManager::GetInstance().AnimeScene(dt);
 
 	SpawnManager::GetInstance().Update();
+
+	BlackBoard::GetInstance().Update(dt);
 
 	CallBackManager::GetInstance().UpdateTime(dt);
 	return true;

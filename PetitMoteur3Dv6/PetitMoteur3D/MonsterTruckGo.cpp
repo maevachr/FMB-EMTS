@@ -6,6 +6,7 @@
 #include "SpawnManager.h"
 #include "PhysxVehicle.h"
 #include "wheelGo.h"
+#include "BlackBoard.h"
 
 namespace PM3D
 {

@@ -6,8 +6,8 @@ using namespace PM3D;
 
 MenuState::MenuState(StateStack& stack, Context context)
 	: State(stack, context)
-	, background{ TextureSprite{ "bg.dds", -120, 820, static_cast<int>(1021 * 1.3f), static_cast<int>(681 * 1.3f), context.pDispositif } }
-	, title{ TextSprite(SpriteManager::GetInstance().GetFontTitle(), 220, 300, 600, 200, context.pDispositif) }
+	, background{ TextureSprite{ "bg.dds", 480, 380, static_cast<int>(1021 * 1.3f), static_cast<int>(681 * 1.3f), context.pDispositif } }
+	, title{ TextSprite(SpriteManager::GetInstance().GetFontTitle(), 500, 150, 600, 200, context.pDispositif) }
 {
 	title.Ecrire(L"Epic Monster Truck \n Simulator 47591 X");
 	context.pDispositif->DesactiverZBuffer();

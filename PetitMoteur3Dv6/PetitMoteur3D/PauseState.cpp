@@ -14,7 +14,7 @@ void PauseState::draw()
 
 bool PauseState::update(Time)
 {
-	return true;
+	return false;
 }
 
 void PauseState::ProcessInput()

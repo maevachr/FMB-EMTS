@@ -18,7 +18,6 @@
 #include "SpriteManager.h"
 #include "BillBoardManager.h"
 #include "BillBoardComponentManager.h"
-#include "BlackBoard.h"
 #include "StateStack.h"
 #include "MenuState.h"
 #include "GameState.h"
@@ -144,9 +143,6 @@ namespace PM3D
 
 				// Update
 				AnimeScene(TempsEcoule);
-
-				//On met à jour les informations de chrono et de score
-				BlackBoard::GetInstance().Update(TempsEcoule);
 
 				// Draw
 				RenderScene();
