@@ -358,11 +358,12 @@ namespace PM3D
 
 			sp.lights[i].vLumiere = currentLight.position;
 			sp.vCamera = CCameraManager::GetInstance().GetCurrentCamera().GetPosition();
-			sp.lights[i].vAEcl = XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f);
-			sp.lights[i].vDEcl = XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f);
-			sp.lights[i].vSEcl = XMVectorSet(0.6f, 0.6f, 0.6f, 1.0f);
+			sp.lights[i].vAEcl = currentLight.ambiante;
+			sp.lights[i].vDEcl = currentLight.diffuse;
+			sp.lights[i].vSEcl = currentLight.speculaire;
 			sp.lights[i].matWorldViewProjLights = XMMatrixTranspose(matWorld * CLightManager::GetInstance().mVPLight[i]);
-			sp.lights[i].fov = currentLight.fov;
+			sp.lights[i].innerAperture = cos(currentLight.innerAperture/2.f);
+			sp.lights[i].outerAperture = cos(currentLight.outerAperture/2.f);
 			sp.lights[i].direction = currentLight.direction;
 		}
 

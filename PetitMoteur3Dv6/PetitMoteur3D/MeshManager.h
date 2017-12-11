@@ -119,8 +119,9 @@ namespace PM3D
 				XMVECTOR vSEcl; 			// la valeur spéculaire de l'éclairage 
 				XMMATRIX matWorldViewProjLights; // WVP pour lumiere
 				XMVECTOR direction;
-				float fov;
-				XMFLOAT3 remplissage;
+				float innerAperture;
+				float outerAperture;
+				XMFLOAT2 remplissage;
 			} lights[CLightManager::NB_MAX_LIGHTS];
 			XMMATRIX matWorldViewProjLight;
 			XMMATRIX matWorldViewProj;	// la matrice totale 
