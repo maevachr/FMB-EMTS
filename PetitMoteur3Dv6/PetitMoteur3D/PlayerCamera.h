@@ -12,7 +12,7 @@ namespace PM3D
 		float * DIST_HORZ;
 		const float HAUTEUR_DEFAULT = 6.0f;
 		const float COEFFELAST_DEFAULT = 0.7f;
-		const float LONGEUR_TARGET_DEFAULT = 10.0f;
+		const float LONGEUR_TARGET_DEFAULT = 5.0f;
 		const float HAUTEUR_TARGET_DEFAULT = 2.0f;
 
 		GameObject* objet;
