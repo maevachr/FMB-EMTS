@@ -2,6 +2,8 @@
 
 #include "Camera.h"
 #include "GameObject.h"
+#include "SpawnManager.h"
+
 
 namespace PM3D
 {
@@ -11,21 +13,21 @@ namespace PM3D
 	{ 
 	protected:
 		const float DIST_HORZ_DEFAULT = -0.7f;
-		const float HAUTEUR_DEFAULT = 0.4f;
-		const float HAUTEUR_TARGET_DEFAULT = 0.4f;
+		const float DIST_VERT_DEFAULT = 0.4f;
 
 		GameObject* objet;
 		struct Decalage {
 			float distanceHorizontale;
-			XMVECTOR hauteur;
-			XMVECTOR hauteur_target;
-			XMVECTOR get(const XMVECTOR& directionObjet) { return -directionObjet*distanceHorizontale + hauteur; }
-			Decalage() :distanceHorizontale{}, hauteur{} {}
+			float distanceVerticale;
+			XMVECTOR get(const XMVECTOR& directionObjet) { 
+				PxVec3 UpTruck = SpawnManager::GetInstance().GetPlayer()->GetTransform().q.rotate(PxVec3(0.0, 1.0, 0.0));
+				XMVECTOR up = GameObject::GetPosition(UpTruck.getNormalized());
+				return -directionObjet*distanceHorizontale + up * distanceVerticale; }
+			Decalage() :distanceHorizontale{}, distanceVerticale{} {}
 
 		} decalage;
 	public:
 		void Init(
-			const XMVECTOR& up_in,
 			XMMATRIX* pMatView_in,
 			XMMATRIX* pMatProj_in,
 			XMMATRIX* pMatViewProj_in,
@@ -36,11 +38,12 @@ namespace PM3D
 		}
 
 		void UpdateMatrix() override {
+			PxVec3 UpTruck = SpawnManager::GetInstance().GetPlayer()->GetTransform().q.rotate(PxVec3(0.0, 1.0, 0.0));
+			XMVECTOR up = GameObject::GetPosition(UpTruck);
 			// Matrice de la vision
-			auto positionObjet = objet->GetPosition() + decalage.hauteur_target;
 			*pMatView = XMMatrixLookAtRH(position,
 				(position + objet->GetDirection()),
-				upCamera);
+				up);
 			*pMatViewProj = (*pMatView) * (*pMatProj);
 		}
 	};
