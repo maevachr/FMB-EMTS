@@ -19,6 +19,7 @@
 #include "BillBoardManager.h"
 #include "BillBoardComponentManager.h"
 #include "BlackBoard.h"
+#include "StateStack.h"
 
 namespace PM3D
 {
@@ -261,6 +262,14 @@ namespace PM3D
 		return true;
 	}
 
+	void registerStates()
+	{
+		/*mStateStack->registerState<MenuState>(States::Menu);
+		mStateStack->registerState<GameState>(States::Game);
+		mStateStack->registerState<GameState>(States::Pause);
+		mStateStack->registerState<GameState>(States::End);*/
+	}
+
 
 	protected:
 		// Variables pour le temps de l'animation
@@ -272,8 +281,8 @@ namespace PM3D
 		// Le dispositif de rendu
 		TClasseDispositif* pDispositif;
 
-		// Le seul gestionnaire de saisie
-		CDIManipulateur GestionnaireDeSaisie;
+		//Menu
+		StateStack* mStateStack;
 
 		// Les matrices
 		XMMATRIX matView;
