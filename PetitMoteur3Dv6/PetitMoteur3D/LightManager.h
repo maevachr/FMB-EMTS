@@ -11,7 +11,7 @@ namespace PM3D {
 	class CLightManager
 	{
 	public:
-		static const size_t NB_MAX_LIGHTS = 1;
+		static const size_t NB_MAX_LIGHTS = 4;
 		static const int SHADOWMAP_DIM = 2048;
 		static const int MAX_LIGHT_DIST = 500;
 		XMMATRIX mVPLight[NB_MAX_LIGHTS];
@@ -27,15 +27,11 @@ namespace PM3D {
 			return singleton;
 		}
 
-		void SortByDistance(XMVECTOR position);
-
 		void InitShadows(CDispositifD3D11 * _pDispositif);
 
 		void ResetShadowTextures(CDispositifD3D11 * _pDispositif);
 
-		CLight* getLight(size_t n) { return &lights[n]; }
-		CLight* begin() { return std::begin(lights); }
-		CLight* end() { return std::end(lights); }
+		CLight* getLight(size_t n) { return lights[n]; }
 
 		bool Init();
 		void InitMatricesShadowMap();
@@ -45,7 +41,7 @@ namespace PM3D {
 
 		bool AnimeScene(float tempsEcoule) {
 			for (int i = 0; i < NB_MAX_LIGHTS; ++i) {
-				lights[i].AnimeLight(tempsEcoule);
+				lights[i]->AnimeLight(tempsEcoule);
 				
 			}
 			return true;
@@ -54,7 +50,7 @@ namespace PM3D {
 		CLightManager() = default;
 		~CLightManager();
 	private:
-		CLight lights[NB_MAX_LIGHTS];
+		CLight* lights[NB_MAX_LIGHTS];
 	};
 	
 }

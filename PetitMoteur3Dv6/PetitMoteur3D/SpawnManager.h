@@ -46,6 +46,8 @@ namespace PM3D
 			Spawn<MonsterTruckGo>(locationTruck);
 
 			Spawn<SkyBoxGo>();
+			//Dernier objet à être rendu
+			Spawn<TerrainGo>();
 
 			PxTransform locationCrate = PxTransform::createIdentity();
 			locationCrate.p = PxVec3{ 20, 20, 6 };
@@ -74,10 +76,6 @@ namespace PM3D
 			PxTransform locationBus = PxTransform::createIdentity();
 			locationBus.p = PxVec3{ 10, 10, 6 };
 			Spawn<BusGo>(locationBus);
-
-
-			//Dernier objet à être rendu
-			Spawn<TerrainGo>();
 		}
 
 		void Update()

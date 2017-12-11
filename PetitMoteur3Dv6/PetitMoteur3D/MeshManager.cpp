@@ -350,6 +350,7 @@ namespace PM3D
 
 		sp.matWorldViewProj = XMMatrixTranspose(matWorld * viewProj);
 		sp.matWorld = XMMatrixTranspose(matWorld);
+		sp.maxLightDist = CLightManager::MAX_LIGHT_DIST;
 
 		for (int i = 0; i < CLightManager::NB_MAX_LIGHTS; ++i) {
 			//Accéder à la lumière
@@ -360,6 +361,9 @@ namespace PM3D
 			sp.lights[i].vAEcl = XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f);
 			sp.lights[i].vDEcl = XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f);
 			sp.lights[i].vSEcl = XMVectorSet(0.6f, 0.6f, 0.6f, 1.0f);
+			sp.lights[i].matWorldViewProjLights = XMMatrixTranspose(matWorld * CLightManager::GetInstance().mVPLight[i]);
+			sp.lights[i].fov = currentLight.fov;
+			sp.lights[i].direction = currentLight.direction;
 		}
 
 		// Le sampler state
@@ -372,8 +376,7 @@ namespace PM3D
 
 		for (int i = 0; i < CLightManager::NB_MAX_LIGHTS; ++i) {
 			ID3DX11EffectShaderResourceVariable* pShadowMap;
-			string shadowTextureName = "ShadowTexture" + to_string(i);
-			pShadowMap = pEffet->GetVariableByName(shadowTextureName.c_str())->AsShaderResource();
+			pShadowMap = pEffet->GetVariableByName("ShadowTextures")->GetElement(i)->AsShaderResource();
 			pShadowMap->SetResource(CLightManager::GetInstance().pShadowMapView[i]);
 		}
 		
