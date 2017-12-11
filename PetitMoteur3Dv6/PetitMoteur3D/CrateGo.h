@@ -5,10 +5,47 @@ using namespace physx;
 
 namespace PM3D
 {
+	template<class CrateColor>
+	class CrateCollisionHandler;
+
+	class BrownCrate {};
+	class OrangeCrate {};
+	class WhiteCrate {};
+
+	template<class T>
+	struct CrateTraits {
+		using collisionHandler = CrateCollisionHandler<T>;
+		static constexpr int nb_points = 0;
+		static constexpr float breaking_speed = 0.f;
+		static constexpr float bonus_boost = 0.f;
+	};
+
+	template<>
+	struct CrateTraits<BrownCrate> {
+		static constexpr int nb_points = 100;
+		static constexpr float breaking_speed = 10.f;
+		static constexpr float bonus_boost = 15.f;
+	};
+
+	template<>
+	struct CrateTraits<OrangeCrate> {
+		static constexpr int nb_points = 200;
+		static constexpr float breaking_speed = 20.f;
+		static constexpr float bonus_boost = 30.f;
+	};
+
+	template<>
+	struct CrateTraits<WhiteCrate> {
+		static constexpr int nb_points = 500;
+		static constexpr float breaking_speed = 30.f;
+		static constexpr float bonus_boost = 100.f;
+	};
+	
+	template<class CrateColor>
 	class CrateGo : public GameObject
 	{
 	private:
-		static constexpr char* typeId = "MiniCrateGo";
+		static constexpr char* typeId = "CrateGo";
 	public:
 		virtual void OnSpawn(const PxTransform& _transform = PxTransform::createIdentity(), GameObject* _parent = nullptr) override;
 		virtual void OnUnspawn() override;

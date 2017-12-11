@@ -186,6 +186,7 @@
     <ClCompile Include="TunnelGo.cpp">
       <Filter>Fichiers sources\GameObjects</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="StateStack.cpp">
       <Filter>Fichiers sources\Menus</Filter>
     </ClCompile>
@@ -203,6 +204,10 @@
     </ClCompile>
     <ClCompile Include="GameState.cpp">
       <Filter>Fichiers sources\Menus</Filter>
+=======
+    <ClCompile Include="BeamGo.cpp">
+      <Filter>Fichiers sources\GameObjects</Filter>
+>>>>>>> master
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -383,6 +388,7 @@
     <ClInclude Include="BlackBoard.h">
       <Filter>Fichiers d%27en-tête\Manager</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="StateIdentifiers.h">
       <Filter>Fichiers d%27en-tête\Menus</Filter>
     </ClInclude>
@@ -403,6 +409,10 @@
     </ClInclude>
     <ClInclude Include="PauseState.h">
       <Filter>Fichiers d%27en-tête\Menus</Filter>
+=======
+    <ClInclude Include="BeamGo.h">
+      <Filter>Fichiers d%27en-tête\GameObject</Filter>
+>>>>>>> master
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

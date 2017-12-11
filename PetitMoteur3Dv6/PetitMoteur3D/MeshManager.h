@@ -334,6 +334,11 @@ namespace PM3D
 			tunnel->InitName("tunnel");
 			nMeshes.push_back(tunnel);
 
+			NormalMesh* beam = new NormalMesh{};
+			beam->InitFile("obj_Beam.omb");
+			beam->InitName("beam");
+			nMeshes.push_back(beam);
+
 			sbMesh = new SkyBoxMesh{};
 
 		}

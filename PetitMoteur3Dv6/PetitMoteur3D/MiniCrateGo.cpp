@@ -36,7 +36,7 @@ namespace PM3D
 	void MiniCrateGo::OnSpawn(const PxTransform & _transform, GameObject * _parent)
 	{
 		GameObject::OnSpawn(_transform, _parent);
-		SpawnManager::GetInstance().AddGameObjects(this);
+		//SpawnManager::GetInstance().AddGameObjects(this);
 		//Set GameObjects
 
 

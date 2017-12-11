@@ -144,6 +144,7 @@ namespace PM3D
 		TextSprite* speedText;
 		TextSprite* chronoText;
 		TextSprite* boostText;
+		TextSprite* scoreText;
 
 
 	private:
@@ -189,6 +190,9 @@ namespace PM3D
 
 			boostText = new TextSprite(pPolice, 300, 300, 500, 60, _pDispositif);
 			boostText->Ecrire(L"0");
+
+			scoreText = new TextSprite(pPolice, 300, 600, 500, 60, _pDispositif);
+			scoreText->Ecrire(L"0");
 		}
 
 		Font* GetFontTitle() { return pPoliceTitle; }
@@ -203,6 +207,7 @@ namespace PM3D
 		void UpdateChronoText();
 		void UpdateBoostText();
 		void RotateNeedle();
+		void UpdateScoreText();
 	public:
 		void Draw();
 	};
