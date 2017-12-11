@@ -49,6 +49,12 @@
     <Filter Include="Fichiers sources\Vehicle">
       <UniqueIdentifier>{2b56db99-0d22-4290-a29f-53b5fae56c4f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Menus">
+      <UniqueIdentifier>{de6c1a51-f898-469b-be3a-d534e2ab1215}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Menus">
+      <UniqueIdentifier>{c2353dbe-00be-4cbb-8367-b3dc21274963}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Moteur.cpp">
@@ -180,8 +186,28 @@
     <ClCompile Include="TunnelGo.cpp">
       <Filter>Fichiers sources\GameObjects</Filter>
     </ClCompile>
+<<<<<<< HEAD
+    <ClCompile Include="StateStack.cpp">
+      <Filter>Fichiers sources\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>Fichiers sources\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseState.cpp">
+      <Filter>Fichiers sources\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuState.cpp">
+      <Filter>Fichiers sources\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="EndState.cpp">
+      <Filter>Fichiers sources\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>Fichiers sources\Menus</Filter>
+=======
     <ClCompile Include="BeamGo.cpp">
       <Filter>Fichiers sources\GameObjects</Filter>
+>>>>>>> master
     </ClCompile>
     <ClCompile Include="AreneGo.cpp">
       <Filter>Fichiers sources\GameObjects</Filter>
@@ -365,8 +391,31 @@
     <ClInclude Include="BlackBoard.h">
       <Filter>Fichiers d%27en-tête\Manager</Filter>
     </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="StateIdentifiers.h">
+      <Filter>Fichiers d%27en-tête\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="StateStack.h">
+      <Filter>Fichiers d%27en-tête\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Fichiers d%27en-tête\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuState.h">
+      <Filter>Fichiers d%27en-tête\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Fichiers d%27en-tête\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="EndState.h">
+      <Filter>Fichiers d%27en-tête\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseState.h">
+      <Filter>Fichiers d%27en-tête\Menus</Filter>
+=======
     <ClInclude Include="BeamGo.h">
       <Filter>Fichiers d%27en-tête\GameObject</Filter>
+>>>>>>> master
     </ClInclude>
     <ClInclude Include="AreneGo.h">
       <Filter>Fichiers d%27en-tête\GameObject</Filter>
