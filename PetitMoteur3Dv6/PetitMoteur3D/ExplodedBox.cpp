@@ -8,7 +8,7 @@
 
 namespace PM3D
 {
-	void ExplodedBox::OnSpawn(const PxTransform & _transform, GameObject * _parent)
+	void ExplodedBox::OnSpawn(const PxTransform &_transform, GameObject * _parent)
 	{
 		GameObject::OnSpawn(_transform, _parent);
 		GenerateExplosion();
@@ -24,7 +24,6 @@ namespace PM3D
 			delete(go);
 		});
 		children.clear();
-
 	}
 	void ExplodedBox::GenerateExplosion()
 	{
@@ -42,6 +41,5 @@ namespace PM3D
 				}
 			}
 		}
-
 	}
 }
