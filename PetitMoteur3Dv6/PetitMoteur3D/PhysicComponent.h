@@ -282,7 +282,7 @@ namespace PM3D
 					float cos2t = Up.dot(PxVec3(0, 0, 1));
 					PxVec3 axis = Up.cross(PxVec3(0, 0, 1)).getNormalized()*(sqrt(-0.5*(cos2t-1)));
 
-					newTransform.q = transforTruck.q*PxQuat(axis.x,axis.y,axis.z,sqrt((cos2t+1)/2.0));
+					newTransform.q = PxQuat(axis.x,axis.y,axis.z,sqrt((cos2t+1)/2.0))*transforTruck.q;
 
 					pxActor->setGlobalPose(newTransform);
 					owner->SetTransform(newTransform);
