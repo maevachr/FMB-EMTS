@@ -8,10 +8,10 @@
 #include "TerrainGo.h"
 #include "BusGo.h"
 #include "MiniCrateGo.h"
-#include "AreneGo.h"
 #include "ExplodedBox.h"
 #include "TunnelGo.h"
 #include "BeamGo.h"
+#include "AreneGo.h"
 
 namespace PM3D
 {
@@ -78,12 +78,16 @@ namespace PM3D
 			PxTransform locationBus = PxTransform::createIdentity();
 			locationBus.p = PxVec3{ 10, 10, 6 };
 			Spawn<BusGo>(locationBus);
-			PxTransform locationArene = PxTransform::createIdentity();
-			locationArene.p = PxVec3{ -250, -250, -10 };
-			Spawn<AreneGO>(locationArene);
+
 			PxTransform locationBeam = PxTransform::createIdentity();
 			locationBeam.p = PxVec3{ -10, -10, 0 };
-			Spawn<BeamGo>(locationBeam);		}
+			Spawn<BeamGo>(locationBeam);
+
+			PxTransform locationArene = PxTransform::createIdentity();
+			locationArene.p = PxVec3{ 0, 0, 0 };
+			//rotation de l'arene
+			Spawn<AreneGo>(locationArene);
+		}
 
 		void Update()
 		{

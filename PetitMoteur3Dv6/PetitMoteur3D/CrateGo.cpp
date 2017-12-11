@@ -30,7 +30,9 @@ namespace PM3D
 				PxRigidDynamic* actor = vpc->GetPxActor();
 				float vitesse = actor->getLinearVelocity().normalize();
 				if (vitesse > CrateTraits<CrateColor>::breaking_speed) {
-					SpawnManager::GetInstance().Spawn<ExplodedBox>(go->GetWorldTransform());
+					PxTransform decalage = go->GetWorldTransform();
+					decalage.p += PxVec3(0, 0, 0);
+					SpawnManager::GetInstance().Spawn<ExplodedBox>(decalage);
 					BlackBoard::GetInstance().AddPoints(CrateTraits<CrateColor>::nb_points);
 					BlackBoard::GetInstance().AddBoost(CrateTraits<CrateColor>::bonus_boost);
 					SpawnManager::GetInstance().Unspawn(go);

@@ -183,10 +183,6 @@
     <ClCompile Include="BillBoardComponentManager.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-
-    <ClCompile Include="AreneGO.cpp">
-      <Filter>Fichiers sources\GameObjects</Filter>
-    </ClCompile>
     <ClCompile Include="TunnelGo.cpp">
       <Filter>Fichiers sources\GameObjects</Filter>
     </ClCompile>
@@ -207,8 +203,14 @@
     </ClCompile>
     <ClCompile Include="GameState.cpp">
       <Filter>Fichiers sources\Menus</Filter>
+    </ClCompile>
     <ClCompile Include="BeamGo.cpp">
       <Filter>Fichiers sources\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="AreneGo.cpp">
+      <Filter>Fichiers sources\GameObjects</Filter>
+    </ClCompile>
+  </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Moteur.h">
       <Filter>Fichiers d%27en-tête</Filter>
@@ -378,10 +380,6 @@
     <ClInclude Include="BillBoardManager.h">
       <Filter>Fichiers d%27en-tête\Manager</Filter>
     </ClInclude>
-
-    <ClInclude Include="AreneGO.h">
-      <Filter>Fichiers d%27en-tête\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="CallBackManager.h">
       <Filter>Fichiers d%27en-tête\Manager</Filter>
     </ClInclude>
@@ -411,9 +409,12 @@
     </ClInclude>
     <ClInclude Include="PauseState.h">
       <Filter>Fichiers d%27en-tête\Menus</Filter>
+    </ClInclude>
     <ClInclude Include="BeamGo.h">
       <Filter>Fichiers d%27en-tête\GameObject</Filter>
-  </ItemGroup>  <ItemGroup>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
     <None Include="PetitMoteur3D.ico">
       <Filter>Fichiers de ressources</Filter>
     </None>

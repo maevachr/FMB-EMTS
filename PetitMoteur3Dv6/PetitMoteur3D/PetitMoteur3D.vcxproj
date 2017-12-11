@@ -111,7 +111,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AnimationManager.cpp" />
-    <ClCompile Include="BeamGo.cpp" />    <ClCompile Include="AreneGO.cpp" />    <ClCompile Include="BillBoardComponentManager.cpp" />
+    <ClCompile Include="AreneGo.cpp" />
+    <ClCompile Include="BeamGo.cpp" />
+    <ClCompile Include="BillBoardComponentManager.cpp" />
     <ClCompile Include="BillBoardManager.cpp" />
     <ClCompile Include="BusGo.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -168,8 +170,9 @@
   <ItemGroup>
     <ClInclude Include="AnimationComponent.h" />
     <ClInclude Include="AnimationManager.h" />
-    <ClInclude Include="AreneGO.h" />
-    <ClInclude Include="BeamGo.h" />    <ClInclude Include="BillBoardComponent.h" />
+    <ClInclude Include="AreneGo.h" />
+    <ClInclude Include="BeamGo.h" />
+    <ClInclude Include="BillBoardComponent.h" />
     <ClInclude Include="BillBoardComponentManager.h" />
     <ClInclude Include="BillBoardManager.h" />
     <ClInclude Include="BlackBoard.h" />
