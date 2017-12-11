@@ -51,8 +51,7 @@ void AreneLimitsGo::OnSpawn(const PxTransform & _transform, GameObject * _parent
 		p->GetMesh("arene");
 	}
 
-	}
-	void AreneGO::OnUnspawn()
+	void AreneGo::OnUnspawn()
 	{
 		GameObject::OnUnspawn();
 
