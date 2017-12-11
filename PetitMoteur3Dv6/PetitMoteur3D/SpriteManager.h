@@ -32,6 +32,7 @@ namespace PM3D
 	protected:
 		ID3D11ShaderResourceView* pTextureD3D;
 		XMMATRIX matPosDim;
+		XMMATRIX matRotation = XMMatrixIdentity();
 		static CSommetSprite sommets[6];
 
 		ID3D11Buffer* pVertexBuffer;
@@ -49,7 +50,9 @@ namespace PM3D
 		~Sprite();
 		void InitEffet();
 		virtual void Draw();
-		// void Rotate( = MatrixIdentity); pour rotate un objet TO DO
+		void Rotate(float angle) {
+			matRotation = XMMatrixRotationZ(angle);
+		}
 	};
 
 	class TextureSprite : public Sprite {
@@ -160,15 +163,18 @@ namespace PM3D
 			GdiplusShutdown(token);
 		}
 
+		CDispositifD3D11* pDispositif;
+
 	public:
 		void Init(CDispositifD3D11* _pDispositif) {
 			InitText();
+			pDispositif = _pDispositif;
 
 			post = new PostEffectSprite(_pDispositif);
 
-			sprite = new TextureSprite{ "test.dds", 50, 50, 50, 50, _pDispositif };
+			sprite = new TextureSprite{ "speedometer.dds", 50, 300, 200, 100, _pDispositif };
 			
-			sprite2 = new TextureSprite{ "test.dds",200, 200, 50, 50, _pDispositif };
+			sprite2 = new TextureSprite{ "needle.dds",50, 150, 100, 100, _pDispositif };
 
 			const FontFamily oFamily(L"Arial", NULL);
 			pPolice = new Font(&oFamily, 60.00, FontStyleBold, UnitPixel);
@@ -192,6 +198,7 @@ namespace PM3D
 		void UpdateSpeedText();
 		void UpdateChronoText();
 		void UpdateBoostText();
+		void RotateNeedle();
 	public:
 		void Draw();
 	};

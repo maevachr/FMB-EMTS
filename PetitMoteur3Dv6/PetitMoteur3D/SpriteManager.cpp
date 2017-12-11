@@ -140,7 +140,9 @@ namespace PM3D
 		// Faire le rendu de tous nos sprites
 		// Initialiser et sélectionner les «constantes» de l'effet
 		ShadersParams sp;
-		sp.matWVP = XMMatrixTranspose(matPosDim);
+
+		sp.matWVP = XMMatrixTranspose(matPosDim * matRotation); // working ?
+
 		pImmediateContext->UpdateSubresource(pConstantBuffer, 0, NULL,
 
 			&sp, 0, 0);
@@ -331,7 +333,7 @@ namespace PM3D
 	void TextSprite::Ecrire(wstring s)
 		{
 			// Effacer
-			pCharGraphics->Clear(Gdiplus::Color(255,0,255,0));
+			pCharGraphics->Clear(Gdiplus::Color(255,255,0,0));
 			// Écrire le nouveau texte
 			pCharGraphics->DrawString(s.c_str(), s.size(), pFont,
 				PointF(0.0f, 0.0f), pBlackBrush);
@@ -370,7 +372,7 @@ namespace PM3D
 
 			D3D11_SUBRESOURCE_DATA InitData; 
 			ZeroMemory( &InitData, sizeof(InitData) ); 
-			InitData.pSysMem = sommets;
+			InitData.pSysMem = sommetsPost;
 			pVertexBuffer = NULL; 
 			
 			DXEssayer(pD3DDevice->CreateBuffer(&bd, &InitData, &pVertexBuffer), DXE_CREATIONVERTEXBUFFER); 
@@ -607,9 +609,18 @@ namespace PM3D
 		boostText->Ecrire({ s.begin(), s.end() });
 	}
 
+	void SpriteManager::RotateNeedle()
+	{
+		sprite2->Rotate(1.0f);
+	}
+
 	void SpriteManager::Draw()
 	{
 		post->Draw();
+
+		//Desactiver Z buffer
+		pDispositif->DesactiverZBuffer();
+		pDispositif->DesactiverCulling();
 
 		sprite->Draw();
 		sprite2->Draw();
@@ -622,6 +633,10 @@ namespace PM3D
 
 		UpdateBoostText();
 		boostText->Draw();
+
+		//Activer Z buffer
+		pDispositif->ActiverZBuffer();
+		pDispositif->ActiverCulling();
 	}
 }
 

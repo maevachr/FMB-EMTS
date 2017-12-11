@@ -271,6 +271,7 @@ namespace PM3D
 		virtual void UpdateGoTransform()
 		{
 			if (isReverse()) {
+				//show sprite
 				if (isRepositioningTime()) {
 					PxTransform newTransform = PxTransform::createIdentity();
 					PxTransform transforTruck = owner->GetTransform();
@@ -280,6 +281,9 @@ namespace PM3D
 					pxActor->setGlobalPose(newTransform);
 					owner->SetTransform(newTransform);
 				}
+			}
+			else {
+				//dont show sprite
 			}
 			physxVehicle.stepPhysics();
 			owner->SetTransform(pxActor->getGlobalPose());
