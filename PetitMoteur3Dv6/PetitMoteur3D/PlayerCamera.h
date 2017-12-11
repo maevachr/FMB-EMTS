@@ -12,7 +12,7 @@ namespace PM3D
 		float * DIST_HORZ;
 		const float HAUTEUR_DEFAULT = 6.0f;
 		const float COEFFELAST_DEFAULT = 0.7f;
-		const float LONGEUR_TARGET_DEFAULT = 10.0f;
+		const float LONGEUR_TARGET_DEFAULT = 5.0f;
 		const float HAUTEUR_TARGET_DEFAULT = 2.0f;
 
 		GameObject* objet;
@@ -38,8 +38,11 @@ namespace PM3D
 		virtual void AnimeCamera(float tempsEcoule) {
 			PxTransform playerTransform = objet->GetTransform();
 			PxVec3 origin = playerTransform.p;    
+			XMVECTOR front = objet->GetDirection();
+			front = XMVectorSetZ(front, 0.f);
+			front = XMVector4Normalize(front);
 			XMFLOAT3 direction;
-			XMStoreFloat3(&direction, decalage.get(objet->GetDirection()));
+			XMStoreFloat3(&direction, decalage.get(front));
 
 			// [in] Ray origin
 			PxVec3 dir = PxVec3{ direction.x, direction.y, direction.z};  
@@ -58,7 +61,8 @@ namespace PM3D
 				position = newPosition + (position - newPosition)*coeffElast;
 			}
 			else {
-				XMVECTOR newPosition = objet->GetPosition() + decalage.get(objet->GetDirection());
+				
+				XMVECTOR newPosition = objet->GetPosition() + decalage.get(front);
 				position = newPosition + (position - newPosition)*coeffElast;
 			}
 		}
