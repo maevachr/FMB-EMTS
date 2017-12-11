@@ -117,8 +117,12 @@ namespace PM3D
 				XMVECTOR vAEcl; 			// la valeur ambiante de l'éclairage
 				XMVECTOR vDEcl; 			// la valeur diffuse de l'éclairage 
 				XMVECTOR vSEcl; 			// la valeur spéculaire de l'éclairage 
+				XMMATRIX matWorldViewProjLights; // WVP pour lumiere
+				XMVECTOR direction;
+				float fov;
+				XMFLOAT3 remplissage;
 			} lights[CLightManager::NB_MAX_LIGHTS];
-			XMMATRIX matWorldViewProjLight; // WVP pour lumiere
+			XMMATRIX matWorldViewProjLight;
 			XMMATRIX matWorldViewProj;	// la matrice totale 
 			XMMATRIX matWorld;			// matrice de transformation dans le monde 
 			XMVECTOR vCamera; 			// la position de la caméra
@@ -128,7 +132,7 @@ namespace PM3D
 			float puissance;			// la puissance de spécularité
 			int bTex;					// Texture ou materiau 
 			int nTex;					// Booléen pour la présence de bump
-			float fatt;					// facteur d'attenuation
+			float maxLightDist;
 		};
 
 	private:

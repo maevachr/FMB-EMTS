@@ -3,17 +3,10 @@
 
 namespace PM3D
 {
-	void CDynamicLight::Init(const XMVECTOR& position_in,
-		const XMVECTOR& ambiante_in,
-		const XMVECTOR& diffuse_in,
-		const XMVECTOR& speculaire_in,
-		float puissance_in) {
-		position = position_in,
-			ambiante = ambiante_in,
-			diffuse = diffuse_in,
-			speculaire = speculaire_in,
-			puissance = puissance_in;
-
+	CDynamicLight::CDynamicLight(GameObject * _owner, const XMVECTOR & position_in, const XMVECTOR & ambiante_in, const XMVECTOR & diffuse_in, const XMVECTOR & speculaire_in, float puissance_in, float fov_in)
+		: CLight(_owner->GetPosition() + position_in, ambiante_in, diffuse_in, speculaire_in, _owner->GetDirection(), puissance_in, fov_in)
+	{
+		owner = _owner;
+		offset = position_in;
 	}
-
 }

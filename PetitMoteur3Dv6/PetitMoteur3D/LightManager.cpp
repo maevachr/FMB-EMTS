@@ -20,50 +20,67 @@ namespace PM3D {
 
 	bool CLightManager::Init()
 	{
-
+		XMVECTOR center = XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f);
 		//Initialize all light
 
-		lights[0] = CLight{};
-		lights[0].Init(XMVectorSet(200.0f, 200.0f, 100.0f, 1.0f),
-			XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f), 
-			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
-			XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f),
-			1.0f);
+		XMVECTOR position = XMVectorSet(-100, -100, 50.f, 1.0f);
 
-		/*lights[1] = CLight{};
-		lights[1].Init(XMVectorSet(100.0f, 100.0f, 20.f, 1.0f),
-			XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f),
+		lights[0] = new CLight(position,
+			XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f), 
+			XMVectorSet(0.3f, 0.3f, 0.3f, 1.0f),
 			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
+			center - position,
+			1.0f,
+			XM_PI / 4.f);
+
+		position = XMVectorSet(100, 100, 50.f, 1.0f);
+
+		lights[1] = new CLight(position,
 			XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f),
-			1.0f);*/
+			XMVectorSet(0.3f, 0.3f, 0.3f, 1.0f),
+			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
+			center - position,
+			1.0f,
+			XM_PI / 4.f);
+
+		position = XMVectorSet(100, -100, 50.f, 1.0f);
+
+		lights[2] = new CLight(position,
+			XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f),
+			XMVectorSet(0.3f, 0.3f, 0.3f, 1.0f),
+			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
+			center - position,
+			1.0f,
+			XM_PI / 4.f);
+
+		position = XMVectorSet(-100, 100, 50.f, 1.0f);
+
+		lights[3] = new CLight(position,
+			XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f),
+			XMVectorSet(0.3f, 0.3f, 0.3f, 1.0f),
+			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
+			center - position,
+			1.0f,
+			XM_PI / 4.f);
 
 		return true;
 	}
 
 	void CLightManager::InitMatricesShadowMap()
 	{
-		//XMVECTOR ownerPosition = SpawnManager::GetInstance().GetPlayer()->GetPosition();
-		XMVECTOR center = { 0,0,0,0 };
+		XMVECTOR center = XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f);
 		for (int i = 0; i < CLightManager::NB_MAX_LIGHTS; ++i) {
 			CLight& currentLight = *CLightManager::GetInstance().getLight(i);
-			XMVECTOR lookat = currentLight.position;
-			lookat = XMVectorSetZ(lookat, 0.0f);
 
-			//Approcher la lumière
-			/*XMVECTOR distance = currentLight.position - ownerPosition;
-			XMVECTOR direction = XMVector4Normalize(distance);
-			float length = XMVectorGetX(XMVector4Length(distance));
-			XMVECTOR lightPosition = ownerPosition + direction * (length > MAX_LIGHT_DIST ? MAX_LIGHT_DIST : length);
-*/
 			// Matrice de la vision vu par la lumière
 			XMMATRIX mVLight = XMMatrixLookAtRH(currentLight.position,
 				center,
-				XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f));
+				XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f));
 
-			float champDeVision = XM_PI / 2; // 90 degrés
-			float ratioDAspect = 1.0f; // 512/512
-			float planRapproche = 2.0; // Pas besoin d'être trop près
-			float planEloigne = MAX_LIGHT_DIST *2; // Suffisemment pour avoir tous les objets
+			float champDeVision = currentLight.fov; // 90 degrés
+			float ratioDAspect = 1.0f; // DIMTEX/DIMTEX
+			float planRapproche = 0.1f; // Pas besoin d'être trop près
+			float planEloigne = MAX_LIGHT_DIST; // Suffisemment pour avoir tous les objets
 
 			XMMATRIX mPLight = XMMatrixPerspectiveFovRH(champDeVision,
 				ratioDAspect,
@@ -72,12 +89,6 @@ namespace PM3D {
 
 			mVPLight[i] = mVLight * mPLight;
 		}
-	}
-
-	void CLightManager::SortByDistance(XMVECTOR position) {
-		std::sort(begin(), end(), [&](CLight light1, CLight light2) ->bool {
-			return XMVectorGetX(XMVector4Length(position - light1.position)) < XMVectorGetX(XMVector4Length(position - light2.position));
-		});
 	}
 
 	void CLightManager::InitShadows(CDispositifD3D11 * _pDispositif)

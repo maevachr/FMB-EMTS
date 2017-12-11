@@ -68,9 +68,6 @@ namespace PM3D
 
 			//Initialisation de physX
 			SimulationManager::GetInstance().InitPhysX();
-			
-			//Initialisation des lumières
-			CLightManager::GetInstance().Init();
 
 			//Initialisation des Mesh de rendu
 			MeshManager::GetInstance().SetMeshes();
@@ -78,6 +75,9 @@ namespace PM3D
 
 			//Initialisation des objets
 			SpawnManager::GetInstance().Init();
+
+			//Initialisation des lumières
+			CLightManager::GetInstance().Init();
 
 			//Initialisation des textures pour les ombres
 			CLightManager::GetInstance().InitShadows(pDispositif);
