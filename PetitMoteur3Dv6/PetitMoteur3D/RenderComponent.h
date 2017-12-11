@@ -28,7 +28,7 @@ namespace PM3D
 			RenderManager::GetInstance().RemoveComponent(this);
 		}
 
-	private:
+	protected:
 		NormalMesh* nm;
 	public:
 		NormalMesh* GetNormalMesh() { return nm; }
@@ -36,10 +36,14 @@ namespace PM3D
 		{
 			nm = MeshManager::GetInstance().GetNormalMesh(name);
 		}
-		void Draw()
-		{
+		virtual void Update() {
 			GetOwner()->UpdateTransform();
+		}
+		virtual void DrawShadows() {
 			nm->DrawShadows(GetOwner()->GetMatWorld());
+		}
+		virtual void Draw()
+		{
 			nm->Draw(GetOwner()->GetMatWorld(), GetOwner()->GetPosition());
 		}
 	};
@@ -75,6 +79,37 @@ namespace PM3D
 		virtual void Draw()
 		{
 			sbm->Draw(GetOwner()->GetMatWorld(), GetOwner()->GetPosition());
+		}
+	};
+
+	class RenderTerrainComponent : public RenderComponent
+	{
+	public:
+		static constexpr char* typeId = "RenderTerrainComponent";
+		virtual const char* GetTypeId() { return typeId; }
+
+	public:
+		virtual void OnAttached(GameObject* _owner) override
+		{
+			owner = _owner;
+			RenderManager::GetInstance().CreateTerrainComponent(this);
+		}
+		virtual void OnDetached() override
+		{
+			owner = nullptr;
+			RenderManager::GetInstance().RemoveTerrainComponent();
+		}
+
+	public:
+		void Update() {
+			GetOwner()->UpdateTransform();
+		}
+		void DrawShadows() {
+			nm->DrawShadows(GetOwner()->GetMatWorld());
+		}
+		void Draw()
+		{
+			nm->Draw(GetOwner()->GetMatWorld(), GetOwner()->GetPosition());
 		}
 	};
 }
