@@ -209,6 +209,9 @@
       <Filter>Fichiers sources\GameObjects</Filter>
 >>>>>>> master
     </ClCompile>
+    <ClCompile Include="AreneGo.cpp">
+      <Filter>Fichiers sources\GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Moteur.h">
@@ -413,6 +416,9 @@
     <ClInclude Include="BeamGo.h">
       <Filter>Fichiers d%27en-tête\GameObject</Filter>
 >>>>>>> master
+    </ClInclude>
+    <ClInclude Include="AreneGo.h">
+      <Filter>Fichiers d%27en-tête\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

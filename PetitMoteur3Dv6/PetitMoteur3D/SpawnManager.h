@@ -11,6 +11,7 @@
 #include "ExplodedBox.h"
 #include "TunnelGo.h"
 #include "BeamGo.h"
+#include "AreneGo.h"
 
 namespace PM3D
 {
@@ -81,6 +82,11 @@ namespace PM3D
 			PxTransform locationBeam = PxTransform::createIdentity();
 			locationBeam.p = PxVec3{ -10, -10, 0 };
 			Spawn<BeamGo>(locationBeam);
+
+			PxTransform locationArene = PxTransform::createIdentity();
+			locationArene.p = PxVec3{ 0, 0, 0 };
+			//rotation de l'arene
+			Spawn<AreneGo>(locationArene);
 		}
 
 		void Update()
