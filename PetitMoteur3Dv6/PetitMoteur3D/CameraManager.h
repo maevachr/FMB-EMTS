@@ -26,7 +26,7 @@ namespace PM3D {
 		XMMATRIX* pMatView;
 		XMMATRIX* pMatProj;
 		XMMATRIX* pMatViewProj;
-		float DIST_HORZ = 20.0;
+		float DIST_HORZ = 15.0f;
 	public:
 
 		XMMATRIX* GetMatProj();
