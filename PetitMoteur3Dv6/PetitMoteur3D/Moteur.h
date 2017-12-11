@@ -18,6 +18,7 @@
 #include "SpriteManager.h"
 #include "BillBoardManager.h"
 #include "BillBoardComponentManager.h"
+#include "BlackBoard.h"
 
 namespace PM3D
 {
@@ -88,18 +89,14 @@ namespace PM3D
 			
 
 			//Initialisation du terrain avec la Mesh chargée
-			PhysicManager::GetInstance().InitTerrainPhysic();
+			PhysicManager::GetInstance().InitStaticComponents();
 
 			//Ajout des acteurs à la simulation
 			PhysicManager::GetInstance().AddActors();
 
-			
-
-			// * Initialisation des matrices de projections
-			InitScene();
-
 			// Initialisation des caméras
-			CCameraManager::GetInstance().Init(&this->matView,
+			CCameraManager::GetInstance().Init(pDispositif, 
+				&this->matView,
 				&this->matProj,
 				&this->matViewProj,
 				SpawnManager::GetInstance().GetPlayer());
@@ -134,6 +131,9 @@ namespace PM3D
 
 				// ON ANIME LA SCENE SI BESOIN
 				AnimeScene(TempsEcoule);
+
+				//On met à jour les informations de chrono et de score
+				BlackBoard::GetInstance().Update(TempsEcoule);
 
 				// On rend l'image sur la surface de travail 
    				// (tampon d'arrière plan)
@@ -197,9 +197,18 @@ namespace PM3D
 					(*It)->Draw();
 			}*/
 
+			// pour le post effect, rendu sur une texture
+			SpriteManager::GetInstance().GetPost()->DebutPostEffect();
+			BeginRenderSceneSpecific();
+
 			CLightManager::GetInstance().ResetShadowTextures(pDispositif);
 			RenderManager::GetInstance().Draw();
 			BillBoardComponentManager::GetInstance().Draw();
+
+			EndRenderSceneSpecific();
+			SpriteManager::GetInstance().GetPost()->FinPostEffect();
+			// post effect fini
+
 			SpriteManager::GetInstance().Draw();
 			
 			EndRenderSceneSpecific();
@@ -227,34 +236,6 @@ namespace PM3D
 				pDispositif = NULL;
 			}
 		}
-
-	virtual int InitScene()
-	{
-		// Initialisation des objets 3D - création et/ou chargement
-		//if (!InitObjets()) return 1;
-	
-		//// Initialisation des matrices View et Proj
-		//// Dans notre cas, ces matrices sont fixes
-		//matView = XMMatrixLookAtRH( XMVectorSet( 0.0f, -150.0f, 50.0f, 1.0f ),
-  //     								XMVectorSet( 0.0f, 0.0f, 0.0f, 1.0f ),
-  //                   				XMVectorSet( 0.0f, 1.0f, 0.0f, 1.0f ) );
-
-		float champDeVision = XM_PI/4; 	// 45 degrés
-		float ratioDAspect = pDispositif->GetLargeur()/pDispositif->GetHauteur();		
-		float planRapproche = 0.05f;
-		float planEloigne = 10000000.0f;
-		
-		matProj = XMMatrixPerspectiveFovRH( 
-									champDeVision,
-									ratioDAspect,
-									planRapproche,
-									planEloigne );
-
-		//// Calcul de VP à l'avance
-		//matViewProj = matView * matProj;
-
-		return 0;
-	}
 
 	bool AnimeScene(float tempsEcoule)
 	{

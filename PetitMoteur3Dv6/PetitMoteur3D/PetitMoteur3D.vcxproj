@@ -151,6 +151,7 @@
     </ClCompile>
     <ClCompile Include="TerrainGo.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TunnelGo.cpp" />
     <ClCompile Include="Vehicle4WCreate.cpp" />
     <ClCompile Include="VehicleCreate.cpp" />
     <ClCompile Include="VehicleFilterShader.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="BillBoardComponent.h" />
     <ClInclude Include="BillBoardComponentManager.h" />
     <ClInclude Include="BillBoardManager.h" />
+    <ClInclude Include="BlackBoard.h" />
     <ClInclude Include="BusGo.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraManager.h" />
@@ -210,6 +212,7 @@
     <ClInclude Include="SimulationManager.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TunnelGo.h" />
     <ClInclude Include="util.h" />
     <ClInclude Include="VehicleCreate.h" />
     <ClInclude Include="VehicleFilterShader.h" />

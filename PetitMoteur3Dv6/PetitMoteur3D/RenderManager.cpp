@@ -11,6 +11,4 @@ void PM3D::RenderManager::Draw()
 	{
 		rc->Draw();
 	});
-	if (rtComponent != nullptr)
-		rtComponent->Draw();
 }

@@ -28,16 +28,35 @@ namespace PM3D {
 		}
 	}
 
+	XMMATRIX* CCameraManager::GetMatProj() { 
+		return pMatProj; 
+	}
 
+	float * CCameraManager::GetpDist() {
+		return &DIST_HORZ;
+	}
 
-	bool CCameraManager::Init(XMMATRIX * pMatView_in,
-		XMMATRIX * pMatProj_in,
-		XMMATRIX * pMatViewProj_in,
+	bool CCameraManager::Init(CDispositifD3D11 * pDispositif,
+		XMMATRIX* MatView,
+		XMMATRIX* MatProj,
+		XMMATRIX* MatViewProj,
 		GameObject* player)
 	{
-		pMatView = pMatView_in;
-		pMatProj = pMatProj_in;
-		pMatViewProj = pMatViewProj_in;
+		pMatView = MatView;
+		pMatProj = MatProj;
+		pMatViewProj = MatViewProj;
+
+		champDeVision = XM_PI / 4; 	// 45 degrés
+		ratioDAspect = pDispositif->GetLargeur() / pDispositif->GetHauteur();
+		planRapproche = 0.05f;
+		planEloigne = 10000000.0f;
+
+		*pMatProj = XMMatrixPerspectiveFovRH(
+			champDeVision,
+			ratioDAspect,
+			planRapproche,
+			planEloigne);
+
 
 		//Initialize all camera
 		std::unique_ptr<CDynamicCamera> dynamicCamera(new CDynamicCamera);
@@ -64,6 +83,7 @@ namespace PM3D {
 			pMatView,
 			pMatProj,
 			pMatViewProj,
+			&DIST_HORZ,
 			player);
 		cameraList[THIRD_PERSON] = move(playerCamera);
 

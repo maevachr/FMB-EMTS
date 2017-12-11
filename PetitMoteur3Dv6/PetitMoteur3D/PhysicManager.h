@@ -9,7 +9,7 @@ using namespace std;
 namespace PM3D
 {
 	class CollidingComponent;
-	class TerrainPhysicComponent;
+	class StaticPhysicComponent;
 
 	class PhysicManager
 	{
@@ -28,18 +28,20 @@ namespace PM3D
 		}
 
 	private:
-		TerrainPhysicComponent* terrain;
+		std::vector<StaticPhysicComponent*> pStaticComponents;
 		std::vector<CollidingComponent*> pComponents;
 		std::vector<CollidingComponent*> pNewComponents;
 
 	public:
-		void CreateTerrain(TerrainPhysicComponent* tc)
+		void CreateStaticComponent(StaticPhysicComponent* sc)
 		{
-			terrain = tc;
+			pStaticComponents.push_back(sc);
 		}
-		void RemoveTerrain()
+		void RemoveStaticComponent(StaticPhysicComponent* pc)
 		{
-			terrain = nullptr;
+			vector<StaticPhysicComponent*>::iterator it = find(pStaticComponents.begin(), pStaticComponents.end(), pc);
+			assert(it != pStaticComponents.end());
+			pStaticComponents.erase(it);
 		}
 		void CreateComponent(CollidingComponent* pc)
 		{
@@ -52,7 +54,7 @@ namespace PM3D
 			pComponents.erase(it);
 		}
 	public:
-		void InitTerrainPhysic();
+		void InitStaticComponents();
 		void AddActors();
 		void UpdateGoTransform();
 	};

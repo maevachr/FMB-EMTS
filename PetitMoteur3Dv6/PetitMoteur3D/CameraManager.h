@@ -26,7 +26,11 @@ namespace PM3D {
 		XMMATRIX* pMatView;
 		XMMATRIX* pMatProj;
 		XMMATRIX* pMatViewProj;
+		float DIST_HORZ = 20.0;
 	public:
+
+		XMMATRIX* GetMatProj();
+		float * GetpDist();
 
 		static CCameraManager& GetInstance() {
 			static CCameraManager singleton;
@@ -43,11 +47,17 @@ namespace PM3D {
 	public:
 		CCamera& GetCurrentCamera() const { return *currentCamera; }
 
-		bool Init(XMMATRIX * pMatView_in,
+		bool Init(CDispositifD3D11 * pDispositif,
+			XMMATRIX * pMatView_in,
 			XMMATRIX * pMatProj_in,
 			XMMATRIX * pMatViewProj_in,
 			GameObject* player);
-	
+
+		float champDeVision;
+		float ratioDAspect;
+		float planRapproche;
+		float planEloigne;
+
 	public:
 		bool AnimeScene(float tempsEcoule) {
 			ParseInput();

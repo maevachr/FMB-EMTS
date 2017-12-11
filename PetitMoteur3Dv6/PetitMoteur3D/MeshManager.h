@@ -162,16 +162,16 @@ namespace PM3D
 
 
 	public:
-		struct TerrainItems {
+		struct MeshData {
 			CSommetMesh* ts;
 			unsigned int* index;
 			int nombreSommets;
 			int nombreIndex;
 		};
 	private:
-		TerrainItems terrainItems;
+		MeshData meshData;
 	public:
-		TerrainItems GetTerrainItems() { return terrainItems; }
+		MeshData GetMeshData() { return meshData; }
 
 	private:
 		std::string file;
@@ -328,6 +328,11 @@ namespace PM3D
 			miniCrate->InitFile("obj_mini_caisse.omb");
 			miniCrate->InitName("miniCrate");
 			nMeshes.push_back(miniCrate);
+
+			NormalMesh* tunnel = new NormalMesh{};
+			tunnel->InitFile("obj_tunnel.omb");
+			tunnel->InitName("tunnel");
+			nMeshes.push_back(tunnel);
 
 			sbMesh = new SkyBoxMesh{};
 

@@ -4,14 +4,20 @@
 
 namespace PM3D
 {
-	void PhysicManager::InitTerrainPhysic()
+	void PhysicManager::InitStaticComponents()
 	{
-		terrain->InitTerrainPhysic();
+		for_each(pStaticComponents.begin(), pStaticComponents.end(), [&](StaticPhysicComponent* spc)
+		{
+			spc->InitTriangleMeshPhysic();
+		});
 	}
 
 	void PhysicManager::AddActors()
 	{
-		terrain->AddActor();
+		for_each(pStaticComponents.begin(), pStaticComponents.end(), [&](StaticPhysicComponent* spc)
+		{
+			spc->AddActor();
+		});
 
 		for_each(pNewComponents.begin(), pNewComponents.end(), [&](CollidingComponent* pc)
 		{

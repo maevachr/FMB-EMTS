@@ -177,6 +177,9 @@
     <ClCompile Include="BillBoardComponentManager.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="TunnelGo.cpp">
+      <Filter>Fichiers sources\GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Moteur.h">
@@ -348,6 +351,12 @@
       <Filter>Fichiers d%27en-tête\Manager</Filter>
     </ClInclude>
     <ClInclude Include="CallBackManager.h">
+      <Filter>Fichiers d%27en-tête\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="TunnelGo.h">
+      <Filter>Fichiers d%27en-tête\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="BlackBoard.h">
       <Filter>Fichiers d%27en-tête\Manager</Filter>
     </ClInclude>
   </ItemGroup>

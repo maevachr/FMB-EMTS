@@ -47,8 +47,8 @@ namespace PM3D
 		DXRelacher(pVertexBuffer);
 		DXRelacher(pVertexLayoutShadow);
 
-		delete[] terrainItems.ts;// a changer, on garde l<information trop longtemps
-		delete[] terrainItems.index;
+		delete[] meshData.ts;// a changer, on garde l<information trop longtemps
+		delete[] meshData.index;
 	}
 
 	void NormalMesh::LireFichierBinaire()
@@ -59,12 +59,12 @@ namespace PM3D
 		// 1. SOMMETS a) Créations des sommets dans un tableau temporaire
 
 
-		fichier.read((char*)&terrainItems.nombreSommets, sizeof(terrainItems.nombreSommets));
+		fichier.read((char*)&meshData.nombreSommets, sizeof(meshData.nombreSommets));
 
-		terrainItems.ts = new CSommetMesh[terrainItems.nombreSommets];
+		meshData.ts = new CSommetMesh[meshData.nombreSommets];
 
 		// 1. SOMMETS b) Lecture des sommets à partir d'un fichier binaire
-		fichier.read((char*)terrainItems.ts, terrainItems.nombreSommets * sizeof(CSommetMesh));
+		fichier.read((char*)meshData.ts, meshData.nombreSommets * sizeof(CSommetMesh));
 
 		// 1. SOMMETS b) Création du vertex buffer et copie des sommets
 		ID3D11Device* pD3DDevice = pDispositif->GetD3DDevice();
@@ -73,13 +73,13 @@ namespace PM3D
 		ZeroMemory(&bd, sizeof(bd));
 
 		bd.Usage = D3D11_USAGE_DEFAULT;
-		bd.ByteWidth = sizeof(CSommetMesh) * terrainItems.nombreSommets;
+		bd.ByteWidth = sizeof(CSommetMesh) * meshData.nombreSommets;
 		bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 		bd.CPUAccessFlags = 0;
 
 		D3D11_SUBRESOURCE_DATA InitData;
 		ZeroMemory(&InitData, sizeof(InitData));
-		InitData.pSysMem = terrainItems.ts;
+		InitData.pSysMem = meshData.ts;
 		pVertexBuffer = NULL;
 
 		DXEssayer(pD3DDevice->CreateBuffer(&bd, &InitData, &pVertexBuffer), DXE_CREATIONVERTEXBUFFER);
@@ -90,20 +90,20 @@ namespace PM3D
 
 		// 2. INDEX 
 
-		fichier.read((char*)&terrainItems.nombreIndex, sizeof(terrainItems.nombreIndex));
+		fichier.read((char*)&meshData.nombreIndex, sizeof(meshData.nombreIndex));
 
-		terrainItems.index = new unsigned int[terrainItems.nombreIndex];
-		fichier.read((char*)terrainItems.index, terrainItems.nombreIndex * sizeof(unsigned int));
+		meshData.index = new unsigned int[meshData.nombreIndex];
+		fichier.read((char*)meshData.index, meshData.nombreIndex * sizeof(unsigned int));
 
 		ZeroMemory(&bd, sizeof(bd));
 
 		bd.Usage = D3D11_USAGE_DEFAULT;
-		bd.ByteWidth = sizeof(unsigned int) * terrainItems.nombreIndex;
+		bd.ByteWidth = sizeof(unsigned int) * meshData.nombreIndex;
 		bd.BindFlags = D3D11_BIND_INDEX_BUFFER;
 		bd.CPUAccessFlags = 0;
 
 		ZeroMemory(&InitData, sizeof(InitData));
-		InitData.pSysMem = terrainItems.index;
+		InitData.pSysMem = meshData.index;
 		pIndexBuffer = NULL;
 
 		DXEssayer(pD3DDevice->CreateBuffer(&bd, &InitData, &pIndexBuffer),

@@ -193,7 +193,7 @@ namespace PM3D
 	{
 		XMFLOAT4 parent;
 		XMStoreFloat4(&parent, ownerPosition);
-			
+
 		// Obtenir le contexte
 		ID3D11DeviceContext* pImmediateContext = pDispositif->GetImmediateContext();
 		// Choisir la topologie des primitives
@@ -221,23 +221,23 @@ namespace PM3D
 
 		auto posCamera = CCameraManager::GetInstance().GetCurrentCamera().GetPosition();
 
-			// Initialiser et sélectionner les «constantes» de l'effet
+		// Initialiser et sélectionner les «constantes» de l'effet
 		ShadersParams sp;
 		XMMATRIX matRot = XMMatrixRotationZ(XMVectorGetZ(XMVector3AngleBetweenVectors(frontVecCamera, normal)));
 		auto mat = XMMatrixScaling(dimension.x, 1.0f, dimension.y)
-				* GetMatrixOrientation(posCamera, parent)
-				* XMMatrixTranslation(position.x + parent.x, position.y + parent.y, position.z + parent.z)
-				* viewProj;
+			* GetMatrixOrientation(posCamera, parent)
+			* XMMatrixTranslation(position.x + parent.x, position.y + parent.y, position.z + parent.z)
+			* viewProj;
 
-			sp.matWVP = XMMatrixTranspose(mat);
-			pImmediateContext->UpdateSubresource(pConstantBuffer, 0, NULL, &sp, 0, 0);
+		sp.matWVP = XMMatrixTranspose(mat);
+		pImmediateContext->UpdateSubresource(pConstantBuffer, 0, NULL, &sp, 0, 0);
 
-			pCB->SetConstantBuffer(pConstantBuffer);
-			// Activation de la texture
-			variableTexture->SetResource(pTextureD3D);
-			pPasse->Apply(0, pImmediateContext);
-			// **** Rendu de l'objet
-			pImmediateContext->Draw(6, 0);
+		pCB->SetConstantBuffer(pConstantBuffer);
+		// Activation de la texture
+		variableTexture->SetResource(pTextureD3D);
+		pPasse->Apply(0, pImmediateContext);
+		// **** Rendu de l'objet
+		pImmediateContext->Draw(6, 0);
 
 		pDispositif->DesactiverMelangeAlpha();
 	}
