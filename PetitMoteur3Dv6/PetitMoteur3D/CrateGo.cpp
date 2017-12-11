@@ -5,9 +5,12 @@
 #include "SpawnManager.h"
 #include "ExplodedBox.h"
 #include "BillBoardComponent.h"
+#include "BlackBoard.h"
 
 namespace PM3D
 {
+
+	template<class CrateColor>
 	class CrateCollisionHandler : public ICollisionHandler
 	{
 	private:
@@ -23,8 +26,17 @@ namespace PM3D
 			auto detect = COLLISION_FLAG_CHASSIS | COLLISION_FLAG_WHEEL;
 			if (other->getSimulationFilterData().word0 & detect)
 			{
-				SpawnManager::GetInstance().Spawn<ExplodedBox>(go->GetWorldTransform());
-				SpawnManager::GetInstance().Unspawn(go);
+				VehiclePhysicComponent* vpc = SpawnManager::GetInstance().GetPlayer()->As<VehiclePhysicComponent>();
+				PxRigidDynamic* actor = vpc->GetPxActor();
+				float vitesse = actor->getLinearVelocity().normalize();
+				if (vitesse > CrateTraits<CrateColor>::breaking_speed) {
+					PxTransform decalage = go->GetWorldTransform();
+					decalage.p += PxVec3(0, 0, 0);
+					SpawnManager::GetInstance().Spawn<ExplodedBox>(decalage);
+					BlackBoard::GetInstance().AddPoints(CrateTraits<CrateColor>::nb_points);
+					BlackBoard::GetInstance().AddBoost(CrateTraits<CrateColor>::bonus_boost);
+					SpawnManager::GetInstance().Unspawn(go);
+				}
 			}
 		}
 
@@ -34,13 +46,21 @@ namespace PM3D
 
 	};
 
-	void CrateGo::OnSpawn(const PxTransform & _transform, GameObject * _parent)
+	template class CrateCollisionHandler<BrownCrate>;
+	template class CrateCollisionHandler<OrangeCrate>;
+	template class CrateCollisionHandler<WhiteCrate>;
+	
+	template class CrateGo<BrownCrate>;
+	template class CrateGo<OrangeCrate>;
+	template class CrateGo<WhiteCrate>;
+
+	template<class CrateColor>
+	void CrateGo<CrateColor>::OnSpawn(const PxTransform & _transform, GameObject * _parent)
 	{
 		GameObject::OnSpawn(_transform, _parent);
 		SpawnManager::GetInstance().AddGameObjects(this);
 
 		//Set GameObjects
-		
 
 		//Set Components
 		//-----RenderComponent
@@ -63,11 +83,12 @@ namespace PM3D
 		centerMass.p = PxVec3(0, 0, 0);
 		d->InitMass(5, centerMass);
 
-		std::unique_ptr<CrateCollisionHandler> handler = std::make_unique<CrateCollisionHandler>(this);
+		std::unique_ptr<CrateCollisionHandler<CrateColor>> handler = std::make_unique<CrateCollisionHandler<CrateColor>>(this);
 		d->SetHandler(std::move(handler));
 	}
 
-	void CrateGo::OnUnspawn()
+	template<class CrateColor>
+	void CrateGo<CrateColor>::OnUnspawn()
 	{
 		GameObject::OnUnspawn();
 
@@ -76,6 +97,5 @@ namespace PM3D
 			delete(go);
 		});
 		children.clear();
-
 	}
 }

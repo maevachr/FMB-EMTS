@@ -144,6 +144,7 @@ namespace PM3D
 		TextSprite* speedText;
 		TextSprite* chronoText;
 		TextSprite* boostText;
+		TextSprite* scoreText;
 
 
 	private:
@@ -151,6 +152,7 @@ namespace PM3D
 		static ULONG_PTR token;
 		wstring str;
 		Gdiplus::Font* pPolice;
+		Gdiplus::Font* pPoliceTitle;
 	private:
 		void InitText()
 		{
@@ -178,6 +180,7 @@ namespace PM3D
 
 			const FontFamily oFamily(L"Arial", NULL);
 			pPolice = new Font(&oFamily, 60.00, FontStyleBold, UnitPixel);
+			pPoliceTitle = new Font(&oFamily, 60.00, FontStyleBold, UnitPixel);
 
 			speedText = new TextSprite(pPolice, 10, 600, 500, 60, _pDispositif);
 			speedText->Ecrire(L"0");
@@ -187,7 +190,12 @@ namespace PM3D
 
 			boostText = new TextSprite(pPolice, 300, 300, 500, 60, _pDispositif);
 			boostText->Ecrire(L"0");
+
+			scoreText = new TextSprite(pPolice, 300, 600, 500, 60, _pDispositif);
+			scoreText->Ecrire(L"0");
 		}
+
+		Font* GetFontTitle() { return pPoliceTitle; }
 
 		void CleanUp()
 		{
@@ -199,6 +207,7 @@ namespace PM3D
 		void UpdateChronoText();
 		void UpdateBoostText();
 		void RotateNeedle();
+		void UpdateScoreText();
 	public:
 		void Draw();
 	};

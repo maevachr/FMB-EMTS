@@ -10,7 +10,8 @@
 #include "MiniCrateGo.h"
 #include "ExplodedBox.h"
 #include "TunnelGo.h"
-#include "BeamGo.h"
+#include "CircusGo.h"
+#include "AreneGo.h"
 
 namespace PM3D
 {
@@ -52,19 +53,19 @@ namespace PM3D
 
 			PxTransform locationCrate = PxTransform::createIdentity();
 			locationCrate.p = PxVec3{ 20, 20, 6 };
-			Spawn<CrateGo>(locationCrate);
+			Spawn<CrateGo<BrownCrate>>(locationCrate);
 
 			PxTransform locationCrate2 = PxTransform::createIdentity();
 			locationCrate2.p = PxVec3{ 40, 20, 6 };
-			Spawn<CrateGo>(locationCrate2);
+			Spawn<CrateGo<BrownCrate>>(locationCrate2);
 
 			PxTransform locationCrate3 = PxTransform::createIdentity();
 			locationCrate3.p = PxVec3{ 60, 20, 6 };
-			Spawn<CrateGo>(locationCrate3);
+			Spawn<CrateGo<BrownCrate>>(locationCrate3);
 
 			PxTransform locationCrate4 = PxTransform::createIdentity();
 			locationCrate4.p = PxVec3{ 80, 20, 6 };
-			Spawn<CrateGo>(locationCrate4);
+			Spawn<CrateGo<BrownCrate>>(locationCrate4);
 
 			PxTransform locationTunnel = PxTransform::createIdentity();
 			locationTunnel.p = PxVec3{ 100, 50, 6 };
@@ -78,9 +79,14 @@ namespace PM3D
 			locationBus.p = PxVec3{ 10, 10, 6 };
 			Spawn<BusGo>(locationBus);
 
-			PxTransform locationBeam = PxTransform::createIdentity();
-			locationBeam.p = PxVec3{ -10, -10, 0 };
-			Spawn<BeamGo>(locationBeam);
+			PxTransform locationCircusGo = PxTransform::createIdentity();
+			locationCircusGo.p = PxVec3{ -10, -10, 0 };
+			Spawn<CircusGo>(locationCircusGo);
+
+			PxTransform locationArene = PxTransform::createIdentity();
+			locationArene.p = PxVec3{ 0, 0, 0 };
+			//rotation de l'arene
+			Spawn<AreneGo>(locationArene);
 		}
 
 		void Update()
