@@ -6,7 +6,7 @@
 
 namespace PM3D
 {
-	void AreneLimitsGo::OnSpawn(const PxTransform & _transform, GameObject * _parent)
+void AreneLimitsGo::OnSpawn(const PxTransform & _transform, GameObject * _parent)
 	{
 		GameObject::OnSpawn(_transform, _parent);
 		SpawnManager::GetInstance().AddGameObjects(this);
@@ -43,6 +43,7 @@ namespace PM3D
 		AreneLimitsGo* t = new AreneLimitsGo();
 		t->OnSpawn(GetTransform(), this);
 		AddChild(t);
+
 
 		//Set Components
 		//-----RenderComponent
