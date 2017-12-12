@@ -33,6 +33,7 @@ GameState::GameState(StateStack& stack, Context context) :
 
 void GameState::draw()
 {
+	//if(mStack->size() == 2)
 	CMoteur<CMoteurWindows, CDispositifD3D11>::GetInstance().drawGame();
 }
 
@@ -52,6 +53,10 @@ bool GameState::update(Time dt)
 	BlackBoard::GetInstance().Update(dt);
 
 	CallBackManager::GetInstance().UpdateTime(dt);
+
+	if (BlackBoard::GetInstance().GetChrono() < 0.0001f) {
+		requestStackPush(States::End);
+	}
 	return true;
 }
 

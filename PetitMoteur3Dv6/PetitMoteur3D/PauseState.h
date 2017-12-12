@@ -11,4 +11,8 @@ public:
 	virtual bool	update(Time dt);
 
 	virtual void	ProcessInput();
+
+private:
+	Sprite			background;
+
 };
