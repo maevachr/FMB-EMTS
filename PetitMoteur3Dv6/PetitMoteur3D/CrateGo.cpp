@@ -35,7 +35,8 @@ namespace PM3D
 					SpawnManager::GetInstance().Spawn<ExplodedBox>(decalage);
 					BlackBoard::GetInstance().AddPoints(CrateTraits<CrateColor>::nb_points);
 					BlackBoard::GetInstance().AddBoost(CrateTraits<CrateColor>::bonus_boost);
-					SpawnManager::GetInstance().Unspawn(go);
+
+						SpawnManager::GetInstance().Unspawn(go);
 				}
 			}
 		}

@@ -131,6 +131,7 @@
     <ClCompile Include="EndState.cpp" />
     <ClCompile Include="ExplodedBox.cpp" />
     <ClCompile Include="FirstPersonCamera.cpp" />
+    <ClCompile Include="FlottingCrateGo.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GestionnaireDeTextures.cpp" />
     <ClCompile Include="InfoDispositif.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="EndState.h" />
     <ClInclude Include="ExplodedBox.h" />
     <ClInclude Include="FirstPersonCamera.h" />
+    <ClInclude Include="FlottingCrateGo.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GestionnaireDeTextures.h" />

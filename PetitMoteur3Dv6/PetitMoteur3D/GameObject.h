@@ -136,7 +136,6 @@ namespace PM3D
 		const PxTransform& GetTransform() const { return transform; }
 		void SetTransform(const PxTransform& t) { 
 			transform = t; 
-			//UpdateTransform();
 		}
 
 		void UpdateTransform() {
@@ -152,7 +151,6 @@ namespace PM3D
 			{
 				PxTransform pTransform = parent->GetWorldTransform();
 				wTransform = pTransform*wTransform;
-				//wTransform = wTransform*pTransform;
 			}
 			return wTransform;
 		}
