@@ -174,15 +174,6 @@
     <ClCompile Include="WheelGo.cpp">
       <Filter>Fichiers sources\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="BillBoardManager.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteManager.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="BillBoardComponentManager.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="TunnelGo.cpp">
       <Filter>Fichiers sources\GameObjects</Filter>
     </ClCompile>
@@ -213,14 +204,23 @@
     <ClCompile Include="ContainerGo.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="SpawnManager.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="FlottingCrateGo.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteManager.cpp">
+      <Filter>Fichiers sources\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="SpawnManager.cpp">
+      <Filter>Fichiers sources\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="BillBoardManager.cpp">
+      <Filter>Fichiers sources\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="BillBoardComponentManager.cpp">
+      <Filter>Fichiers sources\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -380,9 +380,6 @@
     <ClInclude Include="wheelGo.h">
       <Filter>Fichiers d%27en-tête\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteManager.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="BillBoardComponentManager.h">
       <Filter>Fichiers d%27en-tête\Manager\ComponentManager</Filter>
     </ClInclude>
@@ -436,6 +433,9 @@
     </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteManager.h">
+      <Filter>Fichiers d%27en-tête\Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

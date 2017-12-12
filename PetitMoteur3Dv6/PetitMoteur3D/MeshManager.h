@@ -315,6 +315,16 @@ namespace PM3D
 			crateMesh->InitName("crate");
 			nMeshes.push_back(crateMesh);
 
+			NormalMesh* crateMeshOrange = new NormalMesh{};
+			crateMeshOrange->InitFile("obj_crate_orange.omb");
+			crateMeshOrange->InitName("crateOrange");
+			nMeshes.push_back(crateMeshOrange);
+
+			NormalMesh* crateMeshWhite = new NormalMesh{};
+			crateMeshWhite->InitFile("obj_crate_white.omb");
+			crateMeshWhite->InitName("crateWhite");
+			nMeshes.push_back(crateMeshWhite);
+
 			NormalMesh* busMesh = new NormalMesh{};
 			busMesh->InitFile("obj_bus_centre.omb");
 			busMesh->InitName("bus");

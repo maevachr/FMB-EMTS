@@ -66,7 +66,7 @@ namespace PM3D
 		//Set Components
 		//-----RenderComponent
 		RenderComponent* p = CreateComponent<RenderComponent>();
-		p->GetMesh("crate");
+		p->GetMesh(CrateTraits<CrateColor>::fileName);
 
 		//-----BillBoardComponent
 		BillBoardComponent* b = CreateComponent<BillBoardComponent>();

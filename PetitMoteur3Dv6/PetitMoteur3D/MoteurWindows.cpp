@@ -237,7 +237,7 @@ CDispositifD3D11* CMoteurWindows::CreationDispositifSpecific(const CDS_MODE cdsM
 CDispositifD3D11* pDispositif;
 
 	pDispositif = new CDispositifD3D11(cdsMode, hMainWnd);
-
+	
 	return pDispositif;
 
 }
@@ -261,7 +261,6 @@ void CMoteurWindows::BeginRenderSceneSpecific()
 
 void CMoteurWindows::EndRenderSceneSpecific()
 {
-	
 }
 
 

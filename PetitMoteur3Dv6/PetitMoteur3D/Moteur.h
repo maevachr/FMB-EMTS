@@ -69,9 +69,7 @@ namespace PM3D
 		{
 
 			// Propre à la plateforme
-			InitialisationsSpecific();
-
-			
+			InitialisationsSpecific();	
 
 			// * Initialisation du dispositif de rendu
 			pDispositif = CreationDispositifSpecific( CDS_FENETRE );

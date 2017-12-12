@@ -232,8 +232,8 @@ namespace PM3D
 		facteurY = dy*2.0f / pDispositif->GetHauteur();
 		// Position en coordonnées logiques
 		// 0,0 pixel = -1,1
-		x = float(_x);
-		y = float(_y);
+		x = float(_x + _dx/2);
+		y = float(_y + _dy/2);
 		posX = x*2.0f / pDispositif->GetLargeur() - 1.0f;
 		posY = 1.0f - y*2.0f / pDispositif->GetHauteur();
 		matPosDim = XMMatrixScaling(facteurX, facteurY, 1.0f) *
@@ -331,8 +331,8 @@ namespace PM3D
 		float facteurY = dy*2.0f / pDispositif->GetHauteur();
 		// Position en coordonnées logiques
 		// 0,0 pixel = -1,1
-		float x = float(_x);
-		float y = float(_y);
+		float x = float(_x + _dx/2);
+		float y = float(_y + dy/2);
 		float posX = x*2.0f / pDispositif->GetLargeur() - 1.0f;
 		float posY = 1.0f - y*2.0f / pDispositif->GetHauteur();
 		matPosDim = XMMatrixScaling(facteurX, facteurY, 1.0f) *
@@ -342,7 +342,7 @@ namespace PM3D
 	void TextSprite::Ecrire(wstring s)
 	{
 		// Effacer
-		pCharGraphics->Clear(Gdiplus::Color(0, 255, 0, 0));
+		pCharGraphics->Clear(Gdiplus::Color(255, 255, 0, 0));
 		// Écrire le nouveau texte
 		pCharGraphics->DrawString(s.c_str(), s.size(), pFont,
 			PointF(0.0f, 0.0f), pBlackBrush);
@@ -589,6 +589,39 @@ namespace PM3D
 
 
 
+	void SpriteManager::Init(CDispositifD3D11 * _pDispositif)
+	{
+		InitText();
+		pDispositif = _pDispositif;
+
+		largeur = pDispositif->GetLargeur();
+		hauteur = pDispositif->GetHauteur();
+
+		post = new PostEffectSprite(_pDispositif);
+
+		speedometer = new TextureSprite{ "speedometer.dds",largeurPercent(0.02f), hauteurPercent(0.80f), 200, 100, _pDispositif };
+
+		needle = new TextureSprite{ "needle.dds",largeurPercent(0.02f) + 25,  hauteurPercent(0.80f) + 10, 150, 150, _pDispositif };
+		RotateNeedle(XM_PI / 2);
+
+		const FontFamily oFamily(L"Arial", NULL);
+		pPolice = new Font(&oFamily, 60.00, FontStyleBold, UnitPixel);
+		pPoliceTitle = new Font(&oFamily, 60.00, FontStyleBold, UnitPixel);
+
+		pPoliceSpeed = new Font(&oFamily, hauteurPercent(0.05f), FontStyleBold, UnitPixel);
+		speedText = new TextSprite(pPoliceSpeed, largeurPercent(0.02f), hauteurPercent(0.95f), largeurPercent(0.15f), hauteurPercent(0.08f), _pDispositif);
+		speedText->Ecrire(L"0");
+
+		chronoText = new TextSprite(pPolice, largeurPercent(0.5f) - 70, hauteurPercent(0.10f), 140, 60, _pDispositif);
+		chronoText->Ecrire(L"0");
+
+		boostText = new TextSprite(pPoliceSpeed, largeurPercent(0.90f), hauteurPercent(0.95f), largeurPercent(0.15f), hauteurPercent(0.08f), _pDispositif);
+		boostText->Ecrire(L"0");
+
+		scoreText = new TextSprite(pPolice, largeurPercent(0.90f) - 70, hauteurPercent(0.05f), 170, 60, _pDispositif);
+		scoreText->Ecrire(L"0");
+	}
+
 	void SpriteManager::UpdateSpeedText()
 	{
 		VehiclePhysicComponent* vpc = SpawnManager::GetInstance().GetPlayer()->As<VehiclePhysicComponent>();
@@ -596,7 +629,7 @@ namespace PM3D
 		float vitesse = actor->getLinearVelocity().normalize();
 		int unit = vitesse;
 		int decimal = static_cast<int>((vitesse - unit) * 10.f);
-		string s = "Vitesse : " + to_string(unit) + "." + to_string(decimal);
+		string s = to_string(unit) + "." + to_string(decimal);
 		speedText->Ecrire({ s.begin(), s.end() });
 	}
 
@@ -607,26 +640,26 @@ namespace PM3D
 		int decimal1 = static_cast<int>(time) % 60 / 10;
 		int decimal2 = static_cast<int>(time) % 60 % 10;
 
-		string s = "Chrono : " + to_string(unit) + ":" + to_string(decimal1) + to_string(decimal2);
+		string s = to_string(unit) + ":" + to_string(decimal1) + to_string(decimal2);
 		chronoText->Ecrire({ s.begin(), s.end() });
 	}
 
 	void SpriteManager::UpdateBoostText()
 	{
 		int boost = static_cast<int>(BlackBoard::GetInstance().GetBoost());
-		string s = "Boost : " + to_string(boost);
+		string s = to_string(boost);
 		boostText->Ecrire({ s.begin(), s.end() });
 	}
 
 	void SpriteManager::RotateNeedle(float angle)
 	{
-		sprite2->Rotate(angle);
+		needle->Rotate(angle);
 	}
 
 	void SpriteManager::UpdateScoreText()
 	{
 		int score = BlackBoard::GetInstance().GetScore();
-		string s = "Score : " + to_string(score);
+		string s = to_string(score /1000 % 10) + to_string(score /100 % 10) + to_string(score /10 % 10) + to_string(score % 10);
 		scoreText->Ecrire({ s.begin(), s.end() });
 	}
 
@@ -638,7 +671,7 @@ namespace PM3D
 		pDispositif->DesactiverZBuffer();
 		pDispositif->DesactiverCulling();
 
-		sprite->Draw();
+		speedometer->Draw();
 
 		//GetVitesse
 		VehiclePhysicComponent* vpc = SpawnManager::GetInstance().GetPlayer()->As<VehiclePhysicComponent>();
@@ -646,7 +679,7 @@ namespace PM3D
 		float vitesse = actor->getLinearVelocity().normalize();
 		
 		RotateNeedle(-XM_PI/100 * vitesse + XM_PI/2 );
-		sprite2->Draw();
+		needle->Draw();
 
 		UpdateSpeedText();
 		speedText->Draw();

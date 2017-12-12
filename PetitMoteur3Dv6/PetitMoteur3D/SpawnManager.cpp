@@ -22,7 +22,7 @@ namespace PM3D{
 
 		PxTransform locationCrate2 = PxTransform::createIdentity();
 		locationCrate2.p = PxVec3{ 40, 20, 6 };
-		Spawn<CrateGo<BrownCrate>>(locationCrate2);
+		Spawn<CrateGo<WhiteCrate>>(locationCrate2);
 
 		PxTransform locationCrate3 = PxTransform::createIdentity();
 		locationCrate3.p = PxVec3{ 60, 20, 6 };
@@ -30,7 +30,7 @@ namespace PM3D{
 
 		PxTransform locationCrate4 = PxTransform::createIdentity();
 		locationCrate4.p = PxVec3{ 80, 20, 6 };
-		Spawn<CrateGo<BrownCrate>>(locationCrate4);
+		Spawn<CrateGo<OrangeCrate>>(locationCrate4);
 
 		PxTransform locationTunnel = PxTransform::createIdentity();
 		locationTunnel.p = PxVec3{ 100, 50, 6 };

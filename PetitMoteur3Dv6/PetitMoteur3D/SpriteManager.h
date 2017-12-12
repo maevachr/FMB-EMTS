@@ -158,10 +158,12 @@ namespace PM3D
 	private:
 
 		PostEffectSprite* post;
-		TextureSprite* sprite;
-		TextureSprite* sprite2;
+		TextureSprite* speedometer;
+		TextureSprite* needle;
 
+		Gdiplus::Font*pPoliceSpeed;
 		TextSprite* speedText;
+
 		TextSprite* chronoText;
 		TextSprite* boostText;
 		TextSprite* scoreText;
@@ -186,41 +188,25 @@ namespace PM3D
 		}
 
 		CDispositifD3D11* pDispositif;
-
+		float largeur;
+		float hauteur;
 	public:
-		void Init(CDispositifD3D11* _pDispositif) {
-			InitText();
-			pDispositif = _pDispositif;
 
-			post = new PostEffectSprite(_pDispositif);
-
-			sprite = new TextureSprite{ "speedometer.dds", 50, 300, 200, 100, _pDispositif };
-			
-			sprite2 = new TextureSprite{ "needle.dds",50, 150, 100, 100, _pDispositif };
-			RotateNeedle(XM_PI / 2);
-
-			const FontFamily oFamily(L"Arial", NULL);
-			pPolice = new Font(&oFamily, 60.00, FontStyleBold, UnitPixel);
-			pPoliceTitle = new Font(&oFamily, 60.00, FontStyleBold, UnitPixel);
-
-			speedText = new TextSprite(pPolice, 10, 600, 500, 60, _pDispositif);
-			speedText->Ecrire(L"0");
-
-			chronoText = new TextSprite(pPolice, 600, 300, 500, 60, _pDispositif);
-			chronoText->Ecrire(L"0");
-
-			boostText = new TextSprite(pPolice, 300, 300, 500, 60, _pDispositif);
-			boostText->Ecrire(L"0");
-
-			scoreText = new TextSprite(pPolice, 300, 600, 500, 60, _pDispositif);
-			scoreText->Ecrire(L"0");
+		int largeurPercent(float percent) {
+			return static_cast<int>(largeur * percent);
 		}
+
+		int hauteurPercent(float percent) {
+			return static_cast<int>(hauteur * percent);
+		}
+
+		void Init(CDispositifD3D11* _pDispositif);
 
 		Font* GetFontTitle() { return pPoliceTitle; }
 
 		void CleanUp()
 		{
-			delete sprite;
+			delete speedometer;
 			CloseText();
 		}
 	private:
