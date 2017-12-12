@@ -645,4 +645,116 @@ namespace PM3D
 		pDispositif->ActiverCulling();
 		pDispositif->ActiverZBuffer();
 	}
+	void MeshManager::SetMeshes()
+	{
+		
+		NormalMesh* monsterMesh = new NormalMesh{};
+		monsterMesh->InitFile("monster_LH.omb");
+		monsterMesh->InitName("monster");
+		nMeshes.push_back(monsterMesh);
+
+		NormalMesh* monsterChassisMesh = new NormalMesh{};
+		monsterChassisMesh->InitFile("obj_chassis_1.omb");
+		monsterChassisMesh->InitName("monsterChassis");
+		nMeshes.push_back(monsterChassisMesh);
+
+		NormalMesh* monsterWheelMesh = new NormalMesh{};
+		monsterWheelMesh->InitFile("obj_wheel.omb");
+		monsterWheelMesh->InitName("monsterWheel");
+		nMeshes.push_back(monsterWheelMesh);
+
+		NormalMesh* crateMesh = new NormalMesh{};
+		crateMesh->InitFile("obj_crate_scale_1m3.omb");
+		crateMesh->InitName("crate");
+		nMeshes.push_back(crateMesh);
+
+		NormalMesh* crateMeshOrange = new NormalMesh{};
+		crateMeshOrange->InitFile("obj_crate_orange.omb");
+		crateMeshOrange->InitName("crateOrange");
+		nMeshes.push_back(crateMeshOrange);
+
+		NormalMesh* crateMeshWhite = new NormalMesh{};
+		crateMeshWhite->InitFile("obj_crate_white.omb");
+		crateMeshWhite->InitName("crateWhite");
+		nMeshes.push_back(crateMeshWhite);
+
+		NormalMesh* busMesh = new NormalMesh{};
+		busMesh->InitFile("obj_bus_centre.omb");
+		busMesh->InitName("bus");
+		nMeshes.push_back(busMesh);
+
+		NormalMesh* terrainMesh = new NormalMesh{};
+		terrainMesh->InitFile("obj_Terrain_bumpy.omb");
+		terrainMesh->InitName("terrain");
+		nMeshes.push_back(terrainMesh);
+
+		NormalMesh* miniCrate = new NormalMesh{};
+		miniCrate->InitFile("obj_mini_crate_3x3.omb");
+		miniCrate->InitName("miniCrate");
+		nMeshes.push_back(miniCrate);
+
+		NormalMesh* tunnel = new NormalMesh{};
+		tunnel->InitFile("obj_tunnel.omb");
+		tunnel->InitName("tunnel");
+		nMeshes.push_back(tunnel);
+
+		NormalMesh* beam = new NormalMesh{};
+		beam->InitFile("obj_Beam.omb");
+		beam->InitName("beam");
+		nMeshes.push_back(beam);
+
+		NormalMesh* anneau = new NormalMesh{};
+		anneau->InitFile("obj_Anneau.omb");
+		anneau->InitName("anneau");
+		nMeshes.push_back(anneau);
+
+		NormalMesh* arene = new NormalMesh{};
+		arene->InitFile("arene.omb");
+		arene->InitName("arene");
+		nMeshes.push_back(arene);
+
+		NormalMesh* areneLimits = new NormalMesh{};
+		areneLimits->InitFile("areneMur.omb");
+		areneLimits->InitName("areneLimits");
+		nMeshes.push_back(areneLimits);
+
+		NormalMesh* container = new NormalMesh{};
+		container->InitFile("obj_container.omb");
+		container->InitName("container");
+		nMeshes.push_back(container);
+
+		NormalMesh* roues = new NormalMesh{};
+		roues->InitFile("roues.omb");
+		roues->InitName("roues");
+		nMeshes.push_back(roues);
+
+		sbMesh = new SkyBoxMesh{};
+
+		
+	}
+	void MeshManager::InitMeshes(CDispositifD3D11 * _pDispositif)
+	{
+		if (sbMesh != nullptr)
+			sbMesh->InitMeshes(_pDispositif);
+		std::for_each(std::begin(nMeshes), std::end(nMeshes), [&_pDispositif](NormalMesh* nm)
+		{
+			nm->InitMeshes(_pDispositif);
+		});
+	}
+	void MeshManager::CleanUp()
+	{
+		delete sbMesh;
+		std::for_each(std::begin(nMeshes), std::end(nMeshes), [](NormalMesh* nm)
+		{
+			delete nm;
+		});
+	}
+	NormalMesh * MeshManager::GetNormalMesh(const char * name)
+	{
+		std::vector<NormalMesh*>::iterator it = find_if(begin(nMeshes), end(nMeshes), [&](NormalMesh* nm) -> bool {
+			return nm->GetName() == name;
+		});
+		assert(it != nMeshes.end());
+		return *it;
+	}
 }

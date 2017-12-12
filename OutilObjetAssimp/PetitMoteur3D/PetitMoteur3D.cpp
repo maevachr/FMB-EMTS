@@ -30,14 +30,14 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		CChargeurAssimp chargeur;
 		CParametresChargement param;
 
-		param.NomChemin = ".\\modeles\\Objets\\Container\\"; 
+		param.NomChemin = ".\\modeles\\Objets\\Roues\\"; 
 
-		param.NomFichier = "Cargo_container_02.obj";		
+		param.NomFichier = "Roues.obj";		
 		param.bMainGauche = false;
 		param.bInverserCulling = true;
 
 		chargeur.Chargement(param);  // Le chargeur lit le fichier
-		s.EcrireFichierBinaire(chargeur, "obj_container.omb");
+		s.EcrireFichierBinaire(chargeur, "obj_roues.omb");
 		return (int)1;
     }
 
