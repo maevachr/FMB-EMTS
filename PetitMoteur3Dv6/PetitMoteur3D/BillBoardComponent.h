@@ -30,6 +30,7 @@ namespace PM3D
 
 	private:
 		BillBoard* b;
+		int index = 0;;
 	public:
 		BillBoard* GetBillBoard() { return b; }
 		void GetBillBoard(const char* name)
@@ -40,7 +41,8 @@ namespace PM3D
 
 		virtual void Draw()
 		{
-			b->Draw(GetOwner()->GetPosition());
+			b->Draw(GetOwner()->GetPosition(), index++);
+			if (index == b->GetFramesAmount()) index = 0;
 		}
 	};
 }

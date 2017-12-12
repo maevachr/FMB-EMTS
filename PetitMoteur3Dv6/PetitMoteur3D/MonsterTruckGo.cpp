@@ -7,6 +7,7 @@
 #include "PhysxVehicle.h"
 #include "wheelGo.h"
 #include "BlackBoard.h"
+#include "BillBoardComponent.h"
 
 namespace PM3D
 {
@@ -30,6 +31,10 @@ namespace PM3D
 			t->OnSpawn(trans, this);
 			AddChild(t);
 		}
+
+		//-----BillBoardComponent
+		BillBoardComponent* b = CreateComponent<BillBoardComponent>();
+		b->GetBillBoard("fire");
 
 		//-----DynamicPhysicComponent
 		VehiclePhysicComponent* d = CreateComponent<VehiclePhysicComponent>();
@@ -104,6 +109,7 @@ namespace PM3D
 			if (*pDist < 80.0) {
 				*pDist += 0.3;
 			}
+			
 		}
 		else
 		{
@@ -121,7 +127,7 @@ namespace PM3D
 					camM.planRapproche,
 					camM.planEloigne);
 			}
-			if (*pDist > 20.0) {
+			if (*pDist > 15.f) {
 				*pDist -= 0.5;
 			}
 		}

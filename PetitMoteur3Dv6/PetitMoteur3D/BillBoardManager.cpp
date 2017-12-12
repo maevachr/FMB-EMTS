@@ -56,7 +56,7 @@ namespace PM3D
 		return matRotation;
 	}
 
-	BillBoard::BillBoard(CDispositifD3D11 * _pDispositif, string NomTexture, const XMFLOAT3 & _position, int _dx, int _dy, GameObject * go)
+	BillBoard::BillBoard(CDispositifD3D11 * _pDispositif, vector<string> NomTexture, const XMFLOAT3 & _position, int _dx, int _dy, GameObject * go)
 	{
 		pVertexBuffer = 0;
 		pConstantBuffer = 0;
@@ -87,15 +87,18 @@ namespace PM3D
 		// Initialisation de la texture
 		CGestionnaireDeTextures& TexturesManager = CGestionnaireDeTextures::GetInstance();
 		wstring ws;
-		ws.assign(NomTexture.begin(), NomTexture.end());
 
-		pTextureD3D = TexturesManager.GetNewTexture(ws.c_str(), pDispositif)->GetD3DTexture();
+		for (const auto& t : NomTexture) {
+			ws.assign(t.begin(), t.end());
+			pTextureD3D.push_back(TexturesManager.GetNewTexture(ws.c_str(), pDispositif)->GetD3DTexture());
+		}
+		
 		// Obtenir la dimension de la texture si _dx et _dy sont à 0;
 		if (_dx == 0.0f && _dy == 0.0f)
 		{
 			ID3D11Resource* pResource;
 			ID3D11Texture2D *pTextureInterface = 0;
-			pTextureD3D->GetResource(&pResource);
+			pTextureD3D.front()->GetResource(&pResource);
 			pResource->QueryInterface<ID3D11Texture2D>(&pTextureInterface);
 			D3D11_TEXTURE2D_DESC desc;
 			pTextureInterface->GetDesc(&desc);
@@ -189,7 +192,7 @@ namespace PM3D
 		pD3DDevice->CreateSamplerState(&samplerDesc, &pSampleState);
 	}
 
-	void BillBoard::Draw(XMVECTOR ownerPosition)
+	void BillBoard::Draw(XMVECTOR ownerPosition, int animationFrame)
 	{
 		XMFLOAT4 parent;
 		XMStoreFloat4(&parent, ownerPosition);
@@ -233,13 +236,15 @@ namespace PM3D
 		pImmediateContext->UpdateSubresource(pConstantBuffer, 0, NULL, &sp, 0, 0);
 
 		pCB->SetConstantBuffer(pConstantBuffer);
+
 		// Activation de la texture
-		variableTexture->SetResource(pTextureD3D);
+		variableTexture->SetResource(pTextureD3D[animationFrame]);
 		pPasse->Apply(0, pImmediateContext);
 		// **** Rendu de l'objet
 		pImmediateContext->Draw(6, 0);
-
+		
 		pDispositif->DesactiverMelangeAlpha();
+
 	}
 
 }
