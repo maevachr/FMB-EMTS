@@ -144,7 +144,6 @@ namespace PM3D
 		variableTexture =
 			pEffet->GetVariableByName("textureEntree")->AsShaderResource();
 		pDispositif->ActiverMelangeAlpha();
-		// Faire le rendu de tous nos sprites
 		// Initialiser et sélectionner les «constantes» de l'effet
 		ShadersParams sp;
 
@@ -200,6 +199,9 @@ namespace PM3D
 		float x, y, dx, dy;
 		float posX, posY;
 		float facteurX, facteurY;
+
+		TexSize[0] = _dx;
+		TexSize[1] = _dy;
 
 		// Initialisation de la texture
 		CGestionnaireDeTextures& TexturesManager = CGestionnaireDeTextures::GetInstance();
