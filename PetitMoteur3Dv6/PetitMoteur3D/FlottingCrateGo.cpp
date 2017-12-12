@@ -12,7 +12,7 @@ namespace PM3D
 
 		PlateformePhysicComponent* d = CreateComponent<PlateformePhysicComponent>();
 		PxPhysics &physics = SimulationManager::GetInstance().physics();
-		physx::unique_ptr<PxMaterial> material = physx::unique_ptr<PxMaterial>(physics.createMaterial(1000.0f, 1000.0f, 0.0f));
+		physx::unique_ptr<PxMaterial> material = physx::unique_ptr<PxMaterial>(physics.createMaterial(10000.0f, 10000.0f, 0.0f));
 		d->InitData(PxBoxGeometry(PxVec3(0.5, 0.5, 0.1)), move(material));
 	}
 

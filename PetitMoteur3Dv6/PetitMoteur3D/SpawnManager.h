@@ -14,6 +14,7 @@
 #include "AreneGo.h"
 #include "ContainerGo.h"
 #include "FlottingCrateGo.h"
+
 namespace PM3D
 {
 	class WorldGo;
@@ -44,12 +45,17 @@ namespace PM3D
 		void Update();
 		void CleanUp();
 
+		template<class T>
+		void Spawn(const PxTransform& transform = PxTransform::createIdentity())
+		{
+			T* t = new T();
+			t->OnSpawn(transform);
+		}
+
+
 		void AddGameObjects(GameObject* go) {
 			existingGameObjects.push_back(go);
 		}
-
-		template<class T>
-		void Spawn(const PxTransform& transform = PxTransform::createIdentity());
 		
 		void Unspawn(GameObject* go);
 
@@ -60,12 +66,5 @@ namespace PM3D
 		std::vector<GameObject*> GetAll() {
 			return existingGameObjects;
 		}
-	};
-
-	template<class T>
-	inline void SpawnManager::Spawn(const PxTransform & transform)
-	{
-		T* t = new T();
-		t->OnSpawn(transform);
-	}
+	};	
 }

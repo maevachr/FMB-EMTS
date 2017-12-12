@@ -41,7 +41,7 @@ void AreneLimitsGo::OnSpawn(const PxTransform & _transform, GameObject * _parent
 
 		//Set GameObjects
 		AreneLimitsGo* t = new AreneLimitsGo();
-		t->OnSpawn(GetTransform(), this);
+		t->OnSpawn(GetTransform(), nullptr);
 		AddChild(t);
 
 

@@ -1,9 +1,10 @@
 #include "stdafx.h"
 #include "SpawnManager.h"
+
 namespace PM3D{
+
 	void SpawnManager::Init()
 	{
-	
 		//Initialisation du Monde
 
 		//Always put MonsterTruckGo first
@@ -35,10 +36,6 @@ namespace PM3D{
 		locationTunnel.p = PxVec3{ 100, 50, 6 };
 		Spawn<TunnelGo>(locationTunnel);
 
-		// 			PxTransform explodedBox = PxTransform::createIdentity();
-		// 			explodedBox.p = PxVec3{ 30, 20, 6 };
-		// 			Spawn<ExplodedBox>(explodedBox);
-
 		PxTransform locationBus = PxTransform::createIdentity();
 		locationBus.p = PxVec3{ 10, 10, 6 };
 		Spawn<BusGo>(locationBus);
@@ -46,6 +43,10 @@ namespace PM3D{
 		PxTransform locationCircusGo = PxTransform::createIdentity();
 		locationCircusGo.p = PxVec3{ -10, -10, 0 };
 		Spawn<CircusGo>(locationCircusGo);
+
+		PxTransform locationFlottingCrateGo = PxTransform::createIdentity();
+		locationFlottingCrateGo.p = PxVec3{ -10, -10, 11 };
+		Spawn<FlottingCrateGo<BrownCrate>>(locationFlottingCrateGo);
 
 		PxTransform locationArene = PxTransform::createIdentity();
 		locationArene.p = PxVec3{ 0, 0, 8 };
