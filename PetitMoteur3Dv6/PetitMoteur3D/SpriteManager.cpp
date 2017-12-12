@@ -52,6 +52,8 @@ namespace PM3D
 	struct ShadersParams
 	{
 		XMMATRIX matWVP; // la matrice totale
+		XMFLOAT2 coordTextHG;
+		XMFLOAT2 coordTextBD;
 	};
 
 	void Sprite::InitEffet()
@@ -148,7 +150,8 @@ namespace PM3D
 		ShadersParams sp;
 
 		sp.matWVP = XMMatrixTranspose(matRotation*matPosDim ); 
-
+		sp.coordTextHG = XMFLOAT2{ mTextRect.left, mTextRect.top };
+		sp.coordTextBD = XMFLOAT2{ mTextRect.width, mTextRect.height };
 		pImmediateContext->UpdateSubresource(pConstantBuffer, 0, NULL,
 
 			&sp, 0, 0);

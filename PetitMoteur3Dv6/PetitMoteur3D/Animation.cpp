@@ -110,5 +110,5 @@ void Animation::update(Time dt)
 
 void Animation::Draw() const
 {
-
+	pSprite->Draw();
 }

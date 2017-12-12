@@ -6,7 +6,7 @@ class Animation
 {
 public:
 	using Time = float;
-	using FrameSize = std::array<int, 2>;
+	using FrameSize = std::array<float, 2>;
 
 public:
 	 						Animation(PM3D::TextureSprite* texture);
