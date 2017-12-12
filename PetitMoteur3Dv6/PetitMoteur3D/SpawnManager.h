@@ -13,7 +13,7 @@
 #include "CircusGo.h"
 #include "AreneGo.h"
 #include "ContainerGo.h"
-#include "RouesGo.h"
+#include "TiresGo.h"
 #include "FlottingCrateGo.h"
 
 namespace PM3D

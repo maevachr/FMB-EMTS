@@ -5,7 +5,7 @@ using namespace physx;
 
 namespace PM3D
 {
-	class RouesGo : public GameObject
+	class TiresGo : public GameObject
 	{
 	private:
 		static constexpr char* typeId = "BusGo";

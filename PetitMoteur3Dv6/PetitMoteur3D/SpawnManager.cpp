@@ -63,8 +63,8 @@ namespace PM3D{
 		Spawn<ContainerGo>(locationContainer);
 
 		PxTransform locationRoues = PxTransform::createIdentity();
-		locationRoues.p = PxVec3{ -30, 20, 5 };
-		Spawn<RouesGo>(locationRoues);
+		locationRoues.p = PxVec3{ -30, 20, 0 };
+		Spawn<TiresGo>(locationRoues);
 	
 	}
 	void SpawnManager::Update()

@@ -144,9 +144,6 @@
     <ClCompile Include="AnimationManager.cpp">
       <Filter>Fichiers sources\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="MeshManager.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="MiniCrateGo.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -210,20 +207,23 @@
     <ClCompile Include="SpawnManager.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="RouesGo.cpp">
-      <Filter>Fichiers sources\GameObjects</Filter>
-    </ClCompile>
     <ClCompile Include="CircusGo.cpp">
       <Filter>Fichiers sources\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="ContainerGo.cpp">
       <Filter>Fichiers sources\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="FlottingCrateGo.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="MeshManager.cpp">
+      <Filter>Fichiers sources\Manager</Filter>
     </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="FlottingCrateGo.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="TiresGo.cpp">
+      <Filter>Fichiers sources\GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -428,19 +428,19 @@
     <ClInclude Include="AreneGo.h">
       <Filter>Fichiers d%27en-tête\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="CircusGo.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
     <ClInclude Include="ContainerGo.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="FlottingCrateGo.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="CircusGo.h">
-      <Filter>Fichiers d%27en-tête\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Animation.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="RouesGo.h">
+    <ClInclude Include="TiresGo.h">
       <Filter>Fichiers d%27en-tête\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
