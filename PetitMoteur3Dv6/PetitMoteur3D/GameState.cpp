@@ -66,11 +66,6 @@ void GameState::ProcessInput()
 {
 	auto pGestionnaireDeSaisie = InputManager::GetInstance().GetDIManipulateur();
 
-	////Retour menu
-	//if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_ESCAPE)) {
-	//	requestStackPop();
-	//}
-
 	//Pause
 	if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_P)) {
 		requestStackPush(States::Pause);

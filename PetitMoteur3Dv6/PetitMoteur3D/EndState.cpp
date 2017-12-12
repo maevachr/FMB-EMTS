@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "EndState.h"
 
+
+
 using namespace PM3D;
 
 EndState::EndState(StateStack& stack, Context context)
@@ -26,6 +28,6 @@ void EndState::ProcessInput()
 	auto pGestionnaireDeSaisie = InputManager::GetInstance().GetDIManipulateur();
 
 	if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_Q)) {
-		//Quit;
+		PostQuitMessage(0);
 	}
 }

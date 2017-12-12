@@ -262,7 +262,6 @@ namespace PM3D
 				SpriteManager::GetInstance().Draw();
 		}
 
-
 	protected:
 		// Variables pour le temps de l'animation
 		__int64 TempsSuivant;

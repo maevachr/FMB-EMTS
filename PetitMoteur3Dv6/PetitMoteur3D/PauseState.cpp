@@ -34,6 +34,7 @@ void PauseState::ProcessInput()
 
 	//Quit Game
 	if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_Q)) {
-		//requestStackPop();
+		//CMoteur<CMoteurWindows, CDispositifD3D11>::GetInstance().StopGame();
+		PostQuitMessage(0);
 	}
 }
