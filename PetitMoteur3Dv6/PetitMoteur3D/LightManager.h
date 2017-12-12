@@ -11,9 +11,9 @@ namespace PM3D {
 	class CLightManager
 	{
 	public:
-		static const size_t NB_MAX_LIGHTS = 4;
+		static const size_t NB_MAX_LIGHTS = 5;
 		static const int SHADOWMAP_DIM = 2048;
-		static const int MAX_LIGHT_DIST = 500;
+		static const int MAX_LIGHT_DIST = 1000;
 		XMMATRIX mVPLight[NB_MAX_LIGHTS];
 
 		ID3D11Texture2D* pTextureShadowMap[NB_MAX_LIGHTS]; // Texture pour le shadow map

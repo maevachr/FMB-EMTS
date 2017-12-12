@@ -1,4 +1,4 @@
-#define NB_LIGHTS 4
+#define NB_LIGHTS 5
 
 cbuffer param
 { 
