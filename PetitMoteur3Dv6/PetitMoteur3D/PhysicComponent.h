@@ -55,6 +55,77 @@ namespace PM3D
 		virtual void UpdateGoTransform() {};
 	};
 
+
+	class PlateformePhysicComponent : public CollidingComponent
+	{
+	private:
+		GameObject* owner;
+	public:
+		virtual GameObject* GetOwner() const { return owner; }
+
+	public:
+		virtual void OnAttached(GameObject* _owner) override
+		{
+			owner = _owner;
+			PhysicManager::GetInstance().CreateComponent(this);
+		}
+		virtual void OnDetached() override
+		{
+			owner = nullptr;
+			pxActor->release();
+			PhysicManager::GetInstance().RemoveComponent(this);
+		}
+	private:
+		physx::unique_ptr<PxMaterial> material;
+		PxShape* actorShape;
+		PxRigidDynamic *pxActor;
+	public:
+		physx::PxRigidDynamic * GetActor() { return pxActor; }
+		void AddActor() override
+		{
+			pxActor->userData = static_cast<GameObject*>(GetOwner());
+			SimulationManager::GetInstance().scene().addActor(*pxActor);
+		}
+		void UpdateGoTransform() override
+		{
+			pxActor->addTorque(PxVec3{ 0, 0, 1 }, PxForceMode::eVELOCITY_CHANGE);
+
+			PxTransform localPose = pxActor->getGlobalPose();
+			GameObject* parent = GetOwner()->GetParent();
+			if (parent)
+			{
+				localPose = localPose * parent->GetWorldTransform().getInverse();
+			}
+			owner->SetTransform(localPose);
+		}
+	public:
+		void InitData(const PxGeometry& g, physx::unique_ptr<PxMaterial> m)
+		{
+
+			material = move(m);
+
+			PxTransform transform = owner->GetWorldTransform();
+
+			PxTransform moveInPosition = physx::PxTransform::createIdentity();
+			moveInPosition.p = transform.p;
+
+			pxActor = SimulationManager::GetInstance().physics().createRigidDynamic(moveInPosition);
+			pxActor->setGlobalPose(transform);
+
+			pxActor->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, true);
+			pxActor->setMass(0);
+			pxActor->setMassSpaceInertiaTensor(PxVec3{ 0,0,0 });
+
+			actorShape = pxActor->createShape(g, *material);
+
+			PxFilterData filterData;
+			filterData.word0 = COLLISION_FLAG_PLATEFORME;
+			filterData.word1 = COLLISION_FLAG_PLATEFORME_AGAINST;
+			actorShape->setSimulationFilterData(filterData);
+		}
+	};
+
+
 	class DynamicPhysicComponent : public CollidingComponent
 	{
 	private:
@@ -78,7 +149,6 @@ namespace PM3D
 		physx::unique_ptr<PxMaterial> material;
 		PxShape* actorShape;
 		PxRigidDynamic *pxActor;
-		bool isSleeping;
 	public:
 		physx::PxRigidDynamic * GetActor() { return pxActor; }
 		void AddActor() override
@@ -109,7 +179,7 @@ namespace PM3D
 
 			pxActor = SimulationManager::GetInstance().physics().createRigidDynamic(moveInPosition);
 			pxActor->setGlobalPose(transform);
-
+		
 			actorShape = pxActor->createShape(g, *material);
 			actorShape->setSimulationFilterData(filterData);
 		}

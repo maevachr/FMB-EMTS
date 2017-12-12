@@ -144,7 +144,6 @@ namespace PM3D
 		variableTexture =
 			pEffet->GetVariableByName("textureEntree")->AsShaderResource();
 		pDispositif->ActiverMelangeAlpha();
-		// Faire le rendu de tous nos sprites
 		// Initialiser et sélectionner les «constantes» de l'effet
 		ShadersParams sp;
 
@@ -200,6 +199,9 @@ namespace PM3D
 		float x, y, dx, dy;
 		float posX, posY;
 		float facteurX, facteurY;
+
+		TexSize[0] = _dx;
+		TexSize[1] = _dy;
 
 		// Initialisation de la texture
 		CGestionnaireDeTextures& TexturesManager = CGestionnaireDeTextures::GetInstance();
@@ -616,9 +618,9 @@ namespace PM3D
 		boostText->Ecrire({ s.begin(), s.end() });
 	}
 
-	void SpriteManager::RotateNeedle()
+	void SpriteManager::RotateNeedle(float angle)
 	{
-		sprite2->Rotate(1.0f);
+		sprite2->Rotate(angle);
 	}
 
 	void SpriteManager::UpdateScoreText()
@@ -637,7 +639,13 @@ namespace PM3D
 		pDispositif->DesactiverCulling();
 
 		sprite->Draw();
-		RotateNeedle();
+
+		//GetVitesse
+		VehiclePhysicComponent* vpc = SpawnManager::GetInstance().GetPlayer()->As<VehiclePhysicComponent>();
+		PxRigidDynamic* actor = vpc->GetPxActor();
+		float vitesse = actor->getLinearVelocity().normalize();
+		
+		RotateNeedle(-XM_PI/100 * vitesse + XM_PI/2 );
 		sprite2->Draw();
 
 		UpdateSpeedText();

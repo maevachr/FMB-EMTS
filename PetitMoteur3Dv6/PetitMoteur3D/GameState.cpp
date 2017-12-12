@@ -33,7 +33,9 @@ GameState::GameState(StateStack& stack, Context context) :
 
 void GameState::draw()
 {
+	
 	CMoteur<CMoteurWindows, CDispositifD3D11>::GetInstance().drawGame();
+	
 }
 
 bool GameState::update(Time dt)
@@ -52,6 +54,10 @@ bool GameState::update(Time dt)
 	BlackBoard::GetInstance().Update(dt);
 
 	CallBackManager::GetInstance().UpdateTime(dt);
+
+	if (BlackBoard::GetInstance().GetChrono() < 0.0001f) {
+		requestStackPush(States::End);
+	}
 	return true;
 }
 
@@ -59,11 +65,6 @@ bool GameState::update(Time dt)
 void GameState::ProcessInput()
 {
 	auto pGestionnaireDeSaisie = InputManager::GetInstance().GetDIManipulateur();
-
-	////Retour menu
-	//if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_ESCAPE)) {
-	//	requestStackPop();
-	//}
 
 	//Pause
 	if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_P)) {

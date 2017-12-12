@@ -5,6 +5,7 @@
 #include "d3dx11effect.h"
 #include <algorithm>
 #include <Gdiplus.h>
+#include <array>
 using namespace Gdiplus;
 #pragma comment(lib, "gdiplus.lib")
 
@@ -48,6 +49,7 @@ namespace PM3D
 	public:
 		Sprite(CDispositifD3D11* pDispositif);
 		~Sprite();
+
 		void InitEffet();
 		virtual void Draw();
 		void Rotate(float angle) {
@@ -55,9 +57,27 @@ namespace PM3D
 		}
 	};
 
+
 	class TextureSprite : public Sprite {
 	public:
+		using size_type = int;
+	public:
+		struct TextureRectangle {
+			size_type left;
+			size_type top;
+			size_type width;
+			size_type height;
+		};
+	public:
 		TextureSprite(string NomTexture, int _x, int _y, int _dx, int _dy, CDispositifD3D11* _pDispositif);
+		std::array<int, 2> GetDimension() const { return TexSize; }
+		TextureRectangle GetTextureRect() const{ return mTextRect; }
+		void SetTextureRect(TextureRectangle rect) { mTextRect = rect; }
+
+	
+	private:
+		std::array<int,2> TexSize;
+		TextureRectangle mTextRect;
 	};
 
 	class TextSprite : public Sprite {
@@ -177,6 +197,7 @@ namespace PM3D
 			sprite = new TextureSprite{ "speedometer.dds", 50, 300, 200, 100, _pDispositif };
 			
 			sprite2 = new TextureSprite{ "needle.dds",50, 150, 100, 100, _pDispositif };
+			RotateNeedle(XM_PI / 2);
 
 			const FontFamily oFamily(L"Arial", NULL);
 			pPolice = new Font(&oFamily, 60.00, FontStyleBold, UnitPixel);
@@ -206,7 +227,7 @@ namespace PM3D
 		void UpdateSpeedText();
 		void UpdateChronoText();
 		void UpdateBoostText();
-		void RotateNeedle();
+		void RotateNeedle(float);
 		void UpdateScoreText();
 	public:
 		void Draw();

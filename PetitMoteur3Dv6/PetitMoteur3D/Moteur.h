@@ -258,10 +258,9 @@ namespace PM3D
 			EndRenderSceneSpecific();
 			SpriteManager::GetInstance().GetPost()->FinPostEffect();
 			// post effect fini
-
-			SpriteManager::GetInstance().Draw();
+			//if (mStateStack->size() == 2)
+				SpriteManager::GetInstance().Draw();
 		}
-
 
 	protected:
 		// Variables pour le temps de l'animation
