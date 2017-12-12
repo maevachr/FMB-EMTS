@@ -5,6 +5,7 @@ using namespace physx;
 
 namespace PM3D
 {
+	template<class CrateColor>
 	class ExplodedBox : public GameObject
 	{
 	private:

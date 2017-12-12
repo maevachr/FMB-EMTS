@@ -664,8 +664,8 @@ namespace PM3D
 		nMeshes.push_back(monsterWheelMesh);
 
 		NormalMesh* crateMesh = new NormalMesh{};
-		crateMesh->InitFile("obj_crate_scale_1m3.omb");
-		crateMesh->InitName("crate");
+		crateMesh->InitFile("obj_crate_brown.omb");
+		crateMesh->InitName("crateBrown");
 		nMeshes.push_back(crateMesh);
 
 		NormalMesh* crateMeshOrange = new NormalMesh{};
@@ -678,6 +678,21 @@ namespace PM3D
 		crateMeshWhite->InitName("crateWhite");
 		nMeshes.push_back(crateMeshWhite);
 
+		NormalMesh* minicrateMesh = new NormalMesh{};
+		minicrateMesh->InitFile("obj_minicrate_brown.omb");
+		minicrateMesh->InitName("miniCrateBrown");
+		nMeshes.push_back(minicrateMesh);
+
+		NormalMesh* minicrateMeshOrange = new NormalMesh{};
+		minicrateMeshOrange->InitFile("obj_minicrate_orange.omb");
+		minicrateMeshOrange->InitName("miniCrateOrange");
+		nMeshes.push_back(minicrateMeshOrange);
+
+		NormalMesh* minicrateMeshWhite = new NormalMesh{};
+		minicrateMeshWhite->InitFile("obj_minicrate_white.omb");
+		minicrateMeshWhite->InitName("miniCrateWhite");
+		nMeshes.push_back(minicrateMeshWhite);
+
 		NormalMesh* busMesh = new NormalMesh{};
 		busMesh->InitFile("obj_bus_centre.omb");
 		busMesh->InitName("bus");
@@ -687,11 +702,6 @@ namespace PM3D
 		terrainMesh->InitFile("obj_Terrain_final.omb");
 		terrainMesh->InitName("terrain");
 		nMeshes.push_back(terrainMesh);
-
-		NormalMesh* miniCrate = new NormalMesh{};
-		miniCrate->InitFile("obj_mini_crate_3x3.omb");
-		miniCrate->InitName("miniCrate");
-		nMeshes.push_back(miniCrate);
 
 		NormalMesh* tunnel = new NormalMesh{};
 		tunnel->InitFile("obj_tunnel.omb");
