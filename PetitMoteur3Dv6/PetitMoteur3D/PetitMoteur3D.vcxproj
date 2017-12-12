@@ -149,6 +149,7 @@
     <ClCompile Include="PhysxVehicle.cpp" />
     <ClCompile Include="PlayerCamera.cpp" />
     <ClCompile Include="RenderManager.cpp" />
+    <ClCompile Include="RouesGo.cpp" />
     <ClCompile Include="SimulationManager.cpp" />
     <ClCompile Include="SkyBoxGo.cpp" />
     <ClCompile Include="SpawnManager.cpp" />
@@ -209,6 +210,7 @@
     <ClInclude Include="PhysxVehicle.h" />
     <ClInclude Include="Print.h" />
     <ClInclude Include="PVD.h" />
+    <ClInclude Include="RouesGo.h" />
     <ClInclude Include="SkyBoxGo.h" />
     <ClInclude Include="SpawnManager.h" />
     <ClInclude Include="SpriteManager.h" />

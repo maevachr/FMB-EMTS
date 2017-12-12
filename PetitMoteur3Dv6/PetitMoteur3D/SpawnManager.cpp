@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "SpawnManager.h"
+#include "RouesGo.h"
 namespace PM3D{
 	void SpawnManager::Init()
 	{
@@ -55,8 +56,11 @@ namespace PM3D{
 		PxTransform locationContainer = PxTransform::createIdentity();
 		locationContainer.p = PxVec3{ 20, 10, 2 };
 		locationContainer.q = PxQuat{ PxPiDivTwo,PxVec3{0,0,1} };
-		//rotation de l'arene
 		Spawn<ContainerGo>(locationContainer);
+
+		PxTransform locationRoues = PxTransform::createIdentity();
+		locationRoues.p = PxVec3{ -30, 20, 5 };
+		Spawn<RouesGo>(locationRoues);
 	
 	}
 	void SpawnManager::Update()

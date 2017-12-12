@@ -207,14 +207,17 @@
     <ClCompile Include="AreneGo.cpp">
       <Filter>Fichiers sources\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="CircusGo.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="ContainerGo.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="SpawnManager.cpp">
       <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="RouesGo.cpp">
+      <Filter>Fichiers sources\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="CircusGo.cpp">
+      <Filter>Fichiers sources\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="ContainerGo.cpp">
+      <Filter>Fichiers sources\GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -424,6 +427,9 @@
     </ClInclude>
     <ClInclude Include="ContainerGo.h">
       <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="RouesGo.h">
+      <Filter>Fichiers d%27en-tête\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
