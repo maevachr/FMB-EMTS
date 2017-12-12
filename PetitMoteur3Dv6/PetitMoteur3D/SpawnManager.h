@@ -12,6 +12,7 @@
 #include "TunnelGo.h"
 #include "CircusGo.h"
 #include "AreneGo.h"
+#include "FlottingCrateGo.h"
 
 namespace PM3D
 {
@@ -71,10 +72,6 @@ namespace PM3D
 			locationTunnel.p = PxVec3{ 100, 50, 6 };
 			Spawn<TunnelGo>(locationTunnel);
 
-// 			PxTransform explodedBox = PxTransform::createIdentity();
-// 			explodedBox.p = PxVec3{ 30, 20, 6 };
-// 			Spawn<ExplodedBox>(explodedBox);
-
 			PxTransform locationBus = PxTransform::createIdentity();
 			locationBus.p = PxVec3{ 10, 10, 6 };
 			Spawn<BusGo>(locationBus);
@@ -82,6 +79,11 @@ namespace PM3D
 			PxTransform locationCircusGo = PxTransform::createIdentity();
 			locationCircusGo.p = PxVec3{ -10, -10, 0 };
 			Spawn<CircusGo>(locationCircusGo);
+
+			PxTransform flottingCratePos = PxTransform::createIdentity();
+			flottingCratePos.p = PxVec3{ -20, -10, 3 };
+			Spawn<FlottingCrateGo<BrownCrate>>(flottingCratePos);
+
 
 			PxTransform locationArene = PxTransform::createIdentity();
 			locationArene.p = PxVec3{ 0, 0, 0 };

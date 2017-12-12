@@ -6,18 +6,12 @@
     <ClCompile Include="BillBoardComponentManager.cpp" />
     <ClCompile Include="BillBoardManager.cpp" />
     <ClCompile Include="BusGo.cpp" />
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="CameraManager.cpp" />
     <ClCompile Include="ChargeurAssimp.cpp" />
-    <ClCompile Include="CrateGo.cpp" />
     <ClCompile Include="DDSTextureLoader.cpp" />
     <ClCompile Include="DIManipulateur.cpp" />
     <ClCompile Include="dispositifD3D11.cpp" />
-    <ClCompile Include="DynamicCamera.cpp" />
     <ClCompile Include="DynamicLight.cpp" />
     <ClCompile Include="EndState.cpp" />
-    <ClCompile Include="ExplodedBox.cpp" />
-    <ClCompile Include="FirstPersonCamera.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GestionnaireDeTextures.cpp" />
     <ClCompile Include="InfoDispositif.cpp" />
@@ -26,7 +20,6 @@
     <ClCompile Include="LightManager.cpp" />
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="MeshManager.cpp" />
-    <ClCompile Include="MiniCrateGo.cpp" />
     <ClCompile Include="MonsterTruckGo.cpp" />
     <ClCompile Include="Moteur.cpp" />
     <ClCompile Include="MoteurWindows.cpp" />
@@ -34,7 +27,6 @@
     <ClCompile Include="PetitMoteur3D.cpp" />
     <ClCompile Include="PhysicManager.cpp" />
     <ClCompile Include="PhysxVehicle.cpp" />
-    <ClCompile Include="PlayerCamera.cpp" />
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="SimulationManager.cpp" />
     <ClCompile Include="SkyBoxGo.cpp" />
@@ -52,6 +44,33 @@
     <ClCompile Include="VehicleTireFriction.cpp" />
     <ClCompile Include="WheelGo.cpp" />
     <ClCompile Include="CircusGo.cpp" />
+    <ClCompile Include="Camera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraManager.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamicCamera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="FirstPersonCamera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerCamera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CrateGo.cpp">
+      <Filter>Crate</Filter>
+    </ClCompile>
+    <ClCompile Include="FlottingCrateGo.cpp">
+      <Filter>Crate</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplodedBox.cpp">
+      <Filter>Crate</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniCrateGo.cpp">
+      <Filter>Crate</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationComponent.h" />
@@ -62,21 +81,15 @@
     <ClInclude Include="BillBoardManager.h" />
     <ClInclude Include="BlackBoard.h" />
     <ClInclude Include="BusGo.h" />
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="CameraManager.h" />
     <ClInclude Include="chargeur.h" />
     <ClInclude Include="ChargeurAssimp.h" />
     <ClInclude Include="Component.h" />
-    <ClInclude Include="CrateGo.h" />
     <ClInclude Include="DIManipulateur.h" />
     <ClInclude Include="dispositif.h" />
     <ClInclude Include="dispositifD3D11.h" />
-    <ClInclude Include="DynamicCamera.h" />
     <ClInclude Include="DynamicLight.h" />
     <ClInclude Include="CallBackManager.h" />
     <ClInclude Include="EndState.h" />
-    <ClInclude Include="ExplodedBox.h" />
-    <ClInclude Include="FirstPersonCamera.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GestionnaireDeTextures.h" />
@@ -86,7 +99,6 @@
     <ClInclude Include="LightManager.h" />
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="MeshManager.h" />
-    <ClInclude Include="MiniCrateGo.h" />
     <ClInclude Include="PauseState.h" />
     <ClInclude Include="PhysxVehicle.h" />
     <ClInclude Include="Print.h" />
@@ -104,7 +116,6 @@
     <ClInclude Include="PetitMoteur3D.h" />
     <ClInclude Include="PhysicComponent.h" />
     <ClInclude Include="PhysicManager.h" />
-    <ClInclude Include="PlayerCamera.h" />
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="PxPhysicsAPI.forward.h" />
@@ -122,6 +133,33 @@
     <ClInclude Include="VehicleTireFriction.h" />
     <ClInclude Include="wheelGo.h" />
     <ClInclude Include="CircusGo.h" />
+    <ClInclude Include="Camera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraManager.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicCamera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="FirstPersonCamera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerCamera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CrateGo.h">
+      <Filter>Crate</Filter>
+    </ClInclude>
+    <ClInclude Include="FlottingCrateGo.h">
+      <Filter>Crate</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplodedBox.h">
+      <Filter>Crate</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniCrateGo.h">
+      <Filter>Crate</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PetitMoteur3D.rc" />
@@ -130,5 +168,13 @@
     <None Include="PetitMoteur3D.ico" />
     <None Include="small.ico" />
     <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Camera">
+      <UniqueIdentifier>{a526e169-218b-4019-941b-b61f7b1aeb26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Crate">
+      <UniqueIdentifier>{3a1a446c-5c49-4376-a4e5-1da944ecf3ae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
