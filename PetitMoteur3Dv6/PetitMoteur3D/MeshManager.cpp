@@ -729,8 +729,6 @@ namespace PM3D
 		nMeshes.push_back(roues);
 
 		sbMesh = new SkyBoxMesh{};
-
-		
 	}
 	void MeshManager::InitMeshes(CDispositifD3D11 * _pDispositif)
 	{

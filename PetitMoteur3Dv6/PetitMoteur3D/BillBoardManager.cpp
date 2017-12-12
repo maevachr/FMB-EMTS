@@ -146,7 +146,7 @@ namespace PM3D
 		pD3DDevice->CreateBuffer(&bd, NULL, &pConstantBuffer);
 		// Pour l'effet
 		ID3DBlob* pFXBlob = NULL;
-		DXEssayer(D3DCompileFromFile(L"Sprite1.fx", 0, 0, 0,
+		DXEssayer(D3DCompileFromFile(L"spritebb.fx", 0, 0, 0,
 
 			"fx_5_0", 0, 0,
 			&pFXBlob, 0),
