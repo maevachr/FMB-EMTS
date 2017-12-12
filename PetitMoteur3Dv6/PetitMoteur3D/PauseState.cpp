@@ -14,6 +14,8 @@ void PauseState::draw()
 	mContext.pDispositif->DesactiverZBuffer();
 	mContext.pDispositif->DesactiverCulling();
 	background.Draw();
+	/*mContext.pDispositif->ActiverZBuffer();
+	mContext.pDispositif->ActiverCulling();*/
 }
 
 bool PauseState::update(Time)
