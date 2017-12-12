@@ -33,8 +33,9 @@ GameState::GameState(StateStack& stack, Context context) :
 
 void GameState::draw()
 {
-	//if(mStack->size() == 2)
+	
 	CMoteur<CMoteurWindows, CDispositifD3D11>::GetInstance().drawGame();
+	
 }
 
 bool GameState::update(Time dt)

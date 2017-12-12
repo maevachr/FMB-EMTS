@@ -197,6 +197,7 @@ namespace PM3D
 			sprite = new TextureSprite{ "speedometer.dds", 50, 300, 200, 100, _pDispositif };
 			
 			sprite2 = new TextureSprite{ "needle.dds",50, 150, 100, 100, _pDispositif };
+			RotateNeedle(XM_PI / 2);
 
 			const FontFamily oFamily(L"Arial", NULL);
 			pPolice = new Font(&oFamily, 60.00, FontStyleBold, UnitPixel);
@@ -226,7 +227,7 @@ namespace PM3D
 		void UpdateSpeedText();
 		void UpdateChronoText();
 		void UpdateBoostText();
-		void RotateNeedle();
+		void RotateNeedle(float);
 		void UpdateScoreText();
 	public:
 		void Draw();
