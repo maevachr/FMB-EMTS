@@ -301,7 +301,7 @@ namespace PM3D
 			nMeshes.push_back(monsterMesh);
 
 			NormalMesh* monsterChassisMesh = new NormalMesh{};
-			monsterChassisMesh->InitFile("obj_chassis.omb");
+			monsterChassisMesh->InitFile("obj_chassis_1.omb");
 			monsterChassisMesh->InitName("monsterChassis");
 			nMeshes.push_back(monsterChassisMesh);
 
