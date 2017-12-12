@@ -18,7 +18,7 @@ void EndState::draw()
 
 bool EndState::update(Time)
 {
-	return true;
+	return false;
 }
 
 void EndState::ProcessInput()
