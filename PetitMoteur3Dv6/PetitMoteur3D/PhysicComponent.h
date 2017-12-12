@@ -349,10 +349,16 @@ namespace PM3D
 					newTransform.p = PxVec3{ transforTruck.p.x, transforTruck.p.y, transforTruck.p.z + 3 };
 					
 					PxVec3 Up = transforTruck.q.rotate(PxVec3(0,1,0));
-					float cos2t = Up.dot(PxVec3(0, 0, 1));
-					PxVec3 axis = Up.cross(PxVec3(0, 0, 1)).getNormalized()*(sqrt(-0.5*(cos2t-1)));
+					PxVec3 Front = transforTruck.q.rotate(PxVec3(0, 0, 1));
+					PxQuat original = PxQuat(0.707, 0, 0, 0.707);
+					Front.z = 0;
+					Front.getNormalized();
+					float cos2t = Front.dot(original.rotate(PxVec3(0, 0, 1)));
+					PxVec3 axis = original.rotate(PxVec3(0, 0, 1)).cross(Front).getNormalized()*(sqrt(-0.5*(cos2t-1)));
 
-					newTransform.q = PxQuat(axis.x,axis.y,axis.z,sqrt((cos2t+1)/2.0))*transforTruck.q;
+					newTransform.q = PxQuat(axis.x,axis.y,axis.z,sqrt((cos2t+1)/2.0))*original;
+
+					PxVec3 newFront = newTransform.q.rotate(PxVec3(0, 0, 1));
 
 					pxActor->setGlobalPose(newTransform);
 					owner->SetTransform(newTransform);
