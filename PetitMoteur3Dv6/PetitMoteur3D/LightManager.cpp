@@ -23,44 +23,50 @@ namespace PM3D {
 		XMVECTOR center = XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f);
 		//Initialize all light
 
-		XMVECTOR position = XMVectorSet(-100, -100, 50.f, 1.0f);
+		XMVECTOR position = XMVectorSet(0.f, 1.f, 2.f, 1.0f);
 
-		lights[0] = new CLight(position,
+		lights[0] = new CDynamicLight(
+			SpawnManager::GetInstance().GetPlayer(),
+			position,
+			XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f),
 			XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f), 
 			XMVectorSet(0.3f, 0.3f, 0.3f, 1.0f),
 			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
-			center - position,
 			1.0f,
+			XM_PI / 8.f,
 			XM_PI / 4.f);
 
-		position = XMVectorSet(100, 100, 50.f, 1.0f);
+		position = XMVectorSet(100.f, 100.f, 50.f, 1.0f);
 
 		lights[1] = new CLight(position,
 			XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f),
 			XMVectorSet(0.3f, 0.3f, 0.3f, 1.0f),
 			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
-			center - position,
+			XMVector4Normalize(center - position),
 			1.0f,
+			XM_PI / 8.f,
 			XM_PI / 4.f);
 
-		position = XMVectorSet(100, -100, 50.f, 1.0f);
+		position = XMVectorSet(100.f, -100.f, 50.f, 1.0f);
 
 		lights[2] = new CLight(position,
 			XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f),
 			XMVectorSet(0.3f, 0.3f, 0.3f, 1.0f),
 			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
-			center - position,
+			XMVector4Normalize(center - position),
 			1.0f,
+			XM_PI / 8.f,
 			XM_PI / 4.f);
 
-		position = XMVectorSet(-100, 100, 50.f, 1.0f);
+		position = XMVectorSet(-100.f, 100.f, 50.f, 1.0f);
 
 		lights[3] = new CLight(position,
 			XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f),
 			XMVectorSet(0.3f, 0.3f, 0.3f, 1.0f),
 			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
-			center - position,
+			XMVector4Normalize(center - position),
 			1.0f,
+			XM_PI / 8.f,
 			XM_PI / 4.f);
 
 		return true;
@@ -74,10 +80,10 @@ namespace PM3D {
 
 			// Matrice de la vision vu par la lumière
 			XMMATRIX mVLight = XMMatrixLookAtRH(currentLight.position,
-				center,
+				currentLight.position + currentLight.direction,
 				XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f));
 
-			float champDeVision = currentLight.fov; // 90 degrés
+			float champDeVision = currentLight.outerAperture; // 90 degrés
 			float ratioDAspect = 1.0f; // DIMTEX/DIMTEX
 			float planRapproche = 0.1f; // Pas besoin d'être trop près
 			float planEloigne = MAX_LIGHT_DIST; // Suffisemment pour avoir tous les objets

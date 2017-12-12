@@ -119,8 +119,9 @@ namespace PM3D
 				XMVECTOR vSEcl; 			// la valeur spéculaire de l'éclairage 
 				XMMATRIX matWorldViewProjLights; // WVP pour lumiere
 				XMVECTOR direction;
-				float fov;
-				XMFLOAT3 remplissage;
+				float innerAperture;
+				float outerAperture;
+				XMFLOAT2 remplissage;
 			} lights[CLightManager::NB_MAX_LIGHTS];
 			XMMATRIX matWorldViewProjLight;
 			XMMATRIX matWorldViewProj;	// la matrice totale 
@@ -353,6 +354,11 @@ namespace PM3D
  			areneLimits->InitFile("areneMur.omb");
  			areneLimits->InitName("areneLimits");
  			nMeshes.push_back(areneLimits);
+
+			NormalMesh* container = new NormalMesh{};
+			container->InitFile("obj_container.omb");
+			container->InitName("container");
+			nMeshes.push_back(container);
 
 			sbMesh = new SkyBoxMesh{};
 

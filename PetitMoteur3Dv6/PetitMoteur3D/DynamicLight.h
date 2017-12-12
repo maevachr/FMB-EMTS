@@ -10,20 +10,24 @@ namespace PM3D
 	{
 	private:
 		GameObject* owner;
-		XMVECTOR offset;
+		XMVECTOR offsetPos;
+		XMVECTOR offsetDir;
 	public:
 
-		CDynamicLight (GameObject* owner,
+		CDynamicLight(GameObject* owner,
 			const XMVECTOR& position_in,
+			const XMVECTOR& direction_in,
 			const XMVECTOR& ambiante_in,
 			const XMVECTOR& diffuse_in,
 			const XMVECTOR& speculaire_in,
 			float puissance_in,
-			float fov_in
+			float inner_in,
+			float outer_in
 		);
 
 		virtual void AnimeLight(float tempsEcoule) {
-			position = owner->GetPosition() + offset;
+			position = owner->GetPosition() + offsetPos;
+			direction = owner->GetDirection() + offsetDir;
 		}
 	};
 }

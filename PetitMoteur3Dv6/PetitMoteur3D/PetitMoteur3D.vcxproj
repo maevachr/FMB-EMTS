@@ -119,6 +119,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraManager.cpp" />
     <ClCompile Include="ChargeurAssimp.cpp" />
+    <ClCompile Include="ContainerGo.cpp" />
     <ClCompile Include="CrateGo.cpp" />
     <ClCompile Include="DDSTextureLoader.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
@@ -151,6 +152,7 @@
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="SimulationManager.cpp" />
     <ClCompile Include="SkyBoxGo.cpp" />
+    <ClCompile Include="SpawnManager.cpp" />
     <ClCompile Include="SpriteManager.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateStack.cpp" />
@@ -183,6 +185,7 @@
     <ClInclude Include="chargeur.h" />
     <ClInclude Include="ChargeurAssimp.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="ContainerGo.h" />
     <ClInclude Include="CrateGo.h" />
     <ClInclude Include="DIManipulateur.h" />
     <ClInclude Include="dispositif.h" />
