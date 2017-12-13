@@ -8,9 +8,10 @@ namespace PM3D
 	template<class CrateColor>
 	class CrateCollisionHandler;
 
-	class BrownCrate {};
-	class OrangeCrate {};
-	class WhiteCrate {};
+	class Color {};
+	class BrownCrate : public Color {};
+	class OrangeCrate : public Color {};
+	class WhiteCrate : public Color {};
 
 	template<class T>
 	struct CrateTraits {
@@ -55,6 +56,7 @@ namespace PM3D
 	private:
 		static constexpr char* typeId = "CrateGo";
 	public:
+		float GetBreakingSpeed() { return CrateTraits<CrateColor>::breaking_speed; }
 		virtual void OnSpawn(const PxTransform& _transform = PxTransform::createIdentity(), GameObject* _parent = nullptr) override;
 		virtual void OnUnspawn() override;
 	};
