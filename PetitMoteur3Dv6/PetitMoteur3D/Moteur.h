@@ -23,6 +23,7 @@
 #include "GameState.h"
 #include "PauseState.h"
 #include "EndState.h"
+#include "TextureRenderer.h"
 
 namespace PM3D
 {
@@ -94,7 +95,6 @@ namespace PM3D
 			MeshManager::GetInstance().InitMeshes(pDispositif);
 			SpriteManager::GetInstance().Init(pDispositif);
 			
-
 			//Initialisation du terrain avec la Mesh chargée
 			PhysicManager::GetInstance().InitStaticComponents();
 
@@ -107,6 +107,9 @@ namespace PM3D
 				&this->matProj,
 				&this->matViewProj,
 				SpawnManager::GetInstance().GetPlayer());
+
+			TextureRenderer::GetInstance().Initialize(pDispositif->GetD3DDevice(), 1024, 768);
+			BillBoardManager::GetInstance().GetBillBoard("tv")->SetResourceView(TextureRenderer::GetInstance().GetShaderResourceView());
 
 			mStateStack = new StateStack(State::Context(pDispositif));
 			registerStates();
@@ -252,12 +255,21 @@ namespace PM3D
 			CLightManager::GetInstance().ResetShadowTextures(pDispositif);
 			RenderManager::GetInstance().Draw();
 			BillBoardComponentManager::GetInstance().Draw();
-
-			EndRenderSceneSpecific();
+			
 			SpriteManager::GetInstance().GetPost()->FinPostEffect();
-			// post effect fini
-			//if (mStateStack->size() == 2)
-				SpriteManager::GetInstance().Draw();
+			EndRenderSceneSpecific();
+
+			SpriteManager::GetInstance().Draw();
+
+			auto oldRenderTarget = pDispositif->GetRenderTargetView();
+			auto oldDepthStencil = pDispositif->GetDepthStencilView();
+
+			TextureRenderer::GetInstance().SetRenderTarget(pDispositif->GetImmediateContext());
+			TextureRenderer::GetInstance().ClearRenderTarget(pDispositif->GetImmediateContext(), 0.0f, 0.0f, 1.0f, 1.0f);
+			
+			SpriteManager::GetInstance().GetPost()->Draw();
+			pDispositif->GetImmediateContext()->OMSetRenderTargets(1, &oldRenderTarget, oldDepthStencil);
+				
 		}
 
 	protected:

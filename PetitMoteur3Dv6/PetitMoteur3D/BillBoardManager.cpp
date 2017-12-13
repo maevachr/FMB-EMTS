@@ -58,6 +58,7 @@ namespace PM3D
 
 	BillBoard::BillBoard(CDispositifD3D11 * _pDispositif, vector<string> NomTexture, const XMFLOAT3 & _position, int _dx, int _dy, GameObject * go)
 	{
+		
 		pVertexBuffer = 0;
 		pConstantBuffer = 0;
 		pEffet = 0;
@@ -194,6 +195,7 @@ namespace PM3D
 
 	void BillBoard::Draw(XMVECTOR ownerPosition, int animationFrame)
 	{
+		if (pTextureD3D.empty()) return;
 		XMFLOAT4 parent;
 		XMStoreFloat4(&parent, ownerPosition);
 
@@ -247,4 +249,8 @@ namespace PM3D
 
 	}
 
+	void BillBoard::SetResourceView(ID3D11ShaderResourceView * v)
+	{
+		if (pTextureD3D.empty()) pTextureD3D.push_back(v); else pTextureD3D[0] = v;
+	}
 }

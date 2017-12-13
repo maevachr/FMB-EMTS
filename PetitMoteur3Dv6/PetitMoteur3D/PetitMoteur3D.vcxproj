@@ -151,6 +151,7 @@
     <ClCompile Include="PhysxVehicle.cpp" />
     <ClCompile Include="PlayerCamera.cpp" />
     <ClCompile Include="RenderManager.cpp" />
+    <ClCompile Include="TextureRenderer.cpp" />
     <ClCompile Include="TiresGo.cpp" />
     <ClCompile Include="SimulationManager.cpp" />
     <ClCompile Include="SkyBoxGo.cpp" />
@@ -165,6 +166,7 @@
     <ClCompile Include="TerrainGo.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TunnelGo.cpp" />
+    <ClCompile Include="TVGo.cpp" />
     <ClCompile Include="Vehicle4WCreate.cpp" />
     <ClCompile Include="VehicleCreate.cpp" />
     <ClCompile Include="VehicleFilterShader.cpp" />
@@ -214,6 +216,7 @@
     <ClInclude Include="PhysxVehicle.h" />
     <ClInclude Include="Print.h" />
     <ClInclude Include="PVD.h" />
+    <ClInclude Include="TextureRenderer.h" />
     <ClInclude Include="TiresGo.h" />
     <ClInclude Include="SkyBoxGo.h" />
     <ClInclude Include="SpawnManager.h" />
@@ -239,6 +242,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TunnelGo.h" />
+    <ClInclude Include="TVGo.h" />
     <ClInclude Include="util.h" />
     <ClInclude Include="VehicleCreate.h" />
     <ClInclude Include="VehicleFilterShader.h" />
