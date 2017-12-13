@@ -2,9 +2,13 @@
 #include "TVGo.h"
 #include "BillBoardComponent.h"
 #include "SpriteManager.h"
+#include "SpawnManager.h"
 
 void PM3D::TVGo::OnSpawn(const PxTransform & _transform, GameObject * _parent)
 {
+	GameObject::OnSpawn(_transform, _parent);
+	SpawnManager::GetInstance().AddGameObjects(this);
+
 	//-----BillBoardComponent
 	BillBoardComponent* bc = CreateComponent<BillBoardComponent>();
 	bc->GetBillBoard("tv");

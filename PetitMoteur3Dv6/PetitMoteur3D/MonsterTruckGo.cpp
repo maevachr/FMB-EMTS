@@ -32,10 +32,6 @@ namespace PM3D
 			AddChild(t);
 		}
 
-		//-----BillBoardComponent
-		BillBoardComponent* b = CreateComponent<BillBoardComponent>();
-		b->GetBillBoard("fire");
-
 		//-----DynamicPhysicComponent
 		VehiclePhysicComponent* d = CreateComponent<VehiclePhysicComponent>();
 		PxPhysics &physics = SimulationManager::GetInstance().physics();
