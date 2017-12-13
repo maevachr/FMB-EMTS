@@ -29,17 +29,22 @@ float4 Sprite1PS( VS_Sortie vs ) : SV_Target
 	float4 couleurTexture;
 	couleurTexture = textureEntree.Sample(SampleState, vs.coordTex);
 	
-	if (target > 0.0)
+	if (target > -1.0)
 	{
-		if (vel < target/2.0)
+		if (vel < target*0.25)
 		{
 			couleurTexture.g *= 0;
 			couleurTexture.b *= 0;
 		
 		}
+		else if (vel < target*0.75)
+		{
+			couleurTexture.g *= (vel-target*0.25)/(target*0.50);
+			couleurTexture.b *= 0;
+		}
 		else if (vel < target)
 		{
-			couleurTexture.r *= 0;
+			couleurTexture.b *= 0;
 		}
 		else
 		{

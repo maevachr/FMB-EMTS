@@ -41,7 +41,7 @@ namespace PM3D
 
 		virtual void Draw()
 		{
-			b->Draw(GetOwner()->GetPosition(), index++);
+			b->Draw(GetOwner()->GetPosition(), index++, GetOwner()->GetBreakingSpeed());
 			if (index == b->GetFramesAmount()) index = 0;
 		}
 	};

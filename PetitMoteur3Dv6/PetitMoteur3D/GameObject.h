@@ -57,6 +57,7 @@ namespace PM3D
 			return it;
 		}
 	public:
+		virtual float GetBreakingSpeed() { return -1.0; }
 		template<class T>
 		T* CreateComponent()
 		{

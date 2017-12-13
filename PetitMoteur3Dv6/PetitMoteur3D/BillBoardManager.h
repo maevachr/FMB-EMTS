@@ -62,7 +62,7 @@ namespace PM3D
 		virtual char* GetName() { return typeId; }
 		size_t GetFramesAmount() { return pTextureD3D.size(); }
 		
-		void Draw(XMVECTOR ownerPosition, int animationFrame);
+		void Draw(XMVECTOR ownerPosition, int animationFrame, float target);
 		void SetResourceView(ID3D11ShaderResourceView* v);
 	};
 
@@ -92,7 +92,7 @@ namespace PM3D
 				b->InitName("test");
 				billBoards.push_back(b);*/
 
-			BillBoard* b = new BillBoard(_pDispositif, { "arrow2.dds" }, XMFLOAT3(0.0f, 0.0f, 2.0f), 1, 1);
+			BillBoard* b = new BillBoard(_pDispositif, { "arrow_white.dds" }, XMFLOAT3(0.0f, 0.0f, 2.0f), 1, 1);
 			b->InitName("arrow");
 			billBoards.push_back(b);
 
