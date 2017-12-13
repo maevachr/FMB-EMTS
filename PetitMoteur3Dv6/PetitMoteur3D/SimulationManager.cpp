@@ -156,7 +156,7 @@ namespace PM3D
 
 	void SimulationManager::CustomizeSceneDesc(PxSceneDesc *aSceneDesc)
 	{
-		aSceneDesc->gravity = PxVec3(0.0f, 0.0f, -9.8f);
+		aSceneDesc->gravity = PxVec3(0.0f, 0.0f, -15.8f);
 		//aSceneDesc->gravity = PxVec3(0.0f, 0.0f, 0.0f);
 		aSceneDesc->filterShader = &SimulationFilterShader;
 	}

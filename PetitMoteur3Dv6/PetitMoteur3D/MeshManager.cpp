@@ -646,15 +646,14 @@ namespace PM3D
 		pDispositif->ActiverZBuffer();
 	}
 	void MeshManager::SetMeshes()
-	{
-		
+	{	
 		NormalMesh* monsterMesh = new NormalMesh{};
 		monsterMesh->InitFile("monster_LH.omb");
 		monsterMesh->InitName("monster");
 		nMeshes.push_back(monsterMesh);
 
 		NormalMesh* monsterChassisMesh = new NormalMesh{};
-		monsterChassisMesh->InitFile("obj_chassis_1.omb");
+		monsterChassisMesh->InitFile("obj_chassis.omb");
 		monsterChassisMesh->InitName("monsterChassis");
 		nMeshes.push_back(monsterChassisMesh);
 
@@ -664,8 +663,8 @@ namespace PM3D
 		nMeshes.push_back(monsterWheelMesh);
 
 		NormalMesh* crateMesh = new NormalMesh{};
-		crateMesh->InitFile("obj_crate_scale_1m3.omb");
-		crateMesh->InitName("crate");
+		crateMesh->InitFile("obj_crate_brown.omb");
+		crateMesh->InitName("crateBrown");
 		nMeshes.push_back(crateMesh);
 
 		NormalMesh* crateMeshOrange = new NormalMesh{};
@@ -678,8 +677,23 @@ namespace PM3D
 		crateMeshWhite->InitName("crateWhite");
 		nMeshes.push_back(crateMeshWhite);
 
+		NormalMesh* minicrateMesh = new NormalMesh{};
+		minicrateMesh->InitFile("obj_minicrate_brown.omb");
+		minicrateMesh->InitName("miniCrateBrown");
+		nMeshes.push_back(minicrateMesh);
+
+		NormalMesh* minicrateMeshOrange = new NormalMesh{};
+		minicrateMeshOrange->InitFile("obj_minicrate_orange.omb");
+		minicrateMeshOrange->InitName("miniCrateOrange");
+		nMeshes.push_back(minicrateMeshOrange);
+
+		NormalMesh* minicrateMeshWhite = new NormalMesh{};
+		minicrateMeshWhite->InitFile("obj_minicrate_white.omb");
+		minicrateMeshWhite->InitName("miniCrateWhite");
+		nMeshes.push_back(minicrateMeshWhite);
+
 		NormalMesh* busMesh = new NormalMesh{};
-		busMesh->InitFile("obj_bus_centre.omb");
+		busMesh->InitFile("obj_bus.omb");
 		busMesh->InitName("bus");
 		nMeshes.push_back(busMesh);
 
@@ -688,10 +702,6 @@ namespace PM3D
 		terrainMesh->InitName("terrain");
 		nMeshes.push_back(terrainMesh);
 
-		NormalMesh* miniCrate = new NormalMesh{};
-		miniCrate->InitFile("obj_mini_crate_3x3.omb");
-		miniCrate->InitName("miniCrate");
-		nMeshes.push_back(miniCrate);
 
 		NormalMesh* tunnel = new NormalMesh{};
 		tunnel->InitFile("obj_tunnel.omb");
@@ -723,12 +733,14 @@ namespace PM3D
 		container->InitName("container");
 		nMeshes.push_back(container);
 
-		NormalMesh* roues = new NormalMesh{};
-		roues->InitFile("roues.omb");
-		roues->InitName("roues");
-		nMeshes.push_back(roues);
+		NormalMesh* tires = new NormalMesh{};
+		tires->InitFile("obj_tires.omb");
+		tires->InitName("tires");
+		nMeshes.push_back(tires);
 
 		sbMesh = new SkyBoxMesh{};
+
+		
 	}
 	void MeshManager::InitMeshes(CDispositifD3D11 * _pDispositif)
 	{

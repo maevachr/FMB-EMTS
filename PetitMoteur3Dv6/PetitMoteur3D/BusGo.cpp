@@ -27,7 +27,7 @@ namespace PM3D
 		filterData.word0 = COLLISION_FLAG_OBSTACLE;
 		filterData.word1 = COLLISION_FLAG_OBSTACLE_AGAINST;
 
-		d->InitData(PxBoxGeometry(PxVec3(1.3, 6.3, 1.9)), move(material), filterData);
+		d->InitData(PxBoxGeometry(PxVec3(3, 18.5, 3.7)), move(material), filterData);
 
 		PxTransform centerMass = physx::PxTransform::createIdentity();
 		centerMass.p = PxVec3(0, 0, -1);

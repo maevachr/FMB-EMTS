@@ -1,6 +1,9 @@
 #pragma once
-#include "SpriteManager.h"
 #include <array>
+
+#include "SpriteManager.h"
+
+using namespace PM3D;
 
 class Animation
 {
@@ -9,7 +12,7 @@ public:
 	using FrameSize = std::array<float, 2>;
 
 public:
-	 						Animation(PM3D::TextureSprite* texture);
+	 						Animation(TextureSprite* texture);
 
 	void 					setFrameSize(int mFrameSizeX, int mFrameSizeY);
 	FrameSize		 		getFrameSize() const;

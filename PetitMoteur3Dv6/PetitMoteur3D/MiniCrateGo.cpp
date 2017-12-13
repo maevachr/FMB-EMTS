@@ -3,10 +3,17 @@
 #include "RenderComponent.h"
 #include "PhysicComponent.h"
 #include "SpawnManager.h"
+#include "CrateGo.h"
 
 namespace PM3D
 {
-	void MiniCrateGo::OnSpawn(const PxTransform & _transform, GameObject * _parent)
+
+	template class MiniCrateGo<BrownCrate>;
+	template class MiniCrateGo<OrangeCrate>;
+	template class MiniCrateGo<WhiteCrate>;
+
+	template<class CrateColor>
+	void MiniCrateGo<CrateColor>::OnSpawn(const PxTransform & _transform, GameObject * _parent)
 	{
 		GameObject::OnSpawn(_transform, _parent);
 		//SpawnManager::GetInstance().AddGameObjects(this);
@@ -16,7 +23,7 @@ namespace PM3D
 		//Set Components
 		//-----RenderComponent
 		RenderComponent* p = CreateComponent<RenderComponent>();
-		p->GetMesh("miniCrate");
+		p->GetMesh(CrateTraits<CrateColor>::fileNameLittleCrate);
 
 		//-----DynamicPhysicComponent
 		DynamicPhysicComponent* d = CreateComponent<DynamicPhysicComponent>();
@@ -25,7 +32,7 @@ namespace PM3D
 		PxFilterData filterData;
 		filterData.word0 = COLLISION_FLAG_CRATE;
 		filterData.word1 = COLLISION_FLAG_CRATE_AGAINST;
-		d->InitData(PxBoxGeometry(PxVec3(0.25, 0.25, 0.25)), move(material), filterData);
+		d->InitData(PxBoxGeometry(PxVec3(0.5, 0.5, 0.5)), move(material), filterData);
 		PxTransform centerMass = physx::PxTransform::createIdentity();
 		centerMass.p = PxVec3(0, 0, 0);
 		d->InitMass(0.1, centerMass);
@@ -34,7 +41,8 @@ namespace PM3D
 		//d->SetHandler(std::move(handler));
 	}
 
-	void MiniCrateGo::OnUnspawn()
+	template<class CrateColor>
+	void MiniCrateGo<CrateColor>::OnUnspawn()
 	{
 		GameObject::OnUnspawn();
 

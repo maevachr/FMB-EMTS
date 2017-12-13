@@ -9,7 +9,7 @@ namespace PM3D{
 
 		//Always put MonsterTruckGo first
 		PxTransform locationTruck = PxTransform::createIdentity();
-		locationTruck.p = PxVec3{ 5, 5, 3 };
+		locationTruck.p = PxVec3{ -60, -60, 3 };
 		Spawn<MonsterTruckGo>(locationTruck);
 
 		Spawn<SkyBoxGo>();
@@ -41,7 +41,7 @@ namespace PM3D{
 		// 			Spawn<ExplodedBox>(explodedBox);
 
 		PxTransform locationCircusGo = PxTransform::createIdentity();
-		locationCircusGo.p = PxVec3{ -10, -10, 0 };
+		locationCircusGo.p = PxVec3{ 0, 15, 0 };
 		Spawn<CircusGo>(locationCircusGo);
 
 		PxTransform locationFlottingCrateGo = PxTransform::createIdentity();
@@ -53,23 +53,37 @@ namespace PM3D{
 		//rotation de l'arene
 		Spawn<AreneGo>(locationArene);
 
-		PxTransform locationContainer = PxTransform::createIdentity();
-		locationContainer.p = PxVec3{ 20, 10, 2 };
-		locationContainer.q = PxQuat{ PxPiDivTwo,PxVec3{0,0,1} };
+		PxTransform locationContainer1 = PxTransform::createIdentity();
+		locationContainer1.p = PxVec3{ 13.5, -10, 1.5 };
+		//locationContainer.q = PxQuat{ PxPiDivTwo,PxVec3{0,0,1} };
 		//rotation de l'arene
-		Spawn<ContainerGo>(locationContainer);
+		Spawn<ContainerGo>(locationContainer1);
+
+		PxTransform locationContainer2 = PxTransform::createIdentity();
+		locationContainer2.p = PxVec3{ -18, -10, 1.5 };
+		//locationContainer.q = PxQuat{ PxPiDivTwo,PxVec3{0,0,1} };
+		//rotation de l'arene
+		Spawn<ContainerGo>(locationContainer2);
 
 		PxTransform locationRoues = PxTransform::createIdentity();
-		locationRoues.p = PxVec3{ -30, 20, 0 };
+		locationRoues.p = PxVec3{ -30, 20, 5 };
 		Spawn<TiresGo>(locationRoues);
+		
+		PxTransform locationTV = PxTransform::createIdentity();
+		locationTV.p = PxVec3{ 0, 0, 20 };
+		Spawn<TVGo>(locationTV);
 
 		PxTransform locationBus = PxTransform::createIdentity();
 		locationBus.p = PxVec3{ 10, 10, 6 };
 		Spawn<BusGo>(locationBus);
 
-		PxTransform locationTV = PxTransform::createIdentity();
-		locationTV.p = PxVec3{ 0, 0, 20 };
-		Spawn<TVGo>(locationTV);
+		PxTransform locationBus1 = PxTransform::createIdentity();
+		locationBus1.p = PxVec3{ -8, -10, 2 };
+		Spawn<BusGo>(locationBus1);
+
+		PxTransform locationBus2 = PxTransform::createIdentity();
+		locationBus2.p = PxVec3{ 3, -10, 6 };
+		Spawn<BusGo>(locationBus2);
 	
 	}
 	void SpawnManager::Update()
