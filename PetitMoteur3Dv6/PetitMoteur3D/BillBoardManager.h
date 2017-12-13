@@ -52,17 +52,18 @@ namespace PM3D
 
 		void InitEffet();
 	public:
-		BillBoard(CDispositifD3D11* pDispositif, vector<string> NomTexture, const XMFLOAT3& _position, int _dx = 0, int _dy = 0, GameObject* go = nullptr);
+		BillBoard(CDispositifD3D11* pDispositif, vector<string> NomTexture, const XMFLOAT3& _position, int _dx = 0, int _dy = 0, GameObject* go = nullptr, bool _faceCamera = true);
 		~BillBoard();
 
 	private:
 		char* typeId;
+		bool faceCamera;
 	public:
 		virtual void InitName(char* _typeId) { typeId = _typeId; }
 		virtual char* GetName() { return typeId; }
 		size_t GetFramesAmount() { return pTextureD3D.size(); }
 		
-		void Draw(XMVECTOR ownerPosition, int animationFrame, float target);
+		void Draw(GameObject* owner, int animationFrame, float target, float theta);
 		void SetResourceView(ID3D11ShaderResourceView* v);
 	};
 
@@ -96,7 +97,7 @@ namespace PM3D
 			b->InitName("arrow");
 			billBoards.push_back(b);
 
-			BillBoard* tv = new BillBoard(_pDispositif, { }, XMFLOAT3(0.0f, 0.0f, 1.0f), 40, 30);
+			BillBoard* tv = new BillBoard(_pDispositif, { }, XMFLOAT3(0.0f, 0.0f, 1.0f), 80, 60, nullptr, false);
 			tv->InitName("tv");
 			billBoards.push_back(tv);
 		}

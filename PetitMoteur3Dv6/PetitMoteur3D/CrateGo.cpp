@@ -6,6 +6,7 @@
 #include "ExplodedBox.h"
 #include "BillBoardComponent.h"
 #include "BlackBoard.h"
+#include "SoundManager.h"
 
 namespace PM3D
 {
@@ -33,10 +34,11 @@ namespace PM3D
 					PxTransform decalage = go->GetWorldTransform();
 					decalage.p += PxVec3(0, 0, 0);
 					SpawnManager::GetInstance().Spawn<ExplodedBox<CrateColor>>(decalage);
-					BlackBoard::GetInstance().AddPoints(CrateTraits<CrateColor>::nb_points);
+					CallBackManager::GetInstance().AddCallBack(
+						new AddScoreCallBack{ CrateTraits<CrateColor>::nb_points, 1.5f}
+					);
 					BlackBoard::GetInstance().AddBoost(CrateTraits<CrateColor>::bonus_boost);
-
-						SpawnManager::GetInstance().Unspawn(go);
+					SpawnManager::GetInstance().Unspawn(go);
 				}
 			}
 		}
@@ -91,6 +93,7 @@ namespace PM3D
 	template<class CrateColor>
 	void CrateGo<CrateColor>::OnUnspawn()
 	{
+		SoundManager::GetInstance().PlaySoundEffect(SoundManager::EXPLODING_CRATE);
 		GameObject::OnUnspawn();
 
 		//Remove GameObjects

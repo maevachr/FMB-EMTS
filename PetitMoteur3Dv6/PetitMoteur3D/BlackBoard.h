@@ -1,4 +1,5 @@
 #pragma once
+#include "SoundManager.h"
 
 namespace PM3D
 {
@@ -26,9 +27,11 @@ namespace PM3D
 		float USE_MIN_WHEN_UP = 10.0f;
 		bool usedBoost = false;
 		bool boostDown = true;
+		float vitesse;
 
 	public:
 		void AddPoints(int nbPoints) { 
+			SoundManager::GetInstance().PlaySoundEffect(SoundManager::SCORE_BING);
 			score += nbPoints;
 		}
 		int GetScore() { return score; }
@@ -46,22 +49,7 @@ namespace PM3D
 			}
 			return false;
 		}
-		void Update(float TempsEcoule) {
-			chrono -= TempsEcoule;
-			boost += TempsEcoule * 4.0f;
-			if (boost > MAX_BOOST) {
-				boost = MAX_BOOST;
-			}
-			if (usedBoost)
-			{
-				boost -= TempsEcoule * 40.0f;
-				usedBoost = false;
-			}	
-			if (boost > USE_MIN_WHEN_UP)
-			{
-				boostDown = true;
-			}
-		}
+		void Update(float TempsEcoule);
 		float GetChrono() const { return chrono; }
 		float GetBoost() const { return boost; }
 	};

@@ -28,6 +28,8 @@ GameState::GameState(StateStack& stack, Context context) :
 	context.pDispositif->ActiverZBuffer();
 	context.pDispositif->ActiverCulling();
 
+	SoundManager::GetInstance().ContinueSound(SoundManager::MUSIC);
+	SoundManager::GetInstance().ContinueSound(SoundManager::ENGINE);
 }
 
 
@@ -67,7 +69,7 @@ void GameState::ProcessInput()
 	auto pGestionnaireDeSaisie = InputManager::GetInstance().GetDIManipulateur();
 
 	//Pause
-	if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_P)) {
+	if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_ESCAPE)) {
 		requestStackPush(States::Pause);
 	}
 
