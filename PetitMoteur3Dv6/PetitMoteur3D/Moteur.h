@@ -24,6 +24,7 @@
 #include "PauseState.h"
 #include "EndState.h"
 #include "TextureRenderer.h"
+#include "SoundManager.h"
 
 namespace PM3D
 {
@@ -74,6 +75,8 @@ namespace PM3D
 
 			// * Initialisation du dispositif de rendu
 			pDispositif = CreationDispositifSpecific( CDS_FENETRE );
+
+			SoundManager::GetInstance().Init();
 
 			//Initialisation de physX
 			SimulationManager::GetInstance().InitPhysX();
