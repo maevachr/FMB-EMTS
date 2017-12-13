@@ -1,6 +1,9 @@
 cbuffer param
 {
 	float4x4 matWVP; // la matrice de travail
+	float vel;
+	float target;
+	float2 remplissage;
 }
 
 struct VS_Sortie
@@ -25,6 +28,25 @@ float4 Sprite1PS( VS_Sortie vs ) : SV_Target
 {
 	float4 couleurTexture;
 	couleurTexture = textureEntree.Sample(SampleState, vs.coordTex);
+	
+	if (target > 0.0)
+	{
+		if (vel < target/2.0)
+		{
+			couleurTexture.g *= 0;
+			couleurTexture.b *= 0;
+		
+		}
+		else if (vel < target)
+		{
+			couleurTexture.r *= 0;
+		}
+		else
+		{
+			couleurTexture.r *= 0;
+			couleurTexture.b *= 0;
+		}
+	}
 	return couleurTexture;
 }
 technique11 AfficheSprite

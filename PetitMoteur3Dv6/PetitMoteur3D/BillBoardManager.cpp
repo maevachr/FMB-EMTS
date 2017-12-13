@@ -6,6 +6,8 @@
 #include "util.h"
 #include "CameraManager.h"
 #include "GestionnaireDeTextures.h"
+#include "SpawnManager.h"
+#include "PhysicComponent.h"
 
 using namespace UtilitairesDX;
 
@@ -130,6 +132,9 @@ namespace PM3D
 	struct ShadersParams
 	{
 		XMMATRIX matWVP; // la matrice totale
+		float vel;
+		float target;
+		XMFLOAT2 remplissage;
 	};
 
 	void BillBoard::InitEffet()
@@ -233,6 +238,12 @@ namespace PM3D
 			* viewProj;
 
 		sp.matWVP = XMMatrixTranspose(mat);
+		//ajouter vet et target;
+		VehiclePhysicComponent* vpc = SpawnManager::GetInstance().GetPlayer()->As<VehiclePhysicComponent>();
+		PxRigidDynamic* actor = vpc->GetPxActor();
+		float vitesse = actor->getLinearVelocity().normalize();
+		sp.vel = vitesse;
+		sp.target = 20.0;
 		pImmediateContext->UpdateSubresource(pConstantBuffer, 0, NULL, &sp, 0, 0);
 
 		pCB->SetConstantBuffer(pConstantBuffer);
