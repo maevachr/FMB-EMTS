@@ -294,14 +294,9 @@ namespace PM3D
 
 	public:
 		void SetMeshes();
-		
-
 		void InitMeshes(CDispositifD3D11* _pDispositif);
-
 		void CleanUp();
-
 		SkyBoxMesh* GetSkyBoxMesh() { return sbMesh; }
-
 		NormalMesh* GetNormalMesh(const char* name);
 	};
 

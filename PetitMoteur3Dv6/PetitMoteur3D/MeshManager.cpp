@@ -646,8 +646,7 @@ namespace PM3D
 		pDispositif->ActiverZBuffer();
 	}
 	void MeshManager::SetMeshes()
-	{
-		
+	{	
 		NormalMesh* monsterMesh = new NormalMesh{};
 		monsterMesh->InitFile("monster_LH.omb");
 		monsterMesh->InitName("monster");

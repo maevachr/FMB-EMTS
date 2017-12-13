@@ -7,6 +7,7 @@
 #include "util.h"
 #include "BlackBoard.h"
 #include <string>
+#include "Animation.h" 
 
 using namespace UtilitairesDX;
 namespace PM3D
@@ -203,9 +204,6 @@ namespace PM3D
 		float posX, posY;
 		float facteurX, facteurY;
 
-		TexSize[0] = _dx;
-		TexSize[1] = _dy;
-
 		// Initialisation de la texture
 		CGestionnaireDeTextures& TexturesManager = CGestionnaireDeTextures::GetInstance();
 
@@ -230,6 +228,7 @@ namespace PM3D
 			dx = float(_dx);
 			dy = float(_dy);
 		}
+		
 		// Dimension en facteur
 		facteurX = dx*2.0f / pDispositif->GetLargeur();
 		facteurY = dy*2.0f / pDispositif->GetHauteur();
@@ -607,6 +606,14 @@ namespace PM3D
 		needle = new TextureSprite{ "needle.dds",largeurPercent(0.02f) + 25,  hauteurPercent(0.80f) + 10, 150, 150, _pDispositif };
 		RotateNeedle(XM_PI / 2);
 
+		/*mob = new TextureSprite{ "Testmob.dds",largeurPercent(0.5f),  hauteurPercent(0.5f) , 160, 120, _pDispositif };
+		mob->SetDimension(1280, 120);
+		animMob = new Animation(mob);
+		animMob->setFrameSize(160, 120);
+		animMob->setRepeating(true);
+		animMob->setNumFrames(8);
+		animMob->setDuration(1.0f);*/
+
 		const FontFamily oFamily(L"Arial", NULL);
 		pPolice = new Font(&oFamily, 60.00, FontStyleBold, UnitPixel);
 		pPoliceTitle = new Font(&oFamily, 60.00, FontStyleBold, UnitPixel);
@@ -623,6 +630,11 @@ namespace PM3D
 
 		scoreText = new TextSprite(pPolice, largeurPercent(0.90f) - 70, hauteurPercent(0.05f), 170, 60, _pDispositif);
 		scoreText->Ecrire(L"0");
+	}
+
+	void SpriteManager::UpdateAnimation(float dt)
+	{
+		//animMob->update(dt);
 	}
 
 	void SpriteManager::UpdateSpeedText()
@@ -683,6 +695,9 @@ namespace PM3D
 		
 		RotateNeedle(-XM_PI/100 * vitesse + XM_PI/2 );
 		needle->Draw();
+
+
+		//mob->Draw();
 
 		UpdateSpeedText();
 		speedText->Draw();
