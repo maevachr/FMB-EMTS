@@ -273,8 +273,8 @@ public:
 	{
 		mRatios[PxVehicleGearsData::eREVERSE]=-4.0f;
 		mRatios[PxVehicleGearsData::eNEUTRAL]=0.0f;
-		mRatios[PxVehicleGearsData::eFIRST]=4.0f;
-		mRatios[PxVehicleGearsData::eSECOND]=2.0f;
+		mRatios[PxVehicleGearsData::eFIRST]=5.0f;
+		mRatios[PxVehicleGearsData::eSECOND]=2.5f;
 		mRatios[PxVehicleGearsData::eTHIRD]=1.5f;
 		mRatios[PxVehicleGearsData::eFOURTH]=1.1f;
 		mRatios[PxVehicleGearsData::eFIFTH]=1.0f;

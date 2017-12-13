@@ -79,8 +79,14 @@ namespace PM3D
 
 		if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_W))
 		{
-			// Avancer
-			vehicle->startAccelerateForwardsMode();
+			if (vel.normalize() < 15)
+			{
+				vehicle->startAccelerateForwardsMode();
+			}
+			else
+			{
+				vehicle->startAccelerateForwardsSecond();
+			}
 		}
 		else if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_S))
 		{

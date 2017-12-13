@@ -48,6 +48,7 @@ public:
 
 	VehicleDesc initVehicleDesc();
 	void startAccelerateForwardsMode();
+	void startAccelerateForwardsSecond();
 	void startAccelerateReverseMode();
 	void startBrakeMode();
 	void startTurnHardLeftMode();
