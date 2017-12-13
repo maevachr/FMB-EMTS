@@ -181,6 +181,10 @@ namespace PM3D
 			pxActor->setGlobalPose(transform);
 		
 			actorShape = pxActor->createShape(g, *material);
+			physx::PxFilterData qryFilterData;
+			qryFilterData.word3 = (PxU32)DRIVABLE_SURFACE;
+			actorShape->setQueryFilterData(qryFilterData);
+
 			actorShape->setSimulationFilterData(filterData);
 		}
 

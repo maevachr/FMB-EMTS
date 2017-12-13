@@ -77,7 +77,7 @@ namespace PM3D
 		{
 			if (vehicle->gIsVehicleInAir)
 			{
-				Actor->addTorque(-1000 * transform.q.rotate(PxVec3(1.0f, 0.0f, 0.0f)));
+				Actor->addTorque(0.025*transform.q.rotate(PxVec3(1.0f, 0.0f, 0.0f)), PxForceMode::eVELOCITY_CHANGE);
 			}
 			if (vel.normalize() < 15)
 			{
@@ -92,7 +92,7 @@ namespace PM3D
 		{
 			if (vehicle->gIsVehicleInAir)
 			{
-				Actor->addTorque(1000 * transform.q.rotate(PxVec3(1.0f, 0.0f, 0.0f)));
+				Actor->addTorque(-0.025* transform.q.rotate(PxVec3(1.0f, 0.0f, 0.0f)), PxForceMode::eVELOCITY_CHANGE);
 			}
 			// Reculer
 			vehicle->startAccelerateReverseMode();
@@ -148,7 +148,7 @@ namespace PM3D
 		{
 			if (vehicle->gIsVehicleInAir)
 			{
-				Actor->addTorque(-1000 * transform.q.rotate(PxVec3(0.0f, 0.0f, 1.0f)));
+				Actor->addTorque(-0.05 * transform.q.rotate(PxVec3(0.0f, 0.0f, 1.0f)), PxForceMode::eVELOCITY_CHANGE);
 			}
 			// Tourner à gauche
 			vehicle->startTurnHardLeftMode();
@@ -157,7 +157,7 @@ namespace PM3D
 		{
 			if (vehicle->gIsVehicleInAir)
 			{
-				Actor->addTorque(1000 * transform.q.rotate(PxVec3(0.0f, 0.0f, 1.0f)));
+				Actor->addTorque(0.05 * transform.q.rotate(PxVec3(0.0f, 0.0f, 1.0f)), PxForceMode::eVELOCITY_CHANGE);
 			}
 			// Tourner à droite
 			vehicle->startTurnHardRightMode();
