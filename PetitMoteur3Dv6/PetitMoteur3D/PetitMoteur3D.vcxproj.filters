@@ -228,12 +228,15 @@
     <ClCompile Include="TextureRenderer.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="TVGo.cpp">
       <Filter>Fichiers sources\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="BlackBoard.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+=======
+>>>>>>> f6904649265fc1bdd79927bfea15ec329d2ad5d4
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Moteur.h">

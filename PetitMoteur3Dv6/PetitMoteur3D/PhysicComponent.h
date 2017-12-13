@@ -329,7 +329,7 @@ namespace PM3D
 				nbTic = 0;
 			}
 			lastTime = time;
-			if (nbTic >= 350) {
+			if (nbTic >= 200) {
 				nbTic = 0;
 				return true;
 			}
