@@ -39,7 +39,7 @@ namespace PM3D {
 		position = XMVectorSet(200.f, 200.f, 100.f, 1.0f);
 
 		lights[1] = new CLight(position,
-			XMVectorSet(0.1f, 0.1f, 0.1f, 1.0f),
+			XMVectorSet(0.5f, 0.5f, 0.5f, 1.0f),
 			XMVectorSet(0.8f, 0.8f, 0.8f, 1.0f),
 			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
 			XMVector4Normalize(position/2.f - position),

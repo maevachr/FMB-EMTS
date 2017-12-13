@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "PauseState.h"
+#include "SoundManager.h"
 
 using namespace PM3D;
 
@@ -7,6 +8,8 @@ PauseState::PauseState(StateStack& stack, Context context)
 	: State(stack, context)
 	, background{ TextureSprite{ "pause.dds", 510, 375, static_cast<int>(500*1.777f), 500, context.pDispositif } }
 {
+	SoundManager::GetInstance().PauseSound(SoundManager::MUSIC);
+	SoundManager::GetInstance().PauseSound(SoundManager::ENGINE);
 }
 
 void PauseState::draw()
@@ -29,6 +32,8 @@ void PauseState::ProcessInput()
 
 	//Retour Game
 	if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_ESCAPE)) {
+		SoundManager::GetInstance().ContinueSound(SoundManager::MUSIC);
+		SoundManager::GetInstance().ContinueSound(SoundManager::ENGINE);
 		requestStackPop();
 	}
 

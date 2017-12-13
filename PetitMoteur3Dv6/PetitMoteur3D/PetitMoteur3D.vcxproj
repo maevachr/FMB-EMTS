@@ -35,11 +35,13 @@
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="using fmod.props" />
     <Import Project="config\define roots.props" />
     <Import Project="config\physx.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="using fmod.props" />
     <Import Project="config\define roots.props" />
     <Import Project="config\physx.props" />
   </ImportGroup>
@@ -113,6 +115,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="AreneGo.cpp" />
+    <ClCompile Include="BlackBoard.cpp" />
     <ClCompile Include="CircusGo.cpp" />
     <ClCompile Include="BillBoardComponentManager.cpp" />
     <ClCompile Include="BillBoardManager.cpp" />
@@ -216,6 +219,7 @@
     <ClInclude Include="PhysxVehicle.h" />
     <ClInclude Include="Print.h" />
     <ClInclude Include="PVD.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="SpotGo.h" />
     <ClInclude Include="TextureRenderer.h" />
     <ClInclude Include="TiresGo.h" />

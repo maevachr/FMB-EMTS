@@ -4,6 +4,7 @@
 #include <assert.h>
 #include <algorithm>
 #include "GameObject.h"
+#include "BlackBoard.h"
 
 using namespace std;
 
@@ -39,7 +40,6 @@ namespace PM3D
 			go->OnUnspawn();
 		}
 	};
-
 
 	class CallBackManager
 	{
