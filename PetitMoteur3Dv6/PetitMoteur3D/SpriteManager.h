@@ -12,6 +12,8 @@ using namespace Gdiplus;
 using namespace DirectX;
 using namespace std;
 
+class Animation;
+
 namespace PM3D
 {
 	class Sprite {
@@ -40,6 +42,9 @@ namespace PM3D
 			size_type height = 1.f;
 		};
 		std::array<int, 2> GetDimension() const { return TexSize; }
+		void SetDimension(int x, int y) {
+			TexSize[0] = x;
+			TexSize[1] = y; }
 		TextureRectangle GetTextureRect() const { return mTextRect; }
 		void SetTextureRect(TextureRectangle rect) { mTextRect = rect; }
 	protected:
@@ -160,6 +165,9 @@ namespace PM3D
 		PostEffectSprite* post;
 		TextureSprite* speedometer;
 		TextureSprite* needle;
+		TextureSprite* mob;
+
+		Animation* animMob;
 
 		Gdiplus::Font*pPoliceSpeed;
 		TextSprite* speedText;
@@ -203,6 +211,8 @@ namespace PM3D
 		void Init(CDispositifD3D11* _pDispositif);
 
 		Font* GetFontTitle() { return pPoliceTitle; }
+
+		void UpdateAnimation(float dt);
 
 		void CleanUp()
 		{

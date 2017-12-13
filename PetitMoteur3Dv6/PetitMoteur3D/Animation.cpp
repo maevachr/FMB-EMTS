@@ -2,7 +2,7 @@
 #include "Animation.h"
 
 
-Animation::Animation(PM3D::TextureSprite* texture)
+Animation::Animation(TextureSprite* texture)
 	: pSprite(texture)
 	, mFrameSize()
 	, mNumFrames(0)
@@ -89,6 +89,8 @@ void Animation::update(Time dt)
 			textureRect.left = 0;
 			textureRect.top += textureRect.height;
 		}
+		textureRect.width += textureRect.left;
+		textureRect.height += textureRect.top;
 
 		// And progress to next frame
 		mElapsedTime -= timePerFrame;
@@ -97,13 +99,18 @@ void Animation::update(Time dt)
 			mCurrentFrame = (mCurrentFrame + 1) % mNumFrames;
 
 			if (mCurrentFrame == 0)
-				textureRect = { 0, 0, mFrameSize[0], mFrameSize[0] };
+				textureRect = { 0, 0, mFrameSize[0], mFrameSize[1] };
 		}
 		else
 		{
 			mCurrentFrame++;
 		}
 	}
+
+	textureRect.left /= textureSize[0];
+	textureRect.top /= textureSize[1];
+	textureRect.width /= textureSize[0];
+	textureRect.height /= textureSize[1];
 
 	pSprite->SetTextureRect(textureRect);
 }
