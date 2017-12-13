@@ -5,17 +5,24 @@
 #include "SpawnManager.h"
 #include "MiniCrateGo.h"
 #include "CallBackManager.h"
+#include "CrateGo.h"
 
 namespace PM3D
 {
-	void ExplodedBox::OnSpawn(const PxTransform &_transform, GameObject * _parent)
+	template class ExplodedBox<BrownCrate>;
+	template class ExplodedBox<OrangeCrate>;
+	template class ExplodedBox<WhiteCrate>;
+
+	template<class CrateColor>
+	void ExplodedBox<CrateColor>::OnSpawn(const PxTransform &_transform, GameObject * _parent)
 	{
 		GameObject::OnSpawn(_transform, _parent);
 		GenerateExplosion();
 		CallBackManager::GetInstance().AddCallBack(new UnspawnCallBack{ this, 3.f });
 	}
 
-	void ExplodedBox::OnUnspawn()
+	template<class CrateColor>
+	void ExplodedBox<CrateColor>::OnUnspawn()
 	{
 		GameObject::OnUnspawn();
 
@@ -25,7 +32,9 @@ namespace PM3D
 		});
 		children.clear();
 	}
-	void ExplodedBox::GenerateExplosion()
+
+	template<class CrateColor>
+	void ExplodedBox<CrateColor>::GenerateExplosion()
 	{
 		for (int i = 0; i < 3; ++i)
 		{
@@ -33,9 +42,9 @@ namespace PM3D
 			{
 				for (int k = 0; k < 3; ++k)
 				{
-					MiniCrateGo* t = new MiniCrateGo();
+					MiniCrateGo<CrateColor>* t = new MiniCrateGo<CrateColor>();
 					PxTransform trans = PxTransform::createIdentity();
-					trans.p = PxVec3{ 0.33f * i - 0.33f, 0.33f * j - 0.33f, 0.33f * k - 0.33f };
+					trans.p = PxVec3{ 0.5f * i - 0.5f, 0.5f * j - 0.5f, 0.5f * k - 0.5f };
 					t->OnSpawn(GetTransform()* trans, nullptr);
 					AddChild(t);
 				}

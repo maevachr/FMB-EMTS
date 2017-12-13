@@ -32,7 +32,7 @@ namespace PM3D
 				if (vitesse > CrateTraits<CrateColor>::breaking_speed) {
 					PxTransform decalage = go->GetWorldTransform();
 					decalage.p += PxVec3(0, 0, 0);
-					SpawnManager::GetInstance().Spawn<ExplodedBox>(decalage);
+					SpawnManager::GetInstance().Spawn<ExplodedBox<CrateColor>>(decalage);
 					BlackBoard::GetInstance().AddPoints(CrateTraits<CrateColor>::nb_points);
 					BlackBoard::GetInstance().AddBoost(CrateTraits<CrateColor>::bonus_boost);
 
@@ -66,7 +66,7 @@ namespace PM3D
 		//Set Components
 		//-----RenderComponent
 		RenderComponent* p = CreateComponent<RenderComponent>();
-		p->GetMesh(CrateTraits<CrateColor>::fileName);
+		p->GetMesh(CrateTraits<CrateColor>::fileNameBigCrate);
 
 		//-----BillBoardComponent
 		BillBoardComponent* b = CreateComponent<BillBoardComponent>();
@@ -79,7 +79,7 @@ namespace PM3D
 		PxFilterData filterData;
 		filterData.word0 = COLLISION_FLAG_CRATE;
 		filterData.word1 = COLLISION_FLAG_CRATE_AGAINST;
-		d->InitData(PxBoxGeometry(PxVec3(0.5, 0.5, 0.5)), move(material), filterData);
+		d->InitData(PxBoxGeometry(PxVec3(1.5, 1.5, 1.5)), move(material), filterData);
 		PxTransform centerMass = physx::PxTransform::createIdentity();
 		centerMass.p = PxVec3(0, 0, 0);
 		d->InitMass(5, centerMass);

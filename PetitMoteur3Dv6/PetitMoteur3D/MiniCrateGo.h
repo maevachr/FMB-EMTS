@@ -5,6 +5,7 @@ using namespace physx;
 
 namespace PM3D
 {
+	template<class CrateColor>
 	class MiniCrateGo : public GameObject
 	{
 	private:

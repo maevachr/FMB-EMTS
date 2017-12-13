@@ -18,7 +18,8 @@ namespace PM3D
 		static constexpr int nb_points = 0;
 		static constexpr float breaking_speed = 0.f;
 		static constexpr float bonus_boost = 0.f;
-		static constexpr char* fileName = "crate";
+		static constexpr char* fileNameBigCrate = "crateBrown";
+		static constexpr char* fileNameLittleCrate = "miniCrateBrown";
 	};
 
 	template<>
@@ -26,7 +27,8 @@ namespace PM3D
 		static constexpr int nb_points = 100;
 		static constexpr float breaking_speed = 10.f;
 		static constexpr float bonus_boost = 15.f;
-		static constexpr char* fileName = "crate";
+		static constexpr char* fileNameBigCrate = "crateBrown";
+		static constexpr char* fileNameLittleCrate = "miniCrateBrown";
 	};
 
 	template<>
@@ -34,7 +36,8 @@ namespace PM3D
 		static constexpr int nb_points = 200;
 		static constexpr float breaking_speed = 20.f;
 		static constexpr float bonus_boost = 30.f;
-		static constexpr char* fileName = "crateOrange";
+		static constexpr char* fileNameBigCrate = "crateOrange";
+		static constexpr char* fileNameLittleCrate = "miniCrateOrange";
 	};
 
 	template<>
@@ -42,7 +45,8 @@ namespace PM3D
 		static constexpr int nb_points = 500;
 		static constexpr float breaking_speed = 30.f;
 		static constexpr float bonus_boost = 100.f;
-		static constexpr char* fileName = "crateWhite";
+		static constexpr char* fileNameBigCrate = "crateWhite";
+		static constexpr char* fileNameLittleCrate = "miniCrateWhite";
 	};
 	
 	template<class CrateColor>
