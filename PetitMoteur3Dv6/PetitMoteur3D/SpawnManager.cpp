@@ -8,7 +8,7 @@ namespace PM3D{
 
 		//Always put MonsterTruckGo first
 		PxTransform locationTruck = PxTransform::createIdentity();
-		locationTruck.p = PxVec3{ 5, 5, 3 };
+		locationTruck.p = PxVec3{ 20, 5, 3 };
 		Spawn<MonsterTruckGo>(locationTruck);
 
 		Spawn<SkyBoxGo>();
@@ -40,11 +40,11 @@ namespace PM3D{
 		// 			Spawn<ExplodedBox>(explodedBox);
 
 		PxTransform locationBus = PxTransform::createIdentity();
-		locationBus.p = PxVec3{ 10, 10, 6 };
+		locationBus.p = PxVec3{ -10, -10, 6 };
 		Spawn<BusGo>(locationBus);
 
 		PxTransform locationCircusGo = PxTransform::createIdentity();
-		locationCircusGo.p = PxVec3{ -10, -10, 0 };
+		locationCircusGo.p = PxVec3{ 0, 15, 0 };
 		Spawn<CircusGo>(locationCircusGo);
 
 		PxTransform locationFlottingCrateGo = PxTransform::createIdentity();
@@ -57,13 +57,13 @@ namespace PM3D{
 		Spawn<AreneGo>(locationArene);
 
 		PxTransform locationContainer = PxTransform::createIdentity();
-		locationContainer.p = PxVec3{ 20, 10, 2 };
-		locationContainer.q = PxQuat{ PxPiDivTwo,PxVec3{0,0,1} };
+		locationContainer.p = PxVec3{ 5, -10, 2 };
+		//locationContainer.q = PxQuat{ PxPiDivTwo,PxVec3{0,0,1} };
 		//rotation de l'arene
 		Spawn<ContainerGo>(locationContainer);
 
 		PxTransform locationRoues = PxTransform::createIdentity();
-		locationRoues.p = PxVec3{ -30, 20, 0 };
+		locationRoues.p = PxVec3{ -30, 20, 5 };
 		Spawn<TiresGo>(locationRoues);
 	
 	}

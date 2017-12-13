@@ -694,7 +694,7 @@ namespace PM3D
 		nMeshes.push_back(minicrateMeshWhite);
 
 		NormalMesh* busMesh = new NormalMesh{};
-		busMesh->InitFile("obj_bus_centre.omb");
+		busMesh->InitFile("obj_bus.omb");
 		busMesh->InitName("bus");
 		nMeshes.push_back(busMesh);
 
