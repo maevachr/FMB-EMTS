@@ -606,13 +606,13 @@ namespace PM3D
 		needle = new TextureSprite{ "needle.dds",largeurPercent(0.02f) + 25,  hauteurPercent(0.80f) + 10, 150, 150, _pDispositif };
 		RotateNeedle(XM_PI / 2);
 
-		/*mob = new TextureSprite{ "Testmob.dds",largeurPercent(0.5f),  hauteurPercent(0.5f) , 160, 120, _pDispositif };
-		mob->SetDimension(1280, 120);
+		mob = new TextureSprite{ "mob.dds",largeurPercent(0.5f),  hauteurPercent(0.5f) , 67, 42, _pDispositif };
+		mob->SetDimension(1005, 42);
 		animMob = new Animation(mob);
-		animMob->setFrameSize(160, 120);
+		animMob->setFrameSize(67, 42);
 		animMob->setRepeating(true);
-		animMob->setNumFrames(8);
-		animMob->setDuration(1.0f);*/
+		animMob->setNumFrames(15);
+		animMob->setDuration(0.5f);
 
 		const FontFamily oFamily(L"Arial", NULL);
 		pPolice = new Font(&oFamily, 60.00, FontStyleBold, UnitPixel);
@@ -634,7 +634,7 @@ namespace PM3D
 
 	void SpriteManager::UpdateAnimation(float dt)
 	{
-		//animMob->update(dt);
+		animMob->update(dt);
 	}
 
 	void SpriteManager::UpdateSpeedText()
@@ -696,8 +696,19 @@ namespace PM3D
 		RotateNeedle(-XM_PI/100 * vitesse + XM_PI/2 );
 		needle->Draw();
 
+	/*	std::ofstream output("DebugFile", std::ios::app);
+		if (output)
+		{
+			output << "Current Frame : " << animMob->GetFrame() << ". " 
+				<< "Left = " << mob->GetTextureRect().left 
+				<< "Top = " << mob->GetTextureRect().top 
+				<< "Width = " << mob->GetTextureRect().width 
+				<< "Height = " << mob->GetTextureRect().height
+				<< "\n";
+		}*/
 
-		//mob->Draw();
+		animMob->Draw();
+
 
 		UpdateSpeedText();
 		speedText->Draw();
