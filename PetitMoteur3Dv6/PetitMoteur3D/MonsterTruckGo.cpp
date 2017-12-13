@@ -35,13 +35,7 @@ namespace PM3D
 		//-----DynamicPhysicComponent
 		VehiclePhysicComponent* d = CreateComponent<VehiclePhysicComponent>();
 		PxPhysics &physics = SimulationManager::GetInstance().physics();
-		physx::unique_ptr<PxMaterial> material = physx::unique_ptr<PxMaterial>(physics.createMaterial(0.15f, 0.15f, 0.0f));
-		PxFilterData filterData;
-		d->InitData(PxBoxGeometry(PxVec3(2, 2, 1)), move(material), filterData);
-		/*PxTransform centerMass = physx::PxTransform::createIdentity();
-		centerMass.p = PxVec3(0, 0, -0.5);
-		PxVec3 inertiaTensor = { 10,10,10 };
-		d->InitMass(150, centerMass, inertiaTensor);*/
+		d->InitData(_transform);
 	}
 
 	void MonsterTruckGo::OnUnspawn()
