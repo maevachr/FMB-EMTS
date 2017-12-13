@@ -55,6 +55,8 @@ namespace PM3D
 		XMMATRIX matWVP; // la matrice totale
 		XMFLOAT2 coordTextHG;
 		XMFLOAT2 coordTextBD;
+		float masquageY;
+		XMFLOAT3 remplissage;
 	};
 
 	void Sprite::InitEffet()
@@ -153,6 +155,7 @@ namespace PM3D
 		sp.matWVP = XMMatrixTranspose(matRotation*matPosDim ); 
 		sp.coordTextHG = XMFLOAT2{ mTextRect.left, mTextRect.top };
 		sp.coordTextBD = XMFLOAT2{ mTextRect.width, mTextRect.height };
+		sp.masquageY = masquageY;
 		pImmediateContext->UpdateSubresource(pConstantBuffer, 0, NULL,
 
 			&sp, 0, 0);
@@ -606,6 +609,9 @@ namespace PM3D
 		needle = new TextureSprite{ "needle.dds",largeurPercent(0.02f) + 25,  hauteurPercent(0.80f) + 10, 150, 150, _pDispositif };
 		RotateNeedle(XM_PI / 2);
 
+		jauge = new TextureSprite{ "Jauge.dds",largeurPercent(0.83f) ,  hauteurPercent(0.67f) , static_cast<int>(1408*0.15f), static_cast<int>(1711 * 0.15f), _pDispositif };
+		jaugeEnergie = new TextureSprite{ "JaugeEnergie.dds",largeurPercent(0.83f),  hauteurPercent(0.67f), static_cast<int>(1408 * 0.15f), static_cast<int>(1711 * 0.15f), _pDispositif };
+
 
 		//Flamme settings
 		/*mob = new TextureSprite{ "explosion1.dds",largeurPercent(0.2f),  hauteurPercent(0.2f) , 512, 512, _pDispositif };
@@ -682,6 +688,11 @@ namespace PM3D
 		needle->Rotate(angle);
 	}
 
+	void SpriteManager::UpdateJauge() {
+		int boost = BlackBoard::GetInstance().GetBoost();
+		jaugeEnergie->setMasquage(-0.71f / 100 * boost + 0.87f);
+	}
+
 	void SpriteManager::UpdateScoreText()
 	{
 		int score = BlackBoard::GetInstance().GetScore();
@@ -707,6 +718,11 @@ namespace PM3D
 		RotateNeedle(-XM_PI/100 * vitesse + XM_PI/2 );
 		needle->Draw();
 
+
+		UpdateJauge();
+		jaugeEnergie->Draw();
+		jauge->Draw();
+
 	/*	std::ofstream output("DebugFile", std::ios::app);
 		if (output)
 		{
@@ -728,7 +744,7 @@ namespace PM3D
 		chronoText->Draw();
 
 		UpdateBoostText();
-		boostText->Draw();
+		//boostText->Draw();
 
 		UpdateScoreText();
 		scoreText->Draw();
