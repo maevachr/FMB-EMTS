@@ -47,9 +47,15 @@ namespace PM3D
 			TexSize[1] = y; }
 		TextureRectangle GetTextureRect() const { return mTextRect; }
 		void SetTextureRect(TextureRectangle rect) { mTextRect = rect; }
+
+		void setMasquage(float y) {
+			masquageY = y;
+		}
 	protected:
 		std::array<float, 2> TexSize;
 		TextureRectangle mTextRect;
+
+		float masquageY = 0.0f; // 1.0f implique qu'on n'affiche plus rien
 
 		ID3D11ShaderResourceView* pTextureD3D;
 		XMMATRIX matPosDim;
@@ -167,6 +173,10 @@ namespace PM3D
 		TextureSprite* needle;
 		TextureSprite* mob;
 
+
+		TextureSprite* jauge;
+		TextureSprite* jaugeEnergie;
+
 		Animation* animMob;
 
 		Gdiplus::Font*pPoliceSpeed;
@@ -225,6 +235,7 @@ namespace PM3D
 		void UpdateBoostText();
 		void RotateNeedle(float);
 		void UpdateScoreText();
+		void UpdateJauge();
 	public:
 		void Draw();
 	};
