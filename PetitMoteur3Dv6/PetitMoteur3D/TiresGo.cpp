@@ -31,7 +31,7 @@ namespace PM3D
 		d->InitData(PxBoxGeometry(PxVec3(1.3, 1.3, 1.8)), move(material), filterData);
 
 		PxTransform centerMass = physx::PxTransform::createIdentity();
-		centerMass.p = PxVec3(0, 0, -1.f);
+		centerMass.p = PxVec3(0, 0, 0.f);
 		PxVec3 inertiaTensor = { 5000,5000,5000 };
 		d->InitMass(50, centerMass, inertiaTensor);
 	}

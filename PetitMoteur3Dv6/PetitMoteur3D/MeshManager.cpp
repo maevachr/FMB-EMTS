@@ -738,6 +738,11 @@ namespace PM3D
 		tires->InitName("tires");
 		nMeshes.push_back(tires);
 
+		NormalMesh* spot = new NormalMesh{};
+		spot->InitFile("obj_spot.omb");
+		spot->InitName("spot");
+		nMeshes.push_back(spot);
+
 		sbMesh = new SkyBoxMesh{};
 
 		

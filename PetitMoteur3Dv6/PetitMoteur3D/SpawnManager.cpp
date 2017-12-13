@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "SpawnManager.h"
 #include "TVGo.h"
+#include "SpotGo.h"
 namespace PM3D{
 	void SpawnManager::Init()
 	{
@@ -88,7 +89,11 @@ namespace PM3D{
 		PxTransform locationBus2 = PxTransform::createIdentity();
 		locationBus2.p = PxVec3{ 3, -10, 6 };
 		Spawn<BusGo>(locationBus2);
-	
+
+		PxTransform locationSpot = PxTransform::createIdentity();
+		locationSpot.p = PxVec3{70,50, 2 }; 
+		locationSpot.q = PxQuat{ PxPiDivTwo,PxVec3{ 0,0,1 } };
+		Spawn<SpotGo>(locationSpot);
 	}
 	void SpawnManager::Update()
 	{
