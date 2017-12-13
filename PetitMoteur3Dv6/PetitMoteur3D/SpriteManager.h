@@ -31,6 +31,21 @@ namespace PM3D
 			XMFLOAT2 coordTex;
 		};
 	protected:
+	public:
+		struct TextureRectangle {
+			using size_type = float;
+			size_type left = 0.f;
+			size_type top = 0.f;
+			size_type width = 1.f;
+			size_type height = 1.f;
+		};
+		std::array<int, 2> GetDimension() const { return TexSize; }
+		TextureRectangle GetTextureRect() const { return mTextRect; }
+		void SetTextureRect(TextureRectangle rect) { mTextRect = rect; }
+	protected:
+		std::array<int, 2> TexSize;
+		TextureRectangle mTextRect;
+
 		ID3D11ShaderResourceView* pTextureD3D;
 		XMMATRIX matPosDim;
 		XMMATRIX matRotation = XMMatrixIdentity();
@@ -60,25 +75,9 @@ namespace PM3D
 
 	class TextureSprite : public Sprite {
 	public:
-		using size_type = int;
-	public:
-		struct TextureRectangle {
-			size_type left;
-			size_type top;
-			size_type width;
-			size_type height;
-		};
-	public:
 		TextureSprite(string NomTexture, int _x, int _y, int _dx, int _dy, CDispositifD3D11* _pDispositif);
-		std::array<int, 2> GetDimension() const { return TexSize; }
-		TextureRectangle GetTextureRect() const{ return mTextRect; }
-		void SetTextureRect(TextureRectangle rect) { mTextRect = rect; }
-
-	
-	private:
-		std::array<int,2> TexSize;
-		TextureRectangle mTextRect;
 	};
+
 
 	class TextSprite : public Sprite {
 	public:
@@ -101,6 +100,7 @@ namespace PM3D
 	public:
 		void Ecrire(wstring s);
 	};
+
 
 	class PostEffectSprite : public Sprite{
 	public:

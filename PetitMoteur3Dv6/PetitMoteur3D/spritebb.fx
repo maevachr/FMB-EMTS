@@ -1,8 +1,6 @@
 cbuffer param
 {
 	float4x4 matWVP; // la matrice de travail
-	float2 coordTexHG;
-	float2 coordTexBD;
 }
 
 struct VS_Sortie
@@ -16,7 +14,7 @@ VS_Sortie Sprite1VS(float4 Pos : POSITION, float2 coordTex: TEXCOORD)
 	VS_Sortie sortie = (VS_Sortie)0;
 	sortie.Pos = mul(Pos, matWVP);
 	// Coordonnées d'application de texture
-	sortie.coordTex = coordTexHG + coordTex * coordTexBD;
+	sortie.coordTex = coordTex;
 	return sortie;
 }
 
