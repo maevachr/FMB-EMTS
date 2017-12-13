@@ -50,7 +50,7 @@ bool GameState::update(Time dt)
 	CLightManager::GetInstance().AnimeScene(dt);
 
 	SpawnManager::GetInstance().Update();
-
+	SpriteManager::GetInstance().UpdateAnimation(dt);
 	BlackBoard::GetInstance().Update(dt);
 
 	CallBackManager::GetInstance().UpdateTime(dt);
