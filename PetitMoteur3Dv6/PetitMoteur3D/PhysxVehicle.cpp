@@ -108,7 +108,7 @@ VehicleDesc PhysxVehicle::initVehicleDesc()
 	//Set up the chassis mass, dimensions, moment of inertia, and center of mass offset.
 	//The moment of inertia is just the moment of inertia of a cuboid but modified for easier steering.
 	//Center of mass offset is 0.65m above the base of the chassis and 0.25m towards the front.
-	const PxF32 chassisMass = 1500.0f;
+	const PxF32 chassisMass = 1200.0f;
 	const PxVec3 chassisDims(2.25f, 1.25f, 3.75f);
 	const PxVec3 chassisMOI
 	((chassisDims.y*chassisDims.y + chassisDims.z*chassisDims.z)*chassisMass / 12.0f,
@@ -119,7 +119,7 @@ VehicleDesc PhysxVehicle::initVehicleDesc()
 	//Set up the wheel mass, radius, width, moment of inertia, and number of wheels.
 	//Moment of inertia is just the moment of inertia of a cylinder.
 	const PxF32 wheelMass = 20.0f;
-	const PxF32 wheelRadius = 0.5f;
+	const PxF32 wheelRadius = 0.6f;
 	const PxF32 wheelWidth = 0.4f;
 	const PxF32 wheelMOI = 0.5f*wheelMass*wheelRadius*wheelRadius;
 	const PxU32 nbWheels = 4;
@@ -141,7 +141,7 @@ VehicleDesc PhysxVehicle::initVehicleDesc()
 
 void PhysxVehicle::startAccelerateForwardsMode()
 {
-	gVehicle4W->mDriveDynData.forceGearChange(PxVehicleGearsData::eSECOND);
+	gVehicle4W->mDriveDynData.forceGearChange(PxVehicleGearsData::eFIRST);
 	if (gMimicKeyInputs)
 	{
 		gVehicleInputData.setDigitalAccel(true);
@@ -152,6 +152,18 @@ void PhysxVehicle::startAccelerateForwardsMode()
 	}
 }
 
+void PhysxVehicle::startAccelerateForwardsSecond()
+{
+	gVehicle4W->mDriveDynData.forceGearChange(PxVehicleGearsData::eSECOND);
+	if (gMimicKeyInputs)
+	{
+		gVehicleInputData.setDigitalAccel(true);
+	}
+	else
+	{
+		gVehicleInputData.setAnalogAccel(1.0f);
+	}
+}
 
 void PhysxVehicle::startAccelerateReverseMode()
 {
@@ -306,7 +318,7 @@ PxRigidDynamic* PhysxVehicle::initPhysics()
 	gPhysics = PM3D::SimulationManager::GetInstance().GetPhysics().get();
 	gConnection = PM3D::SimulationManager::GetInstance().GetPVDConnection().get();
 	gDispatcher = PM3D::SimulationManager::GetInstance().GetDefaultCpuDispatcher().get();
-	gMaterial = gPhysics->createMaterial(0.5f, 0.5f, 0.6f);
+	gMaterial = gPhysics->createMaterial(0.5f, 0.5f, 0.1f);
 	gCooking = PM3D::SimulationManager::GetInstance().cooking;
 	gScene = &PM3D::SimulationManager::GetInstance().scene();
 
