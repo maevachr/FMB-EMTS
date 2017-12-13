@@ -664,7 +664,7 @@ namespace PM3D
 		nMeshes.push_back(monsterWheelMesh);
 
 		NormalMesh* crateMesh = new NormalMesh{};
-		crateMesh->InitFile("obj_crate_scale_1m3.omb");
+		crateMesh->InitFile("obj_crate_brown.omb");
 		crateMesh->InitName("crate");
 		nMeshes.push_back(crateMesh);
 
@@ -689,7 +689,7 @@ namespace PM3D
 		nMeshes.push_back(terrainMesh);
 
 		NormalMesh* miniCrate = new NormalMesh{};
-		miniCrate->InitFile("obj_mini_crate_3x3.omb");
+		miniCrate->InitFile("obj_minicrate_brown.omb");
 		miniCrate->InitName("miniCrate");
 		nMeshes.push_back(miniCrate);
 
@@ -723,10 +723,10 @@ namespace PM3D
 		container->InitName("container");
 		nMeshes.push_back(container);
 
-		NormalMesh* roues = new NormalMesh{};
-		roues->InitFile("roues.omb");
-		roues->InitName("roues");
-		nMeshes.push_back(roues);
+		NormalMesh* tires = new NormalMesh{};
+		tires->InitFile("obj_tires.omb");
+		tires->InitName("tires");
+		nMeshes.push_back(tires);
 
 		sbMesh = new SkyBoxMesh{};
 

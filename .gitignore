@@ -287,3 +287,9 @@ __pycache__/
 *.xsd.cs
 OutilObjetAssimp/PetitMoteur3D/modeles/Arene/Arene.uvw
 *.uvw
+/PetitMoteur3Dv6/PetitMoteur3D/modeles/Objets/Roues/TireStack_1.3DS
+/PetitMoteur3Dv6/PetitMoteur3D/modeles/Objets/Roues/TireStack_1.FBX
+/PetitMoteur3Dv6/PetitMoteur3D/modeles/Objets/Roues/TireStack_1.smd
+/PetitMoteur3Dv6/PetitMoteur3D/modeles/Objets/Container/Cargo02_D.tga
+/PetitMoteur3Dv6/PetitMoteur3D/modeles/Objets/Container/Cargo02_N.tga
+/PetitMoteur3Dv6/PetitMoteur3D/modeles/Objets/Container/Cargo02_S.tga
