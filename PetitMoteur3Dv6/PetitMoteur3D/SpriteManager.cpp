@@ -606,13 +606,24 @@ namespace PM3D
 		needle = new TextureSprite{ "needle.dds",largeurPercent(0.02f) + 25,  hauteurPercent(0.80f) + 10, 150, 150, _pDispositif };
 		RotateNeedle(XM_PI / 2);
 
-		mob = new TextureSprite{ "mob.dds",largeurPercent(0.5f),  hauteurPercent(0.5f) , 67, 42, _pDispositif };
-		mob->SetDimension(1005, 42);
+
+		//Flamme settings
+		/*mob = new TextureSprite{ "explosion1.dds",largeurPercent(0.2f),  hauteurPercent(0.2f) , 512, 512, _pDispositif };
+		mob->SetDimension(3072, 3072);
 		animMob = new Animation(mob);
-		animMob->setFrameSize(67, 42);
+		animMob->setFrameSize(512, 512);
 		animMob->setRepeating(true);
-		animMob->setNumFrames(15);
-		animMob->setDuration(0.5f);
+		animMob->setNumFrames(36);
+		animMob->setDuration(0.5f);*/
+
+		//Explo
+		mob = new TextureSprite{ "explosion.dds",largeurPercent(0.2f),  hauteurPercent(0.2f) , 256, 256, _pDispositif };
+		mob->SetDimension(2048, 1536);
+		animMob = new Animation(mob);
+		animMob->setFrameSize(256, 256);
+		animMob->setRepeating(true);
+		animMob->setNumFrames(48);
+		animMob->setDuration(1.0f);
 
 		const FontFamily oFamily(L"Arial", NULL);
 		pPolice = new Font(&oFamily, 60.00, FontStyleBold, UnitPixel);
