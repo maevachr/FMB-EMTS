@@ -8,7 +8,7 @@ namespace PM3D
 	class TiresGo : public GameObject
 	{
 	private:
-		static constexpr char* typeId = "BusGo";
+		static constexpr char* typeId = "TiresGo";
 	public:
 		virtual void OnSpawn(const PxTransform& _transform = PxTransform::createIdentity(), GameObject* _parent = nullptr) override;
 		virtual void OnUnspawn() override;

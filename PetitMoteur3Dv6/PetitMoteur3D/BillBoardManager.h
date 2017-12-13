@@ -63,6 +63,7 @@ namespace PM3D
 		size_t GetFramesAmount() { return pTextureD3D.size(); }
 		
 		void Draw(XMVECTOR ownerPosition, int animationFrame);
+		void SetResourceView(ID3D11ShaderResourceView* v);
 	};
 
 
@@ -94,6 +95,10 @@ namespace PM3D
 			BillBoard* b = new BillBoard(_pDispositif, { "arrow2.dds" }, XMFLOAT3(0.0f, 0.0f, 2.0f), 1, 1);
 			b->InitName("arrow");
 			billBoards.push_back(b);
+
+			BillBoard* tv = new BillBoard(_pDispositif, { }, XMFLOAT3(0.0f, 0.0f, 1.0f), 20, 20);
+			tv->InitName("tv");
+			billBoards.push_back(tv);
 
 			BillBoard* fire = new BillBoard(_pDispositif, {
 				"fire\\fire_0000.dds",

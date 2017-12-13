@@ -653,7 +653,7 @@ namespace PM3D
 		nMeshes.push_back(monsterMesh);
 
 		NormalMesh* monsterChassisMesh = new NormalMesh{};
-		monsterChassisMesh->InitFile("obj_chassis_1.omb");
+		monsterChassisMesh->InitFile("obj_chassis.omb");
 		monsterChassisMesh->InitName("monsterChassis");
 		nMeshes.push_back(monsterChassisMesh);
 
@@ -693,7 +693,7 @@ namespace PM3D
 		nMeshes.push_back(minicrateMeshWhite);
 
 		NormalMesh* busMesh = new NormalMesh{};
-		busMesh->InitFile("obj_bus_centre.omb");
+		busMesh->InitFile("obj_bus_scaled.omb");
 		busMesh->InitName("bus");
 		nMeshes.push_back(busMesh);
 

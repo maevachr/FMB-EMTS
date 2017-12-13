@@ -30,14 +30,14 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		CChargeurAssimp chargeur;
 		CParametresChargement param;
 
-		param.NomChemin = ".\\modeles\\Objets\\Bus\\"; 
+		param.NomChemin = ".\\modeles\\Objets\\Crate\\"; 
 
-		param.NomFichier = "bus_upscaled.obj";		
+		param.NomFichier = "minicrate.obj";		
 		param.bMainGauche = false;
 		param.bInverserCulling = true;
 
 		chargeur.Chargement(param);  // Le chargeur lit le fichier
-		s.EcrireFichierBinaire(chargeur, "obj_bus.omb");
+		s.EcrireFichierBinaire(chargeur, "obj_minicrate_orange.omb");
 		return (int)1;
     }
 
