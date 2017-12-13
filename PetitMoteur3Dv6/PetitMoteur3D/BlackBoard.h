@@ -31,7 +31,6 @@ namespace PM3D
 
 	public:
 		void AddPoints(int nbPoints) { 
-			SoundManager::GetInstance().PlaySoundEffect(SoundManager::SCORE_BING);
 			score += nbPoints;
 		}
 		int GetScore() { return score; }

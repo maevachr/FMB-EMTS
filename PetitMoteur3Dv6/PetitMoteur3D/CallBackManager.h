@@ -41,21 +41,6 @@ namespace PM3D
 		}
 	};
 
-	class AddScoreCallBack : public ICallBack {
-		int nbpoints;
-	public:
-		AddScoreCallBack(int _nbpoints, float _time) : nbpoints{ _nbpoints }
-		{
-			basetime = _time;
-			time = _time;
-		}
-
-		virtual void Trigger() override {
-			BlackBoard::GetInstance().AddPoints(nbpoints);
-		}
-	};
-
-
 	class CallBackManager
 	{
 	private:

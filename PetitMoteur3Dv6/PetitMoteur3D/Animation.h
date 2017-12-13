@@ -14,7 +14,7 @@ public:
 public:
 	 						Animation(TextureSprite* texture);
 
-	void 					setFrameSize(int mFrameSizeX, int mFrameSizeY);
+	void 					setFrameSize(float mFrameSizeX, float mFrameSizeY);
 	FrameSize		 		getFrameSize() const;
 
 	void 					setNumFrames(std::size_t numFrames);

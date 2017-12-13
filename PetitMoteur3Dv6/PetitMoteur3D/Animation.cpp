@@ -13,7 +13,7 @@ Animation::Animation(TextureSprite* texture)
 	, mRepeat(false)
 {}
 
-void Animation::setFrameSize(int mFrameSizeX, int mFrameSizeY)
+void Animation::setFrameSize(float mFrameSizeX, float mFrameSizeY)
 {
 	mFrameSize[0] = mFrameSizeX / pSprite->GetDimension()[0];
 	mFrameSize[1] = mFrameSizeY / pSprite->GetDimension()[1];
