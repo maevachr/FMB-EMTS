@@ -16,7 +16,7 @@ VS_Sortie Sprite1VS(float4 Pos : POSITION, float2 coordTex: TEXCOORD)
 	VS_Sortie sortie = (VS_Sortie)0;
 	sortie.Pos = mul(Pos, matWVP);
 	// Coordonnées d'application de texture
-	sortie.coordTex = coordTexHG + coordTex * coordTexBD;
+	sortie.coordTex = coordTexHG + coordTex * (coordTexBD - coordTexHG);
 	return sortie;
 }
 

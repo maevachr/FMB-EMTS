@@ -58,9 +58,9 @@ namespace PM3D
 		return matRotation;
 	}
 
-	BillBoard::BillBoard(CDispositifD3D11 * _pDispositif, vector<string> NomTexture, const XMFLOAT3 & _position, int _dx, int _dy, GameObject * go)
+	BillBoard::BillBoard(CDispositifD3D11 * _pDispositif, vector<string> NomTexture, const XMFLOAT3 & _position, int _dx, int _dy, GameObject * go, bool _faceCamera)
 	{
-		
+		faceCamera = _faceCamera;
 		pVertexBuffer = 0;
 		pConstantBuffer = 0;
 		pEffet = 0;
@@ -198,11 +198,11 @@ namespace PM3D
 		pD3DDevice->CreateSamplerState(&samplerDesc, &pSampleState);
 	}
 
-	void BillBoard::Draw(XMVECTOR ownerPosition, int animationFrame, float target)
+	void BillBoard::Draw(GameObject* owner, int animationFrame, float target, float theta)
 	{
 		if (pTextureD3D.empty()) return;
 		XMFLOAT4 parent;
-		XMStoreFloat4(&parent, ownerPosition);
+		XMStoreFloat4(&parent, owner->GetPosition());
 
 		// Obtenir le contexte
 		ID3D11DeviceContext* pImmediateContext = pDispositif->GetImmediateContext();
@@ -231,14 +231,24 @@ namespace PM3D
 
 		auto posCamera = CCameraManager::GetInstance().GetCurrentCamera().GetPosition();
 
+		XMMATRIX mat;
 		// Initialiser et sélectionner les «constantes» de l'effet
-		ShadersParams sp;
-		XMMATRIX matRot = XMMatrixRotationZ(XMVectorGetZ(XMVector3AngleBetweenVectors(frontVecCamera, normal)));
-		auto mat = XMMatrixScaling(dimension.x, 1.0f, dimension.y)
-			* GetMatrixOrientation(posCamera, parent)
-			* XMMatrixTranslation(position.x + parent.x, position.y + parent.y, position.z + parent.z)
-			* viewProj;
+		if (faceCamera) {
+			//XMMATRIX matRot = XMMatrixRotationZ(XMVectorGetZ(XMVector3AngleBetweenVectors(frontVecCamera, normal)));
+			mat = XMMatrixScaling(dimension.x, 1.0f, dimension.y)
+				* GetMatrixOrientation(posCamera, parent)
+				* XMMatrixTranslation(position.x + parent.x, position.y + parent.y, position.z + parent.z)
+				* viewProj;
+		}
+		else {
+			mat = XMMatrixScaling(dimension.x, 1.0f, dimension.y)
+				* XMMatrixRotationZ(theta)
+				* XMMatrixTranslation(position.x + parent.x, position.y + parent.y, position.z + parent.z)
+				* viewProj;
+		}
+		
 
+		ShadersParams sp;
 		sp.matWVP = XMMatrixTranspose(mat);
 		//ajouter vet et target;
 		VehiclePhysicComponent* vpc = SpawnManager::GetInstance().GetPlayer()->As<VehiclePhysicComponent>();
@@ -246,8 +256,6 @@ namespace PM3D
 		float vitesse = actor->getLinearVelocity().normalize();
 		sp.vel = vitesse;
 		sp.target = target;
-
-
 
 		pImmediateContext->UpdateSubresource(pConstantBuffer, 0, NULL, &sp, 0, 0);
 

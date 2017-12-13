@@ -41,14 +41,14 @@ namespace PM3D
 			size_type width = 1.f;
 			size_type height = 1.f;
 		};
-		std::array<int, 2> GetDimension() const { return TexSize; }
-		void SetDimension(int x, int y) {
+		std::array<float, 2> GetDimension() const { return TexSize; }
+		void SetDimension(float x, float y) {
 			TexSize[0] = x;
 			TexSize[1] = y; }
 		TextureRectangle GetTextureRect() const { return mTextRect; }
 		void SetTextureRect(TextureRectangle rect) { mTextRect = rect; }
 	protected:
-		std::array<int, 2> TexSize;
+		std::array<float, 2> TexSize;
 		TextureRectangle mTextRect;
 
 		ID3D11ShaderResourceView* pTextureD3D;

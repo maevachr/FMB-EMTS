@@ -31,8 +31,10 @@ public:
 
 	void 					update(Time dt);
 
+	size_t GetFrame() { return mCurrentFrame; }
 
-private:
+
+public:
 	void 					Draw() const;
 
 

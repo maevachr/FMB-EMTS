@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Animation.h"
+#include <fstream>
 
 
 Animation::Animation(TextureSprite* texture)
@@ -14,8 +15,8 @@ Animation::Animation(TextureSprite* texture)
 
 void Animation::setFrameSize(int mFrameSizeX, int mFrameSizeY)
 {
-	mFrameSize[0] = mFrameSizeX;
-	mFrameSize[1] = mFrameSizeY;
+	mFrameSize[0] = mFrameSizeX / pSprite->GetDimension()[0];
+	mFrameSize[1] = mFrameSizeY / pSprite->GetDimension()[1];
 }
 
 Animation::FrameSize Animation::getFrameSize() const
@@ -70,8 +71,11 @@ void Animation::update(Time dt)
 	Time timePerFrame = mDuration / static_cast<float>(mNumFrames);
 	mElapsedTime += dt;
 
-	std::array<int, 2> textureSize = pSprite->GetDimension();
+	std::array<float, 2> textureSize = { 1.f,1.f };//pSprite->GetDimension();
 	TextureSprite::TextureRectangle textureRect = pSprite->GetTextureRect();
+	textureRect.width = mFrameSize[0];
+	textureRect.height = mFrameSize[1];
+
 
 	if (mCurrentFrame == 0)
 		textureRect = { 0, 0, mFrameSize[0], mFrameSize[1] };
@@ -89,8 +93,6 @@ void Animation::update(Time dt)
 			textureRect.left = 0;
 			textureRect.top += textureRect.height;
 		}
-		textureRect.width += textureRect.left;
-		textureRect.height += textureRect.top;
 
 		// And progress to next frame
 		mElapsedTime -= timePerFrame;
@@ -107,10 +109,8 @@ void Animation::update(Time dt)
 		}
 	}
 
-	textureRect.left /= textureSize[0];
-	textureRect.top /= textureSize[1];
-	textureRect.width /= textureSize[0];
-	textureRect.height /= textureSize[1];
+	textureRect.width += textureRect.left;
+	textureRect.height += textureRect.top;
 
 	pSprite->SetTextureRect(textureRect);
 }

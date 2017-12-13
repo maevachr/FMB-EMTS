@@ -166,7 +166,6 @@
     <ClCompile Include="TerrainGo.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TunnelGo.cpp" />
-    <ClCompile Include="TVGo.cpp" />
     <ClCompile Include="Vehicle4WCreate.cpp" />
     <ClCompile Include="VehicleCreate.cpp" />
     <ClCompile Include="VehicleFilterShader.cpp" />

@@ -228,9 +228,6 @@
     <ClCompile Include="TextureRenderer.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="TVGo.cpp">
-      <Filter>Fichiers sources\GameObjects</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Moteur.h">

@@ -52,17 +52,18 @@ namespace PM3D
 
 		void InitEffet();
 	public:
-		BillBoard(CDispositifD3D11* pDispositif, vector<string> NomTexture, const XMFLOAT3& _position, int _dx = 0, int _dy = 0, GameObject* go = nullptr);
+		BillBoard(CDispositifD3D11* pDispositif, vector<string> NomTexture, const XMFLOAT3& _position, int _dx = 0, int _dy = 0, GameObject* go = nullptr, bool _faceCamera = true);
 		~BillBoard();
 
 	private:
 		char* typeId;
+		bool faceCamera;
 	public:
 		virtual void InitName(char* _typeId) { typeId = _typeId; }
 		virtual char* GetName() { return typeId; }
 		size_t GetFramesAmount() { return pTextureD3D.size(); }
 		
-		void Draw(XMVECTOR ownerPosition, int animationFrame, float target);
+		void Draw(GameObject* owner, int animationFrame, float target, float theta);
 		void SetResourceView(ID3D11ShaderResourceView* v);
 	};
 
@@ -96,59 +97,9 @@ namespace PM3D
 			b->InitName("arrow");
 			billBoards.push_back(b);
 
-			BillBoard* tv = new BillBoard(_pDispositif, { }, XMFLOAT3(0.0f, 0.0f, 1.0f), 20, 20);
+			BillBoard* tv = new BillBoard(_pDispositif, { }, XMFLOAT3(0.0f, 0.0f, 1.0f), 80, 60, nullptr, false);
 			tv->InitName("tv");
 			billBoards.push_back(tv);
-
-			BillBoard* fire = new BillBoard(_pDispositif, {
-				"fire\\fire_0000.dds",
-				"fire\\fire_0001.dds", 
-				"fire\\fire_0002.dds",
-				"fire\\fire_0003.dds",
-				"fire\\fire_0004.dds",
-				"fire\\fire_0005.dds",
-				"fire\\fire_0006.dds",
-				"fire\\fire_0007.dds",
-				"fire\\fire_0008.dds",
-				"fire\\fire_0009.dds",
-				"fire\\fire_0010.dds",
-				"fire\\fire_0011.dds",
-				"fire\\fire_0012.dds",
-				"fire\\fire_0013.dds",
-				"fire\\fire_0014.dds",
-				"fire\\fire_0015.dds",
-				"fire\\fire_0016.dds",
-				"fire\\fire_0017.dds",
-				"fire\\fire_0018.dds",
-				"fire\\fire_0019.dds",
-				"fire\\fire_0020.dds",
-				"fire\\fire_0021.dds",
-				"fire\\fire_0022.dds",
-				"fire\\fire_0023.dds",
-				"fire\\fire_0024.dds",
-				"fire\\fire_0025.dds",
-				"fire\\fire_0026.dds",
-				"fire\\fire_0027.dds",
-				"fire\\fire_0028.dds",
-				"fire\\fire_0029.dds",
-				"fire\\fire_0030.dds",
-				"fire\\fire_0031.dds",
-				"fire\\fire_0032.dds",
-				"fire\\fire_0033.dds",
-				"fire\\fire_0034.dds",
-				"fire\\fire_0035.dds",
-				"fire\\fire_0036.dds",
-				"fire\\fire_0037.dds",
-				"fire\\fire_0038.dds",
-				"fire\\fire_0039.dds",
-				"fire\\fire_0040.dds",
-				"fire\\fire_0041.dds",
-				"fire\\fire_0042.dds",
-				"fire\\fire_0043.dds",
-				"fire\\fire_0044.dds"
-			}, XMFLOAT3(0.0f, 0.0f, 2.0f), 1, 1);
-			fire->InitName("fire");
-			billBoards.push_back(fire);
 		}
 
 		void CleanUp()

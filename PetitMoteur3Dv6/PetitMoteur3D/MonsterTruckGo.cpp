@@ -32,10 +32,6 @@ namespace PM3D
 			AddChild(t);
 		}
 
-		//-----BillBoardComponent
-		BillBoardComponent* b = CreateComponent<BillBoardComponent>();
-		b->GetBillBoard("fire");
-
 		//-----DynamicPhysicComponent
 		VehiclePhysicComponent* d = CreateComponent<VehiclePhysicComponent>();
 		PxPhysics &physics = SimulationManager::GetInstance().physics();
@@ -79,6 +75,10 @@ namespace PM3D
 
 		if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_W))
 		{
+			if (vehicle->gIsVehicleInAir)
+			{
+				Actor->addTorque(-1000 * transform.q.rotate(PxVec3(1.0f, 0.0f, 0.0f)));
+			}
 			if (vel.normalize() < 15)
 			{
 				vehicle->startAccelerateForwardsMode();
@@ -90,6 +90,10 @@ namespace PM3D
 		}
 		else if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_S))
 		{
+			if (vehicle->gIsVehicleInAir)
+			{
+				Actor->addTorque(1000 * transform.q.rotate(PxVec3(1.0f, 0.0f, 0.0f)));
+			}
 			// Reculer
 			vehicle->startAccelerateReverseMode();
 		}
@@ -142,11 +146,19 @@ namespace PM3D
 
 		if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_A))
 		{
+			if (vehicle->gIsVehicleInAir)
+			{
+				Actor->addTorque(-1000 * transform.q.rotate(PxVec3(0.0f, 0.0f, 1.0f)));
+			}
 			// Tourner à gauche
 			vehicle->startTurnHardLeftMode();
 		}
 		else if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_D))
 		{
+			if (vehicle->gIsVehicleInAir)
+			{
+				Actor->addTorque(1000 * transform.q.rotate(PxVec3(0.0f, 0.0f, 1.0f)));
+			}
 			// Tourner à droite
 			vehicle->startTurnHardRightMode();
 		}
