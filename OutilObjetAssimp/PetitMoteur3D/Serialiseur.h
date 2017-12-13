@@ -1,6 +1,7 @@
 #pragma once
 #include "chargeur.h"
 #include <string>
+#include <vector>
 namespace PM3D {
 
 	class Serialiseur
@@ -86,7 +87,7 @@ namespace PM3D {
 	public:
 		Serialiseur() = default;
 		~Serialiseur() = default;
-		void EcrireFichierBinaire(IChargeur& chargeur, string nomFichier);
+		std::vector<string> EcrireFichierBinaire(IChargeur& chargeur, string nomFichier);
 	private:
 		// Les sous-objets
 		int NombreSubmesh;				    // Nombre de sous-objets dans le mesh
