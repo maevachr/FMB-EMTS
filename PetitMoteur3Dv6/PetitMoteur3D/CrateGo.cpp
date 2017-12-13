@@ -34,9 +34,7 @@ namespace PM3D
 					PxTransform decalage = go->GetWorldTransform();
 					decalage.p += PxVec3(0, 0, 0);
 					SpawnManager::GetInstance().Spawn<ExplodedBox<CrateColor>>(decalage);
-					CallBackManager::GetInstance().AddCallBack(
-						new AddScoreCallBack{ CrateTraits<CrateColor>::nb_points, 1.5f}
-					);
+					BlackBoard::GetInstance().AddPoints(CrateTraits<CrateColor>::nb_points);
 					BlackBoard::GetInstance().AddBoost(CrateTraits<CrateColor>::bonus_boost);
 					SpawnManager::GetInstance().Unspawn(go);
 				}
