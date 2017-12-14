@@ -269,10 +269,12 @@ namespace PM3D
 		pCharGraphics->SetCompositingQuality(CompositingQualityHighSpeed);
 		pCharGraphics->SetInterpolationMode(InterpolationModeHighQuality);
 		pCharGraphics->SetPixelOffsetMode(PixelOffsetModeHighSpeed);
-		pCharGraphics->SetSmoothingMode(SmoothingModeNone);
+		pCharGraphics->SetSmoothingMode(SmoothingModeAntiAlias);
+		pCharGraphics->SetInterpolationMode(InterpolationModeHighQualityBicubic);
 		pCharGraphics->SetPageUnit(UnitPixel);
 		TextRenderingHint hint = TextRenderingHintAntiAlias;
 		// TextRenderingHintSystemDefault;
+		
 
 		pCharGraphics->SetTextRenderingHint(hint);
 		// Un brosse noire pour le remplissage
@@ -347,10 +349,24 @@ namespace PM3D
 	void TextSprite::Ecrire(wstring s)
 	{
 		// Effacer
-		//pCharGraphics->Clear(Gdiplus::Color(255, 255, 0, 0));
-		// Écrire le nouveau texte
-		pCharGraphics->DrawString(s.c_str(), s.size(), pFont,
-			PointF(0.0f, 0.0f), pBlackBrush);
+		pCharGraphics->Clear(Gdiplus::Color(0, 0, 0, 0));
+
+		FontFamily fontFamily(L"Arial");
+		StringFormat strformat;
+		const wchar_t* pszbuf =  s.c_str();
+
+		GraphicsPath path;
+		path.AddString(pszbuf, wcslen(pszbuf), &fontFamily,
+			FontStyleRegular, 48, Gdiplus::Point(10, 10), &strformat);
+		Pen pen(Gdiplus::Color(0, 0, 0), 6);
+		pCharGraphics->DrawPath(&pen, &path);
+		SolidBrush brush(Gdiplus::Color(255, 255, 255));
+		pCharGraphics->FillPath(&brush, &path);
+
+
+		//// Écrire le nouveau texte
+		//pCharGraphics->DrawString(s.c_str(), s.size(), pFont,
+		//	PointF(0.0f, 0.0f), pBlackBrush);
 		// Transférer
 		Gdiplus::BitmapData bmData;
 		pCharBitmap->LockBits(&Rect(0, 0, TexWidth, TexHeight),
@@ -609,8 +625,8 @@ namespace PM3D
 		needle = new TextureSprite{ "needle.dds",largeurPercent(0.02f) + 25,  hauteurPercent(0.80f) + 10, 150, 150, _pDispositif };
 		RotateNeedle(XM_PI / 2);
 
-		jauge = new TextureSprite{ "Jauge.dds",largeurPercent(0.83f) ,  hauteurPercent(0.67f) , static_cast<int>(1408*0.15f), static_cast<int>(1711 * 0.15f), _pDispositif };
-		jaugeEnergie = new TextureSprite{ "JaugeEnergie.dds",largeurPercent(0.83f),  hauteurPercent(0.67f), static_cast<int>(1408 * 0.15f), static_cast<int>(1711 * 0.15f), _pDispositif };
+		jauge = new TextureSprite{ "Jauge.dds",largeurPercent(0.82f) ,  hauteurPercent(0.635f) , static_cast<int>(1408*0.18f), static_cast<int>(1711 * 0.18f), _pDispositif };
+		jaugeEnergie = new TextureSprite{ "JaugeEnergie.dds",largeurPercent(0.82f),  hauteurPercent(0.635f), static_cast<int>(1408 * 0.18f), static_cast<int>(1711 * 0.18f), _pDispositif };
 
 
 		//Flamme settings
@@ -680,7 +696,7 @@ namespace PM3D
 
 	void SpriteManager::UpdateJauge() {
 		int boost = static_cast<int>(BlackBoard::GetInstance().GetBoost());
-		jaugeEnergie->setMasquage(-0.71f / 100 * boost + 0.87f);
+		jaugeEnergie->setMasquage(-0.69f / 100 * boost + 0.87f);
 	}
 
 	void SpriteManager::UpdateScoreText()
@@ -710,8 +726,8 @@ namespace PM3D
 
 
 		UpdateJauge();
-		jaugeEnergie->Draw();
 		jauge->Draw();
+		jaugeEnergie->Draw();
 
 	/*	std::ofstream output("DebugFile", std::ios::app);
 		if (output)

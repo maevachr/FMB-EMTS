@@ -7,7 +7,7 @@ using namespace PM3D;
 
 EndState::EndState(StateStack& stack, Context context)
 	: State(stack, context)
-	, background{ TextureSprite{ "end.dds", 68, 134, static_cast<int>(500 * 1.777f), 500, context.pDispositif } }
+	, background{ TextureSprite{ "end.dds", -400, -78, 1851, 925, context.pDispositif } }
 {
 }
 
