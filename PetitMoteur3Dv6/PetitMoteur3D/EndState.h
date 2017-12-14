@@ -14,4 +14,11 @@ public:
 
 private:
 	Sprite			background;
+	Texte			score;
+	Texte			rank1;
+	Texte			rank2;
+	Texte			rank3;
+
+	void	EcrireScore();
+	void	EcrireRank();
 };

@@ -51,6 +51,7 @@ namespace PM3D
 		void setMasquage(float y) {
 			masquageY = y;
 		}
+
 	protected:
 		std::array<float, 2> TexSize;
 		TextureRectangle mTextRect;
@@ -71,6 +72,7 @@ namespace PM3D
 		ID3DX11EffectPass* pPasse;
 		ID3D11InputLayout* pVertexLayout;
 		ID3D11SamplerState* pSampleState;
+
 
 	public:
 		Sprite(CDispositifD3D11* pDispositif);
@@ -109,7 +111,7 @@ namespace PM3D
 		Graphics* pCharGraphics;
 		SolidBrush* pBlackBrush;
 	public:
-		void Ecrire(wstring s);
+		void Ecrire(wstring s, int size);
 	};
 
 
@@ -177,7 +179,7 @@ namespace PM3D
 		TextureSprite* jauge;
 		TextureSprite* jaugeEnergie;
 
-		Gdiplus::Font*pPoliceSpeed;
+		Gdiplus::Font*pPoliceSmall;
 		TextSprite* speedText;
 
 		TextSprite* chronoText;
@@ -228,9 +230,7 @@ namespace PM3D
 			CloseText();
 		}
 	private:
-		void UpdateSpeedText();
 		void UpdateChronoText();
-		void UpdateBoostText();
 		void RotateNeedle(float);
 		void UpdateScoreText();
 		void UpdateJauge();
