@@ -6,9 +6,13 @@
 #include <vector>
 #include <DirectXMath.h>
 #include <algorithm>
+#include <array>
+#include <memory>
 
 using namespace std;
 using namespace DirectX;
+
+class Animation;
 
 namespace PM3D
 {
@@ -31,6 +35,25 @@ namespace PM3D
 			XMFLOAT3 position;
 			XMFLOAT2 coordTex;
 		};
+	public:
+		struct TextureRectangle {
+			using size_type = float;
+			size_type left = 0.f;
+			size_type top = 0.f;
+			size_type width = 1.f;
+			size_type height = 1.f;
+		};
+		std::array<float, 2> GetDimension() const { return TexSize; }
+		void SetDimension(float x, float y) {
+			TexSize[0] = x;
+			TexSize[1] = y;
+		}
+		TextureRectangle GetTextureRect() const { return mTextRect; }
+		void SetTextureRect(TextureRectangle rect) { mTextRect = rect; }
+	protected:
+		std::array<float, 2> TexSize;
+		TextureRectangle mTextRect;
+
 	protected:
 		static CSommetPanneau sommets[6];
 		ID3D11Buffer* pVertexBuffer;
@@ -45,6 +68,7 @@ namespace PM3D
 
 		vector<ID3D11ShaderResourceView*> pTextureD3D;
 		XMFLOAT3 position;
+		XMFLOAT3 positionRelatif;
 		XMFLOAT2 dimension;
 		XMVECTOR normal{ 0.f, -1.f, 0.f, 0.f };
 
@@ -52,7 +76,14 @@ namespace PM3D
 
 		void InitEffet();
 	public:
-		BillBoard(CDispositifD3D11* pDispositif, vector<string> NomTexture, const XMFLOAT3& _position, int _dx = 0, int _dy = 0, GameObject* go = nullptr, bool _faceCamera = true);
+		BillBoard(CDispositifD3D11* pDispositif, 
+			vector<string> NomTexture, 
+			const XMFLOAT3& _position, 
+			float _dx = 0.f, float _dy = 0.f, 
+			GameObject* go = nullptr, 
+			bool _faceCamera = true, 
+			const XMFLOAT3& _positionRelatif = XMFLOAT3{ 0,0,0 }
+		);
 		~BillBoard();
 
 	private:
@@ -76,7 +107,6 @@ namespace PM3D
 	public:
 		BillBoardManager(const BillBoardManager&) = delete;
 		BillBoardManager operator=(const BillBoardManager&) = delete;
-
 	public:
 		static BillBoardManager& GetInstance()
 		{
@@ -86,21 +116,14 @@ namespace PM3D
 
 	private:
 		std::vector<BillBoard*> billBoards;
+
+		Animation* explosionBbmini;
+		Animation* explosionBbmini2;
+		Animation* nitroBb;
+		Animation* nitroBb2;
 	public:
 
-		void InitBillBoard(CDispositifD3D11* _pDispositif) {
-			/*	BillBoard* b = new BillBoard(_pDispositif, "test.dds", XMFLOAT3(50.0f, -30.0f, 50.0f), 100, 100);
-				b->InitName("test");
-				billBoards.push_back(b);*/
-
-			BillBoard* b = new BillBoard(_pDispositif, { "arrow_white.dds" }, XMFLOAT3(0.0f, 0.0f, 2.0f), 1, 1);
-			b->InitName("arrow");
-			billBoards.push_back(b);
-
-			BillBoard* tv = new BillBoard(_pDispositif, { }, XMFLOAT3(0.0f, 0.0f, 1.0f), 80, 60, nullptr, false);
-			tv->InitName("tv");
-			billBoards.push_back(tv);
-		}
+		void InitBillBoard(CDispositifD3D11* _pDispositif);
 
 		void CleanUp()
 		{
@@ -110,6 +133,8 @@ namespace PM3D
 			});
 		}
 
+		void UpdateAnimation(float dt);
+
 		BillBoard* GetBillBoard(const char* name)
 		{
 			std::vector<BillBoard*>::iterator it = find_if(begin(billBoards), end(billBoards), [&](BillBoard* b) -> bool {
@@ -117,6 +142,23 @@ namespace PM3D
 			});
 			assert(it != billBoards.end());
 			return *it;
+		}
+	private:
+		vector<Animation*> explosionAnim;
+		vector<BillBoard*> explosionBb;
+	public:
+		Animation* GetTokenAnim();
+		BillBoard* GetTokenBB() {
+			BillBoard* res = explosionBb.back();
+			explosionBb.pop_back();
+			return res;
+		}
+
+		void ReturnTokenAnim(Animation* anim) {
+			explosionAnim.push_back(anim);
+		}
+		void ReturnTokenBB(BillBoard* b) {
+			explosionBb.push_back(b);
 		}
 	};
 }

@@ -130,10 +130,16 @@ namespace PM3D
 			return 0;
 		}
 
+	private:
+		float TempsEcoule;
+	public:
+		float GetTempsEcoule() { return TempsEcoule; }
+
+
 		virtual bool Animation()
 		{
 			__int64 TempsCourant;
-			float TempsEcoule;
+			
 
 			// méthode pour lire l'heure et calculer le 
 			// temps écoulé

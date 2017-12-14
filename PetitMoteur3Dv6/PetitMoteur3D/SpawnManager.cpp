@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "SpawnManager.h"
 #include "TVGo.h"
+#include "SpotGo.h"
 namespace PM3D{
 	void SpawnManager::Init()
 	{
@@ -18,7 +19,7 @@ namespace PM3D{
 		Spawn<TerrainGo>();
 
 		PxTransform locationCrate = PxTransform::createIdentity();
-		locationCrate.p = PxVec3{ 20, 20, 6 };
+		locationCrate.p = PxVec3{ 0.0, -1, 0.5 };
 		Spawn<CrateGo<BrownCrate>>(locationCrate);
 
 		PxTransform locationCrate2 = PxTransform::createIdentity();
@@ -33,38 +34,57 @@ namespace PM3D{
 		locationCrate4.p = PxVec3{ 80, 20, 6 };
 		Spawn<CrateGo<OrangeCrate>>(locationCrate4);
 
-		PxTransform locationTunnel = PxTransform::createIdentity();
-		locationTunnel.p = PxVec3{ 100, 50, 6 };
-		Spawn<TunnelGo>(locationTunnel);
+		PxTransform locationCrate5 = PxTransform::createIdentity();
+		locationCrate5.p = PxVec3{ -30, -43.5, 12 };
+		Spawn<CrateGo<OrangeCrate>>(locationCrate5);
+
 
 		// 			PxTransform explodedBox = PxTransform::createIdentity();
 		// 			explodedBox.p = PxVec3{ 30, 20, 6 };
 		// 			Spawn<ExplodedBox>(explodedBox);
 
 		PxTransform locationCircusGo = PxTransform::createIdentity();
-		locationCircusGo.p = PxVec3{ 0, 15, 0 };
+		locationCircusGo.p = PxVec3{ 20, 60, -4 };
 		Spawn<CircusGo>(locationCircusGo);
 
+		PxTransform beamGo1 = PxTransform::createIdentity();
+		beamGo1.p = PxVec3{ -30, -43.5, -0.5625 };
+		Spawn<BeamGo>(beamGo1);
+
+		PxTransform beamGo2 = PxTransform::createIdentity();
+		beamGo2.p = PxVec3{ -7, -43.5, -0.5625 };
+		Spawn<BeamGo>(beamGo2);
+
 		PxTransform locationFlottingCrateGo = PxTransform::createIdentity();
-		locationFlottingCrateGo.p = PxVec3{ -10, -10, 11 };
-		Spawn<FlottingCrateGo<BrownCrate>>(locationFlottingCrateGo);
+		locationFlottingCrateGo.p = PxVec3{ 20, 60, 7 };
+		Spawn<FlottingCrateGo<WhiteCrate>>(locationFlottingCrateGo);
 
 		PxTransform locationArene = PxTransform::createIdentity();
-		locationArene.p = PxVec3{ 0, 0, 8 };
+		locationArene.p = PxVec3{ 20, 0, 10 };
 		//rotation de l'arene
 		Spawn<AreneGo>(locationArene);
 
 		PxTransform locationContainer1 = PxTransform::createIdentity();
-		locationContainer1.p = PxVec3{ 13.5, -10, 1.5 };
-		//locationContainer.q = PxQuat{ PxPiDivTwo,PxVec3{0,0,1} };
-		//rotation de l'arene
+		locationContainer1.p = PxVec3{ 18, -1, 0.5 };
 		Spawn<ContainerGo>(locationContainer1);
 
 		PxTransform locationContainer2 = PxTransform::createIdentity();
-		locationContainer2.p = PxVec3{ -18, -10, 1.5 };
-		//locationContainer.q = PxQuat{ PxPiDivTwo,PxVec3{0,0,1} };
-		//rotation de l'arene
+		locationContainer2.p = PxVec3{ -20, -1, 0.5 };
 		Spawn<ContainerGo>(locationContainer2);
+
+		PxTransform locationContainer3 = PxTransform::createIdentity();
+		locationContainer3.p = PxVec3{ 0.0, -1, 0.5 };
+		Spawn<ContainerGo>(locationContainer3);
+
+		PxTransform locationContainer4 = PxTransform::createIdentity();
+		locationContainer4.p = PxVec3{ 34.0, -43.5, 4 };
+		locationContainer4.q = PxQuat{0.0 ,0.139f, 0.0, 0.990f}*PxQuat{ 0,0,0.707f,0.707f };
+		Spawn<ContainerGo>(locationContainer4);
+
+		PxTransform locationContainer5 = PxTransform::createIdentity();
+		locationContainer5.p = PxVec3{ -15.0, -43.5, 12 };
+		locationContainer5.q = PxQuat{ 0,0,0.707f,0.707f };
+		Spawn<ContainerGo>(locationContainer5);
 
 		PxTransform locationRoues = PxTransform::createIdentity();
 		locationRoues.p = PxVec3{ -30, 20, 5 };
@@ -79,17 +99,23 @@ namespace PM3D{
 		Spawn<TVGo<90>>(locationTV2);
 
 		PxTransform locationBus = PxTransform::createIdentity();
-		locationBus.p = PxVec3{ 10, 10, 6 };
+		locationBus.p = PxVec3{ -20, 80, 2 };
+		locationBus.q = PxQuat{ 0,0,0.923f,0.382f } * PxQuat{ 0,-0.707f,0,0.707f };
 		Spawn<BusGo>(locationBus);
 
 		PxTransform locationBus1 = PxTransform::createIdentity();
-		locationBus1.p = PxVec3{ -8, -10, 2 };
+		locationBus1.p = PxVec3{ -13, -1, 2 };
 		Spawn<BusGo>(locationBus1);
 
 		PxTransform locationBus2 = PxTransform::createIdentity();
-		locationBus2.p = PxVec3{ 3, -10, 6 };
+		locationBus2.p = PxVec3{ -6.5, -1, 2 };
+		locationBus2.q = PxQuat{ 0,0,1.0,0.0f };
 		Spawn<BusGo>(locationBus2);
-	
+
+		//PxTransform locationSpot = PxTransform::createIdentity();
+		//locationSpot.p = PxVec3{70,50, 2 }; 
+		//locationSpot.q = PxQuat{ PxPiDivTwo,PxVec3{ 0,0,1 } };
+		//Spawn<SpotGo>(locationSpot);
 	}
 	void SpawnManager::Update()
 	{

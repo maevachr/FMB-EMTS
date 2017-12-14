@@ -12,7 +12,14 @@ public:
 
 	virtual void	ProcessInput();
 
+
+
 private:
 	Sprite			background;
+	Texte			score;
+	Texte			time;
+
+	void	EcrireScore();
+	void	EcrireTime();
 
 };

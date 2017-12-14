@@ -228,15 +228,18 @@
     <ClCompile Include="TextureRenderer.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="TVGo.cpp">
-      <Filter>Fichiers sources\GameObjects</Filter>
-    </ClCompile>
     <ClCompile Include="BlackBoard.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-=======
->>>>>>> f6904649265fc1bdd79927bfea15ec329d2ad5d4
+    <ClCompile Include="SpotGo.cpp">
+      <Filter>Fichiers sources\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplosionGo.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="BillBoardComponent.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Moteur.h">
@@ -461,8 +464,14 @@
     <ClInclude Include="TVGo.h">
       <Filter>Fichiers d%27en-tête\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="SpotGo.h">
+      <Filter>Fichiers d%27en-tête\GameObject</Filter>
+    </ClInclude>
     <ClInclude Include="SoundManager.h">
       <Filter>Fichiers d%27en-tête\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplosionGo.h">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -115,6 +115,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="AreneGo.cpp" />
+    <ClCompile Include="BillBoardComponent.cpp" />
     <ClCompile Include="BlackBoard.cpp" />
     <ClCompile Include="CircusGo.cpp" />
     <ClCompile Include="BillBoardComponentManager.cpp" />
@@ -134,6 +135,7 @@
     <ClCompile Include="DynamicLight.cpp" />
     <ClCompile Include="EndState.cpp" />
     <ClCompile Include="ExplodedBox.cpp" />
+    <ClCompile Include="ExplosionGo.cpp" />
     <ClCompile Include="FirstPersonCamera.cpp" />
     <ClCompile Include="FlottingCrateGo.cpp" />
     <ClCompile Include="GameState.cpp" />
@@ -154,6 +156,7 @@
     <ClCompile Include="PhysxVehicle.cpp" />
     <ClCompile Include="PlayerCamera.cpp" />
     <ClCompile Include="RenderManager.cpp" />
+    <ClCompile Include="SpotGo.cpp" />
     <ClCompile Include="TextureRenderer.cpp" />
     <ClCompile Include="TiresGo.cpp" />
     <ClCompile Include="SimulationManager.cpp" />
@@ -202,6 +205,7 @@
     <ClInclude Include="CallBackManager.h" />
     <ClInclude Include="EndState.h" />
     <ClInclude Include="ExplodedBox.h" />
+    <ClInclude Include="ExplosionGo.h" />
     <ClInclude Include="FirstPersonCamera.h" />
     <ClInclude Include="FlottingCrateGo.h" />
     <ClInclude Include="GameObject.h" />
@@ -219,6 +223,7 @@
     <ClInclude Include="Print.h" />
     <ClInclude Include="PVD.h" />
     <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="SpotGo.h" />
     <ClInclude Include="TextureRenderer.h" />
     <ClInclude Include="TiresGo.h" />
     <ClInclude Include="SkyBoxGo.h" />

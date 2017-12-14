@@ -24,11 +24,14 @@ namespace PM3D
 
 	public:
 		enum SoundType {
+			INTRO,
+			COUNTDOWN,
+			CROWD_COUNTDOWN,
 			ENGINE, 
 			EXPLODING_CRATE, 
-			SCORE_BING, 
 			MUSIC, 
 			BOOST,
+			CHEERING,
 			COUNT
 		};
 	private:
@@ -45,21 +48,29 @@ namespace PM3D
 			FMOD::System_Create(&system);
 			system->init(32, FMOD_INIT_NORMAL, nullptr);
 
+			system->createSound("intro.mp3", FMOD_CREATESAMPLE | FMOD_LOOP_NORMAL, 0, &sound[INTRO]);
+			system->createSound("countdown.wav", FMOD_CREATESAMPLE | FMOD_LOOP_NORMAL, 0, &sound[COUNTDOWN]);
+			system->createSound("crowd_countdown.wav", FMOD_CREATESAMPLE | FMOD_LOOP_NORMAL, 0, &sound[CROWD_COUNTDOWN]);
 			system->createSound("engine.wav", FMOD_CREATESAMPLE | FMOD_LOOP_NORMAL, 0, &sound[ENGINE]);
 			system->createSound("wood_explosion.mp3", FMOD_CREATESAMPLE | FMOD_LOOP_NORMAL, 0, &sound[EXPLODING_CRATE]);
-			system->createSound("score.mp3", FMOD_CREATESAMPLE | FMOD_LOOP_NORMAL, 0, &sound[SCORE_BING]);
 			system->createSound("dynamite.mp3", FMOD_CREATESAMPLE | FMOD_LOOP_NORMAL, 0, &sound[MUSIC]);
-			system->createSound("boost.wav", FMOD_CREATESAMPLE | FMOD_LOOP_NORMAL, 0, &sound[BOOST]);
+			system->createSound("boost.wav", FMOD_CREATESAMPLE | FMOD_LOOP_NORMAL, 0, &sound[BOOST]);			
+			system->createSound("cheering.wav", FMOD_CREATESAMPLE | FMOD_LOOP_NORMAL, 0, &sound[CHEERING]);
 
 			sound[ENGINE]->setLoopCount(-1);
 			sound[BOOST]->setLoopCount(-1);
+			sound[CROWD_COUNTDOWN]->setLoopCount(0);
+			sound[COUNTDOWN]->setLoopCount(0);
 			sound[EXPLODING_CRATE]->setLoopCount(0);
-			sound[SCORE_BING]->setLoopCount(0);
+			sound[CHEERING]->setLoopCount(0);
+			sound[MUSIC]->setLoopCount(0);
 
 			//Start Loops
 			system->playSound(FMOD_CHANNEL_FREE, sound[BOOST], true, &channel[BOOST]);
 			system->playSound(FMOD_CHANNEL_FREE, sound[ENGINE], true, &channel[ENGINE]);
 			system->playSound(FMOD_CHANNEL_FREE, sound[MUSIC], true, &channel[MUSIC]);
+			system->playSound(FMOD_CHANNEL_FREE, sound[INTRO], true, &channel[INTRO]);
+			system->playSound(FMOD_CHANNEL_FREE, sound[CROWD_COUNTDOWN], true, &channel[CROWD_COUNTDOWN]);
 
 			//Get the engine base parameter
 			channel[ENGINE]->getFrequency(&engineFrequency);
@@ -68,7 +79,11 @@ namespace PM3D
 			//Adapt Sound volume of music
 			float musicVolume;
 			channel[MUSIC]->getVolume(&musicVolume);
-			channel[MUSIC]->setVolume(musicVolume * 80);
+			channel[MUSIC]->setVolume(musicVolume * 0.8f);
+
+			float countdownVolume;
+			channel[COUNTDOWN]->getVolume(&countdownVolume);
+			channel[COUNTDOWN]->setVolume(countdownVolume* 1.2f);
 		}
 
 		//Dont use this for music | engine | boost which are loops
@@ -81,10 +96,20 @@ namespace PM3D
 		void ContinueSound(SoundType id) {
 			channel[id]->setPaused(false);
 		}
+		void PauseAllGameSounds() {
+			for (int i = 3; i < SoundType::COUNT; ++i) {
+				channel[i]->setPaused(true);
+			}
+		}
+		void ContinueAllGameSounds() {
+			for (int i = 3; i < SoundType::COUNT; ++i) {
+				channel[i]->setPaused(false);
+			}
+		}
 
 		void Engine(float kmh) {
-			channel[ENGINE]->setFrequency(engineFrequency + engineFrequency * (3 * kmh / 200));
-			channel[ENGINE]->setVolume(engineVolume + engineVolume * (1.3 * kmh / 200));
+			channel[ENGINE]->setFrequency(engineFrequency + engineFrequency * (3.f * kmh / 200.f));
+			channel[ENGINE]->setVolume(engineVolume + engineVolume * (1.3f * kmh / 200.f));
 		}
 
 		void Clean() 

@@ -28,14 +28,14 @@ namespace PM3D
 		//-----DynamicPhysicComponent
 		DynamicPhysicComponent* d = CreateComponent<DynamicPhysicComponent>();
 		PxPhysics &physics = SimulationManager::GetInstance().physics();
-		physx::unique_ptr<PxMaterial> material = physx::unique_ptr<PxMaterial>(physics.createMaterial(0.05f, 0.05f, 0.0f));
+		physx::unique_ptr<PxMaterial> material = physx::unique_ptr<PxMaterial>(physics.createMaterial(1.0f, 1.0f, 0.0f));
 		PxFilterData filterData;
 		filterData.word0 = COLLISION_FLAG_CRATE;
 		filterData.word1 = COLLISION_FLAG_CRATE_AGAINST;
 		d->InitData(PxBoxGeometry(PxVec3(0.5, 0.5, 0.5)), move(material), filterData);
 		PxTransform centerMass = physx::PxTransform::createIdentity();
 		centerMass.p = PxVec3(0, 0, 0);
-		d->InitMass(0.1, centerMass);
+		d->InitMass(0.1f, centerMass, PxVec3{0.03125f,0.03125f,0.03125f });
 
 		//std::unique_ptr<MiniCrateGoCollisionHandler> handler = std::make_unique<MiniCrateGoCollisionHandler>(this);
 		//d->SetHandler(std::move(handler));

@@ -88,7 +88,8 @@ namespace PM3D
 		}
 		void UpdateGoTransform() override
 		{
-			pxActor->addTorque(PxVec3{ 0, 0, 1 }, PxForceMode::eVELOCITY_CHANGE);
+			//pxActor->addTorque(0.15*PxVec3{ 0, 0, 1 }, PxForceMode::eVELOCITY_CHANGE);
+			pxActor->setAngularVelocity(3.0*PxVec3{ 0, 0, 1 });
 
 			PxTransform localPose = pxActor->getGlobalPose();
 			GameObject* parent = GetOwner()->GetParent();
@@ -168,7 +169,7 @@ namespace PM3D
 		}
 	public:
 		void InitData(const PxGeometry& g, physx::unique_ptr<PxMaterial> m, 
-			const PxFilterData& filterData = PxFilterData{})
+			const PxFilterData& filterData = PxFilterData{}, bool drivable = false)
 		{
 			material = move(m);
 
@@ -179,8 +180,15 @@ namespace PM3D
 
 			pxActor = SimulationManager::GetInstance().physics().createRigidDynamic(moveInPosition);
 			pxActor->setGlobalPose(transform);
-		
 			actorShape = pxActor->createShape(g, *material);
+
+			if (drivable)
+			{
+				physx::PxFilterData qryFilterData;
+				qryFilterData.word3 = (PxU32)DRIVABLE_SURFACE;
+				actorShape->setQueryFilterData(qryFilterData);
+			}
+
 			actorShape->setSimulationFilterData(filterData);
 		}
 
@@ -350,13 +358,13 @@ namespace PM3D
 					
 					PxVec3 Up = transforTruck.q.rotate(PxVec3(0,1,0));
 					PxVec3 Front = transforTruck.q.rotate(PxVec3(0, 0, 1));
-					PxQuat original = PxQuat(0.707, 0, 0, 0.707);
+					PxQuat original = PxQuat(0.707f, 0.f, 0.f, 0.707f);
 					Front.z = 0;
 					Front.getNormalized();
 					float cos2t = Front.dot(original.rotate(PxVec3(0, 0, 1)));
-					PxVec3 axis = original.rotate(PxVec3(0, 0, 1)).cross(Front).getNormalized()*(sqrt(-0.5*(cos2t-1)));
+					PxVec3 axis = original.rotate(PxVec3(0, 0, 1)).cross(Front).getNormalized()*(sqrt(-0.5f*(cos2t-1)));
 
-					newTransform.q = PxQuat(axis.x,axis.y,axis.z,sqrt((cos2t+1)/2.0))*original;
+					newTransform.q = PxQuat(axis.x,axis.y,axis.z,sqrt((cos2t+1)/2.0f))*original;
 
 					PxVec3 newFront = newTransform.q.rotate(PxVec3(0, 0, 1));
 

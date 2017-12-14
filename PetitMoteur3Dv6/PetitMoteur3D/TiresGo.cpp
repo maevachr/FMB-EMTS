@@ -28,10 +28,10 @@ namespace PM3D
 		filterData.word0 = COLLISION_FLAG_OBSTACLE;
 		filterData.word1 = COLLISION_FLAG_OBSTACLE_AGAINST;
 
-		d->InitData(PxBoxGeometry(PxVec3(1.3, 1.3, 1.8)), move(material), filterData);
+		d->InitData(PxBoxGeometry(PxVec3(1.3f, 1.3f, 1.8f)), move(material), filterData);
 
 		PxTransform centerMass = physx::PxTransform::createIdentity();
-		centerMass.p = PxVec3(0, 0, -1.f);
+		centerMass.p = PxVec3(0, 0, 0.f);
 		PxVec3 inertiaTensor = { 5000,5000,5000 };
 		d->InitMass(50, centerMass, inertiaTensor);
 	}

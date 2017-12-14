@@ -15,6 +15,7 @@
 #include "ContainerGo.h"
 #include "TiresGo.h"
 #include "FlottingCrateGo.h"
+#include "ExplosionGo.h"
 
 namespace PM3D
 {

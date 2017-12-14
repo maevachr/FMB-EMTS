@@ -13,6 +13,7 @@ protected:
 	// Objet de classe Importer (Assimp)
 	Assimp::Importer* pImporter;
 	const aiScene* scene;
+	string nomFichierTextures;
 
 public:
 	CChargeurAssimp();

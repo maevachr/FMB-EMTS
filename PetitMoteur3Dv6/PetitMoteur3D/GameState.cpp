@@ -28,8 +28,8 @@ GameState::GameState(StateStack& stack, Context context) :
 	context.pDispositif->ActiverZBuffer();
 	context.pDispositif->ActiverCulling();
 
-	SoundManager::GetInstance().ContinueSound(SoundManager::MUSIC);
-	SoundManager::GetInstance().ContinueSound(SoundManager::ENGINE);
+	SoundManager::GetInstance().PlaySoundEffect(SoundManager::COUNTDOWN);
+	SoundManager::GetInstance().ContinueAllGameSounds();
 }
 
 
@@ -53,6 +53,7 @@ bool GameState::update(Time dt)
 
 	SpawnManager::GetInstance().Update();
 	SpriteManager::GetInstance().UpdateAnimation(dt);
+	BillBoardManager::GetInstance().UpdateAnimation(dt);
 	BlackBoard::GetInstance().Update(dt);
 
 	CallBackManager::GetInstance().UpdateTime(dt);
@@ -69,7 +70,7 @@ void GameState::ProcessInput()
 	auto pGestionnaireDeSaisie = InputManager::GetInstance().GetDIManipulateur();
 
 	//Pause
-	if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_ESCAPE)) {
+	if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_P)) {
 		requestStackPush(States::Pause);
 	}
 

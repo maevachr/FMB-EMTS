@@ -17,6 +17,7 @@ cbuffer param
 	float4x4 matWorldViewProj;   // la matrice totale 
 	float4x4 matWorld;		// matrice de transformation dans le monde 
 	float4 vCamera; 			// la position de la caméra
+	float4 vEMat;           // la valeur émise du matériau du matériau
 	float4 vAMat; 			// la valeur ambiante du matériau
 	float4 vDMat; 			// la valeur diffuse du matériau 
 	float4 vSMat; 			// la valeur spéculaire du matériau 
@@ -258,11 +259,11 @@ float4 MiniPhongPS( VS_Sortie vs ) : SV_Target
 	}
 	
 	valeurAmbiente.rgb /= float(NB_LIGHTS);
-	//diff.rgb /= float(NB_LIGHTS);
+	diff.rgb /= float(NB_LIGHTS);
 	S.rgb /= float(NB_LIGHTS);
 	
-	// I = A + D * N.L + (R.V)n
-	couleur.rgb = couleur.rgb * valeurAmbiente.rgb
+	// I = E + A + D * N.L + (R.V)n
+	couleur.rgb = vEMat + couleur.rgb * valeurAmbiente.rgb
 		+ couleur.rgb * diff.rgb
 		+ S.rgb;
 	

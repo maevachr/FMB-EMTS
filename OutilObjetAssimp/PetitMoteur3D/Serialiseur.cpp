@@ -2,6 +2,7 @@
 #include "Serialiseur.h"
 #include <iostream>
 #include <fstream>
+#include <vector>
 
 #include "util.h"
 
@@ -17,7 +18,7 @@ namespace PM3D {
 
 	UINT Serialiseur::CSommetMesh::numElements;
 
-	void Serialiseur::EcrireFichierBinaire(IChargeur& chargeur, string nomFichier)
+	std::vector<string> Serialiseur::EcrireFichierBinaire(IChargeur& chargeur, string nomFichier)
 	{
 		// 1. SOMMETS a) Créations des sommets dans un tableau temporaire
 		unsigned int nombreSommets = 0;
@@ -81,6 +82,7 @@ namespace PM3D {
 		int NbMaterial = chargeur.GetNombreMaterial() + 1;
 		fichier.write((char*)&NbMaterial, sizeof(int));
 
+		std::vector<std::string> res;
 		CMaterial mat;
 		MaterialBlock mb;
 		mat.MatToBlock(mb);
@@ -95,6 +97,10 @@ namespace PM3D {
 				mat.Specular,
 				mat.Puissance);
 
+			if (mat.NomFichierTexture != "")
+			{
+				res.push_back(mat.NomFichierTexture);
+			}
 			mat.MatToBlock(mb);
 			fichier.write((char*)&mb, sizeof(MaterialBlock));
 		}
@@ -110,7 +116,7 @@ namespace PM3D {
 		fichier.write((char*)&NbMaterialIndex, sizeof(int));
 		fichier.write((char*)SubmeshMaterialIndex.data(), SubmeshMaterialIndex.size() * sizeof(CMaterial));
 
-		
+		return res;
 
 	}
 }

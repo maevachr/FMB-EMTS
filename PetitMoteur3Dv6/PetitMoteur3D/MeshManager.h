@@ -127,6 +127,7 @@ namespace PM3D
 			XMMATRIX matWorldViewProj;	// la matrice totale 
 			XMMATRIX matWorld;			// matrice de transformation dans le monde 
 			XMVECTOR vCamera; 			// la position de la caméra
+			XMVECTOR vEMat;				// la valeur émise du matériau du matériau
 			XMVECTOR vAMat; 			// la valeur ambiante du matériau
 			XMVECTOR vDMat; 			// la valeur diffuse du matériau
 			XMVECTOR vSMat; 			// la valeur spéculaire du matériau 

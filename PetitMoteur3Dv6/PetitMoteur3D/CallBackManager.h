@@ -5,6 +5,7 @@
 #include <algorithm>
 #include "GameObject.h"
 #include "BlackBoard.h"
+#include "SoundManager.h"
 
 using namespace std;
 
@@ -40,6 +41,21 @@ namespace PM3D
 			go->OnUnspawn();
 		}
 	};
+
+// 	class StopSoundCallBack : public ICallBack 
+// 	{
+// 		SoundManager::SoundType type;
+// 	public:
+// 		StopSoundCallBack(SoundManager::SoundType _type, float _time) : type{ _type }
+// 		{
+// 			basetime = _time;
+// 			time = _time;
+// 		}
+// 
+// 		virtual void Trigger() override {
+// 			SoundManager::GetInstance().PauseSound(type);
+// 		}
+// 	};
 
 	class CallBackManager
 	{
