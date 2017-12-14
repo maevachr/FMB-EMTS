@@ -115,6 +115,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="AreneGo.cpp" />
+    <ClCompile Include="BillBoardComponent.cpp" />
     <ClCompile Include="BlackBoard.cpp" />
     <ClCompile Include="CircusGo.cpp" />
     <ClCompile Include="BillBoardComponentManager.cpp" />

@@ -43,11 +43,10 @@ namespace PM3D
 		d->InitMass(150, centerMass, inertiaTensor);*/
 
 		//-----BillboardComponent
-		//-----BillBoardComponent
-		BillBoardComponent* bbm = CreateComponent<BillBoardComponent>();
-		bbm->GetBillBoard("miniexplo");
 		BillBoardComponent* bbm2 = CreateComponent<BillBoardComponent>();
-		bbm2->GetBillBoard("miniexplo2");
+		bbm2->GetBillBoard("nitro");
+		BillBoardComponent* bbm = CreateComponent<BillBoardComponent>();
+		bbm->GetBillBoard("nitro2");
 	}
 
 	void MonsterTruckGo::OnUnspawn()
@@ -65,7 +64,7 @@ namespace PM3D
 
 	void MonsterTruckGo::ProcessInput()
 	{
-		if (BlackBoard::GetInstance().GetChrono() < 180.f)
+		if (BlackBoard::GetInstance().GetChrono() < 232.f)
 		{
 			auto pGestionnaireDeSaisie = InputManager::GetInstance().GetDIManipulateur();
 			PhysxVehicle* vehicle = this->As<VehiclePhysicComponent>()->GetVehicle();
@@ -109,7 +108,7 @@ namespace PM3D
 				vehicle->releaseAccelerate();
 			}
 
-			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_LSHIFT) && BlackBoard::GetInstance().UseBoost())
+			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_LSHIFT) && BlackBoard::GetInstance().UseBoost() && !pGestionnaireDeSaisie->ToucheAppuyee(DIK_S))
 			{
 				post->mode = PostEffectSprite::Radial;
 				if (post->radialStrenght < 0.1f) post->radialStrenght += 0.0005f;

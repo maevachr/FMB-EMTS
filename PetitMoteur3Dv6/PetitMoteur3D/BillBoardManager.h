@@ -7,6 +7,7 @@
 #include <DirectXMath.h>
 #include <algorithm>
 #include <array>
+#include <memory>
 
 using namespace std;
 using namespace DirectX;
@@ -115,10 +116,11 @@ namespace PM3D
 
 	private:
 		std::vector<BillBoard*> billBoards;
-		Animation* explosionBb;
+
 		Animation* explosionBbmini;
 		Animation* explosionBbmini2;
-		//Animation* nitroBb;
+		Animation* nitroBb;
+		Animation* nitroBb2;
 	public:
 
 		void InitBillBoard(CDispositifD3D11* _pDispositif);
@@ -140,6 +142,23 @@ namespace PM3D
 			});
 			assert(it != billBoards.end());
 			return *it;
+		}
+	private:
+		vector<Animation*> explosionAnim;
+		vector<BillBoard*> explosionBb;
+	public:
+		Animation* GetTokenAnim();
+		BillBoard* GetTokenBB() {
+			BillBoard* res = explosionBb.back();
+			explosionBb.pop_back();
+			return res;
+		}
+
+		void ReturnTokenAnim(Animation* anim) {
+			explosionAnim.push_back(anim);
+		}
+		void ReturnTokenBB(BillBoard* b) {
+			explosionBb.push_back(b);
 		}
 	};
 }

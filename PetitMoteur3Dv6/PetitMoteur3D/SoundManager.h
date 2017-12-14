@@ -63,6 +63,7 @@ namespace PM3D
 			sound[COUNTDOWN]->setLoopCount(0);
 			sound[EXPLODING_CRATE]->setLoopCount(0);
 			sound[CHEERING]->setLoopCount(0);
+			sound[MUSIC]->setLoopCount(0);
 
 			//Start Loops
 			system->playSound(FMOD_CHANNEL_FREE, sound[BOOST], true, &channel[BOOST]);

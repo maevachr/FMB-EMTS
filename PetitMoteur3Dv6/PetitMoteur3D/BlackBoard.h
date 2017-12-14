@@ -21,7 +21,7 @@ namespace PM3D
 
 	private:
 		int score{};
-		float chrono = 183.f;
+		float chrono = 235.f;
 		const float MAX_BOOST = 100.0f;
 		float boost = MAX_BOOST;
 		float USE_MIN_WHEN_UP = 10.0f;
