@@ -47,6 +47,8 @@ namespace PM3D
 		//-----BillBoardComponent
 		BillBoardComponent* bbm = CreateComponent<BillBoardComponent>();
 		bbm->GetBillBoard("miniexplo");
+		BillBoardComponent* bbm2 = CreateComponent<BillBoardComponent>();
+		bbm2->GetBillBoard("miniexplo2");
 	}
 
 	void MonsterTruckGo::OnUnspawn()
