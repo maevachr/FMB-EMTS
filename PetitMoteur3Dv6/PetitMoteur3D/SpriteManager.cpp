@@ -620,9 +620,9 @@ namespace PM3D
 
 		post = new PostEffectSprite(_pDispositif);
 
-		speedometer = new TextureSprite{ "speedometer.dds",largeurPercent(0.02f), hauteurPercent(0.80f), 200, 100, _pDispositif };
+		speedometer = new TextureSprite{ "speedometer2.dds",largeurPercent(0.02f), hauteurPercent(0.75f), static_cast<int>(1000 * 0.25f),static_cast<int>(1000 * 0.25f), _pDispositif };
 
-		needle = new TextureSprite{ "needle.dds",largeurPercent(0.02f) + 25,  hauteurPercent(0.80f) + 10, 150, 150, _pDispositif };
+		needle = new TextureSprite{ "needle2.dds",largeurPercent(0.02f) + 25,  hauteurPercent(0.80f) + 10, 150, 150, _pDispositif };
 		RotateNeedle(XM_PI / 2);
 
 		jauge = new TextureSprite{ "Jauge.dds",largeurPercent(0.82f) ,  hauteurPercent(0.635f) , static_cast<int>(1408*0.18f), static_cast<int>(1711 * 0.18f), _pDispositif };
