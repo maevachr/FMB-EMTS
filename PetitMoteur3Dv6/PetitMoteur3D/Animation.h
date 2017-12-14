@@ -2,6 +2,7 @@
 #include <array>
 
 #include "SpriteManager.h"
+#include "BillBoardManager.h"
 
 using namespace PM3D;
 
@@ -12,9 +13,9 @@ public:
 	using FrameSize = std::array<float, 2>;
 
 public:
-	 						Animation(TextureSprite* texture);
+	Animation();
 
-	void 					setFrameSize(float mFrameSizeX, float mFrameSizeY);
+	virtual void 			setFrameSize(float mFrameSizeX, float mFrameSizeY) = 0;
 	FrameSize		 		getFrameSize() const;
 
 	void 					setNumFrames(std::size_t numFrames);
@@ -29,17 +30,14 @@ public:
 	void 					restart();
 	bool 					isFinished() const;
 
-	void 					update(Time dt);
-
 	size_t GetFrame() { return mCurrentFrame; }
 
-
 public:
-	void 					Draw() const;
+	virtual void 			update(Time dt) = 0;
+	virtual void 			Draw() const = 0;
 
-
-private:
-	PM3D::TextureSprite*	pSprite;
+protected:
+	
 	FrameSize 				mFrameSize;
 	std::size_t 			mNumFrames;
 	std::size_t 			mCurrentFrame;
@@ -47,3 +45,28 @@ private:
 	Time					mElapsedTime;
 	bool 					mRepeat;
 };
+
+class AnimationSprite : public Animation
+{
+public:
+	AnimationSprite(TextureSprite* texture);
+private:
+	PM3D::TextureSprite*	pSprite;
+public:
+	void 					setFrameSize(float mFrameSizeX, float mFrameSizeY) override;
+	void 					update(Time dt) override;
+	void 					Draw() const override;
+};
+
+class AnimationBillBoard : public Animation
+{
+public:
+	AnimationBillBoard(BillBoard* bb);
+private:
+	BillBoard*		pBillBoard;
+public:
+	void 					setFrameSize(float mFrameSizeX, float mFrameSizeY) override;
+	void 					update(Time dt) override;
+	void 					Draw() const override {}
+};
+

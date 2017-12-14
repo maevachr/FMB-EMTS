@@ -72,6 +72,10 @@ namespace PM3D
 		BillBoardComponent* b = CreateComponent<BillBoardComponent>();
 		b->GetBillBoard("arrow");
 
+		//-----BillBoardComponent
+		BillBoardComponent* bbm = CreateComponent<BillBoardComponent>();
+		bbm->GetBillBoard("explo");
+
 		//-----DynamicPhysicComponent
 		DynamicPhysicComponent* d = CreateComponent<DynamicPhysicComponent>();
 		PxPhysics &physics = SimulationManager::GetInstance().physics();

@@ -8,6 +8,7 @@
 #include "GestionnaireDeTextures.h"
 #include "SpawnManager.h"
 #include "PhysicComponent.h"
+#include "Animation.h"
 
 using namespace UtilitairesDX;
 
@@ -133,6 +134,8 @@ namespace PM3D
 	struct ShadersParams
 	{
 		XMMATRIX matWVP; // la matrice totale
+		XMFLOAT2 coordTextHG;
+		XMFLOAT2 coordTextBD;
 		float vel;
 		float target;
 		XMFLOAT2 remplissage;
@@ -250,6 +253,8 @@ namespace PM3D
 
 		ShadersParams sp;
 		sp.matWVP = XMMatrixTranspose(mat);
+		sp.coordTextHG = XMFLOAT2{ mTextRect.left, mTextRect.top };
+		sp.coordTextBD = XMFLOAT2{ mTextRect.width, mTextRect.height };
 		//ajouter vet et target;
 		VehiclePhysicComponent* vpc = SpawnManager::GetInstance().GetPlayer()->As<VehiclePhysicComponent>();
 		PxRigidDynamic* actor = vpc->GetPxActor();
@@ -274,5 +279,34 @@ namespace PM3D
 	void BillBoard::SetResourceView(ID3D11ShaderResourceView * v)
 	{
 		if (pTextureD3D.empty()) pTextureD3D.push_back(v); else pTextureD3D[0] = v;
+	}
+	void BillBoardManager::InitBillBoard(CDispositifD3D11 * _pDispositif)
+	{
+		/*	BillBoard* b = new BillBoard(_pDispositif, "test.dds", XMFLOAT3(50.0f, -30.0f, 50.0f), 100, 100);
+		b->InitName("test");
+		billBoards.push_back(b);*/
+
+		BillBoard* b = new BillBoard(_pDispositif, { "arrow_white.dds" }, XMFLOAT3(0.0f, 0.0f, 2.0f), 1, 1);
+		b->InitName("arrow");
+		billBoards.push_back(b);
+
+		BillBoard* tv = new BillBoard(_pDispositif, {}, XMFLOAT3(0.0f, 0.0f, 1.0f), 80, 60, nullptr, false);
+		tv->InitName("tv");
+		billBoards.push_back(tv);
+
+		//Billboard associée à une animation
+		BillBoard* explo = new BillBoard{ _pDispositif,{ "explosion.dds" }, XMFLOAT3(0.0f, 0.0f, 2.0f) , 3, 3 };
+		explo->InitName("explo");
+		billBoards.push_back(explo);
+		explo->SetDimension(2048, 1536);
+		explosionBb = new AnimationBillBoard(explo);
+		explosionBb->setFrameSize(256, 256);
+		explosionBb->setRepeating(true);
+		explosionBb->setNumFrames(48);
+		explosionBb->setDuration(1.0f);
+	}
+	void BillBoardManager::UpdateAnimation(float dt)
+	{
+		explosionBb->update(dt);
 	}
 }
