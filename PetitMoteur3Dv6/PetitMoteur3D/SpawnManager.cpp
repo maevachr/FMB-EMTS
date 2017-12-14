@@ -58,6 +58,10 @@ namespace PM3D{
 		locationFlottingCrateGo.p = PxVec3{ 20, 60, 7 };
 		Spawn<FlottingCrateGo<WhiteCrate>>(locationFlottingCrateGo);
 
+		PxTransform locationFlottingCrateGo1 = PxTransform::createIdentity();
+		locationFlottingCrateGo1.p = PxVec3{ -100, 0, -2 };
+		Spawn<FlottingCrateGo<WhiteCrate>>(locationFlottingCrateGo1);
+
 		PxTransform locationArene = PxTransform::createIdentity();
 		locationArene.p = PxVec3{ 20, 0, 10 };
 		//rotation de l'arene
