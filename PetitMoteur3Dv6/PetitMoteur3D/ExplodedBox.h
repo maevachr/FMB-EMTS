@@ -11,6 +11,7 @@ namespace PM3D
 	private:
 		static constexpr char* typeId = "ExplodedBox";
 	public:
+		virtual char* GetTypeId() { return "ExplodedBox"; }
 		virtual void OnSpawn(const PxTransform& _transform = PxTransform::createIdentity(), GameObject* _parent = nullptr) override;
 		virtual void OnUnspawn() override;
 		void GenerateExplosion();

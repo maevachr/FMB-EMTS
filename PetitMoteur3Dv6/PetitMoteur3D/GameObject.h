@@ -19,8 +19,14 @@ namespace PM3D
 
 	class GameObject
 	{
+	protected:
+		bool playNitro = false;
 	public:
+		bool GetPlayNitro() { return playNitro; }
+	private:
 		static constexpr char* typeId = "GameObject";
+	public:
+		virtual char* GetTypeId() { return "GameObject"; }
 
 		//New all the child gameObjects
 		virtual void OnSpawn(const PxTransform& _transform = PxTransform::createIdentity(), GameObject* _parent = nullptr)
