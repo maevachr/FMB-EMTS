@@ -26,9 +26,17 @@ namespace PM3D{
 		locationCrate2.p = PxVec3{ 40, 20, 6 };
 		Spawn<CrateGo<WhiteCrate>>(locationCrate2);
 
-		PxTransform locationCrate3 = PxTransform::createIdentity();
-		locationCrate3.p = PxVec3{ 60, 20, 6 };
-		Spawn<CrateGo<BrownCrate>>(locationCrate3);
+		PxTransform locationCrateM1 = PxTransform::createIdentity();
+		locationCrateM1.p = PxVec3{ -90, 175, 20 };
+		Spawn<CrateGo<BrownCrate>>(locationCrateM1);
+
+		PxTransform locationCrateM2 = PxTransform::createIdentity();
+		locationCrateM2.p = PxVec3{ -88, 179, 20 };
+		Spawn<CrateGo<BrownCrate>>(locationCrateM2);
+
+		PxTransform locationCrateM3 = PxTransform::createIdentity();
+		locationCrateM3.p = PxVec3{ -89, 177, 23 };
+		Spawn<CrateGo<BrownCrate>>(locationCrateM3);
 
 		PxTransform locationCrate4 = PxTransform::createIdentity();
 		locationCrate4.p = PxVec3{ -20, 80, 10 };
@@ -38,7 +46,17 @@ namespace PM3D{
 		locationCrate5.p = PxVec3{ -30, -43.5, 12 };
 		Spawn<CrateGo<OrangeCrate>>(locationCrate5);
 
+		PxTransform a0 = PxTransform::createIdentity();
+		a0.p = PxVec3{ +30, 120.5, 5 };
+		Spawn<CrateGo<BrownCrate>>(a0);
 
+		PxTransform a1 = PxTransform::createIdentity();
+		a1.p = PxVec3{ 50, 125.5, 4 };
+		Spawn<CrateGo<BrownCrate>>(a1);
+
+		PxTransform a2 = PxTransform::createIdentity();
+		a2.p = PxVec3{ 5, 135, 4 };
+		Spawn<CrateGo<BrownCrate>>(a2);
 		// 			PxTransform explodedBox = PxTransform::createIdentity();
 		// 			explodedBox.p = PxVec3{ 30, 20, 6 };
 		// 			Spawn<ExplodedBox>(explodedBox);
