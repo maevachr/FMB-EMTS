@@ -18,7 +18,7 @@ namespace PM3D{
 		Spawn<TerrainGo>();
 
 		PxTransform locationCrate = PxTransform::createIdentity();
-		locationCrate.p = PxVec3{ 20, 20, 6 };
+		locationCrate.p = PxVec3{ 0.0, -1, 0.5 };
 		Spawn<CrateGo<BrownCrate>>(locationCrate);
 
 		PxTransform locationCrate2 = PxTransform::createIdentity();
@@ -33,6 +33,10 @@ namespace PM3D{
 		locationCrate4.p = PxVec3{ 80, 20, 6 };
 		Spawn<CrateGo<OrangeCrate>>(locationCrate4);
 
+		PxTransform locationCrate5 = PxTransform::createIdentity();
+		locationCrate5.p = PxVec3{ -30, -43.5, 12 };
+		Spawn<CrateGo<OrangeCrate>>(locationCrate5);
+
 
 		// 			PxTransform explodedBox = PxTransform::createIdentity();
 		// 			explodedBox.p = PxVec3{ 30, 20, 6 };
@@ -42,12 +46,20 @@ namespace PM3D{
 		locationCircusGo.p = PxVec3{ 20, 60, -4 };
 		Spawn<CircusGo>(locationCircusGo);
 
+		PxTransform beamGo1 = PxTransform::createIdentity();
+		beamGo1.p = PxVec3{ -30, -43.5, -0.5625 };
+		Spawn<BeamGo>(beamGo1);
+
+		PxTransform beamGo2 = PxTransform::createIdentity();
+		beamGo2.p = PxVec3{ -7, -43.5, -0.5625 };
+		Spawn<BeamGo>(beamGo2);
+
 		PxTransform locationFlottingCrateGo = PxTransform::createIdentity();
 		locationFlottingCrateGo.p = PxVec3{ 20, 60, 7 };
 		Spawn<FlottingCrateGo<WhiteCrate>>(locationFlottingCrateGo);
 
 		PxTransform locationArene = PxTransform::createIdentity();
-		locationArene.p = PxVec3{ 0, 0, 8 };
+		locationArene.p = PxVec3{ 20, 0, 10 };
 		//rotation de l'arene
 		Spawn<AreneGo>(locationArene);
 
@@ -64,12 +76,12 @@ namespace PM3D{
 		Spawn<ContainerGo>(locationContainer3);
 
 		PxTransform locationContainer4 = PxTransform::createIdentity();
-		locationContainer4.p = PxVec3{ 34.0, -43.0, 4 };
+		locationContainer4.p = PxVec3{ 34.0, -43.5, 4 };
 		locationContainer4.q = PxQuat{0.0 ,0.139f, 0.0, 0.990f}*PxQuat{ 0,0,0.707f,0.707f };
 		Spawn<ContainerGo>(locationContainer4);
 
 		PxTransform locationContainer5 = PxTransform::createIdentity();
-		locationContainer5.p = PxVec3{ -15.0, -43.0, 12 };
+		locationContainer5.p = PxVec3{ -15.0, -43.5, 12 };
 		locationContainer5.q = PxQuat{ 0,0,0.707f,0.707f };
 		Spawn<ContainerGo>(locationContainer5);
 
@@ -86,7 +98,8 @@ namespace PM3D{
 		Spawn<TVGo<90>>(locationTV2);
 
 		PxTransform locationBus = PxTransform::createIdentity();
-		locationBus.p = PxVec3{ 11, -1, 2 };
+		locationBus.p = PxVec3{ -20, 80, 2 };
+		locationBus.q = PxQuat{ 0,0,0.923f,0.382f } * PxQuat{ 0,-0.707f,0,0.707f };
 		Spawn<BusGo>(locationBus);
 
 		PxTransform locationBus1 = PxTransform::createIdentity();
@@ -98,10 +111,10 @@ namespace PM3D{
 		locationBus2.q = PxQuat{ 0,0,1.0,0.0f };
 		Spawn<BusGo>(locationBus2);
 
-		PxTransform locationSpot = PxTransform::createIdentity();
-		locationSpot.p = PxVec3{70,50, 2 }; 
-		locationSpot.q = PxQuat{ PxPiDivTwo,PxVec3{ 0,0,1 } };
-		Spawn<SpotGo>(locationSpot);
+		//PxTransform locationSpot = PxTransform::createIdentity();
+		//locationSpot.p = PxVec3{70,50, 2 }; 
+		//locationSpot.q = PxQuat{ PxPiDivTwo,PxVec3{ 0,0,1 } };
+		//Spawn<SpotGo>(locationSpot);
 	}
 	void SpawnManager::Update()
 	{

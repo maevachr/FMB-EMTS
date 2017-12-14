@@ -109,7 +109,7 @@ namespace PM3D
 				vehicle->releaseAccelerate();
 			}
 
-			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_E) && BlackBoard::GetInstance().UseBoost())
+			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_LSHIFT) && BlackBoard::GetInstance().UseBoost())
 			{
 				post->mode = PostEffectSprite::Radial;
 				if (post->radialStrenght < 0.1f) post->radialStrenght += 0.0005f;

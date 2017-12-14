@@ -6,6 +6,7 @@
 #include "MiniCrateGo.h"
 #include "CallBackManager.h"
 #include "CrateGo.h"
+#include "SoundManager.h"
 
 namespace PM3D
 {
@@ -18,6 +19,7 @@ namespace PM3D
 	{
 		GameObject::OnSpawn(_transform, _parent);
 		GenerateExplosion();
+		SoundManager::GetInstance().PlaySoundEffect(SoundManager::CHEERING);
 		CallBackManager::GetInstance().AddCallBack(new UnspawnCallBack{ this, 3.f });
 	}
 
