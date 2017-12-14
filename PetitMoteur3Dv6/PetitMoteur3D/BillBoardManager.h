@@ -117,6 +117,7 @@ namespace PM3D
 		std::vector<BillBoard*> billBoards;
 		Animation* explosionBb;
 		Animation* explosionBbmini;
+		Animation* explosionBbmini2;
 		//Animation* nitroBb;
 	public:
 
