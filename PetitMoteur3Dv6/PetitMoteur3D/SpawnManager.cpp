@@ -10,7 +10,8 @@ namespace PM3D{
 
 		//Always put MonsterTruckGo first
 		PxTransform locationTruck = PxTransform::createIdentity();
-		locationTruck.p = PxVec3{ -60, -60, 3 };
+		locationTruck.p = PxVec3{ -100, 0, 20 };
+		locationTruck.q = PxQuat( 0, 0.0, 0.707, 0.707)*PxQuat(0.707, 0, 0, 0.707);
 		Spawn<MonsterTruckGo>(locationTruck);
 
 		Spawn<SkyBoxGo>();
@@ -30,7 +31,7 @@ namespace PM3D{
 		Spawn<CrateGo<BrownCrate>>(locationCrate3);
 
 		PxTransform locationCrate4 = PxTransform::createIdentity();
-		locationCrate4.p = PxVec3{ 80, 20, 6 };
+		locationCrate4.p = PxVec3{ -20, 80, 10 };
 		Spawn<CrateGo<OrangeCrate>>(locationCrate4);
 
 		PxTransform locationCrate5 = PxTransform::createIdentity();
@@ -57,6 +58,22 @@ namespace PM3D{
 		PxTransform locationFlottingCrateGo = PxTransform::createIdentity();
 		locationFlottingCrateGo.p = PxVec3{ 20, 60, 7 };
 		Spawn<FlottingCrateGo<WhiteCrate>>(locationFlottingCrateGo);
+
+		PxTransform locationFlottingCrateGo1 = PxTransform::createIdentity();
+		locationFlottingCrateGo1.p = PxVec3{ -1, -8, 12 };
+		Spawn<FlottingCrateGo<OrangeCrate>>(locationFlottingCrateGo1);
+
+		PxTransform locationFlottingCrateGo2 = PxTransform::createIdentity();
+		locationFlottingCrateGo2.p = PxVec3{ -1, 0, 15 };
+		Spawn<FlottingCrateGo<WhiteCrate>>(locationFlottingCrateGo2);
+
+		PxTransform locationFlottingCrateGo3 = PxTransform::createIdentity();
+		locationFlottingCrateGo3.p = PxVec3{ -1, 8, 12 };
+		Spawn<FlottingCrateGo<OrangeCrate>>(locationFlottingCrateGo3);
+
+		PxTransform locationFlottingCrateGo4 = PxTransform::createIdentity();
+		locationFlottingCrateGo4.p = PxVec3{ -185, 90, 8 };
+		Spawn<FlottingCrateGo<OrangeCrate>>(locationFlottingCrateGo4);
 
 		PxTransform locationArene = PxTransform::createIdentity();
 		locationArene.p = PxVec3{ 20, 0, 10 };
@@ -90,11 +107,11 @@ namespace PM3D{
 		Spawn<TiresGo>(locationRoues);
 		
 		PxTransform locationTV = PxTransform::createIdentity();
-		locationTV.p = PxVec3{ 438, 17.5, 93 };
+		locationTV.p = PxVec3{ 458, 17.5, 95 };
 		Spawn<TVGo<-90>>(locationTV);
 
 		PxTransform locationTV2 = PxTransform::createIdentity();
-		locationTV2.p = PxVec3{ -438, 17.5, 93 };
+		locationTV2.p = PxVec3{ -418, 17.5, 95 };
 		Spawn<TVGo<90>>(locationTV2);
 
 		PxTransform locationBus = PxTransform::createIdentity();
