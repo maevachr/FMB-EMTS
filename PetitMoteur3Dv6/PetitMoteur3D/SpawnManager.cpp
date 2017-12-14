@@ -10,8 +10,8 @@ namespace PM3D{
 
 		//Always put MonsterTruckGo first
 		PxTransform locationTruck = PxTransform::createIdentity();
-		locationTruck.p = PxVec3{ -60, -60, 20 };
-		locationTruck.q = PxQuat(0.707, 0, 0, 0.707);
+		locationTruck.p = PxVec3{ -100, 0, 20 };
+		locationTruck.q = PxQuat( 0, 0.0, 0.707, 0.707)*PxQuat(0.707, 0, 0, 0.707);
 		Spawn<MonsterTruckGo>(locationTruck);
 
 		Spawn<SkyBoxGo>();
@@ -31,7 +31,7 @@ namespace PM3D{
 		Spawn<CrateGo<BrownCrate>>(locationCrate3);
 
 		PxTransform locationCrate4 = PxTransform::createIdentity();
-		locationCrate4.p = PxVec3{ 80, 20, 6 };
+		locationCrate4.p = PxVec3{ -20, 80, 10 };
 		Spawn<CrateGo<OrangeCrate>>(locationCrate4);
 
 		PxTransform locationCrate5 = PxTransform::createIdentity();
@@ -60,8 +60,16 @@ namespace PM3D{
 		Spawn<FlottingCrateGo<WhiteCrate>>(locationFlottingCrateGo);
 
 		PxTransform locationFlottingCrateGo1 = PxTransform::createIdentity();
-		locationFlottingCrateGo1.p = PxVec3{ -100, 0, -2 };
-		Spawn<FlottingCrateGo<WhiteCrate>>(locationFlottingCrateGo1);
+		locationFlottingCrateGo1.p = PxVec3{ -1, -8, 12 };
+		Spawn<FlottingCrateGo<OrangeCrate>>(locationFlottingCrateGo1);
+
+		PxTransform locationFlottingCrateGo2 = PxTransform::createIdentity();
+		locationFlottingCrateGo2.p = PxVec3{ -1, 0, 15 };
+		Spawn<FlottingCrateGo<WhiteCrate>>(locationFlottingCrateGo2);
+
+		PxTransform locationFlottingCrateGo3 = PxTransform::createIdentity();
+		locationFlottingCrateGo3.p = PxVec3{ -1, 8, 12 };
+		Spawn<FlottingCrateGo<OrangeCrate>>(locationFlottingCrateGo3);
 
 		PxTransform locationArene = PxTransform::createIdentity();
 		locationArene.p = PxVec3{ 20, 0, 10 };
