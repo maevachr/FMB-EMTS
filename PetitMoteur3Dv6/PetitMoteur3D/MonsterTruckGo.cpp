@@ -27,7 +27,6 @@ namespace PM3D
 		for (int i = 0; i < 4; i++) {
 			WheelGo* t = new WheelGo();
 			PxTransform trans = PxTransform::createIdentity();
-			//		trans.p = PxVec3{ 0.5 , 0 , 0.5 }; //to correct wheel position
 			t->OnSpawn(trans, this);
 			AddChild(t);
 		}

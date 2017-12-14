@@ -259,7 +259,7 @@ float4 MiniPhongPS( VS_Sortie vs ) : SV_Target
 	}
 	
 	valeurAmbiente.rgb /= float(NB_LIGHTS);
-	//diff.rgb /= float(NB_LIGHTS);
+	diff.rgb /= float(NB_LIGHTS);
 	S.rgb /= float(NB_LIGHTS);
 	
 	// I = E + A + D * N.L + (R.V)n

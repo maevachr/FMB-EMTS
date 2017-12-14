@@ -64,9 +64,14 @@ namespace PM3D{
 		Spawn<ContainerGo>(locationContainer3);
 
 		PxTransform locationContainer4 = PxTransform::createIdentity();
-		locationContainer4.p = PxVec3{ 30.0, -30.0, 6 };
-		locationContainer4.q = PxQuat{0.0 ,0.25f, 0.0, 0.96f}*PxQuat{ 0,0,0.707f,0.707f };
+		locationContainer4.p = PxVec3{ 34.0, -43.0, 4 };
+		locationContainer4.q = PxQuat{0.0 ,0.139f, 0.0, 0.990f}*PxQuat{ 0,0,0.707f,0.707f };
 		Spawn<ContainerGo>(locationContainer4);
+
+		PxTransform locationContainer5 = PxTransform::createIdentity();
+		locationContainer5.p = PxVec3{ -15.0, -43.0, 12 };
+		locationContainer5.q = PxQuat{ 0,0,0.707f,0.707f };
+		Spawn<ContainerGo>(locationContainer5);
 
 		PxTransform locationRoues = PxTransform::createIdentity();
 		locationRoues.p = PxVec3{ -30, 20, 5 };
@@ -90,6 +95,7 @@ namespace PM3D{
 
 		PxTransform locationBus2 = PxTransform::createIdentity();
 		locationBus2.p = PxVec3{ -6.5, -1, 2 };
+		locationBus2.q = PxQuat{ 0,0,1.0,0.0f };
 		Spawn<BusGo>(locationBus2);
 
 		PxTransform locationSpot = PxTransform::createIdentity();
