@@ -622,7 +622,7 @@ namespace PM3D
 
 		speedometer = new TextureSprite{ "speedometer2.dds",largeurPercent(0.02f), hauteurPercent(0.75f), static_cast<int>(1000 * 0.25f),static_cast<int>(1000 * 0.25f), _pDispositif };
 
-		needle = new TextureSprite{ "needle2.dds",largeurPercent(0.02f) + 25,  hauteurPercent(0.80f) + 10, 150, 150, _pDispositif };
+		needle = new TextureSprite{ "needle2.dds",largeurPercent(0.07f),  hauteurPercent(0.80f) + 10, 150, 150, _pDispositif };
 		RotateNeedle(XM_PI / 2);
 
 		jauge = new TextureSprite{ "Jauge.dds",largeurPercent(0.82f) ,  hauteurPercent(0.635f) , static_cast<int>(1408*0.18f), static_cast<int>(1711 * 0.18f), _pDispositif };
@@ -649,7 +649,7 @@ namespace PM3D
 		chronoText = new TextSprite(pPolice, largeurPercent(0.5f) - 70, hauteurPercent(0.10f), 140, 60, _pDispositif);
 		chronoText->Ecrire(L"0");
 
-		boostText = new TextSprite(pPoliceSpeed, largeurPercent(0.90f), hauteurPercent(0.95f), largeurPercent(0.15f), hauteurPercent(0.08f), _pDispositif);
+		boostText = new TextSprite(pPoliceSpeed, largeurPercent(0.90f), hauteurPercent(0.90f), largeurPercent(0.15f), hauteurPercent(0.08f), _pDispositif);
 		boostText->Ecrire(L"0");
 
 		scoreText = new TextSprite(pPolice, largeurPercent(0.90f) - 70, hauteurPercent(0.05f), 170, 60, _pDispositif);
@@ -664,7 +664,7 @@ namespace PM3D
 	{
 		VehiclePhysicComponent* vpc = SpawnManager::GetInstance().GetPlayer()->As<VehiclePhysicComponent>();
 		PxRigidDynamic* actor = vpc->GetPxActor();
-		float vitesse = actor->getLinearVelocity().normalize();
+		float vitesse = actor->getLinearVelocity().normalize() * 3.6f;
 		int unit = static_cast<int>(vitesse);
 		int decimal = static_cast<int>((vitesse - unit) * 10.f);
 		string s = to_string(unit) + "." + to_string(decimal);
@@ -719,9 +719,10 @@ namespace PM3D
 		//GetVitesse
 		VehiclePhysicComponent* vpc = SpawnManager::GetInstance().GetPlayer()->As<VehiclePhysicComponent>();
 		PxRigidDynamic* actor = vpc->GetPxActor();
-		float vitesse = actor->getLinearVelocity().normalize();
+		float vitesse = actor->getLinearVelocity().normalize() * 3.6f;
 		
-		RotateNeedle(-XM_PI/100 * vitesse + XM_PI/2 );
+		//RotateNeedle(-XM_PI/100 * vitesse*3.6f + XM_PI/2 );
+		RotateNeedle( (XM_PI * 6.75f/12)*(-vitesse/100 + 1));
 		needle->Draw();
 
 
