@@ -74,7 +74,7 @@ namespace PM3D
 
 		void InitEffet();
 	public:
-		BillBoard(CDispositifD3D11* pDispositif, vector<string> NomTexture, const XMFLOAT3& _position, int _dx = 0, int _dy = 0, GameObject* go = nullptr, bool _faceCamera = true);
+		BillBoard(CDispositifD3D11* pDispositif, vector<string> NomTexture, const XMFLOAT3& _position, float _dx = 0.f, float _dy = 0.f, GameObject* go = nullptr, bool _faceCamera = true);
 		~BillBoard();
 
 	private:
@@ -108,6 +108,8 @@ namespace PM3D
 	private:
 		std::vector<BillBoard*> billBoards;
 		Animation* explosionBb;
+		Animation* explosionBbmini;
+		//Animation* nitroBb;
 	public:
 
 		void InitBillBoard(CDispositifD3D11* _pDispositif);

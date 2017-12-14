@@ -1,482 +1,150 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Fichiers sources">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Fichiers de ressources">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\PhysX">
-      <UniqueIdentifier>{91481c89-4e00-4d59-b507-7452a560becd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\Camera">
-      <UniqueIdentifier>{377f5654-4fe8-4495-bf60-08f6503ea3bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Camera">
-      <UniqueIdentifier>{2089b37f-a364-4396-9748-eb63e2a54a4c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\GameObject">
-      <UniqueIdentifier>{614520f3-4fa2-4e0f-9a23-ec93c904891b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\Component">
-      <UniqueIdentifier>{1abf9be1-89e2-4e70-9c2a-795d39dc4c6f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Manager">
-      <UniqueIdentifier>{4c9fff32-d6dd-4065-b963-b64def5edf55}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\Manager">
-      <UniqueIdentifier>{f8a19b03-36b5-4842-b1fd-891f7a4a2cde}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\Manager\ComponentManager">
-      <UniqueIdentifier>{337aed7d-8975-4f25-b47d-81cd5d0b0400}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\GameObjects">
-      <UniqueIdentifier>{62438a28-5949-4b97-8b87-3eed56bab991}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Component">
-      <UniqueIdentifier>{e0e8d8b9-13a1-405c-ab3b-0c4e2e014318}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\Vehicle">
-      <UniqueIdentifier>{81523937-190d-4eea-8dd2-888336c6b808}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Vehicle">
-      <UniqueIdentifier>{2b56db99-0d22-4290-a29f-53b5fae56c4f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\Menus">
-      <UniqueIdentifier>{de6c1a51-f898-469b-be3a-d534e2ab1215}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Menus">
-      <UniqueIdentifier>{c2353dbe-00be-4cbb-8367-b3dc21274963}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="AnimationManager.cpp" />
+    <ClCompile Include="AreneGo.cpp" />
+    <ClCompile Include="BlackBoard.cpp" />
+    <ClCompile Include="CircusGo.cpp" />
+    <ClCompile Include="BillBoardComponentManager.cpp" />
+    <ClCompile Include="BillBoardManager.cpp" />
+    <ClCompile Include="BusGo.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CameraManager.cpp" />
+    <ClCompile Include="ChargeurAssimp.cpp" />
+    <ClCompile Include="ContainerGo.cpp" />
+    <ClCompile Include="CrateGo.cpp" />
+    <ClCompile Include="DDSTextureLoader.cpp" />
+    <ClCompile Include="DIManipulateur.cpp" />
+    <ClCompile Include="dispositifD3D11.cpp" />
+    <ClCompile Include="DynamicCamera.cpp" />
+    <ClCompile Include="DynamicLight.cpp" />
+    <ClCompile Include="EndState.cpp" />
+    <ClCompile Include="ExplodedBox.cpp" />
+    <ClCompile Include="FirstPersonCamera.cpp" />
+    <ClCompile Include="FlottingCrateGo.cpp" />
+    <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="GestionnaireDeTextures.cpp" />
+    <ClCompile Include="InfoDispositif.cpp" />
+    <ClCompile Include="InputComponent.cpp" />
+    <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="LightManager.cpp" />
+    <ClCompile Include="MenuState.cpp" />
+    <ClCompile Include="MeshManager.cpp" />
+    <ClCompile Include="MiniCrateGo.cpp" />
+    <ClCompile Include="MonsterTruckGo.cpp" />
+    <ClCompile Include="Moteur.cpp" />
+    <ClCompile Include="MoteurWindows.cpp" />
+    <ClCompile Include="PauseState.cpp" />
+    <ClCompile Include="PetitMoteur3D.cpp" />
+    <ClCompile Include="PhysicManager.cpp" />
+    <ClCompile Include="PhysxVehicle.cpp" />
+    <ClCompile Include="PlayerCamera.cpp" />
+    <ClCompile Include="RenderManager.cpp" />
+    <ClCompile Include="TextureRenderer.cpp" />
+    <ClCompile Include="TiresGo.cpp" />
+    <ClCompile Include="SimulationManager.cpp" />
+    <ClCompile Include="SkyBoxGo.cpp" />
+    <ClCompile Include="SpawnManager.cpp" />
+    <ClCompile Include="SpriteManager.cpp" />
+    <ClCompile Include="State.cpp" />
+    <ClCompile Include="StateStack.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="TerrainGo.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TunnelGo.cpp" />
+    <ClCompile Include="Vehicle4WCreate.cpp" />
+    <ClCompile Include="VehicleCreate.cpp" />
+    <ClCompile Include="VehicleFilterShader.cpp" />
+    <ClCompile Include="VehicleRaycast.cpp" />
+    <ClCompile Include="VehicleTireFriction.cpp" />
+    <ClCompile Include="WheelGo.cpp" />
+    <ClCompile Include="ExplosionGo.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Moteur.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="MoteurWindows.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="PetitMoteur3D.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="dispositifD3D11.cpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClCompile>
-    <ClCompile Include="InfoDispositif.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="DDSTextureLoader.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="ChargeurAssimp.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="DIManipulateur.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="DynamicLight.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="DynamicCamera.cpp">
-      <Filter>Fichiers sources\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Fichiers sources\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraManager.cpp">
-      <Filter>Fichiers sources\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerCamera.cpp">
-      <Filter>Fichiers sources\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="FirstPersonCamera.cpp">
-      <Filter>Fichiers sources\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="InputManager.cpp">
-      <Filter>Fichiers sources\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="LightManager.cpp">
-      <Filter>Fichiers sources\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="SimulationManager.cpp">
-      <Filter>Fichiers sources\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="BusGo.cpp">
-      <Filter>Fichiers sources\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="CrateGo.cpp">
-      <Filter>Fichiers sources\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="SkyBoxGo.cpp">
-      <Filter>Fichiers sources\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="TerrainGo.cpp">
-      <Filter>Fichiers sources\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="MonsterTruckGo.cpp">
-      <Filter>Fichiers sources\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="InputComponent.cpp">
-      <Filter>Fichiers sources\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicManager.cpp">
-      <Filter>Fichiers sources\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderManager.cpp">
-      <Filter>Fichiers sources\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="GestionnaireDeTextures.cpp">
-      <Filter>Fichiers sources\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="AnimationManager.cpp">
-      <Filter>Fichiers sources\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="MiniCrateGo.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="ExplodedBox.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysxVehicle.cpp">
-      <Filter>Fichiers sources\Vehicle</Filter>
-    </ClCompile>
-    <ClCompile Include="Vehicle4WCreate.cpp">
-      <Filter>Fichiers sources\Vehicle</Filter>
-    </ClCompile>
-    <ClCompile Include="VehicleCreate.cpp">
-      <Filter>Fichiers sources\Vehicle</Filter>
-    </ClCompile>
-    <ClCompile Include="VehicleFilterShader.cpp">
-      <Filter>Fichiers sources\Vehicle</Filter>
-    </ClCompile>
-    <ClCompile Include="VehicleRaycast.cpp">
-      <Filter>Fichiers sources\Vehicle</Filter>
-    </ClCompile>
-    <ClCompile Include="VehicleTireFriction.cpp">
-      <Filter>Fichiers sources\Vehicle</Filter>
-    </ClCompile>
-    <ClCompile Include="WheelGo.cpp">
-      <Filter>Fichiers sources\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="BillBoardManager.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteManager.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="BillBoardComponentManager.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="TunnelGo.cpp">
-      <Filter>Fichiers sources\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="StateStack.cpp">
-      <Filter>Fichiers sources\Menus</Filter>
-    </ClCompile>
-    <ClCompile Include="State.cpp">
-      <Filter>Fichiers sources\Menus</Filter>
-    </ClCompile>
-    <ClCompile Include="PauseState.cpp">
-      <Filter>Fichiers sources\Menus</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuState.cpp">
-      <Filter>Fichiers sources\Menus</Filter>
-    </ClCompile>
-    <ClCompile Include="EndState.cpp">
-      <Filter>Fichiers sources\Menus</Filter>
-    </ClCompile>
-    <ClCompile Include="GameState.cpp">
-      <Filter>Fichiers sources\Menus</Filter>
-    </ClCompile>
-    <ClCompile Include="AreneGo.cpp">
-      <Filter>Fichiers sources\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="SpawnManager.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="CircusGo.cpp">
-      <Filter>Fichiers sources\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="ContainerGo.cpp">
-      <Filter>Fichiers sources\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshManager.cpp">
-      <Filter>Fichiers sources\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="Animation.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="FlottingCrateGo.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="TiresGo.cpp">
-      <Filter>Fichiers sources\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureRenderer.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="TVGo.cpp">
-      <Filter>Fichiers sources\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="BlackBoard.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-=======
->>>>>>> f6904649265fc1bdd79927bfea15ec329d2ad5d4
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="AnimationComponent.h" />
+    <ClInclude Include="AnimationManager.h" />
+    <ClInclude Include="AreneGo.h" />
+    <ClInclude Include="CircusGo.h" />
+    <ClInclude Include="BillBoardComponent.h" />
+    <ClInclude Include="BillBoardComponentManager.h" />
+    <ClInclude Include="BillBoardManager.h" />
+    <ClInclude Include="BlackBoard.h" />
+    <ClInclude Include="BusGo.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="CameraManager.h" />
+    <ClInclude Include="chargeur.h" />
+    <ClInclude Include="ChargeurAssimp.h" />
+    <ClInclude Include="Component.h" />
+    <ClInclude Include="ContainerGo.h" />
+    <ClInclude Include="CrateGo.h" />
+    <ClInclude Include="DIManipulateur.h" />
+    <ClInclude Include="dispositif.h" />
+    <ClInclude Include="dispositifD3D11.h" />
+    <ClInclude Include="DynamicCamera.h" />
+    <ClInclude Include="DynamicLight.h" />
+    <ClInclude Include="CallBackManager.h" />
+    <ClInclude Include="EndState.h" />
+    <ClInclude Include="ExplodedBox.h" />
+    <ClInclude Include="FirstPersonCamera.h" />
+    <ClInclude Include="FlottingCrateGo.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameState.h" />
+    <ClInclude Include="GestionnaireDeTextures.h" />
+    <ClInclude Include="ICollisionHandler.h" />
+    <ClInclude Include="InfoDispositif.h" />
+    <ClInclude Include="Light.h" />
+    <ClInclude Include="LightManager.h" />
+    <ClInclude Include="MenuState.h" />
+    <ClInclude Include="MeshManager.h" />
+    <ClInclude Include="MiniCrateGo.h" />
+    <ClInclude Include="PauseState.h" />
+    <ClInclude Include="PhysxVehicle.h" />
+    <ClInclude Include="Print.h" />
+    <ClInclude Include="PVD.h" />
+    <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="TextureRenderer.h" />
+    <ClInclude Include="TiresGo.h" />
+    <ClInclude Include="SkyBoxGo.h" />
+    <ClInclude Include="SpawnManager.h" />
+    <ClInclude Include="SpriteManager.h" />
+    <ClInclude Include="State.h" />
+    <ClInclude Include="StateIdentifiers.h" />
+    <ClInclude Include="StateStack.h" />
+    <ClInclude Include="TerrainGo.h" />
+    <ClInclude Include="MonsterTruckGo.h" />
+    <ClInclude Include="Moteur.h" />
+    <ClInclude Include="MoteurWindows.h" />
+    <ClInclude Include="PetitMoteur3D.h" />
+    <ClInclude Include="PhysicComponent.h" />
+    <ClInclude Include="PhysicManager.h" />
+    <ClInclude Include="PlayerCamera.h" />
+    <ClInclude Include="InputComponent.h" />
+    <ClInclude Include="InputManager.h" />
+    <ClInclude Include="PxPhysicsAPI.forward.h" />
+    <ClInclude Include="RenderComponent.h" />
+    <ClInclude Include="RenderManager.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="SimulationManager.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="TunnelGo.h" />
+    <ClInclude Include="TVGo.h" />
+    <ClInclude Include="util.h" />
+    <ClInclude Include="VehicleCreate.h" />
+    <ClInclude Include="VehicleFilterShader.h" />
+    <ClInclude Include="VehicleRaycast.h" />
+    <ClInclude Include="VehicleTireFriction.h" />
+    <ClInclude Include="wheelGo.h" />
+    <ClInclude Include="ExplosionGo.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Moteur.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="MoteurWindows.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="PetitMoteur3D.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="util.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="dispositif.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="dispositifD3D11.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="InfoDispositif.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="chargeur.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="ChargeurAssimp.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="DIManipulateur.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="DynamicLight.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Light.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="LightManager.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraManager.h">
-      <Filter>Fichiers d%27en-tête\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="DynamicCamera.h">
-      <Filter>Fichiers d%27en-tête\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Fichiers d%27en-tête\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerCamera.h">
-      <Filter>Fichiers d%27en-tête\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="FirstPersonCamera.h">
-      <Filter>Fichiers d%27en-tête\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="PxPhysicsAPI.forward.h">
-      <Filter>Fichiers d%27en-tête\PhysX</Filter>
-    </ClInclude>
-    <ClInclude Include="InputComponent.h">
-      <Filter>Fichiers d%27en-tête\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="InputManager.h">
-      <Filter>Fichiers d%27en-tête\Manager\ComponentManager</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderManager.h">
-      <Filter>Fichiers d%27en-tête\Manager\ComponentManager</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderComponent.h">
-      <Filter>Fichiers d%27en-tête\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimationManager.h">
-      <Filter>Fichiers d%27en-tête\Manager\ComponentManager</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimationComponent.h">
-      <Filter>Fichiers d%27en-tête\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicComponent.h">
-      <Filter>Fichiers d%27en-tête\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicManager.h">
-      <Filter>Fichiers d%27en-tête\Manager\ComponentManager</Filter>
-    </ClInclude>
-    <ClInclude Include="MonsterTruckGo.h">
-      <Filter>Fichiers d%27en-tête\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="TerrainGo.h">
-      <Filter>Fichiers d%27en-tête\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="SkyBoxGo.h">
-      <Filter>Fichiers d%27en-tête\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="CrateGo.h">
-      <Filter>Fichiers d%27en-tête\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="BusGo.h">
-      <Filter>Fichiers d%27en-tête\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="SpawnManager.h">
-      <Filter>Fichiers d%27en-tête\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Fichiers d%27en-tête\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Fichiers d%27en-tête\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="ICollisionHandler.h">
-      <Filter>Fichiers d%27en-tête\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="GestionnaireDeTextures.h">
-      <Filter>Fichiers d%27en-tête\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="SimulationManager.h">
-      <Filter>Fichiers d%27en-tête\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshManager.h">
-      <Filter>Fichiers d%27en-tête\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="MiniCrateGo.h">
-      <Filter>Fichiers d%27en-tête\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="ExplodedBox.h">
-      <Filter>Fichiers d%27en-tête\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysxVehicle.h">
-      <Filter>Fichiers d%27en-tête\Vehicle</Filter>
-    </ClInclude>
-    <ClInclude Include="Print.h">
-      <Filter>Fichiers d%27en-tête\Vehicle</Filter>
-    </ClInclude>
-    <ClInclude Include="PVD.h">
-      <Filter>Fichiers d%27en-tête\Vehicle</Filter>
-    </ClInclude>
-    <ClInclude Include="VehicleCreate.h">
-      <Filter>Fichiers d%27en-tête\Vehicle</Filter>
-    </ClInclude>
-    <ClInclude Include="VehicleFilterShader.h">
-      <Filter>Fichiers d%27en-tête\Vehicle</Filter>
-    </ClInclude>
-    <ClInclude Include="VehicleRaycast.h">
-      <Filter>Fichiers d%27en-tête\Vehicle</Filter>
-    </ClInclude>
-    <ClInclude Include="VehicleTireFriction.h">
-      <Filter>Fichiers d%27en-tête\Vehicle</Filter>
-    </ClInclude>
-    <ClInclude Include="wheelGo.h">
-      <Filter>Fichiers d%27en-tête\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteManager.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="BillBoardComponentManager.h">
-      <Filter>Fichiers d%27en-tête\Manager\ComponentManager</Filter>
-    </ClInclude>
-    <ClInclude Include="BillBoardComponent.h">
-      <Filter>Fichiers d%27en-tête\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="BillBoardManager.h">
-      <Filter>Fichiers d%27en-tête\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="CallBackManager.h">
-      <Filter>Fichiers d%27en-tête\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="TunnelGo.h">
-      <Filter>Fichiers d%27en-tête\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="BlackBoard.h">
-      <Filter>Fichiers d%27en-tête\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="StateIdentifiers.h">
-      <Filter>Fichiers d%27en-tête\Menus</Filter>
-    </ClInclude>
-    <ClInclude Include="StateStack.h">
-      <Filter>Fichiers d%27en-tête\Menus</Filter>
-    </ClInclude>
-    <ClInclude Include="State.h">
-      <Filter>Fichiers d%27en-tête\Menus</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuState.h">
-      <Filter>Fichiers d%27en-tête\Menus</Filter>
-    </ClInclude>
-    <ClInclude Include="GameState.h">
-      <Filter>Fichiers d%27en-tête\Menus</Filter>
-    </ClInclude>
-    <ClInclude Include="EndState.h">
-      <Filter>Fichiers d%27en-tête\Menus</Filter>
-    </ClInclude>
-    <ClInclude Include="PauseState.h">
-      <Filter>Fichiers d%27en-tête\Menus</Filter>
-    </ClInclude>
-    <ClInclude Include="AreneGo.h">
-      <Filter>Fichiers d%27en-tête\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="CircusGo.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="ContainerGo.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Animation.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="FlottingCrateGo.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="TiresGo.h">
-      <Filter>Fichiers d%27en-tête\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureRenderer.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="TVGo.h">
-      <Filter>Fichiers d%27en-tête\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundManager.h">
-      <Filter>Fichiers d%27en-tête\Manager</Filter>
-    </ClInclude>
+    <ResourceCompile Include="PetitMoteur3D.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PetitMoteur3D.ico">
-      <Filter>Fichiers de ressources</Filter>
-    </None>
-    <None Include="small.ico">
-      <Filter>Fichiers de ressources</Filter>
-    </None>
+    <None Include="PetitMoteur3D.ico" />
+    <None Include="small.ico" />
     <None Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="PetitMoteur3D.rc">
-      <Filter>Fichiers de ressources</Filter>
-    </ResourceCompile>
   </ItemGroup>
 </Project>

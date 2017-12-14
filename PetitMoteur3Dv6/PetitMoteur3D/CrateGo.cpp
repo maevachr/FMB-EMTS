@@ -32,8 +32,8 @@ namespace PM3D
 				float vitesse = actor->getLinearVelocity().normalize();
 				if (vitesse > CrateTraits<CrateColor>::breaking_speed) {
 					PxTransform decalage = go->GetWorldTransform();
-					decalage.p += PxVec3(0, 0, 0);
 					SpawnManager::GetInstance().Spawn<ExplodedBox<CrateColor>>(decalage);
+					SpawnManager::GetInstance().Spawn<ExplosionGo>(decalage);
 					BlackBoard::GetInstance().AddPoints(CrateTraits<CrateColor>::nb_points);
 					BlackBoard::GetInstance().AddBoost(CrateTraits<CrateColor>::bonus_boost);
 					SpawnManager::GetInstance().Unspawn(go);
@@ -71,10 +71,6 @@ namespace PM3D
 		//-----BillBoardComponent
 		BillBoardComponent* b = CreateComponent<BillBoardComponent>();
 		b->GetBillBoard("arrow");
-
-		//-----BillBoardComponent
-		BillBoardComponent* bbm = CreateComponent<BillBoardComponent>();
-		bbm->GetBillBoard("explo");
 
 		//-----DynamicPhysicComponent
 		DynamicPhysicComponent* d = CreateComponent<DynamicPhysicComponent>();

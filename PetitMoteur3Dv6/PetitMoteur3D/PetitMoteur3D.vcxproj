@@ -134,6 +134,7 @@
     <ClCompile Include="DynamicLight.cpp" />
     <ClCompile Include="EndState.cpp" />
     <ClCompile Include="ExplodedBox.cpp" />
+    <ClCompile Include="ExplosionGo.cpp" />
     <ClCompile Include="FirstPersonCamera.cpp" />
     <ClCompile Include="FlottingCrateGo.cpp" />
     <ClCompile Include="GameState.cpp" />
@@ -202,6 +203,7 @@
     <ClInclude Include="CallBackManager.h" />
     <ClInclude Include="EndState.h" />
     <ClInclude Include="ExplodedBox.h" />
+    <ClInclude Include="ExplosionGo.h" />
     <ClInclude Include="FirstPersonCamera.h" />
     <ClInclude Include="FlottingCrateGo.h" />
     <ClInclude Include="GameObject.h" />

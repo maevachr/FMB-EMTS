@@ -476,8 +476,8 @@ namespace PM3D
 
 		// Cette texture sera utilisée comme cible de rendu et 
 		// comme ressource de shader 
-		textureDesc.Width = pDispositif->GetLargeur();
-		textureDesc.Height = pDispositif->GetHauteur();
+		textureDesc.Width = static_cast<int>(pDispositif->GetLargeur());
+		textureDesc.Height = static_cast<int>(pDispositif->GetHauteur());
 		textureDesc.MipLevels = 1;
 		textureDesc.ArraySize = 1;
 		textureDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
@@ -510,8 +510,8 @@ namespace PM3D
 		// Au tour du tampon de profondeur 
 		D3D11_TEXTURE2D_DESC depthTextureDesc;
 		ZeroMemory(&depthTextureDesc, sizeof(depthTextureDesc));
-		depthTextureDesc.Width = pDispositif->GetLargeur();
-		depthTextureDesc.Height = pDispositif->GetHauteur();
+		depthTextureDesc.Width = static_cast<int>(pDispositif->GetLargeur());
+		depthTextureDesc.Height = static_cast<int>(pDispositif->GetHauteur());
 		depthTextureDesc.MipLevels = 1;
 		depthTextureDesc.ArraySize = 1;
 		depthTextureDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
@@ -622,20 +622,11 @@ namespace PM3D
 		animMob->setNumFrames(36);
 		animMob->setDuration(0.5f);*/
 
-		//Explo
-		mob = new TextureSprite{ "explosion.dds",largeurPercent(0.2f),  hauteurPercent(0.2f) , 256, 256, _pDispositif };
-		mob->SetDimension(2048, 1536);
-		animMob = new AnimationSprite(mob);
-		animMob->setFrameSize(256, 256);
-		animMob->setRepeating(true);
-		animMob->setNumFrames(48);
-		animMob->setDuration(1.0f);
-
 		const FontFamily oFamily(L"Arial", NULL);
 		pPolice = new Font(&oFamily, 60.00, FontStyleBold, UnitPixel);
 		pPoliceTitle = new Font(&oFamily, 60.00, FontStyleBold, UnitPixel);
 
-		pPoliceSpeed = new Font(&oFamily, hauteurPercent(0.05f), FontStyleBold, UnitPixel);
+		pPoliceSpeed = new Font(&oFamily, static_cast<float>(hauteurPercent(0.05f)), FontStyleBold, UnitPixel);
 		speedText = new TextSprite(pPoliceSpeed, largeurPercent(0.02f), hauteurPercent(0.95f), largeurPercent(0.15f), hauteurPercent(0.08f), _pDispositif);
 		speedText->Ecrire(L"0");
 
@@ -651,7 +642,6 @@ namespace PM3D
 
 	void SpriteManager::UpdateAnimation(float dt)
 	{
-		animMob->update(dt);
 	}
 
 	void SpriteManager::UpdateSpeedText()
@@ -659,7 +649,7 @@ namespace PM3D
 		VehiclePhysicComponent* vpc = SpawnManager::GetInstance().GetPlayer()->As<VehiclePhysicComponent>();
 		PxRigidDynamic* actor = vpc->GetPxActor();
 		float vitesse = actor->getLinearVelocity().normalize();
-		int unit = vitesse;
+		int unit = static_cast<int>(vitesse);
 		int decimal = static_cast<int>((vitesse - unit) * 10.f);
 		string s = to_string(unit) + "." + to_string(decimal);
 		speedText->Ecrire({ s.begin(), s.end() });
@@ -689,7 +679,7 @@ namespace PM3D
 	}
 
 	void SpriteManager::UpdateJauge() {
-		int boost = BlackBoard::GetInstance().GetBoost();
+		int boost = static_cast<int>(BlackBoard::GetInstance().GetBoost());
 		jaugeEnergie->setMasquage(-0.71f / 100 * boost + 0.87f);
 	}
 
@@ -733,9 +723,6 @@ namespace PM3D
 				<< "Height = " << mob->GetTextureRect().height
 				<< "\n";
 		}*/
-
-		animMob->Draw();
-
 
 		UpdateSpeedText();
 		speedText->Draw();

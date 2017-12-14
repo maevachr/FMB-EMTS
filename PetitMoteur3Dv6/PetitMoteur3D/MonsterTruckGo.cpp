@@ -42,6 +42,11 @@ namespace PM3D
 		centerMass.p = PxVec3(0, 0, -0.5);
 		PxVec3 inertiaTensor = { 10,10,10 };
 		d->InitMass(150, centerMass, inertiaTensor);*/
+
+		//-----BillboardComponent
+		//-----BillBoardComponent
+		BillBoardComponent* bbm = CreateComponent<BillBoardComponent>();
+		bbm->GetBillBoard("miniexplo");
 	}
 
 	void MonsterTruckGo::OnUnspawn()
@@ -77,7 +82,7 @@ namespace PM3D
 		{
 			if (vehicle->gIsVehicleInAir)
 			{
-				Actor->addTorque(0.025*transform.q.rotate(PxVec3(1.0f, 0.0f, 0.0f)), PxForceMode::eVELOCITY_CHANGE);
+				Actor->addTorque(0.025f *transform.q.rotate(PxVec3(1.0f, 0.0f, 0.0f)), PxForceMode::eVELOCITY_CHANGE);
 			}
 			if (vel.normalize() < 15)
 			{
@@ -92,7 +97,7 @@ namespace PM3D
 		{
 			if (vehicle->gIsVehicleInAir)
 			{
-				Actor->addTorque(-0.025* transform.q.rotate(PxVec3(1.0f, 0.0f, 0.0f)), PxForceMode::eVELOCITY_CHANGE);
+				Actor->addTorque(-0.025f* transform.q.rotate(PxVec3(1.0f, 0.0f, 0.0f)), PxForceMode::eVELOCITY_CHANGE);
 			}
 			// Reculer
 			vehicle->startAccelerateReverseMode();
@@ -104,7 +109,7 @@ namespace PM3D
 		if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_E) && BlackBoard::GetInstance().UseBoost())
 		{
 			post->mode = PostEffectSprite::Radial;
-			if (post->radialStrenght < 0.1) post->radialStrenght += 0.0005;
+			if (post->radialStrenght < 0.1f) post->radialStrenght += 0.0005f;
 			if (dir.dot(vel) < 50)
 				Actor->addForce(25000 * dir);
 			if (camM.champDeVision > XM_PI / 12)
@@ -117,13 +122,13 @@ namespace PM3D
 					camM.planEloigne);
 			}
 			if (*pDist < 80.0) {
-				*pDist += 0.3;
+				*pDist += 0.3f;
 			}
 			
 		}
 		else
 		{
-			if (post->radialStrenght > 0.0005) post->radialStrenght -= 0.0005;
+			if (post->radialStrenght > 0.0005f) post->radialStrenght -= 0.0005f;
 			else post->mode = PostEffectSprite::Nul;
 			if (vel.normalize() > 25) {
 				Actor->addForce(-5000 * vel.getNormalized());
@@ -148,7 +153,7 @@ namespace PM3D
 		{
 			if (vehicle->gIsVehicleInAir)
 			{
-				Actor->addTorque(-0.05 * transform.q.rotate(PxVec3(0.0f, 0.0f, 1.0f)), PxForceMode::eVELOCITY_CHANGE);
+				Actor->addTorque(-0.05f * transform.q.rotate(PxVec3(0.0f, 0.0f, 1.0f)), PxForceMode::eVELOCITY_CHANGE);
 			}
 			// Tourner à gauche
 			vehicle->startTurnHardLeftMode();
@@ -157,7 +162,7 @@ namespace PM3D
 		{
 			if (vehicle->gIsVehicleInAir)
 			{
-				Actor->addTorque(0.05 * transform.q.rotate(PxVec3(0.0f, 0.0f, 1.0f)), PxForceMode::eVELOCITY_CHANGE);
+				Actor->addTorque(0.05f * transform.q.rotate(PxVec3(0.0f, 0.0f, 1.0f)), PxForceMode::eVELOCITY_CHANGE);
 			}
 			// Tourner à droite
 			vehicle->startTurnHardRightMode();

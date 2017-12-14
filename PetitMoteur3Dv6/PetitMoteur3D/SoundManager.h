@@ -83,8 +83,8 @@ namespace PM3D
 		}
 
 		void Engine(float kmh) {
-			channel[ENGINE]->setFrequency(engineFrequency + engineFrequency * (3 * kmh / 200));
-			channel[ENGINE]->setVolume(engineVolume + engineVolume * (1.3 * kmh / 200));
+			channel[ENGINE]->setFrequency(engineFrequency + engineFrequency * (3.f * kmh / 200.f));
+			channel[ENGINE]->setVolume(engineVolume + engineVolume * (1.3f * kmh / 200.f));
 		}
 
 		void Clean() 
