@@ -85,7 +85,7 @@ float4 BloomExtractPS(VS_Sortie vs) : SV_Target
     return saturate((c - BloomThreshold) / (1 - BloomThreshold));
 }
 
-float BloomIntensity = 2.0f;
+float BloomIntensity = 1.3f;
 float BaseIntensity = 1.0f;
 
 float BloomSaturation = 1.f;
