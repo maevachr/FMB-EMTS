@@ -23,7 +23,7 @@ namespace PM3D
 		//-----DynamicPhysicComponent
 		DynamicPhysicComponent* d = CreateComponent<DynamicPhysicComponent>();
 		PxPhysics &physics = SimulationManager::GetInstance().physics();
-		physx::unique_ptr<PxMaterial> material = physx::unique_ptr<PxMaterial>(physics.createMaterial(6.f, 6.f, 0.f));
+		physx::unique_ptr<PxMaterial> material = physx::unique_ptr<PxMaterial>(physics.createMaterial(0.1f, 6.f, 0.2f));
 		PxFilterData filterData;
 		filterData.word0 = COLLISION_FLAG_OBSTACLE;
 		filterData.word1 = COLLISION_FLAG_OBSTACLE_AGAINST;

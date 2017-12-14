@@ -177,8 +177,6 @@ namespace PM3D
 		TextureSprite* jauge;
 		TextureSprite* jaugeEnergie;
 
-		Animation* animMob;
-
 		Gdiplus::Font*pPoliceSpeed;
 		TextSprite* speedText;
 

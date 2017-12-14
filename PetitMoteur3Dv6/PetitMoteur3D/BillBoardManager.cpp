@@ -53,14 +53,16 @@ namespace PM3D
 			matRotation = XMMatrixRotationZ(atanf(vdir.y / vdir.x) - 3.14f / 2);
 		else
 			if (vdir.x < 0)
-				matRotation = XMMatrixRotationZ(atanf(vdir.y / vdir.x) + 3.14 / 2);
+				matRotation = XMMatrixRotationZ(atanf(vdir.y / vdir.x) + 3.14f / 2);
 			else
 				matRotation = XMMatrixIdentity();
 		return matRotation;
 	}
 
-	BillBoard::BillBoard(CDispositifD3D11 * _pDispositif, vector<string> NomTexture, const XMFLOAT3 & _position, int _dx, int _dy, GameObject * go, bool _faceCamera)
+	BillBoard::BillBoard(CDispositifD3D11 * _pDispositif, vector<string> NomTexture, const XMFLOAT3 & _position, float _dx, float _dy, GameObject* go, bool _faceCamera, const XMFLOAT3& _positionRelatif)
 	{
+		positionRelatif = _positionRelatif;
+
 		faceCamera = _faceCamera;
 		pVertexBuffer = 0;
 		pConstantBuffer = 0;
@@ -114,8 +116,8 @@ namespace PM3D
 		}
 		else
 		{
-			dimension.x = float(_dx);
-			dimension.y = float(_dy);
+			dimension.x = _dx;
+			dimension.y = _dy;
 		}
 		// Position en coordonnées du monde
 		XMMATRIX viewProj = CMoteurWindows::GetInstance().GetMatViewProj();
@@ -204,8 +206,14 @@ namespace PM3D
 	void BillBoard::Draw(GameObject* owner, int animationFrame, float target, float theta)
 	{
 		if (pTextureD3D.empty()) return;
-		XMFLOAT4 parent;
-		XMStoreFloat4(&parent, owner->GetPosition());
+		XMFLOAT4 parentPosition;
+		XMStoreFloat4(&parentPosition, owner->GetPosition());
+		XMFLOAT4 parentDirection;
+		XMStoreFloat4(&parentDirection, owner->GetDirection());
+		XMFLOAT4 parentUp;
+		XMStoreFloat4(&parentUp, owner->GetUp());
+		XMFLOAT4 parentLeft;
+		XMStoreFloat4(&parentLeft, owner->GetLeft());
 
 		// Obtenir le contexte
 		ID3D11DeviceContext* pImmediateContext = pDispositif->GetImmediateContext();
@@ -239,14 +247,18 @@ namespace PM3D
 		if (faceCamera) {
 			//XMMATRIX matRot = XMMatrixRotationZ(XMVectorGetZ(XMVector3AngleBetweenVectors(frontVecCamera, normal)));
 			mat = XMMatrixScaling(dimension.x, 1.0f, dimension.y)
-				* GetMatrixOrientation(posCamera, parent)
-				* XMMatrixTranslation(position.x + parent.x, position.y + parent.y, position.z + parent.z)
+				* GetMatrixOrientation(posCamera, parentPosition)
+				* XMMatrixTranslation(position.x, position.y, position.z)
+				* XMMatrixTranslation(positionRelatif.x *parentDirection.x, positionRelatif.x * parentDirection.y, positionRelatif.x * parentDirection.z)
+				* XMMatrixTranslation(positionRelatif.y *parentUp.x, positionRelatif.y * parentUp.y, positionRelatif.y * parentUp.z)
+				* XMMatrixTranslation(positionRelatif.z *parentLeft.x, positionRelatif.z * parentLeft.y, positionRelatif.z * parentLeft.z)
+				* XMMatrixTranslation(parentPosition.x, parentPosition.y, parentPosition.z)
 				* viewProj;
 		}
 		else {
 			mat = XMMatrixScaling(dimension.x, 1.0f, dimension.y)
 				* XMMatrixRotationZ(theta)
-				* XMMatrixTranslation(position.x + parent.x, position.y + parent.y, position.z + parent.z)
+				* XMMatrixTranslation(position.x + parentPosition.x, position.y + parentPosition.y, position.z + parentPosition.z)
 				* viewProj;
 		}
 		
@@ -295,7 +307,8 @@ namespace PM3D
 		billBoards.push_back(tv);
 
 		//Billboard associée à une animation
-		BillBoard* explo = new BillBoard{ _pDispositif,{ "explosion.dds" }, XMFLOAT3(0.0f, 0.0f, 2.0f) , 3, 3 };
+		//Explosion des caisses
+		BillBoard* explo = new BillBoard{ _pDispositif,{ "explosion.dds" }, XMFLOAT3(0.0f, 0.0f, 0.0f) , 3, 3 };
 		explo->InitName("explo");
 		billBoards.push_back(explo);
 		explo->SetDimension(2048, 1536);
@@ -303,10 +316,44 @@ namespace PM3D
 		explosionBb->setFrameSize(256, 256);
 		explosionBb->setRepeating(true);
 		explosionBb->setNumFrames(48);
-		explosionBb->setDuration(1.0f);
+		explosionBb->setDuration(1.0f);	
+
+		BillBoard* miniexplo = new BillBoard{ _pDispositif,{ "explosion.dds" }, XMFLOAT3{0.f,0.f,0.f} , 0.5f, 0.5f, nullptr, true,  XMFLOAT3(-1.0f, 0.8f, 0.9f) };
+		miniexplo->InitName("miniexplo");
+		billBoards.push_back(miniexplo);
+		miniexplo->SetDimension(2048, 1536);
+		explosionBbmini = new AnimationBillBoard(miniexplo);
+		explosionBbmini->setFrameSize(256, 256);
+		explosionBbmini->setRepeating(true);
+		explosionBbmini->setNumFrames(48);
+		explosionBbmini->setDuration(1.0f);
+
+		BillBoard* miniexplo2 = new BillBoard{ _pDispositif,{ "explosion.dds" }, XMFLOAT3{ 0.f,0.f,0.f } , 0.5f, 0.5f, nullptr, true,  XMFLOAT3(-1.0f, 0.8f, -0.9f) };
+		miniexplo2->InitName("miniexplo2");
+		billBoards.push_back(miniexplo2);
+		miniexplo2->SetDimension(2048, 1536);
+		explosionBbmini2 = new AnimationBillBoard(miniexplo2);
+		explosionBbmini2->setFrameSize(256, 256);
+		explosionBbmini2->setRepeating(true);
+		explosionBbmini2->setNumFrames(48);
+		explosionBbmini2->setDuration(1.0f);
+
+		////Nitro derrière le véhicule
+		//BillBoard* nitro = new BillBoard{ _pDispositif,{ "explosion1.dds" }, XMFLOAT3(0.0f, 0.0f, 2.0f) , 3, 3 };
+		//nitro->InitName("nitro");
+		//billBoards.push_back(nitro);
+		//explo->SetDimension(3072, 3072);
+		//nitroBb = new AnimationBillBoard(nitro);
+		//nitroBb->setFrameSize(512, 512);
+		//nitroBb->setRepeating(true);
+		//nitroBb->setNumFrames(36);
+		//nitroBb->setDuration(0.5f);
+
 	}
 	void BillBoardManager::UpdateAnimation(float dt)
 	{
 		explosionBb->update(dt);
+		explosionBbmini->update(dt);
+		explosionBbmini2->update(dt);
 	}
 }

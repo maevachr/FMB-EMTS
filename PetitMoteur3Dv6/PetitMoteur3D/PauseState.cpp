@@ -6,10 +6,9 @@ using namespace PM3D;
 
 PauseState::PauseState(StateStack& stack, Context context)
 	: State(stack, context)
-	, background{ TextureSprite{ "pause.dds", 68, 134, static_cast<int>(500*1.777f), 500, context.pDispositif } }
+	, background{ TextureSprite{ "pause.dds", -400, -78, 1851, 925, context.pDispositif } }
 {
-	SoundManager::GetInstance().PauseSound(SoundManager::MUSIC);
-	SoundManager::GetInstance().PauseSound(SoundManager::ENGINE);
+	SoundManager::GetInstance().PauseAllGameSounds();
 }
 
 void PauseState::draw()
@@ -32,8 +31,7 @@ void PauseState::ProcessInput()
 
 	//Retour Game
 	if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_ESCAPE)) {
-		SoundManager::GetInstance().ContinueSound(SoundManager::MUSIC);
-		SoundManager::GetInstance().ContinueSound(SoundManager::ENGINE);
+		SoundManager::GetInstance().ContinueAllGameSounds();
 		requestStackPop();
 	}
 

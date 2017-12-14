@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "MenuState.h"
 #include "StateStack.h"
+#include "SoundManager.h"
 
 using namespace PM3D;
 
@@ -15,6 +16,7 @@ MenuState::MenuState(StateStack& stack, Context context)
 	context.pDispositif->DesactiverZBuffer();
 	context.pDispositif->DesactiverCulling();
 
+	SoundManager::GetInstance().ContinueSound(SoundManager::INTRO);
 }
 
 void MenuState::draw()
@@ -45,6 +47,7 @@ void MenuState::ProcessInput()
 {
 	auto pGestionnaireDeSaisie = InputManager::GetInstance().GetDIManipulateur();
 	if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_RETURN)) {
+		SoundManager::GetInstance().PauseSound(SoundManager::INTRO);
 		requestStackPush(States::Game);
 	}
 }

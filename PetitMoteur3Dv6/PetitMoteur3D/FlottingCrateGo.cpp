@@ -13,7 +13,7 @@ namespace PM3D
 		PlateformePhysicComponent* d = CreateComponent<PlateformePhysicComponent>();
 		PxPhysics &physics = SimulationManager::GetInstance().physics();
 		physx::unique_ptr<PxMaterial> material = physx::unique_ptr<PxMaterial>(physics.createMaterial(10000.0f, 10000.0f, 0.0f));
-		d->InitData(PxBoxGeometry(PxVec3(1.5, 1.5, 0.1)), move(material));
+		d->InitData(PxBoxGeometry(PxVec3(1.5f, 1.5f, 0.1f)), move(material));
 	}
 
 	void FlottingPlateformeGo::OnUnspawn()
