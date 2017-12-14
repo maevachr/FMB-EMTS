@@ -91,11 +91,11 @@ namespace PM3D{
 		Spawn<TiresGo>(locationRoues);
 		
 		PxTransform locationTV = PxTransform::createIdentity();
-		locationTV.p = PxVec3{ 438, 17.5, 93 };
+		locationTV.p = PxVec3{ 458, 17.5, 95 };
 		Spawn<TVGo<-90>>(locationTV);
 
 		PxTransform locationTV2 = PxTransform::createIdentity();
-		locationTV2.p = PxVec3{ -438, 17.5, 93 };
+		locationTV2.p = PxVec3{ -418, 17.5, 95 };
 		Spawn<TVGo<90>>(locationTV2);
 
 		PxTransform locationBus = PxTransform::createIdentity();
