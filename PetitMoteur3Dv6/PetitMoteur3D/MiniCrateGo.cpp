@@ -35,7 +35,7 @@ namespace PM3D
 		d->InitData(PxBoxGeometry(PxVec3(0.5, 0.5, 0.5)), move(material), filterData);
 		PxTransform centerMass = physx::PxTransform::createIdentity();
 		centerMass.p = PxVec3(0, 0, 0);
-		d->InitMass(0.1, centerMass, PxVec3{0.03125,0.03125,0.03125 });
+		d->InitMass(0.1f, centerMass, PxVec3{0.03125f,0.03125f,0.03125f });
 
 		//std::unique_ptr<MiniCrateGoCollisionHandler> handler = std::make_unique<MiniCrateGoCollisionHandler>(this);
 		//d->SetHandler(std::move(handler));
