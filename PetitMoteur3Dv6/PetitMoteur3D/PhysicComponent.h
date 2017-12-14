@@ -88,7 +88,8 @@ namespace PM3D
 		}
 		void UpdateGoTransform() override
 		{
-			pxActor->addTorque(PxVec3{ 0, 0, 1 }, PxForceMode::eVELOCITY_CHANGE);
+			//pxActor->addTorque(0.15*PxVec3{ 0, 0, 1 }, PxForceMode::eVELOCITY_CHANGE);
+			pxActor->setAngularVelocity(3.0*PxVec3{ 0, 0, 1 });
 
 			PxTransform localPose = pxActor->getGlobalPose();
 			GameObject* parent = GetOwner()->GetParent();

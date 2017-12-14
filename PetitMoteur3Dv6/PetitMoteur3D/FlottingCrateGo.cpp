@@ -13,7 +13,7 @@ namespace PM3D
 		PlateformePhysicComponent* d = CreateComponent<PlateformePhysicComponent>();
 		PxPhysics &physics = SimulationManager::GetInstance().physics();
 		physx::unique_ptr<PxMaterial> material = physx::unique_ptr<PxMaterial>(physics.createMaterial(10000.0f, 10000.0f, 0.0f));
-		d->InitData(PxBoxGeometry(PxVec3(0.5, 0.5, 0.1)), move(material));
+		d->InitData(PxBoxGeometry(PxVec3(1.5, 1.5, 0.1)), move(material));
 	}
 
 	void FlottingPlateformeGo::OnUnspawn()
@@ -36,15 +36,20 @@ namespace PM3D
 	{
 		GameObject::OnSpawn(_transform, _parent);
 
-
 		//Set GameObjects
-		CrateGo<CrateColor>* t = new CrateGo<CrateColor>();
-		t->OnSpawn(GetTransform(), nullptr);
-		AddChild(t);
+		PxTransform crate = GetTransform();
 
 		FlottingPlateformeGo* f = new FlottingPlateformeGo();
-		f->OnSpawn(GetTransform(), nullptr);
+		f->OnSpawn(crate, nullptr);
 		AddChild(f);
+
+		crate.p.z += 1.5;
+
+		CrateGo<CrateColor>* t = new CrateGo<CrateColor>();
+		t->OnSpawn(crate, nullptr);
+		AddChild(t);
+
+
 
 		//Set Components
 
