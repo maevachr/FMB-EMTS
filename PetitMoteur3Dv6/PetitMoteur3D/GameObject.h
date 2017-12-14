@@ -182,6 +182,19 @@ namespace PM3D
 			PxVec3 data = transform.q.rotate({ dataPos.x , dataPos.y , dataPos.z });
 			return { data.x,data.y,data.z,0 };
 		}
+		XMVECTOR GetLeft() const
+		{
+			XMFLOAT4 dataPos = { 1,0,0,0 };
+			PxVec3 data = transform.q.rotate({ dataPos.x , dataPos.y , dataPos.z });
+			return { data.x,data.y,data.z,0 };
+		}
+		XMVECTOR GetUp() const
+		{
+			XMFLOAT4 dataPos = { 0,1,0,0 };
+			PxVec3 data = transform.q.rotate({ dataPos.x , dataPos.y , dataPos.z });
+			return { data.x,data.y,data.z,0 };
+		}
+
 		XMVECTOR GetQuaternion() const 
 		{
 			return { transform.q.x, transform.q.y, transform.q.z, transform.q.w };

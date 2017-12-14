@@ -27,7 +27,6 @@ namespace PM3D
 		for (int i = 0; i < 4; i++) {
 			WheelGo* t = new WheelGo();
 			PxTransform trans = PxTransform::createIdentity();
-			//		trans.p = PxVec3{ 0.5 , 0 , 0.5 }; //to correct wheel position
 			t->OnSpawn(trans, this);
 			AddChild(t);
 		}
@@ -47,6 +46,8 @@ namespace PM3D
 		//-----BillBoardComponent
 		BillBoardComponent* bbm = CreateComponent<BillBoardComponent>();
 		bbm->GetBillBoard("miniexplo");
+		BillBoardComponent* bbm2 = CreateComponent<BillBoardComponent>();
+		bbm2->GetBillBoard("miniexplo2");
 	}
 
 	void MonsterTruckGo::OnUnspawn()
