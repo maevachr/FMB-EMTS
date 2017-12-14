@@ -28,8 +28,8 @@ GameState::GameState(StateStack& stack, Context context) :
 	context.pDispositif->ActiverZBuffer();
 	context.pDispositif->ActiverCulling();
 
-	SoundManager::GetInstance().ContinueSound(SoundManager::MUSIC);
-	SoundManager::GetInstance().ContinueSound(SoundManager::ENGINE);
+	SoundManager::GetInstance().PlaySoundEffect(SoundManager::COUNTDOWN);
+	SoundManager::GetInstance().ContinueAllGameSounds();
 }
 
 
