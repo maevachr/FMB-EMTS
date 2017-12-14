@@ -234,6 +234,9 @@
     <ClCompile Include="SpotGo.cpp">
       <Filter>Fichiers sources\GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="ExplosionGo.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Moteur.h">
@@ -463,6 +466,9 @@
     </ClInclude>
     <ClInclude Include="SoundManager.h">
       <Filter>Fichiers d%27en-tête\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplosionGo.h">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
