@@ -4,6 +4,8 @@
 #include "BillBoardComponentManager.h"
 #include "BillBoardManager.h"
 
+class Animation;
+
 namespace PM3D
 {
 	class BillBoardComponent : public Component
@@ -25,26 +27,34 @@ namespace PM3D
 		virtual void OnDetached() override
 		{
 			owner = nullptr;
+			if (anim != nullptr) {
+				BillBoardManager::GetInstance().ReturnTokenAnim(move(anim));
+				BillBoardManager::GetInstance().ReturnTokenBB(b);
+			}
 			BillBoardComponentManager::GetInstance().RemoveComponent(this);
 		}
 
 	private:
 		BillBoard* b;
+		Animation* anim = nullptr;
 		int index = 0;
 		float theta;
 	public:
 		BillBoard* GetBillBoard() { return b; }
 		void GetBillBoard(const char* name)
 		{
-			b = BillBoardManager::GetInstance().GetBillBoard(name);
+			if (name == "explo") {
+				anim = BillBoardManager::GetInstance().GetTokenAnim();
+				b = BillBoardManager::GetInstance().GetTokenBB();
+			}
+			else {
+				b = BillBoardManager::GetInstance().GetBillBoard(name);
+			}
 		}
+
 		void SetTheta(float _theta) { theta = _theta; }
 		//virtual void Anime();
 
-		virtual void Draw()
-		{
-			b->Draw(GetOwner(), index++, GetOwner()->GetBreakingSpeed(), theta);
-			if (index == b->GetFramesAmount()) index = 0;
-		}
+		virtual void Draw();
 	};
 }

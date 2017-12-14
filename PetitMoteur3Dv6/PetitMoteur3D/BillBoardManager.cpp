@@ -308,27 +308,33 @@ namespace PM3D
 
 		//Billboard associée à une animation
 		//Explosion des caisses
-		BillBoard* explo = new BillBoard{ _pDispositif,{ "explosion.dds" }, XMFLOAT3(0.0f, 0.0f, 0.0f) , 3, 3 };
-		explo->InitName("explo");
-		billBoards.push_back(explo);
-		explo->SetDimension(2048, 1536);
-		explosionBb = new AnimationBillBoard(explo);
-		explosionBb->setFrameSize(256, 256);
-		explosionBb->setRepeating(true);
-		explosionBb->setNumFrames(48);
-		explosionBb->setDuration(1.0f);	
+		for (int i = 0; i<6; ++i)
+		{
+			BillBoard* explo = new BillBoard{ _pDispositif,{ "explosion.dds" }, XMFLOAT3(0.0f, 0.0f, 0.0f) , 6, 6 };
+			explo->InitName("explo");
+			billBoards.push_back(explo);
+			explo->SetDimension(2048, 1536);
+			explosionBb.push_back(explo);
+			AnimationBillBoard* explosionBb = new AnimationBillBoard(explo);
+			explosionBb->setFrameSize(256, 256);
+			explosionBb->setRepeating(false);
+			explosionBb->setNumFrames(48);
+			explosionBb->setDuration(1.0f);
+			explosionAnim.push_back(explosionBb);
+		}
+		
 
-		BillBoard* miniexplo = new BillBoard{ _pDispositif,{ "explosion.dds" }, XMFLOAT3{0.f,0.f,0.f} , 0.5f, 0.5f, nullptr, true,  XMFLOAT3(-1.0f, 0.8f, 0.9f) };
-		miniexplo->InitName("miniexplo");
-		billBoards.push_back(miniexplo);
-		miniexplo->SetDimension(2048, 1536);
-		explosionBbmini = new AnimationBillBoard(miniexplo);
-		explosionBbmini->setFrameSize(256, 256);
-		explosionBbmini->setRepeating(true);
-		explosionBbmini->setNumFrames(48);
-		explosionBbmini->setDuration(1.0f);
+		//BillBoard* miniexplo = new BillBoard{ _pDispositif,{ "explosion.dds" }, XMFLOAT3{0.f,0.f,0.f} , 0.5f, 0.5f, nullptr, true,  XMFLOAT3(-1.0f, 0.8f, 0.9f) };
+		//miniexplo->InitName("miniexplo");
+		//billBoards.push_back(miniexplo);
+		//miniexplo->SetDimension(2048, 1536);
+		//explosionBbmini = new AnimationBillBoard(miniexplo);
+		//explosionBbmini->setFrameSize(256, 256);
+		//explosionBbmini->setRepeating(true);
+		//explosionBbmini->setNumFrames(48);
+		//explosionBbmini->setDuration(1.0f);
 
-		BillBoard* miniexplo2 = new BillBoard{ _pDispositif,{ "explosion.dds" }, XMFLOAT3{ 0.f,0.f,0.f } , 0.5f, 0.5f, nullptr, true,  XMFLOAT3(-1.0f, 0.8f, -0.9f) };
+	/*	BillBoard* miniexplo2 = new BillBoard{ _pDispositif,{ "explosion.dds" }, XMFLOAT3{ 0.f,0.f,0.f } , 0.5f, 0.5f, nullptr, true,  XMFLOAT3(-1.0f, 0.8f, -0.9f) };
 		miniexplo2->InitName("miniexplo2");
 		billBoards.push_back(miniexplo2);
 		miniexplo2->SetDimension(2048, 1536);
@@ -336,24 +342,42 @@ namespace PM3D
 		explosionBbmini2->setFrameSize(256, 256);
 		explosionBbmini2->setRepeating(true);
 		explosionBbmini2->setNumFrames(48);
-		explosionBbmini2->setDuration(1.0f);
+		explosionBbmini2->setDuration(1.0f);*/
 
 		////Nitro derrière le véhicule
-		//BillBoard* nitro = new BillBoard{ _pDispositif,{ "explosion1.dds" }, XMFLOAT3(0.0f, 0.0f, 2.0f) , 3, 3 };
-		//nitro->InitName("nitro");
-		//billBoards.push_back(nitro);
-		//explo->SetDimension(3072, 3072);
-		//nitroBb = new AnimationBillBoard(nitro);
-		//nitroBb->setFrameSize(512, 512);
-		//nitroBb->setRepeating(true);
-		//nitroBb->setNumFrames(36);
-		//nitroBb->setDuration(0.5f);
+		BillBoard* nitro = new BillBoard{ _pDispositif,{ "explosion1.dds" }, XMFLOAT3{ 0.f,0.f,0.f } , 2.f, 2.f, nullptr, true,  XMFLOAT3(-1.0f, 1.5f, -0.84f) };
+		nitro->InitName("nitro");
+		billBoards.push_back(nitro);
+		nitro->SetDimension(3072, 3072);
+		nitroBb = new AnimationBillBoard(nitro);
+		nitroBb->setFrameSize(512, 512);
+		nitroBb->setRepeating(true);
+		nitroBb->setNumFrames(36);
+		nitroBb->setDuration(0.5f);
+
+		//Nitro derrière le véhicule
+		BillBoard* nitro2 = new BillBoard{ _pDispositif,{ "explosion1.dds" }, XMFLOAT3{ 0.f,0.f,0.f } , 2.f, 2.f, nullptr, true,  XMFLOAT3(-1.0f, 1.5f, 0.84f) };
+		nitro2->InitName("nitro2");
+		billBoards.push_back(nitro2);
+		nitro2->SetDimension(3072, 3072);
+		nitroBb2 = new AnimationBillBoard(nitro2);
+		nitroBb2->setFrameSize(512, 512);
+		nitroBb2->setRepeating(true);
+		nitroBb2->setNumFrames(36);
+		nitroBb2->setDuration(0.5f);
 
 	}
 	void BillBoardManager::UpdateAnimation(float dt)
 	{
-		explosionBb->update(dt);
-		explosionBbmini->update(dt);
-		explosionBbmini2->update(dt);
+		nitroBb2->update(dt);
+		//explosionBbmini2->update(dt);
+		nitroBb->update(dt);
+	}
+	Animation * BillBoardManager::GetTokenAnim()
+	{
+		Animation* res = explosionAnim.back();
+		res->restart();
+		explosionAnim.pop_back();
+		return res;
 	}
 }
