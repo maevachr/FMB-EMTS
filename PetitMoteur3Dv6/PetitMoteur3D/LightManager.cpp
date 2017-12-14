@@ -40,7 +40,7 @@ namespace PM3D {
 
 		lights[1] = new CLight(position,
 			XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f),
-			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
+			XMVectorSet(0.8f, 0.8f, 0.8f, 0.8f),
 			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
 			XMVector4Normalize(position/2.f - position),
 			1.0f,
@@ -51,7 +51,7 @@ namespace PM3D {
 
 		lights[2] = new CLight(position,
 			XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f),
-			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
+			XMVectorSet(0.8f, 0.8f, 0.8f, 0.8f),
 			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
 			XMVector4Normalize(position / 2.f - position),
 			1.0f,
@@ -62,7 +62,7 @@ namespace PM3D {
 
 		lights[3] = new CLight(position,
 			XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f),
-			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
+			XMVectorSet(0.8f, 0.8f, 0.8f, 0.8f),
 			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
 			XMVector4Normalize(position / 2.f - position),
 			1.0f,
@@ -73,7 +73,7 @@ namespace PM3D {
 
 		lights[4] = new CLight(position,
 			XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f),
-			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
+			XMVectorSet(0.8f, 0.8f, 0.8f, 0.8f),
 			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
 			XMVector4Normalize(position / 2.f - position),
 			1.0f,

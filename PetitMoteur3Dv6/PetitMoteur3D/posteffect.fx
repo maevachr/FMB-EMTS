@@ -85,10 +85,10 @@ float4 BloomExtractPS(VS_Sortie vs) : SV_Target
     return saturate((c - BloomThreshold) / (1 - BloomThreshold));
 }
 
-float BloomIntensity = 1.5f;
-float BaseIntensity = 1.f;
+float BloomIntensity = 2.0f;
+float BaseIntensity = 1.0f;
 
-float BloomSaturation = 1.3f;
+float BloomSaturation = 1.f;
 float BaseSaturation = 1.f;
 Texture2D bloomTexture;
 
@@ -120,7 +120,7 @@ float4 BloomCombinePS(VS_Sortie vs) : SV_Target
     return base + bloom;
 }
 
-#define SAMPLE_COUNT 11
+#define SAMPLE_COUNT 7
  
 float offsetX;
 float offsetY;
