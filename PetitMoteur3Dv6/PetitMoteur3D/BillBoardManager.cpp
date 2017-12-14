@@ -345,7 +345,7 @@ namespace PM3D
 		explosionBbmini2->setDuration(1.0f);*/
 
 		////Nitro derrière le véhicule
-		BillBoard* nitro = new BillBoard{ _pDispositif,{ "explosion1.dds" }, XMFLOAT3{ 0.f,0.f,0.f } , 2.f, 2.f, nullptr, true,  XMFLOAT3(-1.0f, 1.5f, -0.84f) };
+		BillBoard* nitro = new BillBoard{ _pDispositif,{ "flamme.dds" }, XMFLOAT3{ 0.f,0.f,0.f } , 2.f, 2.f, nullptr, true,  XMFLOAT3(-1.0f, 1.5f, -0.84f) };
 		nitro->InitName("nitro");
 		billBoards.push_back(nitro);
 		nitro->SetDimension(3072, 3072);
@@ -356,7 +356,7 @@ namespace PM3D
 		nitroBb->setDuration(0.5f);
 
 		//Nitro derrière le véhicule
-		BillBoard* nitro2 = new BillBoard{ _pDispositif,{ "explosion1.dds" }, XMFLOAT3{ 0.f,0.f,0.f } , 2.f, 2.f, nullptr, true,  XMFLOAT3(-1.0f, 1.5f, 0.84f) };
+		BillBoard* nitro2 = new BillBoard{ _pDispositif,{ "flamme.dds" }, XMFLOAT3{ 0.f,0.f,0.f } , 2.f, 2.f, nullptr, true,  XMFLOAT3(-1.0f, 1.5f, 0.84f) };
 		nitro2->InitName("nitro2");
 		billBoards.push_back(nitro2);
 		nitro2->SetDimension(3072, 3072);
@@ -366,12 +366,36 @@ namespace PM3D
 		nitroBb2->setNumFrames(36);
 		nitroBb2->setDuration(0.5f);
 
+		//Nitro derrière le véhicule
+		BillBoard* smoke = new BillBoard{ _pDispositif,{ "smoke.dds" }, XMFLOAT3{ 0.f,0.f,0.f } , 0.5f, 0.5f, nullptr, true,  XMFLOAT3(-1.0f, 1.f, 0.84f) };
+		smoke->InitName("smoke");
+		billBoards.push_back(smoke);
+		smoke->SetDimension(1536, 1279);
+		smokeBb = new AnimationBillBoard(smoke);
+		smokeBb->setFrameSize(256, 255.8);
+		smokeBb->setRepeating(true);
+		smokeBb->setNumFrames(30);
+		smokeBb->setDuration(0.5f);
+
+		////Nitro derrière le véhicule
+		BillBoard* smoke2 = new BillBoard{ _pDispositif,{ "Smoke2.dds" }, XMFLOAT3{ 0.f,0.f,0.f } , 0.5f, 0.5f, nullptr, true,  XMFLOAT3(-1.0f, 1.f, -0.84f) };
+		smoke2->InitName("smoke2");
+		billBoards.push_back(smoke2);
+		smoke2->SetDimension(1536, 1279);
+		smokeBb2 = new AnimationBillBoard(smoke2);
+		smokeBb2->setFrameSize(256, 256);
+		smokeBb2->setRepeating(true);
+		smokeBb2->setNumFrames(30);
+		smokeBb2->setDuration(0.5f);
+
 	}
 	void BillBoardManager::UpdateAnimation(float dt)
 	{
 		nitroBb2->update(dt);
 		//explosionBbmini2->update(dt);
 		nitroBb->update(dt);
+		smokeBb->update(dt);
+		smokeBb2->update(dt);
 	}
 	Animation * BillBoardManager::GetTokenAnim()
 	{

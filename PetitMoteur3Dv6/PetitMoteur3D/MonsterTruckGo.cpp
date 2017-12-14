@@ -41,6 +41,10 @@ namespace PM3D
 		bbm2->GetBillBoard("nitro");
 		BillBoardComponent* bbm = CreateComponent<BillBoardComponent>();
 		bbm->GetBillBoard("nitro2");
+		BillBoardComponent* bbm3 = CreateComponent<BillBoardComponent>();
+		bbm3->GetBillBoard("smoke");
+		BillBoardComponent* bbm4 = CreateComponent<BillBoardComponent>();
+		bbm4->GetBillBoard("smoke2");
 	}
 
 	void MonsterTruckGo::OnUnspawn()
@@ -104,6 +108,7 @@ namespace PM3D
 
 			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_LSHIFT) && BlackBoard::GetInstance().UseBoost() && !pGestionnaireDeSaisie->ToucheAppuyee(DIK_S))
 			{
+				playNitro = true;
 				post->mode = PostEffectSprite::Radial;
 				if (post->radialStrenght < 0.1f) post->radialStrenght += 0.0005f;
 				if (dir.dot(vel) < 50)
@@ -124,6 +129,7 @@ namespace PM3D
 			}
 			else
 			{
+				playNitro = false;
 				if (post->radialStrenght > 0.0005f) post->radialStrenght -= 0.0005f;
 				else post->mode = PostEffectSprite::Nul;
 				if (vel.normalize() > 25) {
