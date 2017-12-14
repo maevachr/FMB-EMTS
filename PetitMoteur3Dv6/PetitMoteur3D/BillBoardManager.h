@@ -121,6 +121,8 @@ namespace PM3D
 		Animation* explosionBbmini2;
 		Animation* nitroBb;
 		Animation* nitroBb2;
+		Animation* smokeBb;
+		Animation* smokeBb2;
 	public:
 
 		void InitBillBoard(CDispositifD3D11* _pDispositif);
