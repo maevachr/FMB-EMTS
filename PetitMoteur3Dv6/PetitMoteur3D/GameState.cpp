@@ -69,7 +69,7 @@ void GameState::ProcessInput()
 	auto pGestionnaireDeSaisie = InputManager::GetInstance().GetDIManipulateur();
 
 	//Pause
-	if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_ESCAPE)) {
+	if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_P)) {
 		requestStackPush(States::Pause);
 	}
 
