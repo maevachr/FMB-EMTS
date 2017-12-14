@@ -18,6 +18,7 @@ namespace PM3D
 
 		string NomFichier;
 		string NomChemin;
+		string NomCheminTextures;
 		bool bInverserCulling;
 		bool bMainGauche;
 	};

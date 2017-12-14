@@ -155,6 +155,7 @@
     <ClCompile Include="PhysxVehicle.cpp" />
     <ClCompile Include="PlayerCamera.cpp" />
     <ClCompile Include="RenderManager.cpp" />
+    <ClCompile Include="SpotGo.cpp" />
     <ClCompile Include="TextureRenderer.cpp" />
     <ClCompile Include="TiresGo.cpp" />
     <ClCompile Include="SimulationManager.cpp" />
@@ -221,6 +222,7 @@
     <ClInclude Include="Print.h" />
     <ClInclude Include="PVD.h" />
     <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="SpotGo.h" />
     <ClInclude Include="TextureRenderer.h" />
     <ClInclude Include="TiresGo.h" />
     <ClInclude Include="SkyBoxGo.h" />

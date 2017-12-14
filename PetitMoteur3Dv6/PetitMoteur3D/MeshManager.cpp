@@ -391,6 +391,14 @@ namespace PM3D
 			int indexDrawAmount = SubmeshIndex[i + 1] - SubmeshIndex[i];
 			if (indexDrawAmount)
 			{
+				if (Material[SubmeshMaterialIndex[i]].NomMateriau =="Emise")
+				{
+					sp.vEMat = XMLoadFloat4(&XMFLOAT4{ 1.f,1.f,1.f,1.f });
+				} 
+				else
+				{
+					sp.vEMat = XMLoadFloat4(&XMFLOAT4{ 0.f,0.f,0.f,1.f });
+				}
 				sp.vAMat = XMLoadFloat4(&Material[SubmeshMaterialIndex[i]].Ambient);
 				sp.vDMat = XMLoadFloat4(&Material[SubmeshMaterialIndex[i]].Diffuse);
 				sp.vSMat = XMLoadFloat4(&Material[SubmeshMaterialIndex[i]].Specular);
@@ -737,6 +745,11 @@ namespace PM3D
 		tires->InitFile("obj_tires.omb");
 		tires->InitName("tires");
 		nMeshes.push_back(tires);
+
+		NormalMesh* spot = new NormalMesh{};
+		spot->InitFile("obj_spot.omb");
+		spot->InitName("spot");
+		nMeshes.push_back(spot);
 
 		sbMesh = new SkyBoxMesh{};
 

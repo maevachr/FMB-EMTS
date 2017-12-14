@@ -21,7 +21,8 @@ void CChargeurAssimp::Chargement(const CParametresChargement& param)
 
 	parametres = param;
 	string Fichier = param.NomChemin + param.NomFichier;
-
+	auto pos = param.NomChemin.rfind("\\modeles");
+	nomFichierTextures = "."+param.NomChemin.substr(pos);
 	int flags = 0;
 
 	flags = aiProcess_CalcTangentSpace | aiProcess_FlipUVs |
@@ -107,9 +108,11 @@ void CChargeurAssimp::GetMaterial(int _i,
 	_NomMateriau = string(name.C_Str());
 
 	scene->mMaterials[_i]->Get(AI_MATKEY_TEXTURE(aiTextureType_DIFFUSE, 0), name);
+
+
 	_NomFichierTexture = string(name.C_Str());
 	if (_NomFichierTexture == _NomMateriau) _NomFichierTexture = "";
-	else _NomFichierTexture = parametres.NomChemin + _NomFichierTexture;
+	else _NomFichierTexture = nomFichierTextures + _NomFichierTexture;
 
 	aiColor3D color(0.f, 0.f, 0.f); 
 	scene->mMaterials[_i]->Get(AI_MATKEY_COLOR_DIFFUSE, color);
