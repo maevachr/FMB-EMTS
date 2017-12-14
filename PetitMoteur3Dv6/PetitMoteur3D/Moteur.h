@@ -111,8 +111,11 @@ namespace PM3D
 				&this->matViewProj,
 				SpawnManager::GetInstance().GetPlayer());
 
-			TextureRenderer::GetInstance().Initialize(pDispositif->GetD3DDevice(), 1024, 768);
-			BillBoardManager::GetInstance().GetBillBoard("tv")->SetResourceView(TextureRenderer::GetInstance().GetShaderResourceView());
+			tvRenderer.Initialize(pDispositif->GetD3DDevice(), 1024, 768);
+			bloom.Initialize(pDispositif->GetD3DDevice(), 1024, 768);
+			blur.Initialize(pDispositif->GetD3DDevice(), 1024, 768);
+			combined.Initialize(pDispositif->GetD3DDevice(), 1024, 768);
+			BillBoardManager::GetInstance().GetBillBoard("tv")->SetResourceView(tvRenderer.GetShaderResourceView());
 
 			mStateStack = new StateStack(State::Context(pDispositif));
 			registerStates();
@@ -268,14 +271,28 @@ namespace PM3D
 			SpriteManager::GetInstance().GetPost()->FinPostEffect();
 			EndRenderSceneSpecific();
 
-			SpriteManager::GetInstance().Draw();
-
 			auto oldRenderTarget = pDispositif->GetRenderTargetView();
 			auto oldDepthStencil = pDispositif->GetDepthStencilView();
+			bloom.SetRenderTarget(pDispositif->GetImmediateContext());
+			bloom.ClearRenderTarget(pDispositif->GetImmediateContext(), 0.0f, 0.0f, 1.0f, 1.0f);
+			SpriteManager::GetInstance().GetPost()->ExtractBloom();
+			pDispositif->GetImmediateContext()->OMSetRenderTargets(1, &oldRenderTarget, oldDepthStencil);
 
-			TextureRenderer::GetInstance().SetRenderTarget(pDispositif->GetImmediateContext());
-			TextureRenderer::GetInstance().ClearRenderTarget(pDispositif->GetImmediateContext(), 0.0f, 0.0f, 1.0f, 1.0f);
-			
+			blur.SetRenderTarget(pDispositif->GetImmediateContext());
+			blur.ClearRenderTarget(pDispositif->GetImmediateContext(), 0.0f, 0.0f, 1.0f, 1.0f);
+			SpriteManager::GetInstance().GetPost()->DrawBlur(bloom.GetShaderResourceView());
+			pDispositif->GetImmediateContext()->OMSetRenderTargets(1, &oldRenderTarget, oldDepthStencil);
+
+			combined.SetRenderTarget(pDispositif->GetImmediateContext());
+			combined.ClearRenderTarget(pDispositif->GetImmediateContext(), 0.0f, 0.0f, 1.0f, 1.0f);
+			SpriteManager::GetInstance().GetPost()->CombineSceneAndBloom(blur.GetShaderResourceView());
+			pDispositif->GetImmediateContext()->OMSetRenderTargets(1, &oldRenderTarget, oldDepthStencil);
+
+			SpriteManager::GetInstance().GetPost()->Draw(combined.GetShaderResourceView());
+			SpriteManager::GetInstance().DrawSprites();
+
+			tvRenderer.SetRenderTarget(pDispositif->GetImmediateContext());
+			tvRenderer.ClearRenderTarget(pDispositif->GetImmediateContext(), 0.0f, 0.0f, 1.0f, 1.0f);
 			SpriteManager::GetInstance().GetPost()->Draw();
 			pDispositif->GetImmediateContext()->OMSetRenderTargets(1, &oldRenderTarget, oldDepthStencil);
 				
@@ -299,8 +316,13 @@ namespace PM3D
 		XMMATRIX matProj;
 		XMMATRIX matViewProj;
 
-    };
+		TextureRenderer bloom;
+		TextureRenderer blur;
+		TextureRenderer combined;
+		TextureRenderer tvRenderer;
 
+    };
+		
 
 } // namespace PM3D
 

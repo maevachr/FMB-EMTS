@@ -383,10 +383,10 @@ namespace PM3D
 			}
 		}
 	public:
-		void InitData(const PxGeometry& g, physx::unique_ptr<PxMaterial> m, const PxFilterData& filterData = PxFilterData{})
+		void InitData(PxTransform startTransform)
 		{
 			buf = new PxShape*[5];
-			pxActor = physxVehicle.initPhysics();
+			pxActor = physxVehicle.initPhysics(startTransform);
 			pxActor->getShapes(buf, 5);
 		}
 

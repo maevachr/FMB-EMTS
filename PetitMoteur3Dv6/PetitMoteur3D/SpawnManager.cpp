@@ -10,7 +10,8 @@ namespace PM3D{
 
 		//Always put MonsterTruckGo first
 		PxTransform locationTruck = PxTransform::createIdentity();
-		locationTruck.p = PxVec3{ -60, -60, 3 };
+		locationTruck.p = PxVec3{ -60, -60, 20 };
+		locationTruck.q = PxQuat(0.707, 0, 0, 0.707);
 		Spawn<MonsterTruckGo>(locationTruck);
 
 		Spawn<SkyBoxGo>();
@@ -94,11 +95,11 @@ namespace PM3D{
 		Spawn<TiresGo>(locationRoues);
 		
 		PxTransform locationTV = PxTransform::createIdentity();
-		locationTV.p = PxVec3{ 438, 17.5, 93 };
+		locationTV.p = PxVec3{ 458, 17.5, 95 };
 		Spawn<TVGo<-90>>(locationTV);
 
 		PxTransform locationTV2 = PxTransform::createIdentity();
-		locationTV2.p = PxVec3{ -438, 17.5, 93 };
+		locationTV2.p = PxVec3{ -418, 17.5, 95 };
 		Spawn<TVGo<90>>(locationTV2);
 
 		PxTransform locationBus = PxTransform::createIdentity();

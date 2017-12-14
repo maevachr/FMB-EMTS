@@ -7,10 +7,7 @@ struct VS_Sortie
 Texture2D textureEntree;    // la texture
 SamplerState SampleState;   // l'?tat de sampling
 
-
 float distance;
-
-
 
 //-------------------------------------------------------
 // Vertex Shader ?Nul?
@@ -74,7 +71,87 @@ float d, dx, dy;
 	return couleur;
 }
 
+// Pixel shader extracts the brighter areas of an image.
+// This is the first step in applying a bloom postprocess.
 
+float BloomThreshold = 0.25f;
+
+float4 BloomExtractPS(VS_Sortie vs) : SV_Target
+{
+    // Look up the original image color.
+    float4 c = textureEntree.Sample(SampleState, vs.CoordTex);
+
+    // Adjust it to keep only values brighter than the specified threshold.
+    return saturate((c - BloomThreshold) / (1 - BloomThreshold));
+}
+
+float BloomIntensity = 1.5f;
+float BaseIntensity = 1.f;
+
+float BloomSaturation = 1.3f;
+float BaseSaturation = 1.f;
+Texture2D bloomTexture;
+
+// Helper for modifying the saturation of a color.
+float4 AdjustSaturation(float4 color, float saturation)
+{
+    // The constants 0.3, 0.59, and 0.11 are chosen because the
+    // human eye is more sensitive to green light, and less to blue.
+    float grey = dot(color, float3(0.3, 0.59, 0.11));
+
+    return lerp(grey, color, saturation);
+}
+
+float4 BloomCombinePS(VS_Sortie vs) : SV_Target
+{
+    // Look up the bloom and original base image colors.
+    float4 bloom = bloomTexture.Sample(SampleState, vs.CoordTex);
+    float4 base = textureEntree.Sample(SampleState, vs.CoordTex);
+
+    // Adjust color saturation and intensity.
+    bloom = AdjustSaturation(bloom, BloomSaturation) * BloomIntensity;
+    base = AdjustSaturation(base, BaseSaturation) * BaseIntensity;
+
+    // Darken down the base image in areas where there is a lot of bloom,
+    // to prevent things looking excessively burned-out.
+    base *= (1 - saturate(bloom));
+
+    // Combine the two images.
+    return base + bloom;
+}
+
+#define SAMPLE_COUNT 11
+ 
+float offsetX;
+float offsetY;
+ 
+float4 GaussianBlurPS(VS_Sortie vs) : SV_Target
+{
+	float4 c = 0;
+    float2 ct = vs.CoordTex ;
+	float2 ct2;
+	float weight = 0;
+	float weightTotal = 0;
+    
+    // Combine a number of weighted image filter taps.
+    for (int y = -SAMPLE_COUNT/2; y < SAMPLE_COUNT-SAMPLE_COUNT/2; y++)
+    {
+		for (int x = -SAMPLE_COUNT/2; x < SAMPLE_COUNT-SAMPLE_COUNT/2; x++)
+		{
+			ct2 = ct;
+			ct2.x += x * offsetX;
+			ct2.y += y * offsetY;
+			weight = float(1.f/(1.f + abs(x) + abs(y)));
+			weightTotal += weight;
+			c = c + (textureEntree.Sample(SampleState, ct2) * weight);
+		}
+    }
+	
+    c /= weightTotal;
+	//c /= SAMPLE_COUNT;
+ 
+    return c;
+}
 
 technique11 Nul 
 {
@@ -95,5 +172,35 @@ technique11 RadialBlur
 		PixelShader = compile ps_4_0 RadialBlurPS();
 		SetGeometryShader(NULL);
 	}
+}
+
+technique11 BloomExtract
+{
+    pass p0
+    {
+		VertexShader = compile vs_4_0 NulVS();
+        PixelShader = compile ps_4_0 BloomExtractPS();
+		SetGeometryShader(NULL);
+    }
+}
+
+technique11 BloomCombine
+{
+    pass p0
+    {
+		VertexShader = compile vs_4_0 NulVS();
+        PixelShader = compile ps_4_0 BloomCombinePS();
+		SetGeometryShader(NULL);
+    }
+}
+
+technique11 GaussianBlur
+{
+    pass p0
+    {
+	    VertexShader = compile vs_4_0 NulVS();
+        PixelShader = compile ps_4_0 GaussianBlurPS();
+		SetGeometryShader(NULL);
+    }
 }
 

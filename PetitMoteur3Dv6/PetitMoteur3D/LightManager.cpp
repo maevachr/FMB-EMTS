@@ -29,7 +29,7 @@ namespace PM3D {
 			SpawnManager::GetInstance().GetPlayer(),
 			position,
 			XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f),
-			XMVectorSet(0.1f, 0.1f, 0.1f, 1.0f), 
+			XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f), 
 			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
 			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
 			1.0f,
@@ -39,8 +39,8 @@ namespace PM3D {
 		position = XMVectorSet(200.f, 200.f, 100.f, 1.0f);
 
 		lights[1] = new CLight(position,
-			XMVectorSet(0.5f, 0.5f, 0.5f, 1.0f),
-			XMVectorSet(0.8f, 0.8f, 0.8f, 1.0f),
+			XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f),
+			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
 			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
 			XMVector4Normalize(position/2.f - position),
 			1.0f,
@@ -50,8 +50,8 @@ namespace PM3D {
 		position = XMVectorSet(-200.f, 200.f, 100.f, 1.0f);
 
 		lights[2] = new CLight(position,
-			XMVectorSet(0.1f, 0.1f, 0.1f, 1.0f),
-			XMVectorSet(0.8f, 0.8f, 0.8f, 1.0f),
+			XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f),
+			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
 			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
 			XMVector4Normalize(position / 2.f - position),
 			1.0f,
@@ -61,8 +61,8 @@ namespace PM3D {
 		position = XMVectorSet(200.f, -200.f, 100.f, 1.0f);
 
 		lights[3] = new CLight(position,
-			XMVectorSet(0.1f, 0.1f, 0.1f, 1.0f),
-			XMVectorSet(0.8f, 0.8f, 0.8f, 1.0f),
+			XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f),
+			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
 			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
 			XMVector4Normalize(position / 2.f - position),
 			1.0f,
@@ -72,8 +72,8 @@ namespace PM3D {
 		position = XMVectorSet(-200.f, -200.f, 100.f, 1.0f);
 
 		lights[4] = new CLight(position,
-			XMVectorSet(0.1f, 0.1f, 0.1f, 1.0f),
-			XMVectorSet(0.8f, 0.8f, 0.8f, 1.0f),
+			XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f),
+			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
 			XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f),
 			XMVector4Normalize(position / 2.f - position),
 			1.0f,
