@@ -33,21 +33,18 @@ namespace PM3D{
 		locationCrate4.p = PxVec3{ 80, 20, 6 };
 		Spawn<CrateGo<OrangeCrate>>(locationCrate4);
 
-		PxTransform locationTunnel = PxTransform::createIdentity();
-		locationTunnel.p = PxVec3{ 100, 50, 6 };
-		Spawn<TunnelGo>(locationTunnel);
 
 		// 			PxTransform explodedBox = PxTransform::createIdentity();
 		// 			explodedBox.p = PxVec3{ 30, 20, 6 };
 		// 			Spawn<ExplodedBox>(explodedBox);
 
 		PxTransform locationCircusGo = PxTransform::createIdentity();
-		locationCircusGo.p = PxVec3{ 0, 15, 0 };
+		locationCircusGo.p = PxVec3{ 20, 60, -4 };
 		Spawn<CircusGo>(locationCircusGo);
 
 		PxTransform locationFlottingCrateGo = PxTransform::createIdentity();
-		locationFlottingCrateGo.p = PxVec3{ -10, -10, 11 };
-		Spawn<FlottingCrateGo<BrownCrate>>(locationFlottingCrateGo);
+		locationFlottingCrateGo.p = PxVec3{ 20, 60, 7 };
+		Spawn<FlottingCrateGo<WhiteCrate>>(locationFlottingCrateGo);
 
 		PxTransform locationArene = PxTransform::createIdentity();
 		locationArene.p = PxVec3{ 0, 0, 8 };
@@ -56,21 +53,20 @@ namespace PM3D{
 
 		PxTransform locationContainer1 = PxTransform::createIdentity();
 		locationContainer1.p = PxVec3{ 18, -1, 0.5 };
-		//locationContainer.q = PxQuat{ PxPiDivTwo,PxVec3{0,0,1} };
-		//rotation de l'arene
 		Spawn<ContainerGo>(locationContainer1);
 
 		PxTransform locationContainer2 = PxTransform::createIdentity();
 		locationContainer2.p = PxVec3{ -20, -1, 0.5 };
-		//locationContainer.q = PxQuat{ PxPiDivTwo,PxVec3{0,0,1} };
-		//rotation de l'arene
 		Spawn<ContainerGo>(locationContainer2);
 
 		PxTransform locationContainer3 = PxTransform::createIdentity();
 		locationContainer3.p = PxVec3{ 0.0, -1, 0.5 };
-		//locationContainer.q = PxQuat{ PxPiDivTwo,PxVec3{0,0,1} };
-		//rotation de l'arene
 		Spawn<ContainerGo>(locationContainer3);
+
+		PxTransform locationContainer4 = PxTransform::createIdentity();
+		locationContainer4.p = PxVec3{ 30.0, -30.0, 6 };
+		locationContainer4.q = PxQuat{0.0 ,0.25f, 0.0, 0.96f}*PxQuat{ 0,0,0.707f,0.707f };
+		Spawn<ContainerGo>(locationContainer4);
 
 		PxTransform locationRoues = PxTransform::createIdentity();
 		locationRoues.p = PxVec3{ -30, 20, 5 };

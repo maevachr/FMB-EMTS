@@ -625,7 +625,7 @@ namespace PM3D
 		//Explo
 		mob = new TextureSprite{ "explosion.dds",largeurPercent(0.2f),  hauteurPercent(0.2f) , 256, 256, _pDispositif };
 		mob->SetDimension(2048, 1536);
-		animMob = new Animation(mob);
+		animMob = new AnimationSprite(mob);
 		animMob->setFrameSize(256, 256);
 		animMob->setRepeating(true);
 		animMob->setNumFrames(48);
