@@ -391,7 +391,14 @@ namespace PM3D
 			int indexDrawAmount = SubmeshIndex[i + 1] - SubmeshIndex[i];
 			if (indexDrawAmount)
 			{
-				sp.vEMat = XMVECTOR{0.f,0.f,0.f,1.f};
+				if (Material[SubmeshMaterialIndex[i]].NomMateriau =="Emise")
+				{
+					sp.vEMat = XMLoadFloat4(&XMFLOAT4{ 1.f,1.f,1.f,1.f });
+				} 
+				else
+				{
+					sp.vEMat = XMLoadFloat4(&XMFLOAT4{ 0.f,0.f,0.f,1.f });
+				}
 				sp.vAMat = XMLoadFloat4(&Material[SubmeshMaterialIndex[i]].Ambient);
 				sp.vDMat = XMLoadFloat4(&Material[SubmeshMaterialIndex[i]].Diffuse);
 				sp.vSMat = XMLoadFloat4(&Material[SubmeshMaterialIndex[i]].Specular);

@@ -139,7 +139,6 @@ float4 MiniPhongPS( VS_Sortie vs ) : SV_Target
 	float4 couleurTexture = (float4) 0;
 	float3 diff = (float3) 0;
 	float3 S = (float3) 0;
-	float3 E = (float3) 0;
 	float3 valeurAmbiente = (float3) 0;
 	
 	if (bTex>0)
@@ -264,7 +263,7 @@ float4 MiniPhongPS( VS_Sortie vs ) : SV_Target
 	S.rgb /= float(NB_LIGHTS);
 	
 	// I = E + A + D * N.L + (R.V)n
-	couleur.rgb = E + couleur.rgb * valeurAmbiente.rgb
+	couleur.rgb = vEMat + couleur.rgb * valeurAmbiente.rgb
 		+ couleur.rgb * diff.rgb
 		+ S.rgb;
 	
