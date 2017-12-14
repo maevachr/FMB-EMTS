@@ -347,7 +347,7 @@ namespace PM3D
 	void TextSprite::Ecrire(wstring s)
 	{
 		// Effacer
-		pCharGraphics->Clear(Gdiplus::Color(255, 255, 0, 0));
+		//pCharGraphics->Clear(Gdiplus::Color(255, 255, 0, 0));
 		// Écrire le nouveau texte
 		pCharGraphics->DrawString(s.c_str(), s.size(), pFont,
 			PointF(0.0f, 0.0f), pBlackBrush);
