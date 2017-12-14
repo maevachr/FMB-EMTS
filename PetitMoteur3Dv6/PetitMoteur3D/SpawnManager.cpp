@@ -92,10 +92,9 @@ namespace PM3D{
 		locationBus2.p = PxVec3{ -6.5, -1, 2 };
 		Spawn<BusGo>(locationBus2);
 
-		PxTransform locationSpot = PxTransform::createIdentity();
-		locationSpot.p = PxVec3{70,50, 2 }; 
-		locationSpot.q = PxQuat{ PxPiDivTwo,PxVec3{ 0,0,1 } };
-		Spawn<SpotGo>(locationSpot);
+		PxTransform locationTires = PxTransform::createIdentity();
+		locationTires.p = PxVec3{ -15, -30, 1 };
+		Spawn<TiresGo>(locationTires);
 	}
 	void SpawnManager::Update()
 	{
