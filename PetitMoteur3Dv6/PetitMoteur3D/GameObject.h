@@ -182,6 +182,10 @@ namespace PM3D
 			PxVec3 data = transform.q.rotate({ dataPos.x , dataPos.y , dataPos.z });
 			return { data.x,data.y,data.z,0 };
 		}
+		XMVECTOR GetQuaternion() const 
+		{
+			return { transform.q.x, transform.q.y, transform.q.z, transform.q.w };
+		}
 
 
 		const XMMATRIX& GetMatWorld() const { return matWorld; }
