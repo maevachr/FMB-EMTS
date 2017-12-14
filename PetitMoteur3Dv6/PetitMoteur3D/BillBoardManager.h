@@ -67,6 +67,7 @@ namespace PM3D
 
 		vector<ID3D11ShaderResourceView*> pTextureD3D;
 		XMFLOAT3 position;
+		XMFLOAT3 positionRelatif;
 		XMFLOAT2 dimension;
 		XMVECTOR normal{ 0.f, -1.f, 0.f, 0.f };
 
@@ -74,7 +75,14 @@ namespace PM3D
 
 		void InitEffet();
 	public:
-		BillBoard(CDispositifD3D11* pDispositif, vector<string> NomTexture, const XMFLOAT3& _position, float _dx = 0.f, float _dy = 0.f, GameObject* go = nullptr, bool _faceCamera = true);
+		BillBoard(CDispositifD3D11* pDispositif, 
+			vector<string> NomTexture, 
+			const XMFLOAT3& _position, 
+			float _dx = 0.f, float _dy = 0.f, 
+			GameObject* go = nullptr, 
+			bool _faceCamera = true, 
+			const XMFLOAT3& _positionRelatif = XMFLOAT3{ 0,0,0 }
+		);
 		~BillBoard();
 
 	private:

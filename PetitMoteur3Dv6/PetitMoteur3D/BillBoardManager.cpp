@@ -59,8 +59,10 @@ namespace PM3D
 		return matRotation;
 	}
 
-	BillBoard::BillBoard(CDispositifD3D11 * _pDispositif, vector<string> NomTexture, const XMFLOAT3 & _position, float _dx, float _dy, GameObject * go, bool _faceCamera)
+	BillBoard::BillBoard(CDispositifD3D11 * _pDispositif, vector<string> NomTexture, const XMFLOAT3 & _position, float _dx, float _dy, GameObject* go, bool _faceCamera, const XMFLOAT3& _positionRelatif)
 	{
+		positionRelatif = _positionRelatif;
+
 		faceCamera = _faceCamera;
 		pVertexBuffer = 0;
 		pConstantBuffer = 0;
@@ -206,7 +208,8 @@ namespace PM3D
 		if (pTextureD3D.empty()) return;
 		XMFLOAT4 parentPosition;
 		XMStoreFloat4(&parentPosition, owner->GetPosition());
-
+		XMFLOAT4 parentDirection;
+		XMStoreFloat4(&parentDirection, owner->GetDirection());
 
 		// Obtenir le contexte
 		ID3D11DeviceContext* pImmediateContext = pDispositif->GetImmediateContext();
@@ -241,7 +244,9 @@ namespace PM3D
 			//XMMATRIX matRot = XMMatrixRotationZ(XMVectorGetZ(XMVector3AngleBetweenVectors(frontVecCamera, normal)));
 			mat = XMMatrixScaling(dimension.x, 1.0f, dimension.y)
 				* GetMatrixOrientation(posCamera, parentPosition)
-				* XMMatrixTranslation(position.x + parentPosition.x, position.y + parentPosition.y, position.z + parentPosition.z)
+				* XMMatrixTranslation(position.x, position.y, position.z)
+				* XMMatrixTranslation(positionRelatif.x * parentDirection.x, positionRelatif.y* parentDirection.y, positionRelatif.z * parentDirection.z)
+				* XMMatrixTranslation(parentPosition.x, parentPosition.y, parentPosition.z)
 				* viewProj;
 		}
 		else {
@@ -307,7 +312,7 @@ namespace PM3D
 		explosionBb->setNumFrames(48);
 		explosionBb->setDuration(1.0f);	
 
-		BillBoard* miniexplo = new BillBoard{ _pDispositif,{ "explosion.dds" }, XMFLOAT3(-1.f, 0.0f, -1.f) , 0.5f, 0.5f };
+		BillBoard* miniexplo = new BillBoard{ _pDispositif,{ "explosion.dds" }, XMFLOAT3{0.f,0.f,0.f} , 0.5f, 0.5f, nullptr, true,  XMFLOAT3(-2.f, -2.0f, -2.f) };
 		miniexplo->InitName("miniexplo");
 		billBoards.push_back(miniexplo);
 		miniexplo->SetDimension(2048, 1536);

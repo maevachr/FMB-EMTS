@@ -169,7 +169,7 @@ namespace PM3D
 		}
 	public:
 		void InitData(const PxGeometry& g, physx::unique_ptr<PxMaterial> m, 
-			const PxFilterData& filterData = PxFilterData{})
+			const PxFilterData& filterData = PxFilterData{}, bool drivable = false)
 		{
 			material = move(m);
 
@@ -180,11 +180,14 @@ namespace PM3D
 
 			pxActor = SimulationManager::GetInstance().physics().createRigidDynamic(moveInPosition);
 			pxActor->setGlobalPose(transform);
-		
 			actorShape = pxActor->createShape(g, *material);
-			physx::PxFilterData qryFilterData;
-			qryFilterData.word3 = (PxU32)DRIVABLE_SURFACE;
-			actorShape->setQueryFilterData(qryFilterData);
+
+			if (drivable)
+			{
+				physx::PxFilterData qryFilterData;
+				qryFilterData.word3 = (PxU32)DRIVABLE_SURFACE;
+				actorShape->setQueryFilterData(qryFilterData);
+			}
 
 			actorShape->setSimulationFilterData(filterData);
 		}
