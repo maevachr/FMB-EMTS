@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <Gdiplus.h>
 #include <array>
+#include <numeric>
 using namespace Gdiplus;
 #pragma comment(lib, "gdiplus.lib")
 
@@ -120,11 +121,14 @@ namespace PM3D
 
 		void DebutPostEffect();
 		void FinPostEffect();
-		void Draw();
+		void Draw(ID3D11ShaderResourceView* pCombinedResourceView = nullptr);
 
 		enum postType {
 			Nul,
-			Radial
+			Radial,
+			BloomExtract,
+			BloomCombine,
+			Blur
 		};
 
 		postType mode = Nul;
@@ -142,11 +146,72 @@ namespace PM3D
 		ID3D11Texture2D* pDepthTexture; 
 		ID3D11DepthStencilView* pDepthStencilView;
 
+		// Texture de rendu du bloom
+		ID3D11Texture2D* pBloomTextureScene;
+		ID3D11RenderTargetView* pBloomRenderTargetView;
+		ID3D11ShaderResourceView* pBloomResourceView;
+		ID3D11Texture2D* pBloomDepthTexture;
+		ID3D11DepthStencilView* pBloomDepthStencilView;
+
+		// Texture de rendu du flou
+		ID3D11Texture2D* pBlurTextureScene;
+		ID3D11RenderTargetView* pBlurRenderTargetView;
+		ID3D11ShaderResourceView* pBlurResourceView;
+		ID3D11Texture2D* pBlurDepthTexture;
+		ID3D11DepthStencilView* pBlurDepthStencilView;
+
+		// Texture de rendu combiné
+		ID3D11Texture2D* pCombinedTextureScene;
+		ID3D11RenderTargetView* pCombinedRenderTargetView;
+		ID3D11ShaderResourceView* pCombinedResourceView;
+		ID3D11Texture2D* pCombinedDepthTexture;
+		ID3D11DepthStencilView* pCombinedDepthStencilView;
+
 		ID3D11RenderTargetView* pOldRenderTargetView; 
 		ID3D11DepthStencilView* pOldDepthStencilView;
 
 		static const int NOMBRE_TECHNIQUES = 2;
 		ID3D11InputLayout* pVertexLayoutTab[NOMBRE_TECHNIQUES];
+	public:
+		void ExtractBloom();
+		void DrawBlur(ID3D11ShaderResourceView* pBloomResourceView);
+		void CombineSceneAndBloom(ID3D11ShaderResourceView* pBloomResourceView);
+	private:
+		struct GaussianBlurFunction {
+			static const int SAMPLE_COUNT = 15;
+			static void ComputeGaussian() {
+				float temp[SAMPLE_COUNT];
+				iota(begin(temp), end(temp), -7.f);
+
+				float sigma = 0.84089642;
+				for (int i = 0; i < 15; i++)
+				{
+					SampleWeights[i] = 1. / (2 * XM_PI * sigma * sigma) *exp(-temp[i] * temp[i] / (2 * sigma*sigma));
+				}
+			}
+			static void GetOffsetHorizon() {
+				vector<float> temp(15);
+				iota(begin(temp), end(temp), -7.f);
+
+				transform(begin(temp), end(temp), begin(SampleHorizontalOffsets), [](float x) ->XMFLOAT2 {return { x, 0.f }; }); //y == 0
+			}
+			static void GetOffsetVert() {
+				vector<float> temp(15);
+				iota(begin(temp), end(temp), -7.f);
+
+				transform(begin(temp), end(temp), begin(SampleVerticalOffsets), [](float y) ->XMFLOAT2 {return { 0.f, y }; }); //x == 0
+			}
+
+			static void Generate() {
+				ComputeGaussian();
+				GetOffsetHorizon();
+				GetOffsetVert();
+			}
+			
+			static XMFLOAT2 SampleHorizontalOffsets[SAMPLE_COUNT];
+			static XMFLOAT2 SampleVerticalOffsets[SAMPLE_COUNT];
+			static float SampleWeights[SAMPLE_COUNT];
+		};
 	};
 
 	class SpriteManager {
@@ -237,7 +302,7 @@ namespace PM3D
 		void UpdateScoreText();
 		void UpdateJauge();
 	public:
-		void Draw();
+		void DrawSprites();
 	};
 }
 

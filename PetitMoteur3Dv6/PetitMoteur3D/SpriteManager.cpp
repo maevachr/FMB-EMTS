@@ -8,10 +8,15 @@
 #include "BlackBoard.h"
 #include <string>
 #include "Animation.h" 
+#include "TextureRenderer.h"
 
 using namespace UtilitairesDX;
 namespace PM3D
 {
+	XMFLOAT2 PostEffectSprite::GaussianBlurFunction::SampleHorizontalOffsets[PostEffectSprite::GaussianBlurFunction::SAMPLE_COUNT];
+	XMFLOAT2 PostEffectSprite::GaussianBlurFunction::SampleVerticalOffsets[PostEffectSprite::GaussianBlurFunction::SAMPLE_COUNT];
+	float PostEffectSprite::GaussianBlurFunction::SampleWeights[PostEffectSprite::GaussianBlurFunction::SAMPLE_COUNT];
+
 	ULONG_PTR SpriteManager::token = 0;
 
 	// Definir l'organisation de notre sommet
@@ -393,6 +398,8 @@ namespace PM3D
 
 		// Initialisation de l'effet
 		InitEffet();
+
+		GaussianBlurFunction::Generate();
 	}
 	PostEffectSprite::~PostEffectSprite()
 	{
@@ -401,6 +408,12 @@ namespace PM3D
 		DXRelacher(pTextureScene);
 		DXRelacher(pDepthStencilView);
 		DXRelacher(pDepthTexture);
+
+		DXRelacher(pBloomResourceView);
+		DXRelacher(pBloomRenderTargetView);
+		DXRelacher(pBloomTextureScene);
+		DXRelacher(pBloomDepthStencilView);
+		DXRelacher(pBloomDepthTexture);
 
 		for (int i = 0; i < NOMBRE_TECHNIQUES; i++) DXRelacher(pVertexLayoutTab[i]);
 	}
@@ -489,6 +502,9 @@ namespace PM3D
 
 		// Création de la texture 
 		pD3DDevice->CreateTexture2D(&textureDesc, NULL, &pTextureScene);
+		pD3DDevice->CreateTexture2D(&textureDesc, NULL, &pBloomTextureScene);
+		pD3DDevice->CreateTexture2D(&textureDesc, NULL, &pBlurTextureScene);
+		pD3DDevice->CreateTexture2D(&textureDesc, NULL, &pCombinedTextureScene);
 
 		// VUE - Cible de rendu 
 		renderTargetViewDesc.Format = textureDesc.Format;
@@ -497,6 +513,9 @@ namespace PM3D
 
 		// Création de la vue. 
 		pD3DDevice->CreateRenderTargetView(pTextureScene, &renderTargetViewDesc, &pRenderTargetView);
+		pD3DDevice->CreateRenderTargetView(pBloomTextureScene, &renderTargetViewDesc, &pBloomRenderTargetView);
+		pD3DDevice->CreateRenderTargetView(pBlurTextureScene, &renderTargetViewDesc, &pBlurRenderTargetView);
+		pD3DDevice->CreateRenderTargetView(pCombinedTextureScene, &renderTargetViewDesc, &pCombinedRenderTargetView);
 
 		// VUE – Ressource de shader 
 		shaderResourceViewDesc.Format = textureDesc.Format;
@@ -506,6 +525,9 @@ namespace PM3D
 
 		// Création de la vue. 
 		pD3DDevice->CreateShaderResourceView(pTextureScene, &shaderResourceViewDesc, &pResourceView);
+		pD3DDevice->CreateShaderResourceView(pBloomTextureScene, &shaderResourceViewDesc, &pBloomResourceView);
+		pD3DDevice->CreateShaderResourceView(pBlurTextureScene, &shaderResourceViewDesc, &pBlurResourceView);
+		pD3DDevice->CreateShaderResourceView(pCombinedTextureScene, &shaderResourceViewDesc, &pCombinedResourceView);
 
 		// Au tour du tampon de profondeur 
 		D3D11_TEXTURE2D_DESC depthTextureDesc;
@@ -523,6 +545,9 @@ namespace PM3D
 		depthTextureDesc.MiscFlags = 0;
 
 		DXEssayer(pD3DDevice->CreateTexture2D(&depthTextureDesc, NULL, &pDepthTexture), DXE_ERREURCREATIONTEXTURE);
+		DXEssayer(pD3DDevice->CreateTexture2D(&depthTextureDesc, NULL, &pBloomDepthTexture), DXE_ERREURCREATIONTEXTURE);
+		DXEssayer(pD3DDevice->CreateTexture2D(&depthTextureDesc, NULL, &pBlurDepthTexture), DXE_ERREURCREATIONTEXTURE);
+		DXEssayer(pD3DDevice->CreateTexture2D(&depthTextureDesc, NULL, &pCombinedDepthTexture), DXE_ERREURCREATIONTEXTURE);
 
 		// Création de la vue du tampon de profondeur (ou de stencil)
 		D3D11_DEPTH_STENCIL_VIEW_DESC descDSView;
@@ -531,6 +556,9 @@ namespace PM3D
 		descDSView.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
 		descDSView.Texture2D.MipSlice = 0;
 		DXEssayer(pD3DDevice->CreateDepthStencilView(pDepthTexture, &descDSView, &pDepthStencilView), DXE_ERREURCREATIONDEPTHSTENCILTARGET);
+		DXEssayer(pD3DDevice->CreateDepthStencilView(pBloomDepthTexture, &descDSView, &pBloomDepthStencilView), DXE_ERREURCREATIONDEPTHSTENCILTARGET);
+		DXEssayer(pD3DDevice->CreateDepthStencilView(pBlurDepthTexture, &descDSView, &pBlurDepthStencilView), DXE_ERREURCREATIONDEPTHSTENCILTARGET);
+		DXEssayer(pD3DDevice->CreateDepthStencilView(pCombinedDepthTexture, &descDSView, &pCombinedDepthStencilView), DXE_ERREURCREATIONDEPTHSTENCILTARGET);
 	}
 
 	void PostEffectSprite::DebutPostEffect()
@@ -543,6 +571,7 @@ namespace PM3D
 
 		// Utiliser la texture comme surface de rendu et le tampon de profondeur associé 
 		pDispositif->SetRenderTargetView(pRenderTargetView, pDepthStencilView);
+		
 	}
 
 	void PostEffectSprite::FinPostEffect()
@@ -551,8 +580,7 @@ namespace PM3D
 		pDispositif->SetRenderTargetView(pOldRenderTargetView, pOldDepthStencilView);
 	}
 
-	void PostEffectSprite::Draw()
-	{
+	void PostEffectSprite::Draw(ID3D11ShaderResourceView* pCombinedResourceView) {
 		// Obtenir le contexte 
 		ID3D11DeviceContext* pImmediateContext = pDispositif->GetImmediateContext();
 
@@ -585,14 +613,132 @@ namespace PM3D
 		variableTexture = pEffet->GetVariableByName("textureEntree")->AsShaderResource();
 
 		// Activation de la texture 
-		variableTexture->SetResource(pResourceView);
+		if (pCombinedResourceView)
+			variableTexture->SetResource(pCombinedResourceView);
+		else
+			variableTexture->SetResource(pResourceView);
+
 		pPasse->Apply(0, pImmediateContext);
 
 		// **** Rendu de l'objet
 		pImmediateContext->Draw(6, 0);
 	}
 
+	void PostEffectSprite::ExtractBloom()
+	{
+		// Obtenir le contexte 
+		ID3D11DeviceContext* pImmediateContext = pDispositif->GetImmediateContext();
 
+		// Choisir la topologie des primitives 
+		pImmediateContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+		// Source des sommets 
+		UINT stride = sizeof(CSommetSprite);
+		UINT offset = 0;
+		pImmediateContext->IASetVertexBuffers(0, 1, &pVertexBuffer, &stride, &offset);
+
+		// Choix de la technique 
+		pTechnique = pEffet->GetTechniqueByIndex(BloomExtract);
+		pPasse = pTechnique->GetPassByIndex(0);
+
+		// input layout des sommets 
+		pImmediateContext->IASetInputLayout(pVertexLayoutTab[1]);
+
+		// Le sampler state 
+		ID3DX11EffectSamplerVariable* variableSampler;
+		variableSampler = pEffet->GetVariableByName("SampleState")->AsSampler();
+		variableSampler->SetSampler(0, pSampleState);
+
+		ID3DX11EffectShaderResourceVariable* variableTexture;
+		variableTexture = pEffet->GetVariableByName("textureEntree")->AsShaderResource();
+		variableTexture->SetResource(pResourceView);
+
+		pPasse->Apply(0, pImmediateContext);
+
+		// **** Rendu de l'objet
+		pImmediateContext->Draw(6, 0);
+	}
+
+	void PostEffectSprite::DrawBlur(ID3D11ShaderResourceView* pBloomResourceView)
+	{
+		// Obtenir le contexte 
+		ID3D11DeviceContext* pImmediateContext = pDispositif->GetImmediateContext();
+
+		// Choisir la topologie des primitives 
+		pImmediateContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+		// Source des sommets 
+		UINT stride = sizeof(CSommetSprite);
+		UINT offset = 0;
+		pImmediateContext->IASetVertexBuffers(0, 1, &pVertexBuffer, &stride, &offset);
+
+		// Choix de la technique 
+		pTechnique = pEffet->GetTechniqueByIndex(Blur);
+		pPasse = pTechnique->GetPassByIndex(0);
+
+		// input layout des sommets 
+		pImmediateContext->IASetInputLayout(pVertexLayoutTab[1]);
+
+		// Le sampler state 
+		ID3DX11EffectSamplerVariable* variableSampler;
+		variableSampler = pEffet->GetVariableByName("SampleState")->AsSampler();
+		variableSampler->SetSampler(0, pSampleState);
+
+		ID3DX11EffectShaderResourceVariable* variableTexture;
+		variableTexture = pEffet->GetVariableByName("textureEntree")->AsShaderResource();
+		variableTexture->SetResource(pBloomResourceView);
+
+		ID3DX11EffectScalarVariable* offsetX;
+		offsetX = pEffet->GetVariableByName("offsetX")->AsScalar();
+		offsetX->SetFloat(float(1.f / 1024.f));
+
+		ID3DX11EffectScalarVariable* offsetY;
+		offsetY = pEffet->GetVariableByName("offsetY")->AsScalar();
+		offsetY->SetFloat(float(1.f / 768.f));
+
+		pPasse->Apply(0, pImmediateContext);
+
+		// **** Rendu de l'objet
+		pImmediateContext->Draw(6, 0);
+	}
+
+	void PostEffectSprite::CombineSceneAndBloom(ID3D11ShaderResourceView* pBlurResourceView)
+	{
+		// Obtenir le contexte 
+		ID3D11DeviceContext* pImmediateContext = pDispositif->GetImmediateContext();
+
+		// Choisir la topologie des primitives 
+		pImmediateContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+		// Source des sommets 
+		UINT stride = sizeof(CSommetSprite);
+		UINT offset = 0;
+		pImmediateContext->IASetVertexBuffers(0, 1, &pVertexBuffer, &stride, &offset);
+
+		// Choix de la technique 
+		pTechnique = pEffet->GetTechniqueByIndex(BloomCombine);
+		pPasse = pTechnique->GetPassByIndex(0);
+
+		// input layout des sommets 
+		pImmediateContext->IASetInputLayout(pVertexLayoutTab[1]);
+
+		// Le sampler state 
+		ID3DX11EffectSamplerVariable* variableSampler;
+		variableSampler = pEffet->GetVariableByName("SampleState")->AsSampler();
+		variableSampler->SetSampler(0, pSampleState);
+
+		ID3DX11EffectShaderResourceVariable* variableTexture;
+		variableTexture = pEffet->GetVariableByName("textureEntree")->AsShaderResource();
+		variableTexture->SetResource(pResourceView);
+
+		variableTexture = pEffet->GetVariableByName("bloomTexture")->AsShaderResource();
+		variableTexture->SetResource(pBlurResourceView);
+
+		pPasse->Apply(0, pImmediateContext);
+
+		// **** Rendu de l'objet
+		pImmediateContext->Draw(6, 0);
+	}
 
 	void SpriteManager::Init(CDispositifD3D11 * _pDispositif)
 	{
@@ -700,10 +846,8 @@ namespace PM3D
 		scoreText->Ecrire({ s.begin(), s.end() });
 	}
 
-	void SpriteManager::Draw()
+	void SpriteManager::DrawSprites()
 	{
-		post->Draw();
-
 		//Desactiver Z buffer
 		pDispositif->DesactiverZBuffer();
 		pDispositif->DesactiverCulling();
