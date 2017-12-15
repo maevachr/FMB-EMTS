@@ -36,7 +36,7 @@ namespace PM3D{
 
 		PxTransform locationCrateM3 = PxTransform::createIdentity();
 		locationCrateM3.p = PxVec3{ -89, 177, 23 };
-		Spawn<CrateGo<BrownCrate>>(locationCrateM3);
+		Spawn<CrateGo<OrangeCrate>>(locationCrateM3);
 
 		PxTransform locationCrate4 = PxTransform::createIdentity();
 		locationCrate4.p = PxVec3{ -20, 80, 10 };
@@ -46,24 +46,74 @@ namespace PM3D{
 		locationCrate5.p = PxVec3{ -30, -43.5, 12 };
 		Spawn<CrateGo<OrangeCrate>>(locationCrate5);
 
-		PxTransform a0 = PxTransform::createIdentity();
-		a0.p = PxVec3{ +30, 120.5, 5 };
-		Spawn<CrateGo<BrownCrate>>(a0);
-
 		PxTransform a1 = PxTransform::createIdentity();
-		a1.p = PxVec3{ 50, 125.5, 4 };
-		Spawn<CrateGo<BrownCrate>>(a1);
+		a1.p = PxVec3{ 50, 125.5, 2 };
+		Spawn<CrateGo<OrangeCrate>>(a1);
 
 		PxTransform a2 = PxTransform::createIdentity();
-		a2.p = PxVec3{ 5, 135, 4 };
+		a2.p = PxVec3{ 12, 131, 2 };
 		Spawn<CrateGo<BrownCrate>>(a2);
+
+		PxTransform a3 = PxTransform::createIdentity();
+		a3.p = PxVec3{ +30, 163.5, 2 };
+		Spawn<CrateGo<BrownCrate>>(a3);
+
+		PxTransform a4 = PxTransform::createIdentity();
+		a4.p = PxVec3{ +2, 178.5, 2 };
+		Spawn<CrateGo<BrownCrate>>(a4);
+
+		PxTransform a5 = PxTransform::createIdentity();
+		a5.p = PxVec3{ +33, 188.5, 1.5 };
+		Spawn<CrateGo<OrangeCrate>>(a5);
+
+		PxTransform a6 = PxTransform::createIdentity();
+		a6.p = PxVec3{ +46, 205.5, 1.5 };
+		Spawn<CrateGo<BrownCrate>>(a6);
+
+		PxTransform a7 = PxTransform::createIdentity();
+		a7.p = PxVec3{ +60, 178.5, 1.5 };
+		Spawn<CrateGo<BrownCrate>>(a7);
+
+		PxTransform a8 = PxTransform::createIdentity();
+		a8.p = PxVec3{ +84, 140, 1.5 };
+		Spawn<CrateGo<BrownCrate>>(a8);
+
+		PxTransform a9 = PxTransform::createIdentity();
+		a9.p = PxVec3{ +82, 202, 1.5 };
+		Spawn<CrateGo<BrownCrate>>(a9);
+
+		PxTransform a10 = PxTransform::createIdentity();
+		a10.p = PxVec3{ +113, 202, 1.5 };
+		Spawn<CrateGo<OrangeCrate>>(a10);
+
+		PxTransform a11 = PxTransform::createIdentity();
+		a11.p = PxVec3{ +105, 167, 1.5 };
+		Spawn<CrateGo<BrownCrate>>(a11);
+
+		PxTransform a12 = PxTransform::createIdentity();
+		a12.p = PxVec3{ +135, 202, 1.5 };
+		Spawn<CrateGo<BrownCrate>>(a12);
+
+		PxTransform a13 = PxTransform::createIdentity();
+		a13.p = PxVec3{ +148.5, 177, 1.5 };
+		Spawn<CrateGo<BrownCrate>>(a13);
+		
+		PxTransform a14 = PxTransform::createIdentity();
+		a14.p = PxVec3{ +127, 137, 1.5 };
+		Spawn<CrateGo<OrangeCrate>>(a14);
+
+		PxTransform a15 = PxTransform::createIdentity();
+		a15.p = PxVec3{ +104, 110, 1.5 };
+		Spawn<CrateGo<BrownCrate>>(a15);
+
+		PxTransform random0 = PxTransform::createIdentity();
+		random0.p = PxVec3{ -150, 130, 1.5 };
+		Spawn<CrateGo<BrownCrate>>(random0);
 		// 			PxTransform explodedBox = PxTransform::createIdentity();
 		// 			explodedBox.p = PxVec3{ 30, 20, 6 };
 		// 			Spawn<ExplodedBox>(explodedBox);
 
-		PxTransform locationCircusGo = PxTransform::createIdentity();
-		locationCircusGo.p = PxVec3{ 20, 60, -4 };
-		Spawn<CircusGo>(locationCircusGo);
+		
 
 		PxTransform beamGo1 = PxTransform::createIdentity();
 		beamGo1.p = PxVec3{ -30, -43.5, -0.5625 };
@@ -73,9 +123,45 @@ namespace PM3D{
 		beamGo2.p = PxVec3{ -7, -43.5, -0.5625 };
 		Spawn<BeamGo>(beamGo2);
 
+		PxTransform locationCircusGo = PxTransform::createIdentity();
+		locationCircusGo.p = PxVec3{ 25, 60, -4 };
+		Spawn<CircusGo>(locationCircusGo);
+
 		PxTransform locationFlottingCrateGo = PxTransform::createIdentity();
-		locationFlottingCrateGo.p = PxVec3{ 20, 60, 7 };
+		locationFlottingCrateGo.p = PxVec3{ 25, 60, 7 };
 		Spawn<FlottingCrateGo<WhiteCrate>>(locationFlottingCrateGo);
+
+		PxTransform d01 = PxTransform::createIdentity();
+		d01.p = PxVec3{30, 67, -5 };
+		Spawn<CircusGo>(d01);
+
+		PxTransform d02 = PxTransform::createIdentity();
+		d02.p = PxVec3{ 30, 67, 6 };
+		Spawn<FlottingCrateGo<WhiteCrate>>(d02);
+
+		PxTransform d11 = PxTransform::createIdentity();
+		d11.p = PxVec3{ 30, 53, -5 };
+		Spawn<CircusGo>(d11);
+
+		PxTransform d12 = PxTransform::createIdentity();
+		d12.p = PxVec3{ 30, 53, 6 };
+		Spawn<FlottingCrateGo<WhiteCrate>>(d12);
+
+		PxTransform d21 = PxTransform::createIdentity();
+		d21.p = PxVec3{ 35, 74, -5 };
+		Spawn<CircusGo>(d21);
+
+		PxTransform d22 = PxTransform::createIdentity();
+		d22.p = PxVec3{ 35, 74, 6 };
+		Spawn<FlottingCrateGo<WhiteCrate>>(d22);
+
+		PxTransform d31 = PxTransform::createIdentity();
+		d31.p = PxVec3{ 35, 45, -5 };
+		Spawn<CircusGo>(d31);
+
+		PxTransform d32 = PxTransform::createIdentity();
+		d32.p = PxVec3{ 35, 45, 6 };
+		Spawn<FlottingCrateGo<WhiteCrate>>(d32);
 
 		PxTransform locationFlottingCrateGo1 = PxTransform::createIdentity();
 		locationFlottingCrateGo1.p = PxVec3{ -1, -8, 12 };
@@ -89,9 +175,41 @@ namespace PM3D{
 		locationFlottingCrateGo3.p = PxVec3{ -1, 8, 12 };
 		Spawn<FlottingCrateGo<OrangeCrate>>(locationFlottingCrateGo3);
 
-		PxTransform locationFlottingCrateGo4 = PxTransform::createIdentity();
-		locationFlottingCrateGo4.p = PxVec3{ -185, 90, 8 };
-		Spawn<FlottingCrateGo<OrangeCrate>>(locationFlottingCrateGo4);
+		PxTransform b0 = PxTransform::createIdentity();
+		b0.p = PxVec3{ -186, 90, 8 };
+		Spawn<FlottingCrateGo<OrangeCrate>>(b0);
+
+		PxTransform b1 = PxTransform::createIdentity();
+		b1.p = PxVec3{ -181, 101, 6 };
+		Spawn<FlottingCrateGo<BrownCrate>>(b1);
+
+		PxTransform b2 = PxTransform::createIdentity();
+		b2.p = PxVec3{ -185, 60, 6 };
+		Spawn<FlottingCrateGo<BrownCrate>>(b2);
+
+		PxTransform b3 = PxTransform::createIdentity();
+		b3.p = PxVec3{ -186, 70, 6.5 };
+		Spawn<FlottingCrateGo<OrangeCrate>>(b3);
+
+		PxTransform b4 = PxTransform::createIdentity();
+		b4.p = PxVec3{ -187, 80, 7.5 };
+		Spawn<FlottingCrateGo<WhiteCrate>>(b4);
+
+		PxTransform c0 = PxTransform::createIdentity();
+		c0.p = PxVec3{ -65, 50, 5 };
+		Spawn<FlottingCrateGo<BrownCrate>>(c0);
+
+		PxTransform c1 = PxTransform::createIdentity();
+		c1.p = PxVec3{ -75, 50, 5 };
+		Spawn<FlottingCrateGo<OrangeCrate>>(c1);
+
+		PxTransform c2 = PxTransform::createIdentity();
+		c2.p = PxVec3{ -65, 60, 5 };
+		Spawn<FlottingCrateGo<OrangeCrate>>(c2);
+
+		PxTransform c3 = PxTransform::createIdentity();
+		c3.p = PxVec3{ -75, 60, 5 };
+		Spawn<FlottingCrateGo<BrownCrate>>(c3);
 
 		PxTransform locationArene = PxTransform::createIdentity();
 		locationArene.p = PxVec3{ 20, 0, 10 };
