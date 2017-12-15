@@ -27,11 +27,12 @@ namespace PM3D
 			INTRO,
 			COUNTDOWN,
 			CROWD_COUNTDOWN,
-			ENGINE, 
-			EXPLODING_CRATE, 
-			MUSIC, 
+			ENGINE,
+			EXPLODING_CRATE,
+			MUSIC,
 			BOOST,
 			CHEERING,
+			HORN,
 			COUNT
 		};
 	private:
@@ -48,14 +49,15 @@ namespace PM3D
 			FMOD::System_Create(&system);
 			system->init(32, FMOD_INIT_NORMAL, nullptr);
 
-			system->createSound("intro.mp3", FMOD_CREATESAMPLE | FMOD_LOOP_NORMAL, 0, &sound[INTRO]);
+			system->createSound("intro.mp3", FMOD_SOFTWARE | FMOD_2D | FMOD_CREATESTREAM, 0, &sound[INTRO]);
 			system->createSound("countdown.wav", FMOD_CREATESAMPLE | FMOD_LOOP_NORMAL, 0, &sound[COUNTDOWN]);
 			system->createSound("crowd_countdown.wav", FMOD_CREATESAMPLE | FMOD_LOOP_NORMAL, 0, &sound[CROWD_COUNTDOWN]);
 			system->createSound("engine.wav", FMOD_CREATESAMPLE | FMOD_LOOP_NORMAL, 0, &sound[ENGINE]);
 			system->createSound("wood_explosion.mp3", FMOD_CREATESAMPLE | FMOD_LOOP_NORMAL, 0, &sound[EXPLODING_CRATE]);
-			system->createSound("dynamite.mp3", FMOD_CREATESAMPLE | FMOD_LOOP_NORMAL, 0, &sound[MUSIC]);
+			system->createSound("dynamite.mp3", FMOD_SOFTWARE | FMOD_2D | FMOD_CREATESTREAM, 0, &sound[MUSIC]);
 			system->createSound("boost.wav", FMOD_CREATESAMPLE | FMOD_LOOP_NORMAL, 0, &sound[BOOST]);			
 			system->createSound("cheering.wav", FMOD_CREATESAMPLE | FMOD_LOOP_NORMAL, 0, &sound[CHEERING]);
+			system->createSound("horn.mp3", FMOD_CREATESAMPLE | FMOD_LOOP_NORMAL, 0, &sound[HORN]);
 
 			sound[ENGINE]->setLoopCount(-1);
 			sound[BOOST]->setLoopCount(-1);
@@ -64,6 +66,7 @@ namespace PM3D
 			sound[EXPLODING_CRATE]->setLoopCount(0);
 			sound[CHEERING]->setLoopCount(0);
 			sound[MUSIC]->setLoopCount(0);
+			sound[HORN]->setLoopCount(0);
 
 			//Start Loops
 			system->playSound(FMOD_CHANNEL_FREE, sound[BOOST], true, &channel[BOOST]);
@@ -71,6 +74,7 @@ namespace PM3D
 			system->playSound(FMOD_CHANNEL_FREE, sound[MUSIC], true, &channel[MUSIC]);
 			system->playSound(FMOD_CHANNEL_FREE, sound[INTRO], true, &channel[INTRO]);
 			system->playSound(FMOD_CHANNEL_FREE, sound[CROWD_COUNTDOWN], true, &channel[CROWD_COUNTDOWN]);
+			system->playSound(FMOD_CHANNEL_FREE, sound[HORN], true, &channel[HORN]);
 
 			//Get the engine base parameter
 			channel[ENGINE]->getFrequency(&engineFrequency);

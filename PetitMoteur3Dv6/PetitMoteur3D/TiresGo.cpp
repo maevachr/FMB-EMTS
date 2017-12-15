@@ -28,12 +28,12 @@ namespace PM3D
 		filterData.word0 = COLLISION_FLAG_OBSTACLE;
 		filterData.word1 = COLLISION_FLAG_OBSTACLE_AGAINST;
 
-		d->InitData(PxBoxGeometry(PxVec3(0.7f, 0.7f, 0.3f)), move(material), filterData);
+		d->InitData(PxBoxGeometry(PxVec3(0.5f, 0.5f, 0.3f)), move(material), filterData, true);
 
 		PxTransform centerMass = physx::PxTransform::createIdentity();
 		centerMass.p = PxVec3(0.f, 0.f, 0.15f);
-		PxVec3 inertiaTensor = { 50.f,50.f,50.f };
-		d->InitMass(50, centerMass, inertiaTensor);
+		PxVec3 inertiaTensor = { 1.f,1.f,1.f };
+		d->InitMass(5, centerMass, inertiaTensor);
 	}
 	void TiresGo::OnUnspawn()
 	{
