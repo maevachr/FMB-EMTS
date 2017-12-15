@@ -159,6 +159,8 @@ namespace PM3D{
 		d31.p = PxVec3{ 35, 45, -5 };
 		Spawn<CircusGo>(d31);
 
+
+
 		PxTransform d32 = PxTransform::createIdentity();
 		d32.p = PxVec3{ 35, 45, 6 };
 		Spawn<FlottingCrateGo<WhiteCrate>>(d32);
@@ -237,10 +239,6 @@ namespace PM3D{
 		locationContainer5.p = PxVec3{ -15.0, -43.5, 12 };
 		locationContainer5.q = PxQuat{ 0,0,0.707f,0.707f };
 		Spawn<ContainerGo>(locationContainer5);
-
-		PxTransform locationRoues = PxTransform::createIdentity();
-		locationRoues.p = PxVec3{ -30, 20, 5 };
-		Spawn<TiresGo>(locationRoues);
 		
 		PxTransform locationTV = PxTransform::createIdentity();
 		locationTV.p = PxVec3{ 458, 17.5, 95 };
@@ -264,9 +262,148 @@ namespace PM3D{
 		locationBus2.q = PxQuat{ 0,0,1.0,0.0f };
 		Spawn<BusGo>(locationBus2);
 
-		PxTransform locationTires = PxTransform::createIdentity();
-		locationTires.p = PxVec3{ -15, -30, 1 };
-		Spawn<TiresGo>(locationTires);
+		PxTransform e16 = PxTransform::createIdentity();
+		e16.p = PxVec3{ 262.f, 149.f, 15.5f };
+		Spawn<CrateGo<BrownCrate>>(e16);
+
+		PxTransform e17 = PxTransform::createIdentity();
+		e17.p = PxVec3{ 272.f, 130.f, 18.0f };
+		Spawn<CrateGo<BrownCrate>>(e17);
+
+		PxTransform e18 = PxTransform::createIdentity();
+		e18.p = PxVec3{ 227.0f, 52.18f, 2.5f };
+		Spawn<CrateGo<OrangeCrate>>(e18);
+
+		//PxTransform e19 = PxTransform::createIdentity();
+		//e19.p = PxVec3{ 281.5f, 78.5f, 13.f };
+		//Spawn<CrateGo<BrownCrate>>(e19);
+
+		PxTransform e33 = PxTransform::createIdentity();
+		e33.p = PxVec3{ 223.f, 170.f, 1.5f };
+		Spawn<CrateGo<BrownCrate>>(e33);
+
+		PxTransform e35 = PxTransform::createIdentity();
+		e35.p = PxVec3{ 216.f, 162.f, 2.f };
+		Spawn<CrateGo<BrownCrate>>(e35);
+
+		PxTransform e36 = PxTransform::createIdentity();
+		e36.p = PxVec3{ 215.f, 154.f, 2.5f };
+		Spawn<CrateGo<BrownCrate>>(e36);
+
+		PxTransform e37 = PxTransform::createIdentity();
+		e37.p = PxVec3{ 285.f, 557.f, 18.5f };
+		Spawn<CrateGo<OrangeCrate>>(e37);
+
+		/*PxTransform e34 = PxTransform::createIdentity();
+		e34.p = PxVec3{ 221.f, 64.f, 19.f };
+		Spawn<FlottingCrateGo<BrownCrate>>(e34);*/
+
+		PxTransform e38 = PxTransform::createIdentity();
+		e38.p = PxVec3{ 231.0f, 3.7f, 21.5f };
+		Spawn<FlottingCrateGo<WhiteCrate>>(e38);
+
+		PxTransform e39 = PxTransform::createIdentity();
+		e39.p = PxVec3{ 197.5f, 72.f, 29.5f };
+		Spawn<FlottingCrateGo<OrangeCrate>>(e39);
+
+		PxTransform e40 = PxTransform::createIdentity();
+		e40.p = PxVec3{ 281.0f, 69.8f, 12.0f };
+		Spawn<CrateGo<OrangeCrate>>(e40);
+
+		PxQuat rot = PxQuat(XM_PIDIV4, PxVec3{ 0, 0, 1 }); 
+		PxQuat rot2 = PxQuat(XM_PIDIV2, PxVec3{ 0, 1, 0 });
+
+		PxTransform f1 = PxTransform::createIdentity();
+		f1.p = PxVec3{ 239.7f, 10.3f, 19.5f};
+		f1.q = rot;
+		Spawn<TiresGo>(f1);
+
+		PxTransform f3 = PxTransform::createIdentity();
+		f3.p = PxVec3{ 238.3f, 12.1f, 19.5f };
+		f3.q = rot;
+		Spawn<TiresGo>(f3);
+
+		PxTransform f2 = PxTransform::createIdentity();
+		f2.p = PxVec3{ 237.0f, 13.5f, 19.5f };
+		f2.q = rot;
+		Spawn<TiresGo>(f2);
+
+		PxTransform f4 = PxTransform::createIdentity();
+		f4.p = PxVec3{ 239.7f, 10.3f, 20.5f };
+		f4.q = rot*rot2;
+		Spawn<TiresGo>(f4);
+
+		PxTransform f5 = PxTransform::createIdentity();
+		f5.p = PxVec3{ 238.3f, 12.1f, 20.5f };
+		f5.q = rot*rot2;
+		Spawn<TiresGo>(f5);
+
+		PxTransform f6 = PxTransform::createIdentity();
+		f6.p = PxVec3{ 237.0f, 13.5f, 20.5f };
+		f6.q = rot*rot2;
+		Spawn<TiresGo>(f6);
+
+		PxTransform f7 = PxTransform::createIdentity();
+		f7.p = PxVec3{ 239.7f, 10.3f, 21.4f };
+		f7.q = rot;
+		Spawn<TiresGo>(f7);
+
+		PxTransform f8 = PxTransform::createIdentity();
+		f8.p = PxVec3{ 238.3f, 12.1f, 21.4f };
+		f8.q = rot;
+		Spawn<TiresGo>(f8);
+
+		PxTransform f9 = PxTransform::createIdentity();
+		f9.p = PxVec3{ 237.0f, 13.5f, 21.4f };
+		f9.q = rot;
+		Spawn<TiresGo>(f9);
+
+		PxTransform f10 = PxTransform::createIdentity();
+		f10.p = PxVec3{ 239.7f, 10.3f, 22.5f };
+		f10.q = rot*rot2;
+		Spawn<TiresGo>(f10);
+
+		PxTransform f11 = PxTransform::createIdentity();
+		f11.p = PxVec3{ 238.3f, 12.1f, 22.5f };
+		f11.q = rot*rot2;
+		Spawn<TiresGo>(f11);
+
+		PxTransform f12 = PxTransform::createIdentity();
+		f12.p = PxVec3{ 237.0f, 13.5f, 22.5f };
+		f12.q = rot*rot2;
+		Spawn<TiresGo>(f12);
+
+		PxTransform f13 = PxTransform::createIdentity();
+		f13.p = PxVec3{ 243.7f, 16.1f, 21.0f };
+		Spawn<CrateGo<OrangeCrate>>(f13);
+
+		PxTransform f14 = PxTransform::createIdentity();
+		f14.p = PxVec3{ 241.8f, 18.5f, 21.0f };
+		Spawn<CrateGo<OrangeCrate>>(f14);
+
+		PxTransform f15 = PxTransform::createIdentity();
+		f15.p = PxVec3{ -116.108f, -106.165f, 2.5f };
+		Spawn<CrateGo<BrownCrate>>(f15);
+
+
+		PxTransform f16 = PxTransform::createIdentity();
+		f16.p = PxVec3{ -83.080f, -106.637f, 2.5f };
+		Spawn<CrateGo<OrangeCrate>>(f16);
+
+
+		PxTransform f17 = PxTransform::createIdentity();
+		f17.p = PxVec3{ -51.385f, -106.301f, 2.5f };
+		Spawn<CrateGo<WhiteCrate>>(f17);
+
+
+		PxTransform f18 = PxTransform::createIdentity();
+		f18.p = PxVec3{ 10.215f, -106.777f, 2.5f };
+		Spawn<CrateGo<BrownCrate>>(f18);
+
+
+		PxTransform f19 = PxTransform::createIdentity();
+		f19.p = PxVec3{ -21.385f, -107.048f, 2.5f };
+		Spawn<CrateGo<OrangeCrate>>(f19);
 	}
 	void SpawnManager::Update()
 	{
