@@ -16,23 +16,23 @@ namespace PM3D
 
 
 		//Set Components
-		//-----RenderComponent
+		//-----RenderComponent 
 		RenderComponent* p = CreateComponent<RenderComponent>();
 		p->GetMesh("tires");
 
 		//-----DynamicPhysicComponent
 		DynamicPhysicComponent* d = CreateComponent<DynamicPhysicComponent>();
 		PxPhysics &physics = SimulationManager::GetInstance().physics();
-		physx::unique_ptr<PxMaterial> material = physx::unique_ptr<PxMaterial>(physics.createMaterial(0.1f, 6.f, 0.2f));
+		physx::unique_ptr<PxMaterial> material = physx::unique_ptr<PxMaterial>(physics.createMaterial(0.1f, 6.f, 0.0f));
 		PxFilterData filterData;
 		filterData.word0 = COLLISION_FLAG_OBSTACLE;
 		filterData.word1 = COLLISION_FLAG_OBSTACLE_AGAINST;
 
-		d->InitData(PxBoxGeometry(PxVec3(1.3f, 1.3f, 1.8f)), move(material), filterData);
+		d->InitData(PxBoxGeometry(PxVec3(0.7f, 0.7f, 0.3f)), move(material), filterData);
 
 		PxTransform centerMass = physx::PxTransform::createIdentity();
-		centerMass.p = PxVec3(0, 0, 0.f);
-		PxVec3 inertiaTensor = { 5000,5000,5000 };
+		centerMass.p = PxVec3(0.f, 0.f, 0.15f);
+		PxVec3 inertiaTensor = { 50.f,50.f,50.f };
 		d->InitMass(50, centerMass, inertiaTensor);
 	}
 	void TiresGo::OnUnspawn()

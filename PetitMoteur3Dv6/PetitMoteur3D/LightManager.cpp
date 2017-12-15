@@ -36,7 +36,7 @@ namespace PM3D {
 			XM_PI / 8.f,
 			XM_PI / 4.f);
 
-		position = XMVectorSet(200.f, 200.f, 100.f, 1.0f);
+		position = XMVectorSet(400.f, 200.f, 100.f, 1.0f);
 
 		lights[1] = new CLight(position,
 			XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f),
@@ -47,7 +47,7 @@ namespace PM3D {
 			XM_PI / 8.f,
 			XM_PI / 4.f);
 
-		position = XMVectorSet(-200.f, 200.f, 100.f, 1.0f);
+		position = XMVectorSet(-400.f, 200.f, 100.f, 1.0f);
 
 		lights[2] = new CLight(position,
 			XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f),
@@ -58,7 +58,7 @@ namespace PM3D {
 			XM_PI / 8.f,
 			XM_PI / 4.f);
 
-		position = XMVectorSet(200.f, -200.f, 100.f, 1.0f);
+		position = XMVectorSet(400.f, -200.f, 100.f, 1.0f);
 
 		lights[3] = new CLight(position,
 			XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f),
@@ -69,7 +69,7 @@ namespace PM3D {
 			XM_PI / 8.f,
 			XM_PI / 4.f);
 
-		position = XMVectorSet(-200.f, -200.f, 100.f, 1.0f);
+		position = XMVectorSet(-400.f, -200.f, 100.f, 1.0f);
 
 		lights[4] = new CLight(position,
 			XMVectorSet(0.2f, 0.2f, 0.2f, 1.0f),

@@ -234,7 +234,7 @@ namespace PM3D
 
 		ID3DX11EffectShaderResourceVariable* variableTexture;
 		variableTexture = pEffet->GetVariableByName("textureEntree")->AsShaderResource();
-		pDispositif->ActiverMelangeAlpha();
+		
 
 		XMMATRIX viewProj = CMoteurWindows::GetInstance().GetMatViewProj();
 		auto frontVecCamera = -CCameraManager::GetInstance().GetCurrentCamera().GetFront();
@@ -245,6 +245,7 @@ namespace PM3D
 		XMMATRIX mat;
 		// Initialiser et sélectionner les «constantes» de l'effet
 		if (faceCamera) {
+			pDispositif->ActiverMelangeAlpha();
 			//XMMATRIX matRot = XMMatrixRotationZ(XMVectorGetZ(XMVector3AngleBetweenVectors(frontVecCamera, normal)));
 			mat = XMMatrixScaling(dimension.x, 1.0f, dimension.y)
 				* GetMatrixOrientation(posCamera, parentPosition)
@@ -283,8 +284,8 @@ namespace PM3D
 		pPasse->Apply(0, pImmediateContext);
 		// **** Rendu de l'objet
 		pImmediateContext->Draw(6, 0);
-		
-		pDispositif->DesactiverMelangeAlpha();
+		if (faceCamera)
+			pDispositif->DesactiverMelangeAlpha();
 
 	}
 
