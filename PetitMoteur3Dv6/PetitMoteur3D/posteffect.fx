@@ -85,11 +85,11 @@ float4 BloomExtractPS(VS_Sortie vs) : SV_Target
     return saturate((c - BloomThreshold) / (1 - BloomThreshold));
 }
 
-float BloomIntensity = 1.3f;
-float BaseIntensity = 1.0f;
+float BloomIntensity = 1.2f;
+float BaseIntensity = 1.5f;
 
-float BloomSaturation = 1.f;
-float BaseSaturation = 1.f;
+float BloomSaturation = 1.2f;
+float BaseSaturation = 1.2f;
 Texture2D bloomTexture;
 
 // Helper for modifying the saturation of a color.

@@ -40,8 +40,8 @@ namespace PM3D
 						BlackBoard::GetInstance().IncreaseRank(CrateTraits<CrateColor>::nb_points);
 						BlackBoard::GetInstance().AddBoost(CrateTraits<CrateColor>::bonus_boost);
 						SpawnManager::GetInstance().Unspawn(go);
-					}
-					isAlreadyTriggered = true;
+						isAlreadyTriggered = true;
+					}		
 				}
 				
 			}

@@ -10,7 +10,7 @@ namespace PM3D
 	private:
 		static constexpr char* typeId = "TerrainGo";
 	public:
-
+		virtual char* GetTypeId() { return "TerrainGo"; }
 		virtual void OnSpawn(const PxTransform& _transform = PxTransform::createIdentity(), GameObject* _parent = nullptr) override;
 		virtual void OnUnspawn() override;
 	};
