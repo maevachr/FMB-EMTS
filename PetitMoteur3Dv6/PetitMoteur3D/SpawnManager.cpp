@@ -22,9 +22,6 @@ namespace PM3D{
 		locationCrate.p = PxVec3{ 20, 20, 6 };
 		Spawn<CrateGo<BrownCrate>>(locationCrate);
 
-		PxTransform locationCrate2 = PxTransform::createIdentity();
-		locationCrate2.p = PxVec3{ 40, 20, 6 };
-		Spawn<CrateGo<WhiteCrate>>(locationCrate2);
 
 		PxTransform locationCrateM1 = PxTransform::createIdentity();
 		locationCrateM1.p = PxVec3{ -90, 175, 20 };
@@ -43,8 +40,12 @@ namespace PM3D{
 		Spawn<CrateGo<OrangeCrate>>(locationCrate4);
 
 		PxTransform locationCrate5 = PxTransform::createIdentity();
-		locationCrate5.p = PxVec3{ -30, -43.5, 12 };
+		locationCrate5.p = PxVec3{ -25, -43.5, 12 };
 		Spawn<CrateGo<OrangeCrate>>(locationCrate5);
+
+		PxTransform locationCrate6 = PxTransform::createIdentity();
+		locationCrate6.p = PxVec3{ -15, -43.5, 12 };
+		Spawn<CrateGo<OrangeCrate>>(locationCrate6);
 
 		PxTransform a1 = PxTransform::createIdentity();
 		a1.p = PxVec3{ 50, 125.5, 2 };
@@ -93,6 +94,11 @@ namespace PM3D{
 		PxTransform a12 = PxTransform::createIdentity();
 		a12.p = PxVec3{ +135, 202, 1.5 };
 		Spawn<CrateGo<BrownCrate>>(a12);
+
+		PxTransform beamGo3 = PxTransform::createIdentity();
+		beamGo3.p = PxVec3{ -60, -43.5, -7.5 };
+		Spawn<BeamGo>(beamGo3);
+
 
 		PxTransform a13 = PxTransform::createIdentity();
 		a13.p = PxVec3{ +148.5, 177, 1.5 };
@@ -230,10 +236,16 @@ namespace PM3D{
 		locationContainer3.p = PxVec3{ 0.0, -1, 0.5 };
 		Spawn<ContainerGo>(locationContainer3);
 
+		PxTransform locationContainer6 = PxTransform::createIdentity();
+		locationContainer6.p = PxVec3{ 34.0, -43.5, 4 };
+		locationContainer6.q = PxQuat{0.0 ,0.139f, 0.0, 0.990f}*PxQuat{ 0,0,0.707f,0.707f };
+		Spawn<ContainerGo>(locationContainer6);
+
 		PxTransform locationContainer4 = PxTransform::createIdentity();
-		locationContainer4.p = PxVec3{ 34.0, -43.5, 4 };
-		locationContainer4.q = PxQuat{0.0 ,0.139f, 0.0, 0.990f}*PxQuat{ 0,0,0.707f,0.707f };
+		locationContainer4.p = PxVec3{ -65, -43.5, 4 };
+		locationContainer4.q = PxQuat{ 0.0 ,-0.139f, 0.0, 0.990f }*PxQuat{ 0,0,0.707f,0.707f };
 		Spawn<ContainerGo>(locationContainer4);
+
 
 		PxTransform locationContainer5 = PxTransform::createIdentity();
 		locationContainer5.p = PxVec3{ -15.0, -43.5, 12 };
@@ -313,65 +325,78 @@ namespace PM3D{
 		PxQuat rot = PxQuat(XM_PIDIV4, PxVec3{ 0, 0, 1 }); 
 		PxQuat rot2 = PxQuat(XM_PIDIV2, PxVec3{ 0, 1, 0 });
 
+
+		//PILE 1
 		PxTransform f1 = PxTransform::createIdentity();
 		f1.p = PxVec3{ 239.7f, 10.3f, 19.5f};
 		f1.q = rot;
 		Spawn<TiresGo>(f1);
-
-		PxTransform f3 = PxTransform::createIdentity();
-		f3.p = PxVec3{ 238.3f, 12.1f, 19.5f };
-		f3.q = rot;
-		Spawn<TiresGo>(f3);
-
-		PxTransform f2 = PxTransform::createIdentity();
-		f2.p = PxVec3{ 237.0f, 13.5f, 19.5f };
-		f2.q = rot;
-		Spawn<TiresGo>(f2);
 
 		PxTransform f4 = PxTransform::createIdentity();
 		f4.p = PxVec3{ 239.7f, 10.3f, 20.5f };
 		f4.q = rot*rot2;
 		Spawn<TiresGo>(f4);
 
-		PxTransform f5 = PxTransform::createIdentity();
-		f5.p = PxVec3{ 238.3f, 12.1f, 20.5f };
-		f5.q = rot*rot2;
-		Spawn<TiresGo>(f5);
-
-		PxTransform f6 = PxTransform::createIdentity();
-		f6.p = PxVec3{ 237.0f, 13.5f, 20.5f };
-		f6.q = rot*rot2;
-		Spawn<TiresGo>(f6);
-
 		PxTransform f7 = PxTransform::createIdentity();
 		f7.p = PxVec3{ 239.7f, 10.3f, 21.4f };
 		f7.q = rot;
 		Spawn<TiresGo>(f7);
+
+	
+		PxTransform f10 = PxTransform::createIdentity();
+		f10.p = PxVec3{ 239.7f, 10.3f, 22.5f };
+		f10.q = rot*rot2;
+		Spawn<TiresGo>(f10);
+		
+
+		//PILE2
+		PxTransform f3 = PxTransform::createIdentity();
+		f3.p = PxVec3{ 238.3f, 12.1f, 19.5f };
+		f3.q = rot;
+		Spawn<TiresGo>(f3);
+
+		PxTransform f5 = PxTransform::createIdentity();
+		f5.p = PxVec3{ 238.3f, 12.1f, 20.5f };
+		f5.q = rot*rot2;
+		Spawn<TiresGo>(f5);
 
 		PxTransform f8 = PxTransform::createIdentity();
 		f8.p = PxVec3{ 238.3f, 12.1f, 21.4f };
 		f8.q = rot;
 		Spawn<TiresGo>(f8);
 
-		PxTransform f9 = PxTransform::createIdentity();
-		f9.p = PxVec3{ 237.0f, 13.5f, 21.4f };
-		f9.q = rot;
-		Spawn<TiresGo>(f9);
-
-		PxTransform f10 = PxTransform::createIdentity();
-		f10.p = PxVec3{ 239.7f, 10.3f, 22.5f };
-		f10.q = rot*rot2;
-		Spawn<TiresGo>(f10);
 
 		PxTransform f11 = PxTransform::createIdentity();
 		f11.p = PxVec3{ 238.3f, 12.1f, 22.5f };
 		f11.q = rot*rot2;
 		Spawn<TiresGo>(f11);
 
+		//PILE3
+		PxTransform f2 = PxTransform::createIdentity();
+		f2.p = PxVec3{ 237.0f, 13.5f, 19.5f };
+		f2.q = rot;
+		Spawn<TiresGo>(f2);
+
+		
+		PxTransform f6 = PxTransform::createIdentity();
+		f6.p = PxVec3{ 237.0f, 13.5f, 20.5f };
+		f6.q = rot*rot2;
+		Spawn<TiresGo>(f6);
+
+		
+		PxTransform f9 = PxTransform::createIdentity();
+		f9.p = PxVec3{ 237.0f, 13.5f, 21.4f };
+		f9.q = rot;
+		Spawn<TiresGo>(f9);
+		
+
 		PxTransform f12 = PxTransform::createIdentity();
 		f12.p = PxVec3{ 237.0f, 13.5f, 22.5f };
 		f12.q = rot*rot2;
 		Spawn<TiresGo>(f12);
+
+
+
 
 		PxTransform f13 = PxTransform::createIdentity();
 		f13.p = PxVec3{ 243.7f, 16.1f, 21.0f };
@@ -404,7 +429,130 @@ namespace PM3D{
 		PxTransform f19 = PxTransform::createIdentity();
 		f19.p = PxVec3{ -21.385f, -107.048f, 2.5f };
 		Spawn<CrateGo<OrangeCrate>>(f19);
+
+		PxTransform z1 = PxTransform::createIdentity();
+		z1.p = PxVec3{ -123, -18, 1.5 };
+		Spawn<CrateGo<BrownCrate>>(z1);
+
+		PxTransform z2 = PxTransform::createIdentity();
+		z2.p = PxVec3{ -82, -13, 1.5 };
+		Spawn<CrateGo<BrownCrate>>(z2);
+
+		PxTransform z3 = PxTransform::createIdentity();
+		z3.p = PxVec3{ 0.3f, -2, 0 };
+		Spawn<CrateGo<WhiteCrate>>(z3);
+
+		PxTransform z4 = PxTransform::createIdentity();
+		z4.p = PxVec3{ -67.f, -43.f, 2.f };
+		Spawn<CrateGo<BrownCrate>>(z4);
+
+		PxTransform z5 = PxTransform::createIdentity();
+		z5.p = PxVec3{ 33.5f, -43.f, 2.5f };
+		Spawn<CrateGo<BrownCrate>>(z5);
+
+		//PILE 1
+		PxVec3 w1{ -130.f, 18.f, -2.5f };
+		SpawnPileOfTire(w1);
+
+		//CountainerRoad 1
+		PxTransform beamGo15 = PxTransform::createIdentity();
+		beamGo15.p = PxVec3{ 153, -67, 2 - 0.5625f };
+		Spawn<BeamGo>(beamGo15);
+		PxTransform beamGo4 = PxTransform::createIdentity();
+		beamGo4.p = PxVec3{ 153, -60, 2 - 0.5625f };
+		Spawn<BeamGo>(beamGo4);
+		PxTransform beamGo5 = PxTransform::createIdentity();
+		beamGo5.p = PxVec3{ 153, -53, 2 - 0.5625f };
+		Spawn<BeamGo>(beamGo5);
+
+		PxTransform beamGo6 = PxTransform::createIdentity();
+		beamGo6.p = PxVec3{ 170, -67, 2 - 0.5625f };
+		Spawn<BeamGo>(beamGo6);
+		PxTransform beamGo7 = PxTransform::createIdentity();
+		beamGo7.p = PxVec3{ 170, -60, 2 - 0.5625f };
+		Spawn<BeamGo>(beamGo7);
+		PxTransform beamGo8 = PxTransform::createIdentity();
+		beamGo8.p = PxVec3{ 170, -53, 2 - 0.5625f };
+		Spawn<BeamGo>(beamGo8);
+
+
+		PxTransform locationContainer12 = PxTransform::createIdentity();
+		locationContainer12.p = PxVec3{ 165, -67, 14 };
+		locationContainer12.q = PxQuat{ 0,0,0.707f,0.707f };
+		Spawn<ContainerGo>(locationContainer12);
+
+		PxTransform y1 = PxTransform::createIdentity();
+		y1.p = PxVec3{ 165, -67, 14.f };
+		Spawn<CrateGo<OrangeCrate>>(y1);
+
+		PxTransform locationContainer11 = PxTransform::createIdentity();
+		locationContainer11.p = PxVec3{ 165, -60, 14 };
+		locationContainer11.q = PxQuat{ 0,0,0.707f,0.707f };
+		Spawn<ContainerGo>(locationContainer11);
+
+		PxTransform y2 = PxTransform::createIdentity();
+		y2.p = PxVec3{ 165, -60, 14.f };
+		Spawn<CrateGo<WhiteCrate>>(y2);
+
+		PxTransform locationContainer13 = PxTransform::createIdentity();
+		locationContainer13.p = PxVec3{ 165, -53, 14 };
+		locationContainer13.q = PxQuat{ 0,0,0.707f,0.707f };
+		Spawn<ContainerGo>(locationContainer13);
+
+		PxTransform y3 = PxTransform::createIdentity();
+		y3.p = PxVec3{ 165, -53, 14.f };
+		Spawn<CrateGo<OrangeCrate>>(y3);
+
+		//SECOND CountainerRoad
+		PxTransform beamGo9 = PxTransform::createIdentity();
+		beamGo9.p = PxVec3{ 185, -67.f, -7.f };
+		Spawn<BeamGo>(beamGo9);
+		PxTransform beamGo10 = PxTransform::createIdentity();
+		beamGo10.p = PxVec3{ 185, -60.f, -7.f };
+		Spawn<BeamGo>(beamGo10);
+		PxTransform beamGo11 = PxTransform::createIdentity();
+		beamGo11.p = PxVec3{ 185, -53.f, -7.f };
+		Spawn<BeamGo>(beamGo11);
+
+		PxTransform beamGo12 = PxTransform::createIdentity();
+		beamGo12.p = PxVec3{ 200, -67.f, -7.f };
+		Spawn<BeamGo>(beamGo12);
+		PxTransform beamGo13 = PxTransform::createIdentity();
+		beamGo13.p = PxVec3{ 200, -60.f, -7.f };
+		Spawn<BeamGo>(beamGo13);
+		PxTransform beamGo14 = PxTransform::createIdentity();
+		beamGo14.p = PxVec3{ 200, -53.f, -7.f };
+		Spawn<BeamGo>(beamGo14);
+
+
+		PxTransform locationContainer8 = PxTransform::createIdentity();
+		locationContainer8.p = PxVec3{ 196, -67.f, 6 };
+		locationContainer8.q = PxQuat{ 0,0,0.707f,0.707f };
+		Spawn<ContainerGo>(locationContainer8);
+
+		PxTransform y4 = PxTransform::createIdentity();
+		y4.p = PxVec3{ 196, -67.f, 14.f };
+		Spawn<CrateGo<WhiteCrate>>(y4);
+
+		PxTransform locationContainer9 = PxTransform::createIdentity();
+		locationContainer9.p = PxVec3{ 196, -60.f, 6 };
+		locationContainer9.q = PxQuat{ 0,0,0.707f,0.707f };
+		Spawn<ContainerGo>(locationContainer9);
+
+		PxTransform y5 = PxTransform::createIdentity();
+		y5.p = PxVec3{ 196, -60.f, 14.f };
+		Spawn<CrateGo<OrangeCrate>>(y5);
+
+		PxTransform locationContainer10 = PxTransform::createIdentity();
+		locationContainer10.p = PxVec3{ 196, -53.f, 6 };
+		locationContainer10.q = PxQuat{ 0,0,0.707f,0.707f };
+		Spawn<ContainerGo>(locationContainer10);
+
+		PxTransform y6 = PxTransform::createIdentity();
+		y6.p = PxVec3{ 196, -53.f, 14.f };
+		Spawn<CrateGo<WhiteCrate>>(y6);
 	}
+
 	void SpawnManager::Update()
 	{
 		//unspawn objects in unspawnlist
@@ -425,6 +573,27 @@ namespace PM3D{
 			go->OnUnspawn();
 			delete go;
 		});
+	}
+	void SpawnManager::SpawnPileOfTire(const PxVec3& position)
+	{
+		PxQuat rot2 = PxQuat(XM_PIDIV2, PxVec3{ 0, 1, 0 });
+		PxTransform x1 = PxTransform::createIdentity();
+		x1.p = position + PxVec3{ 0.f,0.f, 0.f };
+		Spawn<TiresGo>(x1);
+
+		PxTransform x2 = PxTransform::createIdentity();
+		x2.p = position + PxVec3{ 0.f,0.f, 1.f };
+		x2.q = rot2;
+		Spawn<TiresGo>(x2);
+
+		PxTransform x3 = PxTransform::createIdentity();
+		x3.p = position + PxVec3{ 0.f,0.f, 1.9f };
+		Spawn<TiresGo>(x3);
+
+		PxTransform x4 = PxTransform::createIdentity();
+		x4.p = position + PxVec3{ 0.f,0.f, 3.f };
+		x4.q = rot2;
+		Spawn<TiresGo>(x4);
 	}
 	void SpawnManager::Unspawn(GameObject * go)
 	{

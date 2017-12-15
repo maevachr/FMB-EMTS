@@ -47,6 +47,9 @@ namespace PM3D
 		void Update();
 		void CleanUp();
 
+	private:
+		void SpawnPileOfTire(const PxVec3& transform);
+	public:
 		template<class T>
 		void Spawn(const PxTransform& transform = PxTransform::createIdentity())
 		{
