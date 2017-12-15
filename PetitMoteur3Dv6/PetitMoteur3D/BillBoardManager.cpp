@@ -346,7 +346,7 @@ namespace PM3D
 		explosionBbmini2->setDuration(1.0f);*/
 
 		////Nitro derrière le véhicule
-		BillBoard* nitro = new BillBoard{ _pDispositif,{ "FeuCentre.dds" }, XMFLOAT3{ 0.f,0.f,0.f } , 2.f, 4.f, nullptr, true,  XMFLOAT3(-1.0f, 1.05f, -0.84f) };
+		BillBoard* nitro = new BillBoard{ _pDispositif,{ "FeuCentre.dds" }, XMFLOAT3{ 0.f,0.f,0.f } , 2.f, 4.f, nullptr, true,  XMFLOAT3(-0.95f, 0.75f, -0.87f) };
 		nitro->InitName("nitro");
 		billBoards.push_back(nitro);
 		nitro->SetDimension(3072, 5112);
@@ -357,7 +357,7 @@ namespace PM3D
 		nitroBb->setDuration(0.5f);
 
 		//Nitro derrière le véhicule
-		BillBoard* nitro2 = new BillBoard{ _pDispositif,{ "FeuCentre.dds" }, XMFLOAT3{ 0.f,0.f,0.f } , 2.f, 4.f, nullptr, true,  XMFLOAT3(-1.0f, 1.05f, 0.84f) };
+		BillBoard* nitro2 = new BillBoard{ _pDispositif,{ "FeuCentre.dds" }, XMFLOAT3{ 0.f,0.f,0.f } , 2.f, 4.f, nullptr, true,  XMFLOAT3(-0.95f, 0.75f, 0.87f) };
 		nitro2->InitName("nitro2");
 		billBoards.push_back(nitro2);
 		nitro2->SetDimension(3072, 5112);
@@ -368,7 +368,7 @@ namespace PM3D
 		nitroBb2->setDuration(0.5f);
 
 		//Nitro derrière le véhicule
-		BillBoard* smoke = new BillBoard{ _pDispositif,{ "smoke.dds" }, XMFLOAT3{ 0.f,0.f,0.f } , 0.5f, 0.5f, nullptr, true,  XMFLOAT3(-1.0f, 1.f, 0.84f) };
+		BillBoard* smoke = new BillBoard{ _pDispositif,{ "smoke.dds" }, XMFLOAT3{ 0.f,0.f,0.f } , 0.5f, 0.5f, nullptr, true,  XMFLOAT3(-0.95f, 0.70f, 0.87f) };
 		smoke->InitName("smoke");
 		billBoards.push_back(smoke);
 		smoke->SetDimension(1536, 1279);
@@ -379,7 +379,7 @@ namespace PM3D
 		smokeBb->setDuration(0.5f);
 
 		////Nitro derrière le véhicule
-		BillBoard* smoke2 = new BillBoard{ _pDispositif,{ "Smoke2.dds" }, XMFLOAT3{ 0.f,0.f,0.f } , 0.5f, 0.5f, nullptr, true,  XMFLOAT3(-1.0f, 1.f, -0.84f) };
+		BillBoard* smoke2 = new BillBoard{ _pDispositif,{ "Smoke2.dds" }, XMFLOAT3{ 0.f,0.f,0.f } , 0.5f, 0.5f, nullptr, true,  XMFLOAT3(-0.95f, 0.70f, -0.87f) };
 		smoke2->InitName("smoke2");
 		billBoards.push_back(smoke2);
 		smoke2->SetDimension(1536, 1279);
