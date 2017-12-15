@@ -16,6 +16,7 @@ EndState::EndState(StateStack& stack, Context context)
 {
 	EcrireScore();
 	EcrireRank();
+	SoundManager::GetInstance().PauseSound(SoundManager::ENGINE);
 }
 
 void EndState::draw()

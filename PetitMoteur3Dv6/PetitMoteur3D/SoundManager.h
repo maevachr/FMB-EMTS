@@ -88,6 +88,10 @@ namespace PM3D
 			float countdownVolume;
 			channel[COUNTDOWN]->getVolume(&countdownVolume);
 			channel[COUNTDOWN]->setVolume(countdownVolume* 1.2f);
+
+			float cheerVolume;
+			channel[CHEERING]->getVolume(&cheerVolume);
+			channel[CHEERING]->setVolume(cheerVolume* 0.7f);
 		}
 
 		//Dont use this for music | engine | boost which are loops

@@ -18,11 +18,6 @@ namespace PM3D{
 		//Dernier objet à être rendu
 		Spawn<TerrainGo>();
 
-		PxTransform locationCrate = PxTransform::createIdentity();
-		locationCrate.p = PxVec3{ 20, 20, 6 };
-		Spawn<CrateGo<BrownCrate>>(locationCrate);
-
-
 		PxTransform locationCrateM1 = PxTransform::createIdentity();
 		locationCrateM1.p = PxVec3{ -90, 175, 20 };
 		Spawn<CrateGo<BrownCrate>>(locationCrateM1);
