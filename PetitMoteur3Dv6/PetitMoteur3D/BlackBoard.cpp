@@ -17,6 +17,10 @@ namespace PM3D
 		{
 			SoundManager::GetInstance().ContinueSound(SoundManager::CROWD_COUNTDOWN);
 		}
+		if (chrono < 0.5f)
+		{
+			SoundManager::GetInstance().ContinueSound(SoundManager::HORN);
+		}
 
 		boost += TempsEcoule * 4.0f;
 		if (boost > MAX_BOOST) {
