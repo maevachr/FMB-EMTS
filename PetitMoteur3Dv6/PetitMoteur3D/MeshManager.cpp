@@ -608,7 +608,7 @@ namespace PM3D
 		// Initialisation de l'effet
 		InitEffet();
 
-		SetTexture(CGestionnaireDeTextures::GetInstance().GetNewTexture(L"skybox3.dds", pDispositif));
+		SetTexture(CGestionnaireDeTextures::GetInstance().GetNewTexture(L"skynight2.dds", pDispositif));
 
 	}
 	void SkyBoxMesh::Draw(XMMATRIX matWorld, XMVECTOR ownerPosition)

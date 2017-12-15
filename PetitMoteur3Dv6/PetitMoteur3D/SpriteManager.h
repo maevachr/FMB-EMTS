@@ -177,43 +177,7 @@ namespace PM3D
 	public:
 		void ExtractBloom();
 		void DrawBlur(ID3D11ShaderResourceView* pBloomResourceView);
-		void CombineSceneAndBloom(ID3D11ShaderResourceView* pBloomResourceView);
-	private:
-		struct GaussianBlurFunction {
-			static const int SAMPLE_COUNT = 15;
-			static void ComputeGaussian() {
-				float temp[SAMPLE_COUNT];
-				iota(begin(temp), end(temp), -7.f);
-
-				float sigma = 0.84089642;
-				for (int i = 0; i < 15; i++)
-				{
-					SampleWeights[i] = 1. / (2 * XM_PI * sigma * sigma) *exp(-temp[i] * temp[i] / (2 * sigma*sigma));
-				}
-			}
-			static void GetOffsetHorizon() {
-				vector<float> temp(15);
-				iota(begin(temp), end(temp), -7.f);
-
-				transform(begin(temp), end(temp), begin(SampleHorizontalOffsets), [](float x) ->XMFLOAT2 {return { x, 0.f }; }); //y == 0
-			}
-			static void GetOffsetVert() {
-				vector<float> temp(15);
-				iota(begin(temp), end(temp), -7.f);
-
-				transform(begin(temp), end(temp), begin(SampleVerticalOffsets), [](float y) ->XMFLOAT2 {return { 0.f, y }; }); //x == 0
-			}
-
-			static void Generate() {
-				ComputeGaussian();
-				GetOffsetHorizon();
-				GetOffsetVert();
-			}
-			
-			static XMFLOAT2 SampleHorizontalOffsets[SAMPLE_COUNT];
-			static XMFLOAT2 SampleVerticalOffsets[SAMPLE_COUNT];
-			static float SampleWeights[SAMPLE_COUNT];
-		};
+		void CombineSceneAndBloom(ID3D11ShaderResourceView* pBloomResourceView);	
 	};
 
 	class SpriteManager {
