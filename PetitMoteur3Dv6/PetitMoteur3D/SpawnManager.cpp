@@ -10,7 +10,7 @@ namespace PM3D{
 
 		//Always put MonsterTruckGo first
 		PxTransform locationTruck = PxTransform::createIdentity();
-		locationTruck.p = PxVec3{ -100, 0, 20 };
+		locationTruck.p = PxVec3{ -196.287f, -19.993f, 20.4f };
 		locationTruck.q = PxQuat( 0, 0.0, 0.707, 0.707)*PxQuat(0.707, 0, 0, 0.707);
 		Spawn<MonsterTruckGo>(locationTruck);
 
