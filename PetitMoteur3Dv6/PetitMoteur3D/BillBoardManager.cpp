@@ -346,23 +346,23 @@ namespace PM3D
 		explosionBbmini2->setDuration(1.0f);*/
 
 		////Nitro derrière le véhicule
-		BillBoard* nitro = new BillBoard{ _pDispositif,{ "flamme.dds" }, XMFLOAT3{ 0.f,0.f,0.f } , 2.f, 2.f, nullptr, true,  XMFLOAT3(-1.0f, 1.5f, -0.84f) };
+		BillBoard* nitro = new BillBoard{ _pDispositif,{ "FeuCentre.dds" }, XMFLOAT3{ 0.f,0.f,0.f } , 2.f, 4.f, nullptr, true,  XMFLOAT3(-1.0f, 1.05f, -0.84f) };
 		nitro->InitName("nitro");
 		billBoards.push_back(nitro);
-		nitro->SetDimension(3072, 3072);
+		nitro->SetDimension(3072, 5112);
 		nitroBb = new AnimationBillBoard(nitro);
-		nitroBb->setFrameSize(512, 512);
+		nitroBb->setFrameSize(512, 852);
 		nitroBb->setRepeating(true);
 		nitroBb->setNumFrames(36);
 		nitroBb->setDuration(0.5f);
 
 		//Nitro derrière le véhicule
-		BillBoard* nitro2 = new BillBoard{ _pDispositif,{ "flamme.dds" }, XMFLOAT3{ 0.f,0.f,0.f } , 2.f, 2.f, nullptr, true,  XMFLOAT3(-1.0f, 1.5f, 0.84f) };
+		BillBoard* nitro2 = new BillBoard{ _pDispositif,{ "FeuCentre.dds" }, XMFLOAT3{ 0.f,0.f,0.f } , 2.f, 4.f, nullptr, true,  XMFLOAT3(-1.0f, 1.05f, 0.84f) };
 		nitro2->InitName("nitro2");
 		billBoards.push_back(nitro2);
-		nitro2->SetDimension(3072, 3072);
+		nitro2->SetDimension(3072, 5112);
 		nitroBb2 = new AnimationBillBoard(nitro2);
-		nitroBb2->setFrameSize(512, 512);
+		nitroBb2->setFrameSize(512, 852);
 		nitroBb2->setRepeating(true);
 		nitroBb2->setNumFrames(36);
 		nitroBb2->setDuration(0.5f);
