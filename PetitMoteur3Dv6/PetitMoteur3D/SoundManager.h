@@ -69,12 +69,12 @@ namespace PM3D
 			sound[HORN]->setLoopCount(0);
 
 			//Start Loops
-			system->playSound(FMOD_CHANNEL_FREE, sound[BOOST], true, &channel[BOOST]);
-			system->playSound(FMOD_CHANNEL_FREE, sound[ENGINE], true, &channel[ENGINE]);
-			system->playSound(FMOD_CHANNEL_FREE, sound[MUSIC], true, &channel[MUSIC]);
-			system->playSound(FMOD_CHANNEL_FREE, sound[INTRO], true, &channel[INTRO]);
-			system->playSound(FMOD_CHANNEL_FREE, sound[CROWD_COUNTDOWN], true, &channel[CROWD_COUNTDOWN]);
-			system->playSound(FMOD_CHANNEL_FREE, sound[HORN], true, &channel[HORN]);
+			system->playSound(FMOD_CHANNEL_REUSE, sound[BOOST], true, &channel[BOOST]);
+			system->playSound(FMOD_CHANNEL_REUSE, sound[ENGINE], true, &channel[ENGINE]);
+			system->playSound(FMOD_CHANNEL_REUSE, sound[MUSIC], true, &channel[MUSIC]);
+			system->playSound(FMOD_CHANNEL_REUSE, sound[INTRO], true, &channel[INTRO]);
+			system->playSound(FMOD_CHANNEL_REUSE, sound[CROWD_COUNTDOWN], true, &channel[CROWD_COUNTDOWN]);
+			system->playSound(FMOD_CHANNEL_REUSE, sound[HORN], true, &channel[HORN]);
 
 			//Get the engine base parameter
 			channel[ENGINE]->getFrequency(&engineFrequency);
@@ -92,7 +92,7 @@ namespace PM3D
 
 		//Dont use this for music | engine | boost which are loops
 		void PlaySoundEffect(SoundType id) {
-			system->playSound(FMOD_CHANNEL_FREE, sound[id], false, &channel[id]);
+			system->playSound(FMOD_CHANNEL_REUSE, sound[id], false, &channel[id]);
 		}
 		void PauseSound(SoundType id) {
 			channel[id]->setPaused(true);
