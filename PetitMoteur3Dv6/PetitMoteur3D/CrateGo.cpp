@@ -16,6 +16,7 @@ namespace PM3D
 	{
 	private:
 		GameObject* go;
+		bool isAlreadyTriggered = false;
 	public:
 		CrateCollisionHandler(GameObject* _go) : go{ _go }
 		{
@@ -27,17 +28,22 @@ namespace PM3D
 			auto detect = COLLISION_FLAG_CHASSIS | COLLISION_FLAG_WHEEL;
 			if (other->getSimulationFilterData().word0 & detect)
 			{
-				VehiclePhysicComponent* vpc = SpawnManager::GetInstance().GetPlayer()->As<VehiclePhysicComponent>();
-				PxRigidDynamic* actor = vpc->GetPxActor();
-				float vitesse = actor->getLinearVelocity().normalize();
-				if (vitesse > CrateTraits<CrateColor>::breaking_speed) {
-					PxTransform decalage = go->GetWorldTransform();
-					SpawnManager::GetInstance().Spawn<ExplodedBox<CrateColor>>(decalage);
-					SpawnManager::GetInstance().Spawn<ExplosionGo>(decalage);
-					BlackBoard::GetInstance().AddPoints(CrateTraits<CrateColor>::nb_points);
-					BlackBoard::GetInstance().AddBoost(CrateTraits<CrateColor>::bonus_boost);
-					SpawnManager::GetInstance().Unspawn(go);
+				if (!isAlreadyTriggered) {
+					VehiclePhysicComponent* vpc = SpawnManager::GetInstance().GetPlayer()->As<VehiclePhysicComponent>();
+					PxRigidDynamic* actor = vpc->GetPxActor();
+					float vitesse = actor->getLinearVelocity().normalize();
+					if (vitesse > CrateTraits<CrateColor>::breaking_speed) {
+						PxTransform decalage = go->GetWorldTransform();
+						SpawnManager::GetInstance().Spawn<ExplodedBox<CrateColor>>(decalage);
+						SpawnManager::GetInstance().Spawn<ExplosionGo>(decalage);
+						BlackBoard::GetInstance().AddPoints(CrateTraits<CrateColor>::nb_points);
+						BlackBoard::GetInstance().IncreaseRank(CrateTraits<CrateColor>::nb_points);
+						BlackBoard::GetInstance().AddBoost(CrateTraits<CrateColor>::bonus_boost);
+						SpawnManager::GetInstance().Unspawn(go);
+						isAlreadyTriggered = true;
+					}		
 				}
+				
 			}
 		}
 

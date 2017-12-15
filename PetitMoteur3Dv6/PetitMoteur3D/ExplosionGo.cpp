@@ -11,7 +11,7 @@ namespace PM3D
 	{
 		GameObject::OnSpawn(_transform, _parent);
 		SpawnManager::GetInstance().AddGameObjects(this);
-		CallBackManager::GetInstance().AddCallBack(new UnspawnCallBack{ this, 0.5f });
+		CallBackManager::GetInstance().AddCallBack(new UnspawnCallBack{ this, 1.0f });
 		//Set GameObjects
 
 

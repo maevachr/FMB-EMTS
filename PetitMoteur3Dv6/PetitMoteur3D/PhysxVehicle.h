@@ -60,7 +60,7 @@ public:
 	void releaseSteering();
 	void releaseAccelerate();
 	void releaseAllControls();
-	PxRigidDynamic* initPhysics();
+	PxRigidDynamic* initPhysics(PxTransform startTransform);
 	void incrementDrivingMode(const PxF32 timestep);
 	void stepPhysics();
 	void cleanupPhysics();

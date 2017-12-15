@@ -8,6 +8,7 @@
 #include "BlackBoard.h"
 #include <string>
 #include "Animation.h" 
+#include "TextureRenderer.h"
 
 using namespace UtilitairesDX;
 namespace PM3D
@@ -346,7 +347,8 @@ namespace PM3D
 			XMMatrixTranslation(posX, posY, 0.0f);
 	}
 
-	void TextSprite::Ecrire(wstring s)
+
+	void TextSprite::Ecrire(wstring s, int size)
 	{
 		// Effacer
 		pCharGraphics->Clear(Gdiplus::Color(0, 0, 0, 0));
@@ -357,7 +359,7 @@ namespace PM3D
 
 		GraphicsPath path;
 		path.AddString(pszbuf, wcslen(pszbuf), &fontFamily,
-			FontStyleRegular, 48, Gdiplus::Point(10, 10), &strformat);
+			FontStyleRegular, size, Gdiplus::Point(10, 10), &strformat);
 		Pen pen(Gdiplus::Color(0, 0, 0), 6);
 		pCharGraphics->DrawPath(&pen, &path);
 		SolidBrush brush(Gdiplus::Color(255, 255, 255));
@@ -417,6 +419,12 @@ namespace PM3D
 		DXRelacher(pTextureScene);
 		DXRelacher(pDepthStencilView);
 		DXRelacher(pDepthTexture);
+
+		DXRelacher(pBloomResourceView);
+		DXRelacher(pBloomRenderTargetView);
+		DXRelacher(pBloomTextureScene);
+		DXRelacher(pBloomDepthStencilView);
+		DXRelacher(pBloomDepthTexture);
 
 		for (int i = 0; i < NOMBRE_TECHNIQUES; i++) DXRelacher(pVertexLayoutTab[i]);
 	}
@@ -505,6 +513,9 @@ namespace PM3D
 
 		// Création de la texture 
 		pD3DDevice->CreateTexture2D(&textureDesc, NULL, &pTextureScene);
+		pD3DDevice->CreateTexture2D(&textureDesc, NULL, &pBloomTextureScene);
+		pD3DDevice->CreateTexture2D(&textureDesc, NULL, &pBlurTextureScene);
+		pD3DDevice->CreateTexture2D(&textureDesc, NULL, &pCombinedTextureScene);
 
 		// VUE - Cible de rendu 
 		renderTargetViewDesc.Format = textureDesc.Format;
@@ -513,6 +524,9 @@ namespace PM3D
 
 		// Création de la vue. 
 		pD3DDevice->CreateRenderTargetView(pTextureScene, &renderTargetViewDesc, &pRenderTargetView);
+		pD3DDevice->CreateRenderTargetView(pBloomTextureScene, &renderTargetViewDesc, &pBloomRenderTargetView);
+		pD3DDevice->CreateRenderTargetView(pBlurTextureScene, &renderTargetViewDesc, &pBlurRenderTargetView);
+		pD3DDevice->CreateRenderTargetView(pCombinedTextureScene, &renderTargetViewDesc, &pCombinedRenderTargetView);
 
 		// VUE – Ressource de shader 
 		shaderResourceViewDesc.Format = textureDesc.Format;
@@ -522,6 +536,9 @@ namespace PM3D
 
 		// Création de la vue. 
 		pD3DDevice->CreateShaderResourceView(pTextureScene, &shaderResourceViewDesc, &pResourceView);
+		pD3DDevice->CreateShaderResourceView(pBloomTextureScene, &shaderResourceViewDesc, &pBloomResourceView);
+		pD3DDevice->CreateShaderResourceView(pBlurTextureScene, &shaderResourceViewDesc, &pBlurResourceView);
+		pD3DDevice->CreateShaderResourceView(pCombinedTextureScene, &shaderResourceViewDesc, &pCombinedResourceView);
 
 		// Au tour du tampon de profondeur 
 		D3D11_TEXTURE2D_DESC depthTextureDesc;
@@ -539,6 +556,9 @@ namespace PM3D
 		depthTextureDesc.MiscFlags = 0;
 
 		DXEssayer(pD3DDevice->CreateTexture2D(&depthTextureDesc, NULL, &pDepthTexture), DXE_ERREURCREATIONTEXTURE);
+		DXEssayer(pD3DDevice->CreateTexture2D(&depthTextureDesc, NULL, &pBloomDepthTexture), DXE_ERREURCREATIONTEXTURE);
+		DXEssayer(pD3DDevice->CreateTexture2D(&depthTextureDesc, NULL, &pBlurDepthTexture), DXE_ERREURCREATIONTEXTURE);
+		DXEssayer(pD3DDevice->CreateTexture2D(&depthTextureDesc, NULL, &pCombinedDepthTexture), DXE_ERREURCREATIONTEXTURE);
 
 		// Création de la vue du tampon de profondeur (ou de stencil)
 		D3D11_DEPTH_STENCIL_VIEW_DESC descDSView;
@@ -547,6 +567,9 @@ namespace PM3D
 		descDSView.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
 		descDSView.Texture2D.MipSlice = 0;
 		DXEssayer(pD3DDevice->CreateDepthStencilView(pDepthTexture, &descDSView, &pDepthStencilView), DXE_ERREURCREATIONDEPTHSTENCILTARGET);
+		DXEssayer(pD3DDevice->CreateDepthStencilView(pBloomDepthTexture, &descDSView, &pBloomDepthStencilView), DXE_ERREURCREATIONDEPTHSTENCILTARGET);
+		DXEssayer(pD3DDevice->CreateDepthStencilView(pBlurDepthTexture, &descDSView, &pBlurDepthStencilView), DXE_ERREURCREATIONDEPTHSTENCILTARGET);
+		DXEssayer(pD3DDevice->CreateDepthStencilView(pCombinedDepthTexture, &descDSView, &pCombinedDepthStencilView), DXE_ERREURCREATIONDEPTHSTENCILTARGET);
 	}
 
 	void PostEffectSprite::DebutPostEffect()
@@ -559,6 +582,7 @@ namespace PM3D
 
 		// Utiliser la texture comme surface de rendu et le tampon de profondeur associé 
 		pDispositif->SetRenderTargetView(pRenderTargetView, pDepthStencilView);
+		
 	}
 
 	void PostEffectSprite::FinPostEffect()
@@ -567,8 +591,7 @@ namespace PM3D
 		pDispositif->SetRenderTargetView(pOldRenderTargetView, pOldDepthStencilView);
 	}
 
-	void PostEffectSprite::Draw()
-	{
+	void PostEffectSprite::Draw(ID3D11ShaderResourceView* pCombinedResourceView) {
 		// Obtenir le contexte 
 		ID3D11DeviceContext* pImmediateContext = pDispositif->GetImmediateContext();
 
@@ -595,20 +618,138 @@ namespace PM3D
 		// La «constante» distance 
 		ID3DX11EffectScalarVariable* distance;
 		distance = pEffet->GetVariableByName("distance")->AsScalar();
-		distance->SetFloat((float)radialStrenght);
+		distance->SetFloat(0);
 
 		ID3DX11EffectShaderResourceVariable* variableTexture;
 		variableTexture = pEffet->GetVariableByName("textureEntree")->AsShaderResource();
 
 		// Activation de la texture 
-		variableTexture->SetResource(pResourceView);
+		if (pCombinedResourceView)
+			variableTexture->SetResource(pCombinedResourceView);
+		else
+			variableTexture->SetResource(pResourceView);
+
 		pPasse->Apply(0, pImmediateContext);
 
 		// **** Rendu de l'objet
 		pImmediateContext->Draw(6, 0);
 	}
 
+	void PostEffectSprite::ExtractBloom()
+	{
+		// Obtenir le contexte 
+		ID3D11DeviceContext* pImmediateContext = pDispositif->GetImmediateContext();
 
+		// Choisir la topologie des primitives 
+		pImmediateContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+		// Source des sommets 
+		UINT stride = sizeof(CSommetSprite);
+		UINT offset = 0;
+		pImmediateContext->IASetVertexBuffers(0, 1, &pVertexBuffer, &stride, &offset);
+
+		// Choix de la technique 
+		pTechnique = pEffet->GetTechniqueByIndex(BloomExtract);
+		pPasse = pTechnique->GetPassByIndex(0);
+
+		// input layout des sommets 
+		pImmediateContext->IASetInputLayout(pVertexLayoutTab[1]);
+
+		// Le sampler state 
+		ID3DX11EffectSamplerVariable* variableSampler;
+		variableSampler = pEffet->GetVariableByName("SampleState")->AsSampler();
+		variableSampler->SetSampler(0, pSampleState);
+
+		ID3DX11EffectShaderResourceVariable* variableTexture;
+		variableTexture = pEffet->GetVariableByName("textureEntree")->AsShaderResource();
+		variableTexture->SetResource(pResourceView);
+
+		pPasse->Apply(0, pImmediateContext);
+
+		// **** Rendu de l'objet
+		pImmediateContext->Draw(6, 0);
+	}
+
+	void PostEffectSprite::DrawBlur(ID3D11ShaderResourceView* pBloomResourceView)
+	{
+		// Obtenir le contexte 
+		ID3D11DeviceContext* pImmediateContext = pDispositif->GetImmediateContext();
+
+		// Choisir la topologie des primitives 
+		pImmediateContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+		// Source des sommets 
+		UINT stride = sizeof(CSommetSprite);
+		UINT offset = 0;
+		pImmediateContext->IASetVertexBuffers(0, 1, &pVertexBuffer, &stride, &offset);
+
+		// Choix de la technique 
+		pTechnique = pEffet->GetTechniqueByIndex(Blur);
+		pPasse = pTechnique->GetPassByIndex(0);
+
+		// input layout des sommets 
+		pImmediateContext->IASetInputLayout(pVertexLayoutTab[1]);
+
+		// Le sampler state 
+		ID3DX11EffectSamplerVariable* variableSampler;
+		variableSampler = pEffet->GetVariableByName("SampleState")->AsSampler();
+		variableSampler->SetSampler(0, pSampleState);
+
+		ID3DX11EffectShaderResourceVariable* variableTexture;
+		variableTexture = pEffet->GetVariableByName("textureEntree")->AsShaderResource();
+		variableTexture->SetResource(pBloomResourceView);
+
+		ID3DX11EffectScalarVariable* offsetX;
+		offsetX = pEffet->GetVariableByName("offsetX")->AsScalar();
+		offsetX->SetFloat(float(1.f / 1024.f));
+
+		ID3DX11EffectScalarVariable* offsetY;
+		offsetY = pEffet->GetVariableByName("offsetY")->AsScalar();
+		offsetY->SetFloat(float(1.f / 768.f));
+
+		pPasse->Apply(0, pImmediateContext);
+
+		// **** Rendu de l'objet
+		pImmediateContext->Draw(6, 0);
+	}
+
+	void PostEffectSprite::CombineSceneAndBloom(ID3D11ShaderResourceView* pBlurResourceView)
+	{
+		// Obtenir le contexte 
+		ID3D11DeviceContext* pImmediateContext = pDispositif->GetImmediateContext();
+
+		// Choisir la topologie des primitives 
+		pImmediateContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+		// Source des sommets 
+		UINT stride = sizeof(CSommetSprite);
+		UINT offset = 0;
+		pImmediateContext->IASetVertexBuffers(0, 1, &pVertexBuffer, &stride, &offset);
+
+		// Choix de la technique 
+		pTechnique = pEffet->GetTechniqueByIndex(BloomCombine);
+		pPasse = pTechnique->GetPassByIndex(0);
+
+		// input layout des sommets 
+		pImmediateContext->IASetInputLayout(pVertexLayoutTab[1]);
+
+		// Le sampler state 
+		ID3DX11EffectSamplerVariable* variableSampler;
+		variableSampler = pEffet->GetVariableByName("SampleState")->AsSampler();
+		variableSampler->SetSampler(0, pSampleState);
+
+		ID3DX11EffectShaderResourceVariable* variableTexture;
+		variableTexture = pEffet->GetVariableByName("textureEntree")->AsShaderResource();
+		variableTexture->SetResource(pResourceView);
+
+		variableTexture = pEffet->GetVariableByName("bloomTexture")->AsShaderResource();
+		variableTexture->SetResource(pBlurResourceView);
+
+		pPasse->Apply(0, pImmediateContext);
+
+		// **** Rendu de l'objet
+		pImmediateContext->Draw(6, 0);
+	}
 
 	void SpriteManager::Init(CDispositifD3D11 * _pDispositif)
 	{
@@ -620,9 +761,9 @@ namespace PM3D
 
 		post = new PostEffectSprite(_pDispositif);
 
-		speedometer = new TextureSprite{ "speedometer2.dds",largeurPercent(0.02f), hauteurPercent(0.75f), static_cast<int>(1000 * 0.25f),static_cast<int>(1000 * 0.25f), _pDispositif };
+		speedometer = new TextureSprite{ "speedometer2.dds",largeurPercent(0.02f), hauteurPercent(0.78f), static_cast<int>(1000 * 0.25f),static_cast<int>(1000 * 0.25f), _pDispositif };
 
-		needle = new TextureSprite{ "needle2.dds",largeurPercent(0.07f),  hauteurPercent(0.80f) + 10, 150, 150, _pDispositif };
+		needle = new TextureSprite{ "needle2.dds",largeurPercent(0.07f),  hauteurPercent(0.83f) + 10, 150, 150, _pDispositif };
 		RotateNeedle(XM_PI / 2);
 
 		jauge = new TextureSprite{ "Jauge.dds",largeurPercent(0.82f) ,  hauteurPercent(0.635f) , static_cast<int>(1408*0.18f), static_cast<int>(1711 * 0.18f), _pDispositif };
@@ -638,37 +779,18 @@ namespace PM3D
 		animMob->setNumFrames(36);
 		animMob->setDuration(0.5f);*/
 
-		const FontFamily oFamily(L"Arial", NULL);
-		pPolice = new Font(&oFamily, 60.00, FontStyleBold, UnitPixel);
-		pPoliceTitle = new Font(&oFamily, 60.00, FontStyleBold, UnitPixel);
+		chronoText = new TextSprite(pPolice, largeurPercent(0.5f)-70, hauteurPercent(0.05f), 140, 80, _pDispositif);
+		chronoText->Ecrire(L"0",60);
 
-		pPoliceSpeed = new Font(&oFamily, static_cast<float>(hauteurPercent(0.05f)), FontStyleBold, UnitPixel);
-		speedText = new TextSprite(pPoliceSpeed, largeurPercent(0.02f), hauteurPercent(0.95f), largeurPercent(0.15f), hauteurPercent(0.08f), _pDispositif);
-		speedText->Ecrire(L"0");
+		//boostText = new TextSprite(pPoliceSpeed, largeurPercent(0.90f), hauteurPercent(0.90f), largeurPercent(0.15f), hauteurPercent(0.08f), _pDispositif);
+		//boostText->Ecrire(L"0");
 
-		chronoText = new TextSprite(pPolice, largeurPercent(0.5f) - 70, hauteurPercent(0.10f), 140, 60, _pDispositif);
-		chronoText->Ecrire(L"0");
-
-		boostText = new TextSprite(pPoliceSpeed, largeurPercent(0.90f), hauteurPercent(0.90f), largeurPercent(0.15f), hauteurPercent(0.08f), _pDispositif);
-		boostText->Ecrire(L"0");
-
-		scoreText = new TextSprite(pPolice, largeurPercent(0.90f) - 70, hauteurPercent(0.05f), 170, 60, _pDispositif);
-		scoreText->Ecrire(L"0");
+		scoreText = new TextSprite(pPoliceSmall, largeurPercent(0.9f)-70, hauteurPercent(0.01f), 170, 60, _pDispositif);
+		scoreText->Ecrire(L"0",40);
 	}
 
 	void SpriteManager::UpdateAnimation(float dt)
 	{
-	}
-
-	void SpriteManager::UpdateSpeedText()
-	{
-		VehiclePhysicComponent* vpc = SpawnManager::GetInstance().GetPlayer()->As<VehiclePhysicComponent>();
-		PxRigidDynamic* actor = vpc->GetPxActor();
-		float vitesse = actor->getLinearVelocity().normalize() * 3.6f;
-		int unit = static_cast<int>(vitesse);
-		int decimal = static_cast<int>((vitesse - unit) * 10.f);
-		string s = to_string(unit) + "." + to_string(decimal);
-		speedText->Ecrire({ s.begin(), s.end() });
 	}
 
 	void SpriteManager::UpdateChronoText()
@@ -679,14 +801,7 @@ namespace PM3D
 		int decimal2 = static_cast<int>(time) % 60 % 10;
 
 		string s = to_string(unit) + ":" + to_string(decimal1) + to_string(decimal2);
-		chronoText->Ecrire({ s.begin(), s.end() });
-	}
-
-	void SpriteManager::UpdateBoostText()
-	{
-		int boost = static_cast<int>(BlackBoard::GetInstance().GetBoost());
-		string s = to_string(boost);
-		boostText->Ecrire({ s.begin(), s.end() });
+		chronoText->Ecrire({ s.begin(), s.end() }, 60);
 	}
 
 	void SpriteManager::RotateNeedle(float angle)
@@ -702,14 +817,12 @@ namespace PM3D
 	void SpriteManager::UpdateScoreText()
 	{
 		int score = BlackBoard::GetInstance().GetScore();
-		string s = to_string(score /1000 % 10) + to_string(score /100 % 10) + to_string(score /10 % 10) + to_string(score % 10);
-		scoreText->Ecrire({ s.begin(), s.end() });
+		string s = to_string(score / 10000 % 10) + to_string(score /1000 % 10) + to_string(score /100 % 10) + to_string(score /10 % 10) + to_string(score % 10);
+		scoreText->Ecrire({ s.begin(), s.end() }, 40);
 	}
 
-	void SpriteManager::Draw()
+	void SpriteManager::DrawSprites()
 	{
-		post->Draw();
-
 		//Desactiver Z buffer
 		pDispositif->DesactiverZBuffer();
 		pDispositif->DesactiverCulling();
@@ -741,13 +854,13 @@ namespace PM3D
 				<< "\n";
 		}*/
 
-		UpdateSpeedText();
-		speedText->Draw();
+		//UpdateSpeedText();
+		//speedText->Draw();
 
 		UpdateChronoText();
 		chronoText->Draw();
 
-		UpdateBoostText();
+		//UpdateBoostText();
 		//boostText->Draw();
 
 		UpdateScoreText();

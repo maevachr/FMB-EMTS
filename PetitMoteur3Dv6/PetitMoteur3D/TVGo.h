@@ -17,6 +17,7 @@ namespace PM3D
 		static constexpr char* typeId = "TVGo";
 		const float theta = angleToRadians(T);
 	public:
+		virtual char* GetTypeId() { return "TVGo"; }
 		virtual void OnSpawn(const PxTransform& _transform = PxTransform::createIdentity(), GameObject* _parent = nullptr) override;
 		virtual void OnUnspawn() override;
 	};

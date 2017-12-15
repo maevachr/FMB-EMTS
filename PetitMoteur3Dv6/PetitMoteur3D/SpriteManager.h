@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <Gdiplus.h>
 #include <array>
+#include <numeric>
 using namespace Gdiplus;
 #pragma comment(lib, "gdiplus.lib")
 
@@ -51,6 +52,7 @@ namespace PM3D
 		void setMasquage(float y) {
 			masquageY = y;
 		}
+
 	protected:
 		std::array<float, 2> TexSize;
 		TextureRectangle mTextRect;
@@ -71,6 +73,7 @@ namespace PM3D
 		ID3DX11EffectPass* pPasse;
 		ID3D11InputLayout* pVertexLayout;
 		ID3D11SamplerState* pSampleState;
+
 
 	public:
 		Sprite(CDispositifD3D11* pDispositif);
@@ -109,7 +112,7 @@ namespace PM3D
 		Graphics* pCharGraphics;
 		SolidBrush* pBlackBrush;
 	public:
-		void Ecrire(wstring s);
+		void Ecrire(wstring s, int size);
 	};
 
 
@@ -120,11 +123,14 @@ namespace PM3D
 
 		void DebutPostEffect();
 		void FinPostEffect();
-		void Draw();
+		void Draw(ID3D11ShaderResourceView* pCombinedResourceView = nullptr);
 
 		enum postType {
 			Nul,
-			Radial
+			Radial,
+			BloomExtract,
+			BloomCombine,
+			Blur
 		};
 
 		postType mode = Nul;
@@ -142,11 +148,36 @@ namespace PM3D
 		ID3D11Texture2D* pDepthTexture; 
 		ID3D11DepthStencilView* pDepthStencilView;
 
+		// Texture de rendu du bloom
+		ID3D11Texture2D* pBloomTextureScene;
+		ID3D11RenderTargetView* pBloomRenderTargetView;
+		ID3D11ShaderResourceView* pBloomResourceView;
+		ID3D11Texture2D* pBloomDepthTexture;
+		ID3D11DepthStencilView* pBloomDepthStencilView;
+
+		// Texture de rendu du flou
+		ID3D11Texture2D* pBlurTextureScene;
+		ID3D11RenderTargetView* pBlurRenderTargetView;
+		ID3D11ShaderResourceView* pBlurResourceView;
+		ID3D11Texture2D* pBlurDepthTexture;
+		ID3D11DepthStencilView* pBlurDepthStencilView;
+
+		// Texture de rendu combiné
+		ID3D11Texture2D* pCombinedTextureScene;
+		ID3D11RenderTargetView* pCombinedRenderTargetView;
+		ID3D11ShaderResourceView* pCombinedResourceView;
+		ID3D11Texture2D* pCombinedDepthTexture;
+		ID3D11DepthStencilView* pCombinedDepthStencilView;
+
 		ID3D11RenderTargetView* pOldRenderTargetView; 
 		ID3D11DepthStencilView* pOldDepthStencilView;
 
 		static const int NOMBRE_TECHNIQUES = 2;
 		ID3D11InputLayout* pVertexLayoutTab[NOMBRE_TECHNIQUES];
+	public:
+		void ExtractBloom();
+		void DrawBlur(ID3D11ShaderResourceView* pBloomResourceView);
+		void CombineSceneAndBloom(ID3D11ShaderResourceView* pBloomResourceView);	
 	};
 
 	class SpriteManager {
@@ -177,7 +208,7 @@ namespace PM3D
 		TextureSprite* jauge;
 		TextureSprite* jaugeEnergie;
 
-		Gdiplus::Font*pPoliceSpeed;
+		Gdiplus::Font*pPoliceSmall;
 		TextSprite* speedText;
 
 		TextSprite* chronoText;
@@ -228,14 +259,12 @@ namespace PM3D
 			CloseText();
 		}
 	private:
-		void UpdateSpeedText();
 		void UpdateChronoText();
-		void UpdateBoostText();
 		void RotateNeedle(float);
 		void UpdateScoreText();
 		void UpdateJauge();
 	public:
-		void Draw();
+		void DrawSprites();
 	};
 }
 

@@ -34,20 +34,17 @@ namespace PM3D
 		//-----DynamicPhysicComponent
 		VehiclePhysicComponent* d = CreateComponent<VehiclePhysicComponent>();
 		PxPhysics &physics = SimulationManager::GetInstance().physics();
-		physx::unique_ptr<PxMaterial> material = physx::unique_ptr<PxMaterial>(physics.createMaterial(0.15f, 0.15f, 0.0f));
-		PxFilterData filterData;
-		d->InitData(PxBoxGeometry(PxVec3(2, 2, 1)), move(material), filterData);
-		/*PxTransform centerMass = physx::PxTransform::createIdentity();
-		centerMass.p = PxVec3(0, 0, -0.5);
-		PxVec3 inertiaTensor = { 10,10,10 };
-		d->InitMass(150, centerMass, inertiaTensor);*/
+		d->InitData(_transform);
 
 		//-----BillboardComponent
-		//-----BillBoardComponent
-		BillBoardComponent* bbm = CreateComponent<BillBoardComponent>();
-		bbm->GetBillBoard("miniexplo");
 		BillBoardComponent* bbm2 = CreateComponent<BillBoardComponent>();
-		bbm2->GetBillBoard("miniexplo2");
+		bbm2->GetBillBoard("nitro");
+		BillBoardComponent* bbm = CreateComponent<BillBoardComponent>();
+		bbm->GetBillBoard("nitro2");
+		BillBoardComponent* bbm3 = CreateComponent<BillBoardComponent>();
+		bbm3->GetBillBoard("smoke");
+		BillBoardComponent* bbm4 = CreateComponent<BillBoardComponent>();
+		bbm4->GetBillBoard("smoke2");
 	}
 
 	void MonsterTruckGo::OnUnspawn()
@@ -65,7 +62,7 @@ namespace PM3D
 
 	void MonsterTruckGo::ProcessInput()
 	{
-		if (BlackBoard::GetInstance().GetChrono() < 180.f)
+		if (BlackBoard::GetInstance().GetChrono() < 232.f)
 		{
 			auto pGestionnaireDeSaisie = InputManager::GetInstance().GetDIManipulateur();
 			PhysxVehicle* vehicle = this->As<VehiclePhysicComponent>()->GetVehicle();
@@ -109,8 +106,9 @@ namespace PM3D
 				vehicle->releaseAccelerate();
 			}
 
-			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_LSHIFT) && BlackBoard::GetInstance().UseBoost())
+			if (pGestionnaireDeSaisie->ToucheAppuyee(DIK_LSHIFT) && BlackBoard::GetInstance().UseBoost() && !pGestionnaireDeSaisie->ToucheAppuyee(DIK_S))
 			{
+				playNitro = true;
 				post->mode = PostEffectSprite::Radial;
 				if (post->radialStrenght < 0.1f) post->radialStrenght += 0.0005f;
 				if (dir.dot(vel) < 50)
@@ -131,6 +129,7 @@ namespace PM3D
 			}
 			else
 			{
+				playNitro = false;
 				if (post->radialStrenght > 0.0005f) post->radialStrenght -= 0.0005f;
 				else post->mode = PostEffectSprite::Nul;
 				if (vel.normalize() > 25) {

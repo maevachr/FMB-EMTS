@@ -56,6 +56,7 @@ namespace PM3D
 	private:
 		static constexpr char* typeId = "CrateGo";
 	public:
+		virtual char* GetTypeId() { return "CrateGo"; }
 		float GetBreakingSpeed() { return CrateTraits<CrateColor>::breaking_speed; }
 		virtual void OnSpawn(const PxTransform& _transform = PxTransform::createIdentity(), GameObject* _parent = nullptr) override;
 		virtual void OnUnspawn() override;
