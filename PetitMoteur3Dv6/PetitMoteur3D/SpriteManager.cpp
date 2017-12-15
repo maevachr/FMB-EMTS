@@ -13,10 +13,6 @@
 using namespace UtilitairesDX;
 namespace PM3D
 {
-	XMFLOAT2 PostEffectSprite::GaussianBlurFunction::SampleHorizontalOffsets[PostEffectSprite::GaussianBlurFunction::SAMPLE_COUNT];
-	XMFLOAT2 PostEffectSprite::GaussianBlurFunction::SampleVerticalOffsets[PostEffectSprite::GaussianBlurFunction::SAMPLE_COUNT];
-	float PostEffectSprite::GaussianBlurFunction::SampleWeights[PostEffectSprite::GaussianBlurFunction::SAMPLE_COUNT];
-
 	ULONG_PTR SpriteManager::token = 0;
 
 	// Definir l'organisation de notre sommet
@@ -415,8 +411,6 @@ namespace PM3D
 
 		// Initialisation de l'effet
 		InitEffet();
-
-		GaussianBlurFunction::Generate();
 	}
 	PostEffectSprite::~PostEffectSprite()
 	{
@@ -624,7 +618,7 @@ namespace PM3D
 		// La «constante» distance 
 		ID3DX11EffectScalarVariable* distance;
 		distance = pEffet->GetVariableByName("distance")->AsScalar();
-		distance->SetFloat((float)radialStrenght);
+		distance->SetFloat(0);
 
 		ID3DX11EffectShaderResourceVariable* variableTexture;
 		variableTexture = pEffet->GetVariableByName("textureEntree")->AsShaderResource();
