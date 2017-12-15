@@ -120,7 +120,7 @@ VehicleDesc PhysxVehicle::initVehicleDesc()
 	//Moment of inertia is just the moment of inertia of a cylinder.
 	const PxF32 wheelMass = 20.0f;
 	const PxF32 wheelRadius = 0.6f;
-	const PxF32 wheelWidth = 0.5f;
+	const PxF32 wheelWidth = 0.7f;
 	const PxF32 wheelMOI = 0.5f*wheelMass*wheelRadius*wheelRadius;
 	const PxU32 nbWheels = 4;
 
