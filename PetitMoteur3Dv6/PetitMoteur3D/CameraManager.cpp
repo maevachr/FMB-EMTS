@@ -96,7 +96,7 @@ namespace PM3D {
 		cameraList[FIRST_PERSON] = move(firstPerson);
 
 		//Set priority of the first camera
-		currentCamera = cameraList[DYNAMIC].get();
+		currentCamera = cameraList[THIRD_PERSON].get();
 		currentCamera->UpdateMatrix();
 
 		return true;
