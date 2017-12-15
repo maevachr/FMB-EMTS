@@ -21,6 +21,7 @@ using namespace PM3D;
 
 GameState::GameState(StateStack& stack, Context context) :
 	State(stack, context)
+	, time{ SpriteManager::GetInstance().GetFontTitle(),302 ,380 , 160, 70, context.pDispositif }
 {
 	//Recuperer le joueur
 	pMonsterTruck = static_cast<MonsterTruckGo*>(SpawnManager::GetInstance().GetPlayer());

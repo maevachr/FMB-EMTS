@@ -214,6 +214,11 @@ namespace PM3D
 		TextSprite* chronoText;
 		TextSprite* boostText;
 		TextSprite* scoreText;
+		TextSprite* startTime;
+		TextSprite* GoText;
+
+		bool afficheStartTime = false;
+		bool afficheGoTime = false;
 
 
 	private:
@@ -258,6 +263,8 @@ namespace PM3D
 			delete speedometer;
 			CloseText();
 		}
+
+		void UpdateStartTime();
 	private:
 		void UpdateChronoText();
 		void RotateNeedle(float);

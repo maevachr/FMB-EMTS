@@ -787,6 +787,12 @@ namespace PM3D
 
 		scoreText = new TextSprite(pPoliceSmall, largeurPercent(0.9f)-70, hauteurPercent(0.01f), 170, 60, _pDispositif);
 		scoreText->Ecrire(L"0",40);
+
+		startTime = new TextSprite(pPoliceSmall, largeurPercent(0.5f)-45, hauteurPercent(0.5f)-80, 200, 200, _pDispositif);
+		startTime->Ecrire(L"0", 40);
+
+		GoText = new TextSprite(pPoliceSmall, largeurPercent(0.5f)-97, hauteurPercent(0.5f)-90, 200, 200, _pDispositif);
+		GoText->Ecrire(L"0", 40);
 	}
 
 	void SpriteManager::UpdateAnimation(float dt)
@@ -819,6 +825,32 @@ namespace PM3D
 		int score = BlackBoard::GetInstance().GetScore();
 		string s = to_string(score / 10000 % 10) + to_string(score /1000 % 10) + to_string(score /100 % 10) + to_string(score /10 % 10) + to_string(score % 10);
 		scoreText->Ecrire({ s.begin(), s.end() }, 40);
+	}
+
+	void SpriteManager::UpdateStartTime() {
+		if (BlackBoard::GetInstance().GetChrono() < 235.f && BlackBoard::GetInstance().GetChrono() > 234.f) {
+			//3
+			startTime->Ecrire(L"3", 80);
+			afficheStartTime = true;
+
+		}
+		else if (BlackBoard::GetInstance().GetChrono() < 234.f && BlackBoard::GetInstance().GetChrono() > 233.f) {
+			//2
+			startTime->Ecrire(L"2", 80);
+		}
+		else if (BlackBoard::GetInstance().GetChrono() < 233.f && BlackBoard::GetInstance().GetChrono() > 232.f) {
+			//1 
+			startTime->Ecrire(L"1", 80);
+		}
+		if (BlackBoard::GetInstance().GetChrono() < 232.f && BlackBoard::GetInstance().GetChrono() > 231.f) {
+			//Go
+			GoText->Ecrire(L"Go", 100);
+			afficheStartTime = false;
+			afficheGoTime = true;
+		}
+		if (BlackBoard::GetInstance().GetChrono() < 231.f) {
+			afficheGoTime = false;
+		}
 	}
 
 	void SpriteManager::DrawSprites()
@@ -865,6 +897,14 @@ namespace PM3D
 
 		UpdateScoreText();
 		scoreText->Draw();
+
+		UpdateStartTime();
+		if (afficheStartTime) {
+			startTime->Draw();
+		}
+		else if (afficheGoTime) {
+			GoText->Draw();
+		}
 
 		//Activer Z buffer
 		pDispositif->ActiverZBuffer();

@@ -27,12 +27,12 @@ namespace PM3D
 			INTRO,
 			COUNTDOWN,
 			CROWD_COUNTDOWN,
+			HORN,
 			ENGINE,
 			EXPLODING_CRATE,
 			MUSIC,
 			BOOST,
-			CHEERING,
-			HORN,
+			CHEERING,	
 			COUNT
 		};
 	private:
@@ -106,7 +106,7 @@ namespace PM3D
 			}
 		}
 		void ContinueAllGameSounds() {
-			for (int i = 3; i < SoundType::COUNT; ++i) {
+			for (int i = ENGINE; i < SoundType::COUNT; ++i) {
 				channel[i]->setPaused(false);
 			}
 		}
