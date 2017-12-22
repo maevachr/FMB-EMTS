@@ -618,7 +618,7 @@ namespace PM3D
 		// La «constante» distance 
 		ID3DX11EffectScalarVariable* distance;
 		distance = pEffet->GetVariableByName("distance")->AsScalar();
-		distance->SetFloat(0);
+		distance->SetFloat(radialStrenght);
 
 		ID3DX11EffectShaderResourceVariable* variableTexture;
 		variableTexture = pEffet->GetVariableByName("textureEntree")->AsShaderResource();
