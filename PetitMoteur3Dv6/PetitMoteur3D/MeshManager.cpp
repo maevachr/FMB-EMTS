@@ -420,7 +420,7 @@ namespace PM3D
 				}
 
 				// Activation du bump ou non
-				if (static_cast<unsigned int>(SubmeshMaterialIndex[i] + 1) < Material.size() && Material[SubmeshMaterialIndex[i] + 1].pTextureD3D != NULL)
+				if (static_cast<unsigned int>(SubmeshMaterialIndex[i] + 1) < Material.size() && Material[SubmeshMaterialIndex[i] + 1].pTextureD3D != NULL && Material[SubmeshMaterialIndex[i] + 1].NomMateriau == "bump")
 				{
 					ID3DX11EffectShaderResourceVariable* variableTexture;
 					variableTexture =
