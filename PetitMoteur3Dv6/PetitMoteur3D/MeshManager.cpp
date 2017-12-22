@@ -706,7 +706,7 @@ namespace PM3D
 		nMeshes.push_back(busMesh);
 
 		NormalMesh* terrainMesh = new NormalMesh{};
-		terrainMesh->InitFile("obj_Terrain_final.omb");
+		terrainMesh->InitFile("terrain_final.omb");
 		terrainMesh->InitName("terrain");
 		nMeshes.push_back(terrainMesh);
 
